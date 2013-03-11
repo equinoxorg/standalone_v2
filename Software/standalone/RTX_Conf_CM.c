@@ -39,7 +39,7 @@
 //   <i> Set the stack size for tasks which is assigned by the system.
 //   <i> Default: 200
 #ifndef OS_STKSIZE
- #define OS_STKSIZE     50
+ #define OS_STKSIZE     200
 #endif
 
 // <q>Check for the stack overflow
@@ -163,7 +163,7 @@ void os_tmr_call (U16 info) {
 void os_error (U32 err_code) {
   /* This function is called when a runtime error is detected. Parameter */
   /* 'err_code' holds the runtime error code (defined in RTL.H).         */
-
+	printf("Error Code: %i \n\r", err_code);
   /* HERE: include optional code to be executed on runtime error. */
   for (;;);
 }
