@@ -163,7 +163,7 @@ void os_tmr_call (U16 info) {
 void os_error (U32 err_code) {
   /* This function is called when a runtime error is detected. Parameter */
   /* 'err_code' holds the runtime error code (defined in RTL.H).         */
-	printf("Error Code: %i \n\r", err_code);
+
   /* HERE: include optional code to be executed on runtime error. */
   for (;;);
 }

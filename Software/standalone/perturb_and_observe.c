@@ -4,59 +4,71 @@
 #include "adc.h"
 #include "pwm.h"
 
-#define DUTY_CYCLE_INC (float)0.001
-#define V_SCALE (float)3.0
-#define I_OFFSET ((float)3.3/2.0)
-#define I_SCALE (float)1.0
+#define DUTY_CYCLE_INC (float)0.1f
+#define V_SCALE (float)((10.0f + 1.32f) / 1.32f )
+#define I_SCALE (float)1.515f
 
-static float duty_cycle = 0;
-static float duty_cycle_delay = 0;
-static float v_panel, i_panel, p_panel, delta_v, delta_p;
-static float p_panel_delay, v_panel_delay;  
-
+#define NO_AVG 128
 
 __task void perturb_and_observe (void) {
+	float duty_cycle = 100.0f;
+	float v_panel, i_panel, p_panel, delta_v, delta_p;
+	float p_panel_delay = 0.0f, v_panel_delay = 0.0f;  
+	int i;
 	
-	//Read in v_panel and i_panel
-	v_panel = get_adc_voltage(ADC_Channel_10) * V_SCALE;
-	i_panel = (get_adc_voltage(ADC_Channel_11) - I_OFFSET) * I_SCALE;
-
-
-	p_panel = v_panel * i_panel;
-
-	delta_p = p_panel - p_panel_delay;
-	delta_v = v_panel - v_panel_delay;
-
-	if (delta_p == 0)
+	while (1)
 	{
-			duty_cycle = duty_cycle_delay;
-	}
-	else if (delta_p > 0)
-	{
-		if (delta_v >= 0)
-			duty_cycle = duty_cycle_delay - DUTY_CYCLE_INC;
+		//Read in v_panel and i_panel
+		v_panel = 0.0f;
+		for (i=0; i<NO_AVG; i++)
+			v_panel += get_adc_voltage(ADC_Channel_10) * V_SCALE; //PC0
+		v_panel /= (float)NO_AVG;
+		
+		i_panel = 0.0f;
+		for (i=0; i<NO_AVG; i++)
+			i_panel += get_adc_voltage(ADC_Channel_11) * I_SCALE; //PC1
+		i_panel /= (float)NO_AVG;
+
+		p_panel = v_panel * i_panel;
+		
+		delta_p = p_panel - p_panel_delay;
+		delta_v = v_panel - v_panel_delay;
+		
+		if (delta_p == 0)
+		{
+				//duty_cycle = duty_cycle_delay;
+		}
+		else if (delta_p > 0)
+		{
+			if (delta_v > 0)
+				duty_cycle -= DUTY_CYCLE_INC;
+			else
+				duty_cycle += DUTY_CYCLE_INC;
+		}
 		else
-			duty_cycle = duty_cycle_delay + DUTY_CYCLE_INC;
-	}
-	else
-	{
-		if (delta_v > 0)
-			duty_cycle = duty_cycle_delay + DUTY_CYCLE_INC;
-		else
-			duty_cycle = duty_cycle_delay - DUTY_CYCLE_INC; 
-	}
-	 
-	if (duty_cycle > 1)
-			duty_cycle = 1;
-	else if (duty_cycle < 0)
-			duty_cycle = 0;
+		{
+			if (delta_v > 0)
+				duty_cycle += DUTY_CYCLE_INC;
+			else
+				duty_cycle -= DUTY_CYCLE_INC; 
+		}
+		 
+		if (duty_cycle > 100.0f)
+				duty_cycle = 100.0f;
+		else if (duty_cycle < 0.0f)
+				duty_cycle = 0.0f;
 
-	duty_cycle_delay = duty_cycle;
-	p_panel_delay = p_panel;
-	v_panel_delay = v_panel;  
-
-	/*Set PWM to duty_cycle*/
-	set_duty_cycle(duty_cycle);
+		p_panel_delay = p_panel;
+		v_panel_delay = v_panel;  
+		
+		/*Set PWM to duty_cycle*/
+		set_duty_cycle(duty_cycle);
+		
+		
+		printf("V=%.2f, I=%.2f, P=%.2f, duty=%f\n\r", v_panel, i_panel, p_panel, duty_cycle);
+		
+		os_dly_wait(100);
+	}
 }
 
 // Matlab version of P&O code:

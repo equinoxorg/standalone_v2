@@ -2242,6 +2242,24 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </device>
 </devices>
 </deviceset>
+<deviceset name="1N4004" prefix="D">
+<description>&lt;B&gt;DIODE&lt;/B&gt;&lt;p&gt;
+general purpose rectifier, 1 A</description>
+<gates>
+<gate name="1" symbol="D" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="DO41-10">
+<connects>
+<connect gate="1" pin="A" pad="A"/>
+<connect gate="1" pin="C" pad="C"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
 </devicesets>
 </library>
 <library name="con-lstb">
@@ -9571,7 +9589,7 @@ Metric Code Size 5664</description>
 <part name="R9" library="rcl" deviceset="R-EU_" device="M0805" value="5"/>
 <part name="R10" library="rcl" deviceset="R-EU_" device="M0805" value="5"/>
 <part name="C11" library="resistor" deviceset="C-EU" device="C0805K" value="1uF"/>
-<part name="U$1" library="lib" deviceset="INDUC_BOURNES_SDR1806" device=""/>
+<part name="U$1" library="lib" deviceset="INDUC_BOURNES_SDR1806" device="" value="330uF"/>
 <part name="FRAME2" library="frames" deviceset="A3L-LOC" device=""/>
 <part name="SENSE_AMP_SOL" library="equinox" deviceset="ZXCT1107SA-7" device=""/>
 <part name="R_GAIN" library="rcl" deviceset="R-EU_" device="M0805" value="10K"/>
@@ -9589,10 +9607,12 @@ Metric Code Size 5664</description>
 <part name="SOL" library="equinox" deviceset="TERMINAL_2WAY" device=""/>
 <part name="BATT" library="equinox" deviceset="TERMINAL_2WAY" device=""/>
 <part name="EN" library="jumper" deviceset="SJ" device=""/>
+<part name="D3" library="diode" deviceset="1N4004" device=""/>
 </parts>
 <sheets>
 <sheet>
 <plain>
+<text x="302.26" y="165.1" size="1.778" layer="98">Change Reverse Current Protection</text>
 </plain>
 <instances>
 <instance part="RSENSE2" gate="G$1" x="69.85" y="195.58"/>
@@ -9638,8 +9658,9 @@ Metric Code Size 5664</description>
 <instance part="OUTPUTS" gate="G$1" x="284.48" y="213.36"/>
 <instance part="GND3" gate="1" x="297.18" y="200.66"/>
 <instance part="SOL" gate="G$1" x="17.78" y="149.86" rot="MR0"/>
-<instance part="BATT" gate="G$1" x="373.38" y="139.7"/>
-<instance part="EN" gate="1" x="147.32" y="91.44" rot="R90"/>
+<instance part="BATT" gate="G$1" x="370.84" y="139.7"/>
+<instance part="EN" gate="1" x="147.32" y="127" rot="R90"/>
+<instance part="D3" gate="1" x="307.34" y="160.02"/>
 </instances>
 <busses>
 </busses>
@@ -9692,16 +9713,9 @@ Metric Code Size 5664</description>
 </net>
 <net name="N$12" class="1">
 <segment>
-<wire x1="293.37" y1="160.02" x2="318.77" y2="160.02" width="0.1524" layer="91"/>
-<wire x1="293.37" y1="172.72" x2="293.37" y2="160.02" width="0.1524" layer="91"/>
-<wire x1="293.37" y1="147.32" x2="293.37" y2="160.02" width="0.1524" layer="91"/>
+<wire x1="309.88" y1="160.02" x2="318.77" y2="160.02" width="0.1524" layer="91"/>
 <wire x1="318.77" y1="125.73" x2="318.77" y2="160.02" width="0.1524" layer="91"/>
-<junction x="293.37" y="160.02"/>
 <pinref part="R5" gate="G$1" pin="2"/>
-<pinref part="R2" gate="G$1" pin="1"/>
-<pinref part="C6" gate="G$1" pin="1"/>
-<pinref part="U$1" gate="G$1" pin="P$2"/>
-<wire x1="292.1" y1="160.02" x2="293.37" y2="160.02" width="0.1524" layer="91"/>
 <pinref part="RSENSE_BATT" gate="G$1" pin="1"/>
 <wire x1="335.28" y1="160.02" x2="340.36" y2="160.02" width="0.1524" layer="91"/>
 <pinref part="SENSE_AMP_BATT" gate="A" pin="S+"/>
@@ -9710,6 +9724,7 @@ Metric Code Size 5664</description>
 <wire x1="318.77" y1="160.02" x2="335.28" y2="160.02" width="0.1524" layer="91"/>
 <junction x="318.77" y="160.02"/>
 <junction x="335.28" y="160.02"/>
+<pinref part="D3" gate="1" pin="C"/>
 </segment>
 </net>
 <net name="SOL_V" class="0">
@@ -9794,7 +9809,8 @@ Metric Code Size 5664</description>
 <wire x1="185.42" y1="193.04" x2="185.42" y2="195.58" width="0.1524" layer="91"/>
 <wire x1="177.8" y1="195.58" x2="185.42" y2="195.58" width="0.1524" layer="91"/>
 <wire x1="182.88" y1="116.84" x2="177.8" y2="116.84" width="0.1524" layer="91"/>
-<wire x1="177.8" y1="116.84" x2="177.8" y2="134.62" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="116.84" x2="177.8" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="132.08" x2="177.8" y2="134.62" width="0.1524" layer="91"/>
 <wire x1="177.8" y1="134.62" x2="187.96" y2="134.62" width="0.1524" layer="91"/>
 <wire x1="177.8" y1="134.62" x2="177.8" y2="195.58" width="0.1524" layer="91"/>
 <wire x1="74.93" y1="195.58" x2="80.01" y2="195.58" width="0.1524" layer="91"/>
@@ -9829,6 +9845,9 @@ Metric Code Size 5664</description>
 <wire x1="190.5" y1="195.58" x2="190.5" y2="193.04" width="0.1524" layer="91"/>
 <wire x1="185.42" y1="195.58" x2="190.5" y2="195.58" width="0.1524" layer="91"/>
 <junction x="185.42" y="195.58"/>
+<pinref part="EN" gate="1" pin="2"/>
+<wire x1="147.32" y1="132.08" x2="177.8" y2="132.08" width="0.1524" layer="91"/>
+<junction x="177.8" y="132.08"/>
 </segment>
 </net>
 <net name="N$14" class="0">
@@ -9867,8 +9886,8 @@ Metric Code Size 5664</description>
 <pinref part="INPUTS" gate="G$1" pin="4"/>
 <wire x1="137.16" y1="109.22" x2="143.51" y2="109.22" width="0.1524" layer="91"/>
 <label x="144.78" y="109.22" size="1.778" layer="95"/>
-<pinref part="EN" gate="1" pin="2"/>
-<wire x1="147.32" y1="96.52" x2="147.32" y2="106.68" width="0.1524" layer="91"/>
+<pinref part="EN" gate="1" pin="1"/>
+<wire x1="147.32" y1="121.92" x2="147.32" y2="106.68" width="0.1524" layer="91"/>
 <junction x="147.32" y="106.68"/>
 </segment>
 </net>
@@ -9897,8 +9916,7 @@ Metric Code Size 5664</description>
 <pinref part="GND5" gate="1" pin="V-"/>
 <pinref part="C6" gate="G$1" pin="2"/>
 <wire x1="115.57" y1="78.74" x2="139.7" y2="78.74" width="0.1524" layer="91"/>
-<wire x1="139.7" y1="78.74" x2="147.32" y2="78.74" width="0.1524" layer="91"/>
-<wire x1="147.32" y1="78.74" x2="175.26" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="139.7" y1="78.74" x2="175.26" y2="78.74" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="78.74" x2="243.84" y2="78.74" width="0.1524" layer="91"/>
 <wire x1="243.84" y1="78.74" x2="257.81" y2="78.74" width="0.1524" layer="91"/>
 <wire x1="38.1" y1="120.65" x2="38.1" y2="119.38" width="0.1524" layer="91"/>
@@ -9924,7 +9942,7 @@ Metric Code Size 5664</description>
 <pinref part="C8" gate="G$1" pin="1"/>
 <wire x1="318.77" y1="100.33" x2="318.77" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="GATE_DRIVE" gate="G$1" pin="COM"/>
-<wire x1="368.3" y1="78.74" x2="345.44" y2="78.74" width="0.1524" layer="91"/>
+<wire x1="365.76" y1="78.74" x2="345.44" y2="78.74" width="0.1524" layer="91"/>
 <junction x="318.77" y="78.74"/>
 <wire x1="345.44" y1="78.74" x2="318.77" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="D4" gate="G$1" pin="A"/>
@@ -9946,7 +9964,7 @@ Metric Code Size 5664</description>
 <pinref part="SOL" gate="G$1" pin="P$2"/>
 <wire x1="22.86" y1="147.32" x2="22.86" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="BATT" gate="G$1" pin="P$2"/>
-<wire x1="368.3" y1="78.74" x2="368.3" y2="137.16" width="0.1524" layer="91"/>
+<wire x1="365.76" y1="78.74" x2="365.76" y2="137.16" width="0.1524" layer="91"/>
 <pinref part="U3" gate="A" pin="S"/>
 <pinref part="U3" gate="A" pin="S_3"/>
 <pinref part="U3" gate="A" pin="S_2"/>
@@ -9955,9 +9973,6 @@ Metric Code Size 5664</description>
 <wire x1="243.84" y1="121.92" x2="241.3" y2="121.92" width="0.1524" layer="91"/>
 <wire x1="243.84" y1="121.92" x2="243.84" y2="78.74" width="0.1524" layer="91"/>
 <junction x="243.84" y="78.74"/>
-<pinref part="EN" gate="1" pin="1"/>
-<wire x1="147.32" y1="86.36" x2="147.32" y2="78.74" width="0.1524" layer="91"/>
-<junction x="147.32" y="78.74"/>
 </segment>
 <segment>
 <pinref part="GND1" gate="1" pin="V-"/>
@@ -9996,8 +10011,8 @@ Metric Code Size 5664</description>
 <wire x1="355.6" y1="160.02" x2="350.52" y2="160.02" width="0.1524" layer="91"/>
 <junction x="355.6" y="160.02"/>
 <pinref part="BATT" gate="G$1" pin="P$1"/>
-<wire x1="368.3" y1="142.24" x2="368.3" y2="160.02" width="0.1524" layer="91"/>
-<wire x1="368.3" y1="160.02" x2="355.6" y2="160.02" width="0.1524" layer="91"/>
+<wire x1="365.76" y1="142.24" x2="365.76" y2="160.02" width="0.1524" layer="91"/>
+<wire x1="365.76" y1="160.02" x2="355.6" y2="160.02" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$4" class="1">
@@ -10067,6 +10082,19 @@ Metric Code Size 5664</description>
 <wire x1="241.3" y1="193.04" x2="243.84" y2="193.04" width="0.1524" layer="91"/>
 <wire x1="243.84" y1="193.04" x2="243.84" y2="195.58" width="0.1524" layer="91"/>
 <wire x1="220.98" y1="195.58" x2="243.84" y2="195.58" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$1" class="1">
+<segment>
+<pinref part="D3" gate="1" pin="A"/>
+<wire x1="293.37" y1="160.02" x2="304.8" y2="160.02" width="0.1524" layer="91"/>
+<pinref part="R2" gate="G$1" pin="1"/>
+<wire x1="293.37" y1="172.72" x2="293.37" y2="160.02" width="0.1524" layer="91"/>
+<junction x="293.37" y="160.02"/>
+<pinref part="U$1" gate="G$1" pin="P$2"/>
+<wire x1="292.1" y1="160.02" x2="293.37" y2="160.02" width="0.1524" layer="91"/>
+<wire x1="293.37" y1="147.32" x2="293.37" y2="160.02" width="0.1524" layer="91"/>
+<pinref part="C6" gate="G$1" pin="1"/>
 </segment>
 </net>
 </nets>

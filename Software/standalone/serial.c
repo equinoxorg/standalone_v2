@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    Arduino/serial.c 
+  * @file    serial.c 
   * @author  MCD Application Team
   * @version V1.0.0
   * @date    23-March-2012
@@ -28,16 +28,13 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_conf.h"
-#include "utilities.h"
 #include "serial.h"
-#include "gpio.h"
 
 /* Private typedef -----------------------------------------------------------*/
 
 
 
 /* Private define ------------------------------------------------------------*/
-/*Arduino Serial communication stream*/
 Serial_TypeDef Serial = {
   0,
   begin_fcn,
@@ -122,8 +119,6 @@ int putchar(int chr)
 void begin_fcn(uint32_t baudRate) {
   UART2_Init(baudRate);
   Serial.baudRate = baudRate;
-  pinSetMode(0, INPUT_AF); //pin 0 is Rx
-  pinSetMode(1, OUTPUT_AF); //pin 1 is Tx
 }
 
 /**

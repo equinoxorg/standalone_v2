@@ -2,8 +2,8 @@ EAGLE AutoRouter Statistics:
 
 Job           : C:/Users/Ashley/Documents/GitHub/standalone_fyp/Hardware/mppt/mppt.brd
 
-Start at      : 17:19:27 (28/02/2013)
-End at        : 17:19:27 (28/02/2013)
+Start at      : 10:30:14 (14/03/2013)
+End at        : 10:30:14 (14/03/2013)
 Elapsed time  : 00:00:00
 
 Signals       :    22   RoutingGrid: 50 mil  Layers: 2

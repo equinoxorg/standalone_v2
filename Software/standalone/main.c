@@ -34,7 +34,6 @@ OS_TID charge_control_t, pwm_out_t, adc_in_t, perturb_and_observe_t;
 __task void charge_control (void)
 {
 	// Init required hardware 
-	init_adc();
 	init_pwm(40000);
 	
 	//Start the P&O charge control algo
@@ -46,13 +45,14 @@ __task void charge_control (void)
 
 __task void init (void) 
 {	
-	//charge_control_t = os_tsk_create( charge_control, 0);
+	printf("Starting charge controller task \n\r" );
+	charge_control_t = os_tsk_create( charge_control, 0);
 	
-	printf("Starting pwm_out task \n\r");
-	pwm_out_t = os_tsk_create( pwm_out, 0);
+	//printf("Starting pwm_out task \n\r");
+	//pwm_out_t = os_tsk_create( pwm_out, 0);
 	
-	printf("Starting adc_in task \n\r");
-	adc_in_t = os_tsk_create( adc_in, 0);
+	//printf("Starting adc_in task \n\r");
+	//adc_in_t = os_tsk_create( adc_in, 0);
 		
 	os_tsk_delete_self ();
 }
@@ -65,10 +65,9 @@ __task void init (void)
   */
 int main(void)
 {
-	begin_fcn(115200); //Open com on uart 0-1 pins
-	
+	Serial.begin(115200); //Open com on uart2 0-1 pins
+		
 	os_sys_init (init);   
-	
 }
 
 #ifdef  USE_FULL_ASSERT

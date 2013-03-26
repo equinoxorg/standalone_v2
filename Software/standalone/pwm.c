@@ -56,15 +56,15 @@ void init_pwm (uint16_t freq )
 }
 
 __task void pwm_out (void) {
-	float mppt_duty_cycle = 0;
+	float mppt_duty_cycle = 20;
 	
 	init_pwm(40000);
 	
 	while(1)
 	{
-		mppt_duty_cycle += 0.5;
-		if (mppt_duty_cycle > 100)
-			mppt_duty_cycle = 0;
+		mppt_duty_cycle += 0.1;
+		if (mppt_duty_cycle > 40)
+			mppt_duty_cycle = 20;
 		
 		/* Toggle PC8 and PC9 */
 		GPIOC->ODR ^= BSRR_VAL;
