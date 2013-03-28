@@ -20706,7 +20706,8 @@ naming: grid - package width</description>
   - Battery Bi-Directional Current Sense
   - Change Current Sense R
   - Swap 5V Diode to SMT
-  - Power LED</text>
+  - Power LED
+  - Check if LCD R/W Pin is needed?</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="299.72" y="15.24"/>
