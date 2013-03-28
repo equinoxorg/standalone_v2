@@ -11,7 +11,7 @@
   ******************************************************************************
   */
 	
-//#define USE_FULL_ASSERT
+#define USE_FULL_ASSERT
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
@@ -20,15 +20,17 @@
 #include "serial.h"
 #include "adc.h"
 #include "pwm.h"
+#include "lcd_hd44780.h"
 
 /* Private variables ---------------------------------------------------------*/
 
 
 /* Private function prototypes -----------------------------------------------*/
+void setup_rtc(void);
 __task void charge_control(void);
 extern __task void perturb_and_observe (void);
 
-OS_TID charge_control_t, pwm_out_t, adc_in_t, perturb_and_observe_t;
+OS_TID charge_control_t, pwm_out_t, adc_in_t, perturb_and_observe_t, lcd_t;
 
 /* Task to set up charge control */
 __task void charge_control (void)
@@ -45,13 +47,16 @@ __task void charge_control (void)
 
 __task void init (void) 
 {	
-	printf("Starting charge controller task \n\r" );
+	printf("Starting charge controller task \n" );
 	charge_control_t = os_tsk_create( charge_control, 0);
 	
-	//printf("Starting pwm_out task \n\r");
+	printf("Starting lcd task \n");
+	lcd_t = os_tsk_create(lcd, 0);
+	
+	//printf("Starting pwm_out task \n");
 	//pwm_out_t = os_tsk_create( pwm_out, 0);
 	
-	//printf("Starting adc_in task \n\r");
+	//printf("Starting adc_in task \n");
 	//adc_in_t = os_tsk_create( adc_in, 0);
 		
 	os_tsk_delete_self ();
@@ -66,9 +71,56 @@ __task void init (void)
 int main(void)
 {
 	Serial.begin(115200); //Open com on uart2 0-1 pins
+	
+	//Set up RTC
+	setup_rtc();
 		
 	os_sys_init (init);   
 }
+
+
+void setup_rtc (void) 
+{
+	// Example Taken from firmware examples and:
+	// http://www.st.com/st-web-ui/static/active/en/resource/technical/document/application_note/DM00025071.pdf
+	
+	RTC_InitTypeDef   RTC_InitStructure;
+  RTC_TimeTypeDef   RTC_TimeStructure;
+	RTC_DateTypeDef		RTC_DateStructure;
+	
+	/* Allow access to RTC */
+  PWR_BackupAccessCmd(ENABLE);
+  
+  /* The RTC Clock may varies due to LSI frequency dispersion. */   
+  /* Enable the LSI OSC */ 
+  RCC_LSICmd(ENABLE);
+	
+  /* Select the RTC Clock Source */
+  RCC_RTCCLKConfig(RCC_RTCCLKSource_LSI);
+  
+  /* Enable the RTC Clock */
+  RCC_RTCCLKCmd(ENABLE);
+  
+  /* Wait for RTC APB registers synchronisation */
+  RTC_WaitForSynchro();
+  
+  RTC_InitStructure.RTC_HourFormat = RTC_HourFormat_24;
+  RTC_InitStructure.RTC_AsynchPrediv = 0x7F;
+  RTC_InitStructure.RTC_SynchPrediv = 0x0138;
+  
+  RTC_Init(&RTC_InitStructure);
+	
+	RTC_TimeStructInit(&RTC_TimeStructure);
+	RTC_DateStructInit(&RTC_DateStructure);
+	
+	RTC_GetTime(RTC_Format_BIN, &RTC_TimeStructure);
+	RTC_GetDate(RTC_Format_BIN, &RTC_DateStructure);
+	
+	printf("RTC Date: %i/%i/%i \n", RTC_DateStructure.RTC_Date, RTC_DateStructure.RTC_Month,  RTC_DateStructure.RTC_Year);
+	printf("RTC Time: %i:%i:%i \n", RTC_TimeStructure.RTC_Hours, RTC_TimeStructure.RTC_Minutes, RTC_TimeStructure.RTC_Seconds);
+  
+}
+
 
 #ifdef  USE_FULL_ASSERT
 
@@ -84,7 +136,7 @@ void assert_failed(uint8_t* file, uint32_t line)
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 	//
-	printf("Wrong parameters value: file %s on line %d\r\n", file, line);
+	printf("Wrong parameters value: file %s on line %d\n", file, line);
 
   /* Infinite loop */
   while (1)
