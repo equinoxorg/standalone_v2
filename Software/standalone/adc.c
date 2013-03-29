@@ -9,6 +9,12 @@ volatile uint16_t RegularConvData_Tab[2];
 float get_adc_voltage ( uint32_t ADC_Channel )
 {
 	
+	/* Test DMA1 TC flag */
+	while((DMA_GetFlagStatus(DMA1_FLAG_TC1)) == RESET ); 
+	
+	/* Clear DMA TC flag */
+	DMA_ClearFlag(DMA1_FLAG_TC1);
+	
 	switch (ADC_Channel)
 	{
 		case ADC_Channel_10:
@@ -23,11 +29,11 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 
 
 __task void adc_in (void)
-{
+{	
 	while (1)
 	{
-		printf("PC0 Voltage %f \n\r", get_adc_voltage(ADC_Channel_10) );
-		printf("PC1 Voltage %f \n\r", get_adc_voltage(ADC_Channel_11) );
+		printf("PC0 Voltage %f \n", get_adc_voltage(ADC_Channel_10) );
+		printf("PC1 Voltage %f \n", get_adc_voltage(ADC_Channel_11) );
 		
 		os_dly_wait(100);
 	}
@@ -38,7 +44,7 @@ __task void adc_in (void)
 //  * @param  None
 //  * @retval None
    
-void init_adc(uint32_t ADC_Channel)
+void init_adc( void )
 {
 	ADC_InitTypeDef ADC_InitStructure;
 	DMA_InitTypeDef DMA_InitStructure;

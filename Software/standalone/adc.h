@@ -12,7 +12,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 //void init_adc(void);
-void init_adc(uint32_t);
+void init_adc( void );
 float get_adc_voltage (uint32_t);
 __task void adc_in (void);
 
