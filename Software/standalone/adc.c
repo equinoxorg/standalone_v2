@@ -5,7 +5,13 @@
 
 volatile uint16_t RegularConvData_Tab[2];
 
-
+/* Function for reading the latest ADC Reading
+ * Parameter: ADC_Channel_x
+ * 	Some Channels have been #defined to easier to read names
+ * 
+ * Returns: float
+ * 					The voltage read on the given ADC pin
+ */
 float get_adc_voltage ( uint32_t ADC_Channel )
 {
 	
@@ -17,10 +23,14 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 	
 	switch (ADC_Channel)
 	{
-		case ADC_Channel_10:
-			return ( (RegularConvData_Tab[0] * ADC_VREF) / 0xFFF );
-		case ADC_Channel_11:
-			return ( (RegularConvData_Tab[1] * ADC_VREF) / 0xFFF );
+		case ADC_BATT_V:
+			return SCALE_V_BATT( (RegularConvData_Tab[0] * ADC_VREF) / 0xFFF );
+		case ADC_BATT_I:
+			return SCALE_I_BATT( (RegularConvData_Tab[1] * ADC_VREF) / 0xFFF );
+		case ADC_SOL_V:
+			return SCALE_V_SOL( (RegularConvData_Tab[0] * ADC_VREF) / 0xFFF );
+		case ADC_SOL_I:
+			return SCALE_I_SOL( (RegularConvData_Tab[1] * ADC_VREF) / 0xFFF );
 		default:
 			return -1.0f;
 	}
@@ -32,8 +42,8 @@ __task void adc_in (void)
 {	
 	while (1)
 	{
-		printf("PC0 Voltage %f \n", get_adc_voltage(ADC_Channel_10) );
-		printf("PC1 Voltage %f \n", get_adc_voltage(ADC_Channel_11) );
+		printf("V Solar Voltage %f \n", get_adc_voltage(ADC_SOL_V) );
+		printf("I Solar Voltage %f \n", get_adc_voltage(ADC_SOL_I) );
 		
 		os_dly_wait(100);
 	}

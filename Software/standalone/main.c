@@ -21,11 +21,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
 #include <RTL.h>
+#include <time.h>
 #include "stm32f0xx.h"
 #include "serial.h"
 #include "adc.h"
 #include "pwm.h"
 #include "lcd_hd44780.h"
+#include "perturb_and_observe.h"
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -34,7 +36,7 @@
 void setup_rtc(void);
 void print_time_date ( void );
 __task void charge_control(void);
-extern __task void perturb_and_observe (void);
+struct tm get_time_struct (void);
 
 OS_TID charge_control_t, pwm_out_t, adc_in_t, perturb_and_observe_t, lcd_t;
 
@@ -101,20 +103,20 @@ void setup_rtc (void)
 	// Turn on PWR clock
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
 
-	/* Allow access to RTC */
+	// Allow access to RTC *
   PWR_BackupAccessCmd(ENABLE);
   
-  /* The RTC Clock may varies due to LSI frequency dispersion. */   
-  /* Enable the LSI OSC */ 
+  // The RTC Clock may varies due to LSI frequency dispersion.
+  // Enable the LSI OSC 
   RCC_LSICmd(ENABLE);
 	
-  /* Select the RTC Clock Source */
+  // Select the RTC Clock Source
   RCC_RTCCLKConfig(RCC_RTCCLKSource_LSI);
   
-  /* Enable the RTC Clock */
+  // Enable the RTC Clock 
   RCC_RTCCLKCmd(ENABLE);
   
-  /* Wait for RTC APB registers synchronisation */
+  // Wait for RTC APB registers synchronisation 
   RTC_WaitForSynchro();
   
   RTC_InitStructure.RTC_HourFormat = RTC_HourFormat_24;
@@ -137,9 +139,36 @@ void print_time_date ( void )
 	RTC_GetTime(RTC_Format_BIN, &RTC_TimeStructure);
 	RTC_GetDate(RTC_Format_BIN, &RTC_DateStructure);
 	
-	printf("RTC Date: %i/%i/%i \n", RTC_DateStructure.RTC_Date, RTC_DateStructure.RTC_Month,  RTC_DateStructure.RTC_Year);
+	printf("RTC Date: %i/%i/%i \n", RTC_DateStructure.RTC_Date, RTC_DateStructure.RTC_Month,  (RTC_DateStructure.RTC_Year+2000) );
 	printf("RTC Time: %i:%i:%i \n", RTC_TimeStructure.RTC_Hours, RTC_TimeStructure.RTC_Minutes, RTC_TimeStructure.RTC_Seconds);
 }
+
+struct tm get_time_struct (void)
+{
+	struct tm result;	
+	RTC_TimeTypeDef   RTC_TimeStructure;
+	RTC_DateTypeDef		RTC_DateStructure;
+	
+	RTC_TimeStructInit(&RTC_TimeStructure);
+	RTC_DateStructInit(&RTC_DateStructure);
+	
+	RTC_GetTime(RTC_Format_BIN, &RTC_TimeStructure);
+	RTC_GetDate(RTC_Format_BIN, &RTC_DateStructure);
+	
+	result.tm_sec = RTC_TimeStructure.RTC_Seconds;
+	result.tm_min = RTC_TimeStructure.RTC_Minutes;
+	result.tm_hour = RTC_TimeStructure.RTC_Hours;
+	
+	result.tm_mday = RTC_DateStructure.RTC_Date;
+	result.tm_mon = RTC_DateStructure.RTC_Month;
+	result.tm_year = RTC_DateStructure.RTC_Year - 100;
+
+	mktime(&result);
+		
+	return result;
+}
+
+
 
 
 #ifdef  USE_FULL_ASSERT
