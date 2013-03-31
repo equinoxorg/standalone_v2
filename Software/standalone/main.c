@@ -9,6 +9,11 @@
   * @attention
 	* Based on code examples from ST Micro
   ******************************************************************************
+	*
+	* Enviroment Set Up:
+	* Follow programming instructions here to upgrade STM32F0 Board Firmware
+	* http://dduino.blogspot.co.uk/2012/06/stm32f0-discovery-board.html
+	* This improves stability and fixes the many crashes.
   */
 	
 #define USE_FULL_ASSERT
@@ -27,6 +32,7 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void setup_rtc(void);
+void print_time_date ( void );
 __task void charge_control(void);
 extern __task void perturb_and_observe (void);
 
@@ -77,7 +83,11 @@ int main(void)
 	//Set up RTC
 	setup_rtc();
 		
-	os_sys_init (init);   
+	//os_sys_init (init); 
+	while(1)
+	{
+		print_time_date();
+	}
 }
 
 
@@ -87,9 +97,10 @@ void setup_rtc (void)
 	// http://www.st.com/st-web-ui/static/active/en/resource/technical/document/application_note/DM00025071.pdf
 	
 	RTC_InitTypeDef   RTC_InitStructure;
-  RTC_TimeTypeDef   RTC_TimeStructure;
-	RTC_DateTypeDef		RTC_DateStructure;
 	
+	// Turn on PWR clock
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
+
 	/* Allow access to RTC */
   PWR_BackupAccessCmd(ENABLE);
   
@@ -112,6 +123,14 @@ void setup_rtc (void)
   
   RTC_Init(&RTC_InitStructure);
 	
+	print_time_date();
+}
+
+void print_time_date ( void )
+{
+	RTC_TimeTypeDef   RTC_TimeStructure;
+	RTC_DateTypeDef		RTC_DateStructure;
+	
 	RTC_TimeStructInit(&RTC_TimeStructure);
 	RTC_DateStructInit(&RTC_DateStructure);
 	
@@ -120,7 +139,6 @@ void setup_rtc (void)
 	
 	printf("RTC Date: %i/%i/%i \n", RTC_DateStructure.RTC_Date, RTC_DateStructure.RTC_Month,  RTC_DateStructure.RTC_Year);
 	printf("RTC Time: %i:%i:%i \n", RTC_TimeStructure.RTC_Hours, RTC_TimeStructure.RTC_Minutes, RTC_TimeStructure.RTC_Seconds);
-  
 }
 
 
