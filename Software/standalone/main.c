@@ -38,7 +38,7 @@ void print_time_date ( void );
 __task void charge_control(void);
 struct tm get_time_struct (void);
 
-OS_TID charge_control_t, pwm_out_t, adc_in_t, perturb_and_observe_t, lcd_t;
+OS_TID charge_control_t, pwm_out_t, adc_test_t, perturb_and_observe_t, lcd_t;
 
 /* Task to set up charge control */
 __task void charge_control (void)
@@ -67,7 +67,7 @@ __task void init (void)
 	//pwm_out_t = os_tsk_create( pwm_out, 0);
 	
 	printf("Starting adc_in task \n");
-	adc_in_t = os_tsk_create( adc_in, 0);
+	adc_test_t = os_tsk_create( adc_test, 0);
 		
 	os_tsk_delete_self ();
 }
@@ -85,10 +85,10 @@ int main(void)
 	//Set up RTC
 	setup_rtc();
 		
-	//os_sys_init (init); 
+	os_sys_init (init); 
 	while(1)
 	{
-		print_time_date();
+		//print_time_date();
 	}
 }
 

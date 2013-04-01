@@ -3,7 +3,7 @@
 #define ADC1_DR_Address 0x40012440
 
 
-volatile uint16_t RegularConvData_Tab[2];
+volatile uint16_t RegularConvData_Tab[4];
 
 /* Function for reading the latest ADC Reading
  * Parameter: ADC_Channel_x
@@ -14,7 +14,6 @@ volatile uint16_t RegularConvData_Tab[2];
  */
 float get_adc_voltage ( uint32_t ADC_Channel )
 {
-	
 	/* Test DMA1 TC flag */
 	while((DMA_GetFlagStatus(DMA1_FLAG_TC1)) == RESET ); 
 	
@@ -23,14 +22,14 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 	
 	switch (ADC_Channel)
 	{
-		case ADC_BATT_V:
-			return SCALE_V_BATT( (RegularConvData_Tab[0] * ADC_VREF) / 0xFFF );
-		case ADC_BATT_I:
-			return SCALE_I_BATT( (RegularConvData_Tab[1] * ADC_VREF) / 0xFFF );
 		case ADC_SOL_V:
-			return SCALE_V_SOL( (RegularConvData_Tab[0] * ADC_VREF) / 0xFFF );
+			return SCALE_V_SOL( (RegularConvData_Tab[1] * ADC_VREF) / 0xFFF );
 		case ADC_SOL_I:
-			return SCALE_I_SOL( (RegularConvData_Tab[1] * ADC_VREF) / 0xFFF );
+			return SCALE_I_SOL( (RegularConvData_Tab[2] * ADC_VREF) / 0xFFF );
+		case ADC_BATT_V:
+			return SCALE_V_BATT( (RegularConvData_Tab[3] * ADC_VREF) / 0xFFF );
+		case ADC_BATT_I:
+			return SCALE_I_BATT( (RegularConvData_Tab[0] * ADC_VREF) / 0xFFF );
 		default:
 			return -1.0f;
 	}
@@ -38,12 +37,14 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 }
 
 
-__task void adc_in (void)
+__task void adc_test(void)
 {	
 	while (1)
 	{
-		printf("V Solar Voltage %f \n", get_adc_voltage(ADC_SOL_V) );
-		printf("I Solar Voltage %f \n", get_adc_voltage(ADC_SOL_I) );
+		printf("Solar V: %f \n", get_adc_voltage(ADC_SOL_V) );
+		printf("Solar I: %f \n", get_adc_voltage(ADC_SOL_I) );
+		printf("Batt  V: %f \n", get_adc_voltage(ADC_BATT_V) );
+		printf("Batt  I: %f \n", get_adc_voltage(ADC_BATT_I) );
 		
 		os_dly_wait(100);
 	}
@@ -65,13 +66,10 @@ void init_adc( void )
 
   
 	GPIO_StructInit(&GPIO_InitStructure);
-  // Configure ADC Channel11 PC1 as analog input 
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1 ;
+  // Configure ADC Channel10/11/12/13 PC0/1/2/3 as analog input 
+  GPIO_InitStructure.GPIO_Pin = (GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 );
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
-  GPIO_Init(GPIOC, &GPIO_InitStructure);
-	// Configure ADC Channel10 PC0 as analog input 
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 ;
   GPIO_Init(GPIOC, &GPIO_InitStructure);
   
   // ADC1 DeInit    
@@ -88,7 +86,7 @@ void init_adc( void )
   DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)ADC1_DR_Address;
   DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)RegularConvData_Tab;
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
-  DMA_InitStructure.DMA_BufferSize = 2;
+  DMA_InitStructure.DMA_BufferSize = 4;
   DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
   DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
   DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
@@ -115,14 +113,20 @@ void init_adc( void )
   ADC_InitStructure.ADC_ContinuousConvMode = ENABLE; 
   ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;
   ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
-  ADC_InitStructure.ADC_ScanDirection = ADC_ScanDirection_Backward;
+  ADC_InitStructure.ADC_ScanDirection = ADC_ScanDirection_Upward;
   ADC_Init(ADC1, &ADC_InitStructure); 
  
-  // Convert the ADC1 Channel 10  with 239 Cycles as sampling time   
-  ADC_ChannelConfig(ADC1, ADC_Channel_10 , ADC_SampleTime_239_5Cycles);
+  // Convert the ADC_SOL_V  with 239 Cycles as sampling time   
+  ADC_ChannelConfig(ADC1, ADC_SOL_V , ADC_SampleTime_239_5Cycles);
   
-  // Convert the ADC1 Channel 11  with 239 Cycles as sampling time   
-  ADC_ChannelConfig(ADC1, ADC_Channel_11 , ADC_SampleTime_239_5Cycles);
+  // Convert the ADC_SOL_I  with 239 Cycles as sampling time   
+  ADC_ChannelConfig(ADC1, ADC_SOL_I , ADC_SampleTime_239_5Cycles);
+  
+	// Convert the ADC_BATT_V  with 239 Cycles as sampling time   
+  ADC_ChannelConfig(ADC1, ADC_BATT_V , ADC_SampleTime_239_5Cycles);
+  
+  // Convert the ADC_BATT_I  with 239 Cycles as sampling time   
+  ADC_ChannelConfig(ADC1, ADC_BATT_I , ADC_SampleTime_239_5Cycles);
   
   // ADC Calibration  
   ADC_GetCalibrationFactor(ADC1);

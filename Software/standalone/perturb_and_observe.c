@@ -1,10 +1,6 @@
 #include "perturb_and_observe.h"
 
 #define DUTY_CYCLE_INC (float)0.1f
-#define V_SCALE (float)((10.0f + 1.32f) / 1.32f )
-#define I_SCALE (float)1.515f
-
-#define NO_AVG 128
 
 /* TODO:
  * Move scaling of adc reads and filtering to adc code files
@@ -64,7 +60,7 @@ void perturb_and_observe_itter (void) {
 	/*Set PWM to duty_cycle*/
 	set_duty_cycle(duty_cycle);
 		
-	printf("V=%.2f, I=%.2f, P=%.2f, duty=%f\n\r", v_panel, i_panel, p_panel, duty_cycle);
+	printf("V=%.2f, I=%.2f, P=%.2f, duty=%f\n", v_panel, i_panel, p_panel, duty_cycle);
 	
 }
 
