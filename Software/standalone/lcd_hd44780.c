@@ -69,7 +69,7 @@ void lcd_init (void)
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
 	
-	//Turn on GPIOB Clock for ports
+	//Turn on GPIOB Clock for port B
 	RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOB, ENABLE);
 	
 

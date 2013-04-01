@@ -28,6 +28,7 @@
 #include "pwm.h"
 #include "lcd_hd44780.h"
 #include "perturb_and_observe.h"
+#include "interrupted_charging.h"
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -38,16 +39,17 @@ void print_time_date ( void );
 __task void charge_control(void);
 struct tm get_time_struct (void);
 
-OS_TID charge_control_t, pwm_out_t, adc_test_t, perturb_and_observe_t, lcd_t;
+OS_TID charge_control_t, pwm_out_t, adc_test_t, perturb_and_observe_t, lcd_t, interrupted_charging_t;
 
 /* Task to set up charge control */
 __task void charge_control (void)
 {
-	// Init required hardware 
-	init_pwm(40000);
 	
 	//Start the P&O charge control algo
-	perturb_and_observe_t = os_tsk_create( perturb_and_observe, 0);
+	//perturb_and_observe_t = os_tsk_create( perturb_and_observe, 0);
+	
+	//Start the interrupted charging algoritm
+	interrupted_charging_t = os_tsk_create( interrupted_charging, 0);
 	
 	//Exit but leave P&O running
 	os_tsk_delete_self();
@@ -57,8 +59,8 @@ __task void init (void)
 {	
 	init_adc();
 	
-	//printf("Starting charge controller task \n" );
-	//charge_control_t = os_tsk_create( charge_control, 0);
+	printf("Starting charge controller task \n" );
+	charge_control_t = os_tsk_create( charge_control, 0);
 	
 	//printf("Starting lcd task \n");
 	//lcd_t = os_tsk_create(lcd, 0);
@@ -66,8 +68,8 @@ __task void init (void)
 	//printf("Starting pwm_out task \n");
 	//pwm_out_t = os_tsk_create( pwm_out, 0);
 	
-	printf("Starting adc_in task \n");
-	adc_test_t = os_tsk_create( adc_test, 0);
+	//printf("Starting adc_in task \n");
+	//adc_test_t = os_tsk_create( adc_test, 0);
 		
 	os_tsk_delete_self ();
 }

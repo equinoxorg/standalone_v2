@@ -6,6 +6,6 @@
 #include <stdio.h>
 #include "perturb_and_observe.h"
 
-__task interrupted_charging (void);
+__task void interrupted_charging (void);
 
 #endif

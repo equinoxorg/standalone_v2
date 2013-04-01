@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #ifndef ADC_VREF
-	#define ADC_VREF 3.3f
+	#define ADC_VREF 3.0f
 #endif
 
 #define ADC_SOL_V		ADC_Channel_10 //PC0

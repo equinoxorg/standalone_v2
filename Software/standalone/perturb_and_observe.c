@@ -8,6 +8,8 @@
 
 __task void perturb_and_observe (void) {
 	
+	init_pwm(40000);
+	
 	while (1)
 	{
 		perturb_and_observe_itter();
@@ -60,7 +62,7 @@ void perturb_and_observe_itter (void) {
 	/*Set PWM to duty_cycle*/
 	set_duty_cycle(duty_cycle);
 		
-	printf("V=%.2f, I=%.2f, P=%.2f, duty=%f\n", v_panel, i_panel, p_panel, duty_cycle);
+	printf("V_SOL=%.2f, I_SOL=%.2f, P_SOL=%.2f, duty=%f\n", v_panel, i_panel, p_panel, duty_cycle);
 	
 }
 

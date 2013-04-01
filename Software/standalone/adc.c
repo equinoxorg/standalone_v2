@@ -31,6 +31,7 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 		case ADC_BATT_I:
 			return SCALE_I_BATT( (RegularConvData_Tab[0] * ADC_VREF) / 0xFFF );
 		default:
+			printf ("ERROR: Attmept to read Invalid ADC Channel \n");
 			return -1.0f;
 	}
 	

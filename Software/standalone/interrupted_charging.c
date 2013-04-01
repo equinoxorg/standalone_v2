@@ -11,19 +11,23 @@
 
 #define BATTERY_SIZE 7.0f
 
+void init_hardware (void);
+
 int state = 0;
 
-__task interrupted_charging (void)
+__task void interrupted_charging (void)
 {
 	float batt_voltage = 0.0f;
 	int pulse = 0;
 	int counter = 0;
 	
 	//TODO: initialise hardware
-	
+	init_hardware();
+		
 	while (1)
 	{
-		batt_voltage = get_adc_voltage(ADC_BATT_V); //*scaling factor
+		batt_voltage = get_adc_voltage(ADC_BATT_V);
+		printf("State: %i, Batt Voltage: %.2f\n", state, batt_voltage);
 		
 		switch (state)
 		{
@@ -60,7 +64,8 @@ __task interrupted_charging (void)
 				
 				if (pulse)
 				{
-					//Regulate at 0.05C
+					//Change to Regulate at 0.05C
+					perturb_and_observe_itter();
 				}
 				
 								
@@ -79,12 +84,27 @@ __task interrupted_charging (void)
 					//But the panel is used to power any connected load
 			
 				//Check when to start recharging again.
+				if (batt_voltage < V_LO)
+				{
+					state = MPP_CHARGING;
+					printf("Restarting the MPP Charging State \n");
+				}
 			
 				//5s delay
 				os_dly_wait(500);
 				break;
 			
 			case NIGHT_MODE:
+				GPIO_ResetBits(GPIOB, GPIO_Pin_0);
+			
+				if (get_adc_voltage(ADC_SOL_V) > batt_voltage) //Add proper condition
+				{
+					GPIO_SetBits(GPIOB, GPIO_Pin_0);
+					state = MPP_CHARGING;
+					printf("Exiting Night Mode\n");
+				}
+				//20s wait time
+				os_dly_wait(2000);
 				break;
 			default:
 				state = MPP_CHARGING;
@@ -92,3 +112,32 @@ __task interrupted_charging (void)
 		}
 	}
 }
+
+void init_hardware (void)
+{
+	//Variables
+	GPIO_InitTypeDef GPIO_InitStructure;
+	
+	//Add extra parameter to show which pin
+	init_pwm(40000);
+	
+	//Enable cc_en pin
+	//Turn on GPIOB Clock for port B
+	RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOB, ENABLE);	
+
+	//Configure Pins
+	GPIO_StructInit(&GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	
+	
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	
+	//Turn on cc_enable pin
+	GPIO_SetBits(GPIOB, GPIO_Pin_0);
+	
+}
+
