@@ -46,10 +46,10 @@ __task void charge_control (void)
 {
 	
 	//Start the P&O charge control algo
-	//perturb_and_observe_t = os_tsk_create( perturb_and_observe, 0);
+	perturb_and_observe_t = os_tsk_create( perturb_and_observe, 0);
 	
 	//Start the interrupted charging algoritm
-	interrupted_charging_t = os_tsk_create( interrupted_charging, 0);
+	//interrupted_charging_t = os_tsk_create( interrupted_charging, 0);
 	
 	//Exit but leave P&O running
 	os_tsk_delete_self();
