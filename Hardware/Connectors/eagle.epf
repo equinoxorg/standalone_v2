@@ -336,7 +336,9 @@ UsedLibrary="C:/Program Files (x86)/EAGLE-6.3.0/lbr/xilinx-xc9.lbr"
 UsedLibrary="C:/Program Files (x86)/EAGLE-6.3.0/lbr/xilinx-xcv.lbr"
 UsedLibrary="C:/Program Files (x86)/EAGLE-6.3.0/lbr/zetex.lbr"
 UsedLibrary="C:/Program Files (x86)/EAGLE-6.3.0/lbr/zilog.lbr"
+UsedLibrary="C:/Users/Ashley/Documents/eagle/lib/SparkFun.lbr"
 UsedLibrary="C:/Users/Ashley/Documents/eagle/lib/ashley.lbr"
+UsedLibrary="C:/Users/Ashley/Documents/eagle/lib/dp_devices.lbr"
 UsedLibrary="C:/Users/Ashley/Documents/GitHub/standalone_fyp/Hardware/lib/lib.lbr"
 UsedLibrary="C:/Users/Ashley/Documents/eagle/EEE_Lab.lbr"
 UsedLibrary="C:/Users/Ashley/Documents/GitHub/standalone_fyp/Hardware/lib/equinox.lbr"
@@ -348,5 +350,5 @@ State=1
 Number=0
 
 [Desktop]
-Screen="3286 1411"
+Screen="1366 768"
 Window="Win_1"
