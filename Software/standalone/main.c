@@ -82,7 +82,7 @@ __task void init (void)
   */
 int main(void)
 {
-	Serial.begin(115200); //Open com on uart2 0-1 pins
+	Serial.begin(115200); //Open com on uart1 0-1 pins
 	
 	//Set up RTC
 	setup_rtc();

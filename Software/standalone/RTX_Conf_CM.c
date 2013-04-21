@@ -163,6 +163,19 @@ void os_tmr_call (U16 info) {
 void os_error (U32 err_code) {
   /* This function is called when a runtime error is detected. Parameter */
   /* 'err_code' holds the runtime error code (defined in RTL.H).         */
+	
+	switch (err_code)
+	{
+		case OS_ERR_STK_OVF:
+			break;
+		case OS_ERR_FIFO_OVF:
+			break;
+		case OS_ERR_MBX_OVF:
+			break;
+		default:
+			break;
+	}
+
 
   /* HERE: include optional code to be executed on runtime error. */
   for (;;);

@@ -35,6 +35,7 @@ extern "C"{
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx.h"
 
+	
 /* Exported types ------------------------------------------------------------*/
 /*
  * Serial functions struct to run on usart
@@ -59,7 +60,7 @@ extern Serial_TypeDef Serial;
 
 /* Exported constants --------------------------------------------------------*/
 /*Define the dedicated reception circular buffer size. */
-#define BUFFER_RCV_SIZE 	256
+#define BUFFER_RCV_SIZE 	64
 
 /*Pins definition */
 #define TX_PIN  			GPIO_Pin_2 

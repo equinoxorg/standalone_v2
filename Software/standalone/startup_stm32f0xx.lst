@@ -203,9 +203,9 @@ ARM Macro Assembler    Page 4
 WEAK]
   127 00000000                 IMPORT           __main
   128 00000000                 IMPORT           SystemInit
-  129 00000000 4807            LDR              R0, =SystemInit
+  129 00000000 4804            LDR              R0, =SystemInit
   130 00000002 4780            BLX              R0
-  131 00000004 4807            LDR              R0, =__main
+  131 00000004 4804            LDR              R0, =__main
   132 00000006 4700            BX               R0
   133 00000008                 ENDP
   134 00000008         
@@ -360,34 +360,23 @@ ARM Macro Assembler    Page 6
   230 00000014         ;*******************************************************
                        ************************
   231 00000014                 IF               :DEF:__MICROLIB
-  238 00000014         
-  239 00000014                 IMPORT           __use_two_region_memory
-  240 00000014                 EXPORT           __user_initial_stackheap
-  241 00000014         
-  242 00000014         __user_initial_stackheap
-  243 00000014         
-  244 00000014 4804            LDR              R0, =  Heap_Mem
-  245 00000016 4905            LDR              R1, =(Stack_Mem + Stack_Size)
-  246 00000018 4A05            LDR              R2, = (Heap_Mem +  Heap_Size)
-  247 0000001A 4B06            LDR              R3, = Stack_Mem
-  248 0000001C 4770            BX               LR
-  249 0000001E         
-  250 0000001E 00 00           ALIGN
-  251 00000020         
-  252 00000020                 ENDIF
-  253 00000020         
-  254 00000020                 END
+  232 00000014         
+  233 00000014                 EXPORT           __initial_sp
+  234 00000014                 EXPORT           __heap_base
+  235 00000014                 EXPORT           __heap_limit
+  236 00000014         
+  237 00000014                 ELSE
+  252                          ENDIF
+  253 00000014         
+  254 00000014                 END
               00000000 
-              00000000 
-              00000000 
-              00000400 
-              00000200 
               00000000 
 Command Line: --debug --xref --cpu=Cortex-M0 --apcs=interwork --depend=.\debug\
 startup_stm32f0xx.d -o.\debug\startup_stm32f0xx.o -I"C:\Program Files (x86)\Kei
 l\ARM\RV31\INC" -I"C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I"C:\Program
- Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" --predefine="__RTX SETA 1" --list=.\sta
-rtup_stm32f0xx.lst CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32f0xx.s
+ Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" --predefine="__RTX SETA 1" --predefine=
+"__MICROLIB SETA 1" --list=.\startup_stm32f0xx.lst CMSIS\ST\STM32F0xx\Source\Te
+mplates\arm\startup_stm32f0xx.s
 
 
 
@@ -410,11 +399,8 @@ Symbol: Stack_Mem
       At line 42 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32f
 0xx.s
    Uses
-      At line 245 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
-f0xx.s
-      At line 247 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
-f0xx.s
-
+      None
+Comment: Stack_Mem unused
 __initial_sp 00000400
 
 Symbol: __initial_sp
@@ -424,7 +410,9 @@ Symbol: __initial_sp
    Uses
       At line 67 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32f
 0xx.s
-Comment: __initial_sp used once
+      At line 233 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
+f0xx.s
+
 3 symbols
 
 
@@ -448,11 +436,8 @@ Symbol: Heap_Mem
       At line 54 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32f
 0xx.s
    Uses
-      At line 244 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
-f0xx.s
-      At line 246 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
-f0xx.s
-
+      None
+Comment: Heap_Mem unused
 __heap_base 00000000
 
 Symbol: __heap_base
@@ -460,8 +445,9 @@ Symbol: __heap_base
       At line 53 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32f
 0xx.s
    Uses
-      None
-Comment: __heap_base unused
+      At line 234 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
+f0xx.s
+Comment: __heap_base used once
 __heap_limit 00000200
 
 Symbol: __heap_limit
@@ -469,8 +455,9 @@ Symbol: __heap_limit
       At line 55 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32f
 0xx.s
    Uses
-      None
-Comment: __heap_limit unused
+      At line 235 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
+f0xx.s
+Comment: __heap_limit used once
 4 symbols
 
 
@@ -998,17 +985,7 @@ f0xx.s
       At line 161 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
 f0xx.s
 
-__user_initial_stackheap 00000014
-
-Symbol: __user_initial_stackheap
-   Definitions
-      At line 242 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
-f0xx.s
-   Uses
-      At line 240 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
-f0xx.s
-Comment: __user_initial_stackheap used once
-38 symbols
+37 symbols
 
 
 
@@ -1024,9 +1001,7 @@ Symbol: Heap_Size
    Uses
       At line 54 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32f
 0xx.s
-      At line 246 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
-f0xx.s
-
+Comment: Heap_Size used once
 Stack_Size 00000400
 
 Symbol: Stack_Size
@@ -1036,9 +1011,7 @@ Symbol: Stack_Size
    Uses
       At line 42 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32f
 0xx.s
-      At line 245 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
-f0xx.s
-
+Comment: Stack_Size used once
 __Vectors_Size 000000C0
 
 Symbol: __Vectors_Size
@@ -1076,14 +1049,5 @@ f0xx.s
       At line 131 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
 f0xx.s
 Comment: __main used once
-__use_two_region_memory 00000000
-
-Symbol: __use_two_region_memory
-   Definitions
-      At line 239 in file CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32
-f0xx.s
-   Uses
-      None
-Comment: __use_two_region_memory unused
-3 symbols
-389 symbols in table
+2 symbols
+386 symbols in table

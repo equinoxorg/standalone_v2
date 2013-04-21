@@ -5,7 +5,7 @@
   * @version V1.0.0
   * @date    23-March-2012
   * @brief   Arduino serial communication API for STM32F051 Discovery Kit
-  *       Interrupt receive function is USART2_IRQHandler    
+  *       Interrupt receive function is USART1_IRQHandler    
   ******************************************************************************
   * @attention
   *
@@ -57,10 +57,10 @@ static char rcv_buff_full=0;           //rcv_buff is full. pt_rcv_write
 
 
 /* Private function prototypes -----------------------------------------------*/
-static void GPIO_Configuration_USART2(void);
+static void GPIO_Configuration_USART1(void);
 static void NVIC_Configuration(void);
 static void UART2_Init(uint32_t baud_rate);
-static USART_TypeDef* USARTx = USART2;
+static USART_TypeDef* USARTx = USART1;
 
 /* Private functions ---------------------------------------------------------*/
 /**
@@ -77,7 +77,7 @@ static void UART2_Init(uint32_t baud_rate){
       */
   USART_InitTypeDef USART_InitStructure;
 
-  GPIO_Configuration_USART2();
+  GPIO_Configuration_USART1();
      
   USART_InitStructure.USART_BaudRate = baud_rate;
   USART_InitStructure.USART_WordLength = USART_WordLength_8b;
@@ -85,13 +85,13 @@ static void UART2_Init(uint32_t baud_rate){
   USART_InitStructure.USART_Parity = USART_Parity_No;
   USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
   USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-  USART_Init(USART2, &USART_InitStructure);  
+  USART_Init(USART1, &USART_InitStructure);  
   
   NVIC_Configuration();
   
-  USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
+  USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
 
-  USART_Cmd(USART2, ENABLE);  
+  USART_Cmd(USART1, ENABLE);  
 }
 
 
@@ -215,17 +215,17 @@ void println_fcn(char *string){
 
 
 /**
-  * @brief  GPIO_Configuration_USART2 Configures the different GPIO ports for UART.
+  * @brief  GPIO_Configuration_USART1 Configures the different GPIO ports for UART.
   * @param  None
   * @retval None
   */
-static void GPIO_Configuration_USART2(void)
+static void GPIO_Configuration_USART1(void)
 {
   GPIO_InitTypeDef GPIO_InitStructure;
   
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);  
 
-  RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2,ENABLE);
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1,ENABLE);
  
   GPIO_PinAFConfig(UART_PORT, RX_PIN_SOURCE, GPIO_AF_1);
   GPIO_PinAFConfig(UART_PORT, TX_PIN_SOURCE, GPIO_AF_1);
@@ -252,8 +252,8 @@ static void NVIC_Configuration(void)
   NVIC_InitTypeDef NVIC_InitStructure;
 
   
-  /* Enable the USART2 Interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
+  /* Enable the USART1 Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
   NVIC_InitStructure.NVIC_IRQChannelPriority = 0;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
@@ -262,19 +262,19 @@ static void NVIC_Configuration(void)
 
 
 /**
-  * @brief  This function handles USART2 global interrupt request.
+  * @brief  This function handles USART1 global interrupt request.
   * @param  None
   * @retval None
   */
-void USART2_IRQHandler(void)
+void USART1_IRQHandler(void)
 {
-  uint16_t l_tmp; //Received char from USART2
+  uint16_t l_tmp; //Received char from USART1
   
-  if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)
+  if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
   {
-    USART_ClearITPendingBit(USART2, USART_IT_RXNE);
+    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
     //Read one byte from the receive data register
-    l_tmp  = USART_ReceiveData(USART2);
+    l_tmp  = USART_ReceiveData(USART1);
     if(rcv_buff_full){
       //rcv buffer is full ==> trash rcv char
       rcv_buff_overload++;
@@ -291,7 +291,7 @@ void USART2_IRQHandler(void)
       }      
     }
   }
-  USART_ClearITPendingBit(USART2, USART_IT_ORE);
+  USART_ClearITPendingBit(USART1, USART_IT_ORE);
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
