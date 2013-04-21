@@ -6,32 +6,32 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.05" altunitdist="mm" altunit="mm"/>
+<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="yes"/>
-<layer number="20" name="Dimension" color="15" fill="1" visible="no" active="yes"/>
-<layer number="21" name="tPlace" color="7" fill="1" visible="no" active="yes"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="yes"/>
-<layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="yes"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="yes"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="yes" active="yes"/>
-<layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
-<layer number="30" name="bStop" color="7" fill="6" visible="no" active="yes"/>
-<layer number="31" name="tCream" color="7" fill="4" visible="no" active="yes"/>
-<layer number="32" name="bCream" color="7" fill="5" visible="no" active="yes"/>
-<layer number="33" name="tFinish" color="6" fill="3" visible="no" active="yes"/>
-<layer number="34" name="bFinish" color="6" fill="6" visible="no" active="yes"/>
-<layer number="35" name="tGlue" color="7" fill="4" visible="no" active="yes"/>
-<layer number="36" name="bGlue" color="7" fill="5" visible="no" active="yes"/>
-<layer number="37" name="tTest" color="7" fill="1" visible="no" active="yes"/>
-<layer number="38" name="bTest" color="7" fill="1" visible="no" active="yes"/>
+<layer number="29" name="tStop" color="7" fill="3" visible="yes" active="yes"/>
+<layer number="30" name="bStop" color="7" fill="6" visible="yes" active="yes"/>
+<layer number="31" name="tCream" color="7" fill="4" visible="yes" active="yes"/>
+<layer number="32" name="bCream" color="7" fill="5" visible="yes" active="yes"/>
+<layer number="33" name="tFinish" color="6" fill="3" visible="yes" active="yes"/>
+<layer number="34" name="bFinish" color="6" fill="6" visible="yes" active="yes"/>
+<layer number="35" name="tGlue" color="7" fill="4" visible="yes" active="yes"/>
+<layer number="36" name="bGlue" color="7" fill="5" visible="yes" active="yes"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="39" name="tKeepout" color="4" fill="11" visible="yes" active="yes"/>
 <layer number="40" name="bKeepout" color="1" fill="11" visible="yes" active="yes"/>
 <layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
@@ -103,6 +103,7 @@
 <layer number="254" name="cooling" color="7" fill="1" visible="no" active="yes"/>
 </layers>
 <library>
+<description>E.quinox Library for the Standalone product</description>
 <packages>
 <package name="G5RL-1E">
 <wire x1="-13" y1="-6" x2="16" y2="-6" width="0.127" layer="21"/>
@@ -3841,8 +3842,8 @@ Onecall #: 1929705
 <wire x1="0" y1="-1.27" x2="6.35" y2="-5.08" width="0.127" layer="21"/>
 <wire x1="6.35" y1="-5.08" x2="8.89" y2="-5.08" width="0.127" layer="21"/>
 <wire x1="8.89" y1="-5.08" x2="15.24" y2="-1.27" width="0.127" layer="21"/>
-<text x="0" y="-7.62" size="1.27" layer="25">&gt;NAME</text>
-<text x="8.89" y="-7.62" size="1.27" layer="27">&gt;VALUE</text>
+<text x="5.08" y="2.54" size="1.27" layer="25">&gt;NAME</text>
+<text x="5.08" y="0" size="1.27" layer="27">&gt;VALUE</text>
 </package>
 <package name="LCD_16X2_R2">
 <description>info@huaxinjin.com
@@ -4404,6 +4405,23 @@ Source: http://www.diodes.com/datasheets/ds31262.pdf</description>
 <smd name="1" x="-1.94" y="2.7" dx="0.8" dy="1.5" layer="1"/>
 <text x="-0.7" y="7.8" size="0.8128" layer="51">card IN</text>
 <text x="-1.3" y="11.6" size="0.8128" layer="51">card OUT</text>
+</package>
+<package name="DO214AA">
+<description>&lt;b&gt;DIODE&lt;/b&gt;</description>
+<wire x1="-2.4" y1="1.1" x2="2.4" y2="1.1" width="0.254" layer="51"/>
+<wire x1="2.4" y1="1.1" x2="2.4" y2="-1.1" width="0.254" layer="51"/>
+<wire x1="2.4" y1="-1.1" x2="-2.4" y2="-1.1" width="0.254" layer="51"/>
+<wire x1="-2.4" y1="-1.1" x2="-2.4" y2="1.1" width="0.254" layer="51"/>
+<wire x1="-1.2" y1="0" x2="0.05" y2="0.7" width="0.254" layer="21"/>
+<wire x1="0.05" y1="0.7" x2="0.05" y2="-0.7" width="0.254" layer="21"/>
+<wire x1="0.05" y1="-0.7" x2="-1.2" y2="0" width="0.254" layer="21"/>
+<smd name="C" x="-2.55" y="0" dx="1.8" dy="2.2" layer="1"/>
+<smd name="A" x="2.55" y="0" dx="1.8" dy="2.2" layer="1"/>
+<text x="-2.64" y="1.436" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="-2.64" y="-2.706" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<rectangle x1="-2.75" y1="-0.7" x2="-2.5" y2="0.65" layer="51"/>
+<rectangle x1="2.5" y1="-0.7" x2="2.75" y2="0.65" layer="51"/>
+<rectangle x1="-1.4" y1="-1.05" x2="-1.1" y2="1.05" layer="21"/>
 </package>
 </packages>
 <symbols>
@@ -7844,10 +7862,10 @@ Source: http://www.diodes.com/datasheets/ds31262.pdf</description>
 <wire x1="-5.08" y1="0" x2="-2.54" y2="0" width="0.254" layer="94" curve="-180"/>
 <wire x1="-2.54" y1="0" x2="0" y2="0" width="0.254" layer="94" curve="-180"/>
 <wire x1="0" y1="0" x2="2.54" y2="0" width="0.254" layer="94" curve="-180"/>
-<pin name="P$1" x="-10.16" y="0" visible="pad" length="short"/>
-<pin name="P$2" x="5.08" y="0" visible="pad" length="short" rot="R180"/>
-<text x="-7.62" y="2.54" size="1.27" layer="94">&gt;NAME</text>
-<text x="-7.62" y="-2.54" size="1.27" layer="94">&gt;VALUE</text>
+<pin name="P$1" x="-10.16" y="0" visible="off" length="short"/>
+<pin name="P$2" x="5.08" y="0" visible="off" length="short" rot="R180"/>
+<text x="-7.62" y="2.54" size="1.27" layer="95">&gt;NAME</text>
+<text x="-7.62" y="-2.54" size="1.27" layer="96">&gt;VALUE</text>
 </symbol>
 <symbol name="LCD_16X2_R2">
 <wire x1="-20.32" y1="-7.62" x2="22.86" y2="-7.62" width="0.2032" layer="94"/>
@@ -8120,6 +8138,20 @@ Source: http://www.diodes.com/datasheets/ds31262.pdf</description>
 <pin name="CLK" x="-2.54" y="5.08" length="short" function="clk"/>
 <pin name="GND" x="-2.54" y="-5.08" length="short" direction="sup"/>
 <pin name="DO" x="-2.54" y="2.54" length="short"/>
+</symbol>
+<symbol name="DIODE">
+<wire x1="-5.08" y1="0" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="0" y2="1.27" width="0.254" layer="94"/>
+<wire x1="0" y1="1.27" x2="1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="0" y2="-1.27" width="0.254" layer="94"/>
+<wire x1="0" y1="-1.27" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="1.27" y2="1.27" width="0.254" layer="94"/>
+<wire x1="1.27" y1="-1.27" x2="1.27" y2="0" width="0.254" layer="94"/>
+<wire x1="1.27" y1="0" x2="5.08" y2="0" width="0.254" layer="94"/>
+<pin name="ANODE" x="-5.08" y="0" visible="pad" length="short"/>
+<pin name="CATHODE" x="5.08" y="0" visible="pad" length="short" rot="R180"/>
+<text x="-2.54" y="2.54" size="1.27" layer="95">&gt;NAME</text>
+<text x="-2.794" y="-3.81" size="1.27" layer="95">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -8600,20 +8632,20 @@ Source: http://www.diodes.com/datasheets/ds31262.pdf</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="INDUC_BOURNES_SDR1806" uservalue="yes">
+<deviceset name="INDUC_BOURNES_SDR1806" prefix="L" uservalue="yes">
 <description>&lt;p&gt;
 Datasheet: &lt;a href="http://www.bourns.com/data/global/pdfs/SDR1806.pdf"&gt; http://www.bourns.com/data/global/pdfs/SDR1806.pdf &lt;/a&gt;
 &lt;/p&gt;&lt;p&gt;
 Onecall #: 1929705
 &lt;/p&gt;</description>
 <gates>
-<gate name="G$1" symbol="INDUCTOR" x="2.54" y="0"/>
+<gate name="1" symbol="INDUCTOR" x="2.54" y="0"/>
 </gates>
 <devices>
 <device name="" package="BOURNS_SDR1806">
 <connects>
-<connect gate="G$1" pin="P$1" pad="P$1"/>
-<connect gate="G$1" pin="P$2" pad="P$2"/>
+<connect gate="1" pin="P$1" pad="P$1"/>
+<connect gate="1" pin="P$2" pad="P$2"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -8933,6 +8965,25 @@ Button commonly used for reset or general input. Spark Fun Electronics SKU : COM
 <connect gate="G$1" pin="DO" pad="7"/>
 <connect gate="G$1" pin="GND" pad="6"/>
 <connect gate="G$1" pin="VCC" pad="4"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="DIODE_SSB43L" prefix="D" uservalue="yes">
+<description>VISHAY - SSB43L-E3/52T - DIODE, SCHOTTKY, 4A, 30V
+&lt;p/&gt;
+Farnell: 1336556</description>
+<gates>
+<gate name="1" symbol="DIODE" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="DO214AA">
+<connects>
+<connect gate="1" pin="ANODE" pad="A"/>
+<connect gate="1" pin="CATHODE" pad="C"/>
 </connects>
 <technologies>
 <technology name=""/>
