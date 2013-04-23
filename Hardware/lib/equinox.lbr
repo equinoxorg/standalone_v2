@@ -6,9 +6,23 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.05" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.025" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
+<layer number="3" name="Route3" color="4" fill="3" visible="no" active="no"/>
+<layer number="4" name="Route4" color="1" fill="4" visible="no" active="no"/>
+<layer number="5" name="Route5" color="4" fill="4" visible="no" active="no"/>
+<layer number="6" name="Route6" color="1" fill="8" visible="no" active="no"/>
+<layer number="7" name="Route7" color="4" fill="8" visible="no" active="no"/>
+<layer number="8" name="Route8" color="1" fill="2" visible="no" active="no"/>
+<layer number="9" name="Route9" color="4" fill="2" visible="no" active="no"/>
+<layer number="10" name="Route10" color="1" fill="7" visible="no" active="no"/>
+<layer number="11" name="Route11" color="4" fill="7" visible="no" active="no"/>
+<layer number="12" name="Route12" color="1" fill="5" visible="no" active="no"/>
+<layer number="13" name="Route13" color="4" fill="5" visible="no" active="no"/>
+<layer number="14" name="Route14" color="1" fill="6" visible="no" active="no"/>
+<layer number="15" name="Route15" color="4" fill="6" visible="no" active="no"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
 <layer number="17" name="Pads" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="18" name="Vias" color="2" fill="1" visible="yes" active="yes"/>
@@ -4222,13 +4236,14 @@ TS-003</description>
 <package name="SO8">
 <description>&lt;b&gt;SMALL OUTLINE INTEGRATED CIRCUIT&lt;/b&gt; SOP-8L&lt;p&gt;
 Source: http://www.diodes.com/datasheets/ds31262.pdf</description>
-<wire x1="2.4" y1="1.9" x2="2.4" y2="-1.4" width="0.2032" layer="51"/>
-<wire x1="2.4" y1="-1.4" x2="2.4" y2="-1.9" width="0.2032" layer="51"/>
-<wire x1="2.4" y1="-1.9" x2="-2.4" y2="-1.9" width="0.2032" layer="51"/>
-<wire x1="-2.4" y1="-1.9" x2="-2.4" y2="-1.4" width="0.2032" layer="51"/>
-<wire x1="-2.4" y1="-1.4" x2="-2.4" y2="1.9" width="0.2032" layer="51"/>
-<wire x1="-2.4" y1="1.9" x2="2.4" y2="1.9" width="0.2032" layer="51"/>
-<wire x1="2.4" y1="-1.4" x2="-2.4" y2="-1.4" width="0.2032" layer="51"/>
+<wire x1="2.4" y1="1.9" x2="2.4" y2="-1.4" width="0.2032" layer="21"/>
+<wire x1="2.4" y1="-1.4" x2="2.4" y2="-1.9" width="0.2032" layer="21"/>
+<wire x1="2.4" y1="-1.9" x2="-2.4" y2="-1.9" width="0.2032" layer="21"/>
+<wire x1="-2.4" y1="-1.9" x2="-2.4" y2="-1.4" width="0.2032" layer="21"/>
+<wire x1="-2.4" y1="-1.4" x2="-2.4" y2="0.7" width="0.2032" layer="21"/>
+<wire x1="-2.4" y1="0.7" x2="-2.4" y2="1.9" width="0.2032" layer="21"/>
+<wire x1="-2.4" y1="1.9" x2="2.4" y2="1.9" width="0.2032" layer="21"/>
+<wire x1="2.4" y1="-1.4" x2="-2.4" y2="-1.4" width="0.2032" layer="21"/>
 <smd name="2" x="-0.635" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
 <smd name="7" x="-0.635" y="2.6" dx="0.6" dy="2.2" layer="1"/>
 <smd name="1" x="-1.905" y="-2.6" dx="0.6" dy="2.2" layer="1"/>
@@ -4247,6 +4262,8 @@ Source: http://www.diodes.com/datasheets/ds31262.pdf</description>
 <rectangle x1="0.3899" y1="2" x2="0.8801" y2="3.1001" layer="51"/>
 <rectangle x1="-0.8801" y1="2" x2="-0.3899" y2="3.1001" layer="51"/>
 <rectangle x1="-2.1501" y1="2" x2="-1.6599" y2="3.1001" layer="51"/>
+<wire x1="-2.4" y1="0.7" x2="-2.39" y2="-0.635" width="0.127" layer="21" curve="-161.51056"/>
+<circle x="-2.95" y="-2.55" radius="0.15" width="0.127" layer="21"/>
 </package>
 <package name="SOT103P240X110-3N">
 <smd name="1" x="-1.016" y="1.016" dx="1.3208" dy="0.5588" layer="1"/>
@@ -4422,6 +4439,23 @@ Source: http://www.diodes.com/datasheets/ds31262.pdf</description>
 <rectangle x1="-2.75" y1="-0.7" x2="-2.5" y2="0.65" layer="51"/>
 <rectangle x1="2.5" y1="-0.7" x2="2.75" y2="0.65" layer="51"/>
 <rectangle x1="-1.4" y1="-1.05" x2="-1.1" y2="1.05" layer="21"/>
+</package>
+<package name="SMC">
+<description>&lt;b&gt;DIODE&lt;/b&gt;</description>
+<wire x1="-3.5606" y1="3.105" x2="3.5606" y2="3.105" width="0.1016" layer="21"/>
+<wire x1="-3.5606" y1="-3.105" x2="3.5606" y2="-3.105" width="0.1016" layer="21"/>
+<wire x1="-3.5606" y1="-3.105" x2="-3.5606" y2="3.105" width="0.1016" layer="51"/>
+<wire x1="3.5606" y1="-3.105" x2="3.5606" y2="3.105" width="0.1016" layer="51"/>
+<wire x1="0.543" y1="1" x2="-0.83" y2="0" width="0.2032" layer="21"/>
+<wire x1="-0.83" y1="0" x2="0.543" y2="-1" width="0.2032" layer="21"/>
+<wire x1="0.543" y1="-1" x2="0.543" y2="1" width="0.2032" layer="21"/>
+<smd name="C" x="-3.7" y="0" dx="2.8" dy="3.8" layer="1"/>
+<smd name="A" x="3.7" y="0" dx="2.8" dy="3.8" layer="1"/>
+<text x="-3.459" y="3.359" size="1.27" layer="25">&gt;NAME</text>
+<text x="-3.459" y="-4.629" size="1.27" layer="27">&gt;VALUE</text>
+<rectangle x1="-4.094" y1="-1.0922" x2="-3.5606" y2="1.0922" layer="51"/>
+<rectangle x1="3.5606" y1="-1.0922" x2="4.094" y2="1.0922" layer="51"/>
+<rectangle x1="-2.1" y1="-3.1" x2="-0.85" y2="3.1" layer="21"/>
 </package>
 </packages>
 <symbols>
@@ -7984,7 +8018,7 @@ Source: http://www.diodes.com/datasheets/ds31262.pdf</description>
 <wire x1="-0.762" y1="-3.048" x2="0.762" y2="-3.048" width="0.254" layer="94"/>
 <wire x1="-0.254" y1="-3.556" x2="0.254" y2="-3.556" width="0.254" layer="94"/>
 </symbol>
-<symbol name="LM2575S-15">
+<symbol name="LM2575S-5">
 <pin name="VIN" x="-17.78" y="2.54" length="middle" direction="in"/>
 <pin name="~ON~/OFF" x="-17.78" y="-2.54" length="middle" direction="pas"/>
 <pin name="GND_2" x="-17.78" y="-7.62" length="middle" direction="pas"/>
@@ -8218,61 +8252,61 @@ Source: http://www.diodes.com/datasheets/ds31262.pdf</description>
 </device>
 </devices>
 </deviceset>
-<deviceset name="STM32F050C6T6A">
+<deviceset name="STM32F050C6T6A" prefix="IC">
 <gates>
-<gate name="G$1" symbol="STM32F050C6T6A" x="0" y="0"/>
+<gate name="1" symbol="STM32F050C6T6A" x="0" y="0"/>
 </gates>
 <devices>
 <device name="" package="LQFP48">
 <connects>
-<connect gate="G$1" pin="BOOT0" pad="44"/>
-<connect gate="G$1" pin="NRST" pad="7"/>
-<connect gate="G$1" pin="PA0" pad="10"/>
-<connect gate="G$1" pin="PA1" pad="11"/>
-<connect gate="G$1" pin="PA10" pad="31"/>
-<connect gate="G$1" pin="PA11" pad="32"/>
-<connect gate="G$1" pin="PA12" pad="33"/>
-<connect gate="G$1" pin="PA13" pad="34"/>
-<connect gate="G$1" pin="PA14" pad="37"/>
-<connect gate="G$1" pin="PA15" pad="38"/>
-<connect gate="G$1" pin="PA2" pad="12"/>
-<connect gate="G$1" pin="PA3" pad="13"/>
-<connect gate="G$1" pin="PA4" pad="14"/>
-<connect gate="G$1" pin="PA5" pad="15"/>
-<connect gate="G$1" pin="PA6" pad="16"/>
-<connect gate="G$1" pin="PA7" pad="17"/>
-<connect gate="G$1" pin="PA8" pad="29"/>
-<connect gate="G$1" pin="PA9" pad="30"/>
-<connect gate="G$1" pin="PB0" pad="18"/>
-<connect gate="G$1" pin="PB1" pad="19"/>
-<connect gate="G$1" pin="PB10" pad="21"/>
-<connect gate="G$1" pin="PB11" pad="22"/>
-<connect gate="G$1" pin="PB12" pad="25"/>
-<connect gate="G$1" pin="PB13" pad="26"/>
-<connect gate="G$1" pin="PB14" pad="27"/>
-<connect gate="G$1" pin="PB15" pad="28"/>
-<connect gate="G$1" pin="PB2" pad="20"/>
-<connect gate="G$1" pin="PB3" pad="39"/>
-<connect gate="G$1" pin="PB4" pad="40"/>
-<connect gate="G$1" pin="PB5" pad="41"/>
-<connect gate="G$1" pin="PB6" pad="42"/>
-<connect gate="G$1" pin="PB7" pad="43"/>
-<connect gate="G$1" pin="PB8" pad="45"/>
-<connect gate="G$1" pin="PB9" pad="46"/>
-<connect gate="G$1" pin="PC13" pad="2"/>
-<connect gate="G$1" pin="PC14_OSC32_IN" pad="3"/>
-<connect gate="G$1" pin="PC15_OSC32_OUT" pad="4"/>
-<connect gate="G$1" pin="PF0_OSC_IN" pad="5"/>
-<connect gate="G$1" pin="PF1_OSC_OUT" pad="6"/>
-<connect gate="G$1" pin="PF6" pad="35"/>
-<connect gate="G$1" pin="PF7" pad="36"/>
-<connect gate="G$1" pin="VBATT" pad="1"/>
-<connect gate="G$1" pin="VDD" pad="24"/>
-<connect gate="G$1" pin="VDDA" pad="9"/>
-<connect gate="G$1" pin="VDD_" pad="48"/>
-<connect gate="G$1" pin="VSS" pad="23"/>
-<connect gate="G$1" pin="VSSA" pad="8"/>
-<connect gate="G$1" pin="VSS_" pad="47"/>
+<connect gate="1" pin="BOOT0" pad="44"/>
+<connect gate="1" pin="NRST" pad="7"/>
+<connect gate="1" pin="PA0" pad="10"/>
+<connect gate="1" pin="PA1" pad="11"/>
+<connect gate="1" pin="PA10" pad="31"/>
+<connect gate="1" pin="PA11" pad="32"/>
+<connect gate="1" pin="PA12" pad="33"/>
+<connect gate="1" pin="PA13" pad="34"/>
+<connect gate="1" pin="PA14" pad="37"/>
+<connect gate="1" pin="PA15" pad="38"/>
+<connect gate="1" pin="PA2" pad="12"/>
+<connect gate="1" pin="PA3" pad="13"/>
+<connect gate="1" pin="PA4" pad="14"/>
+<connect gate="1" pin="PA5" pad="15"/>
+<connect gate="1" pin="PA6" pad="16"/>
+<connect gate="1" pin="PA7" pad="17"/>
+<connect gate="1" pin="PA8" pad="29"/>
+<connect gate="1" pin="PA9" pad="30"/>
+<connect gate="1" pin="PB0" pad="18"/>
+<connect gate="1" pin="PB1" pad="19"/>
+<connect gate="1" pin="PB10" pad="21"/>
+<connect gate="1" pin="PB11" pad="22"/>
+<connect gate="1" pin="PB12" pad="25"/>
+<connect gate="1" pin="PB13" pad="26"/>
+<connect gate="1" pin="PB14" pad="27"/>
+<connect gate="1" pin="PB15" pad="28"/>
+<connect gate="1" pin="PB2" pad="20"/>
+<connect gate="1" pin="PB3" pad="39"/>
+<connect gate="1" pin="PB4" pad="40"/>
+<connect gate="1" pin="PB5" pad="41"/>
+<connect gate="1" pin="PB6" pad="42"/>
+<connect gate="1" pin="PB7" pad="43"/>
+<connect gate="1" pin="PB8" pad="45"/>
+<connect gate="1" pin="PB9" pad="46"/>
+<connect gate="1" pin="PC13" pad="2"/>
+<connect gate="1" pin="PC14_OSC32_IN" pad="3"/>
+<connect gate="1" pin="PC15_OSC32_OUT" pad="4"/>
+<connect gate="1" pin="PF0_OSC_IN" pad="5"/>
+<connect gate="1" pin="PF1_OSC_OUT" pad="6"/>
+<connect gate="1" pin="PF6" pad="35"/>
+<connect gate="1" pin="PF7" pad="36"/>
+<connect gate="1" pin="VBATT" pad="1"/>
+<connect gate="1" pin="VDD" pad="24"/>
+<connect gate="1" pin="VDDA" pad="9"/>
+<connect gate="1" pin="VDD_" pad="48"/>
+<connect gate="1" pin="VSS" pad="23"/>
+<connect gate="1" pin="VSSA" pad="8"/>
+<connect gate="1" pin="VSS_" pad="47"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -8790,10 +8824,10 @@ Farnell: http://onecall.farnell.com/citizen-america/cmj206t32-768kdzf-ut/crystal
 </device>
 </devices>
 </deviceset>
-<deviceset name="LM2575S-15" prefix="U">
+<deviceset name="LM2575S-5" prefix="U">
 <description>Voltage Regulator</description>
 <gates>
-<gate name="A" symbol="LM2575S-15" x="0" y="0"/>
+<gate name="A" symbol="LM2575S-5" x="0" y="0"/>
 </gates>
 <devices>
 <device name="" package="TO170P1435X465-6N">
@@ -8981,6 +9015,22 @@ Farnell: 1336556</description>
 </gates>
 <devices>
 <device name="" package="DO214AA">
+<connects>
+<connect gate="1" pin="ANODE" pad="A"/>
+<connect gate="1" pin="CATHODE" pad="C"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="DIODE_B340-13-F" prefix="D">
+<gates>
+<gate name="1" symbol="DIODE" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="SMC">
 <connects>
 <connect gate="1" pin="ANODE" pad="A"/>
 <connect gate="1" pin="CATHODE" pad="C"/>
