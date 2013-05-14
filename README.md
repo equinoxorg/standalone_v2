@@ -7,9 +7,9 @@ Cadsoft EAGLE v6 is the tool of choice when designing PCBs
 
 ###Contents
 
-*Connectors: Test PCB for the faceplate connections
-*mppt: Test Maximum power point tracking hardware. To be controllered by external microporcessor development board
-*standalone: final product designs
+* Connectors: Test PCB for the faceplate connections
+* mppt: Test Maximum power point tracking hardware. To be controllered by external microporcessor development board
+* standalone: final product designs
 
 
 ##Software
