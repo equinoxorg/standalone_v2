@@ -1,0 +1,1 @@
+LICENSE for hardware and software is sperarate, check individual folders for license information
