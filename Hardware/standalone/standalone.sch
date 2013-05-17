@@ -2219,19 +2219,7 @@ DIN A3, landscape with location and doc. field</description>
 <wire x1="4.555" y1="4.65" x2="4.555" y2="-6.35" width="0.127" layer="21"/>
 <circle x="0.055" y="0.05" radius="3.2" width="0.127" layer="21"/>
 <circle x="0.055" y="0.05" radius="1.05" width="0.127" layer="21"/>
-<hole x="3.555" y="-5.35" drill="1.2"/>
-<hole x="-3.445" y="-5.35" drill="1.2"/>
-<hole x="3.555" y="2.45" drill="1.2"/>
-<hole x="-3.445" y="2.45" drill="1.2"/>
 <wire x1="4.555" y1="3.65" x2="-4.445" y2="3.65" width="0.127" layer="21"/>
-<polygon width="0.127" layer="41">
-<vertex x="-3.81" y="2.54"/>
-<vertex x="-3.81" y="-2.54"/>
-<vertex x="-2.54" y="-2.54"/>
-<vertex x="0" y="-1.27"/>
-<vertex x="2.54" y="-1.27"/>
-<vertex x="2.54" y="2.54"/>
-</polygon>
 </package>
 <package name="LQFP48">
 <wire x1="-3.1" y1="-3.4" x2="3.1" y2="-3.4" width="0.1524" layer="21"/>
