@@ -59,14 +59,14 @@ __task void init (void)
 {	
 	init_adc();
 	
-	printf("Starting charge controller task \n" );
-	charge_control_t = os_tsk_create( charge_control, 0);
+	//printf("Starting charge controller task \n" );
+	//charge_control_t = os_tsk_create( charge_control, 0);
 	
 	//printf("Starting lcd task \n");
 	//lcd_t = os_tsk_create(lcd, 0);
 	
-	//printf("Starting pwm_out task \n");
-	//pwm_out_t = os_tsk_create( pwm_out, 0);
+	printf("Starting pwm_out task \n");
+	pwm_out_t = os_tsk_create( pwm_out, 0);
 	
 	//printf("Starting adc_in task \n");
 	//adc_test_t = os_tsk_create( adc_test, 0);

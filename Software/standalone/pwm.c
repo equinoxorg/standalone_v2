@@ -88,21 +88,21 @@ void TIM_Config(void)
   /* GPIOA Clocks enable */
   RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA, ENABLE);
   
-  /* GPIOA Configuration: Channel 1, 2, 3 and 4 as alternate function push-pull */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 ;
+  /* GPIOA Configuration: Channel 1N as alternate function push-pull */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7 ;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP ;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
   
-  GPIO_PinAFConfig(GPIOA, GPIO_PinSource8, GPIO_AF_2);
+  GPIO_PinAFConfig(GPIOA, GPIO_PinSource7, GPIO_AF_2);
 	
 	/* GPIOC Periph clock enable */
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 
-  /* Configure PC8 and PC9 in output pushpull mode */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9;
+  /* Configure PC7 in output pushpull mode */
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
