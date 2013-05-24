@@ -10,6 +10,7 @@
  *---------------------------------------------------------------------------*/
 
 #include <RTL.h>
+#include <stdio.h>
 
 /*----------------------------------------------------------------------------
  *      RTX User configuration part BEGIN
@@ -38,8 +39,9 @@
 //   <o>Task stack size [bytes] <20-4096:8><#/4>
 //   <i> Set the stack size for tasks which is assigned by the system.
 //   <i> Default: 200
+//   <i> This give 4 x Value bytes of stack as we have a 32bit system
 #ifndef OS_STKSIZE
- #define OS_STKSIZE     64
+ #define OS_STKSIZE     128
 #endif
 
 // <q>Check for the stack overflow
@@ -163,19 +165,7 @@ void os_tmr_call (U16 info) {
 void os_error (U32 err_code) {
   /* This function is called when a runtime error is detected. Parameter */
   /* 'err_code' holds the runtime error code (defined in RTL.H).         */
-	
-	switch (err_code)
-	{
-		case OS_ERR_STK_OVF:
-			break;
-		case OS_ERR_FIFO_OVF:
-			break;
-		case OS_ERR_MBX_OVF:
-			break;
-		default:
-			break;
-	}
-
+	printf("OS Error: %i", err_code);
 
   /* HERE: include optional code to be executed on runtime error. */
   for (;;);
