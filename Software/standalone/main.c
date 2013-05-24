@@ -36,33 +36,22 @@
 /* Private function prototypes -----------------------------------------------*/
 void setup_rtc(void);
 void print_time_date ( void );
-__task void charge_control(void);
 struct tm get_time_struct (void);
 void usb_outputs_config (void);
 void dc_outputs_config (void);
 
-OS_TID charge_control_t, pwm_out_t, adc_test_t, perturb_and_observe_t, lcd_t, interrupted_charging_t;
+OS_TID pwm_out_t, adc_test_t, perturb_and_observe_t, lcd_t, interrupted_charging_t;
 
-/* Task to set up charge control */
-__task void charge_control (void)
-{
+
+__task void init (void) 
+{	
+	init_adc();
 	
 	//Start the P&O charge control algo
 	perturb_and_observe_t = os_tsk_create( perturb_and_observe, 0);
 	
 	//Start the interrupted charging algoritm
 	//interrupted_charging_t = os_tsk_create( interrupted_charging, 0);
-	
-	//Exit but leave P&O running
-	os_tsk_delete_self();
-}
-
-__task void init (void) 
-{	
-	init_adc();
-	
-	//printf("Starting charge controller task \n" );
-	//charge_control_t = os_tsk_create( charge_control, 0);
 	
 	printf("Starting lcd task \n");
 	lcd_t = os_tsk_create(lcd, 0);
