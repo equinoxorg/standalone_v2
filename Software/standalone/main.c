@@ -38,6 +38,8 @@ void setup_rtc(void);
 void print_time_date ( void );
 __task void charge_control(void);
 struct tm get_time_struct (void);
+void usb_outputs_config (void);
+void dc_outputs_config (void);
 
 OS_TID charge_control_t, pwm_out_t, adc_test_t, perturb_and_observe_t, lcd_t, interrupted_charging_t;
 
@@ -62,11 +64,11 @@ __task void init (void)
 	//printf("Starting charge controller task \n" );
 	//charge_control_t = os_tsk_create( charge_control, 0);
 	
-	//printf("Starting lcd task \n");
-	//lcd_t = os_tsk_create(lcd, 0);
+	printf("Starting lcd task \n");
+	lcd_t = os_tsk_create(lcd, 0);
 	
-	printf("Starting pwm_out task \n");
-	pwm_out_t = os_tsk_create( pwm_out, 0);
+	//printf("Starting pwm_out task \n");
+	//pwm_out_t = os_tsk_create( pwm_out, 0);
 	
 	//printf("Starting adc_in task \n");
 	//adc_test_t = os_tsk_create( adc_test, 0);
@@ -82,18 +84,58 @@ __task void init (void)
   */
 int main(void)
 {
+
 	Serial.begin(115200); //Open com on uart1 0-1 pins
 	
 	//Set up RTC
 	setup_rtc();
-		
+			
+	usb_outputs_config();
+	dc_outputs_config();
+	GPIO_SetBits(GPIOF ,(GPIO_Pin_6 | GPIO_Pin_7) );
+	GPIO_SetBits(GPIOA ,GPIO_Pin_12 );
+	
 	os_sys_init (init); 
+
 	while(1)
 	{
-		//print_time_date();
+ 		//print_time_date();
 	}
 }
 
+void usb_outputs_config (void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	
+	/* GPIOF Clocks enable */
+  RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOF, ENABLE);
+  
+  /* GPIOF Configuration*/
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
+  GPIO_Init(GPIOF, &GPIO_InitStructure);
+  
+}
+
+void dc_outputs_config (void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	
+	/* GPIOF Clocks enable */
+  RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA, ENABLE);
+  
+  /* GPIOF Configuration*/
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  
+}
 
 void setup_rtc (void) 
 {

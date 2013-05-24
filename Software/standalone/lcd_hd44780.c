@@ -1,12 +1,15 @@
 // Includes
 #include "lcd_hd44780.h"
 
-//Pin Definitions
+//Data Pin Definitions
+	//PORT B
 #define LCD_D4	GPIO_Pin_15
 #define LCD_D5	GPIO_Pin_14
 #define LCD_D6	GPIO_Pin_13
 #define LCD_D7	GPIO_Pin_12
 
+//Control Pin Definitions
+	//PORT 
 #define LCD_RS	GPIO_Pin_2
 // \/ THIS PIN IS NEVER USED!!! \/
 #define LCD_RW	GPIO_Pin_10
@@ -29,18 +32,40 @@ void lcd_send_cmd (uint8_t);
 void lcd_send_4_bits (uint8_t);
 void lcd_clear (void);
 void lcd_putc (char);
+void lcd_goto_XY(uint8_t,uint8_t);
+
 
 //Main lcd task which handles all interactions with the LCD
 __task void lcd (void)
 {
+	int i=0;
+	os_dly_wait(10);
 	lcd_init();
 	
 	while (1)
 	{
+		GPIO_SetBits(GPIOB, LCD_BK_EN);
+		lcd_goto_XY(i,0);
 		lcd_putc('a');
 		//Wait 2s
-		os_dly_wait(2000);
+		os_dly_wait(200);
+		GPIO_ResetBits(GPIOB, LCD_BK_EN);
+		lcd_goto_XY(i,1);
+		lcd_putc('b');
+		//Wait 2s
+		os_dly_wait(200);
+		i++;
 	}
+}
+
+void lcd_goto_XY(uint8_t x,uint8_t y)
+{
+ if(x<40)
+ {
+  if(y) x|= 0x40;
+  x|=0x80;
+  lcd_send_cmd(x);
+  }
 }
 
 void delay100u (int dly)
@@ -84,6 +109,9 @@ void lcd_init (void)
 	
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
+	GPIO_ResetBits(GPIOB, (LCD_E | LCD_RS | LCD_RW | LCD_BK_EN) );
+	
+	delay100u(100);
 	
 	//Software Reset Display
 	GPIO_SetBits(GPIOB, (LCD_D4 | LCD_D5) );
@@ -99,6 +127,7 @@ void lcd_init (void)
 	GPIO_ResetBits(GPIOB, LCD_D4 );
 	cycle_e();
 	lcd_send_cmd(LCD_DISP_ON);
+	lcd_send_cmd( 0x28 );
 	lcd_clear();
 	
 	//Wait 20ms, handing control to other tasks

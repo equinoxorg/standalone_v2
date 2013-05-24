@@ -65,10 +65,7 @@ __task void pwm_out (void) {
 		mppt_duty_cycle += 0.1;
 		if (mppt_duty_cycle > 40)
 			mppt_duty_cycle = 20;
-		
-		/* Toggle PC8 and PC9 */
-		GPIOC->ODR ^= BSRR_VAL;
-		
+				
 		set_duty_cycle(mppt_duty_cycle);
 
 		//Wait 200ms
@@ -108,7 +105,6 @@ void TIM_Config(void)
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_Init(GPIOC, &GPIO_InitStructure);
-
 
 }
 
