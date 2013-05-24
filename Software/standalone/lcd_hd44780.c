@@ -27,45 +27,97 @@
 //Function Prototypes
 void delay100u (int);
 void cycle_e (void);
-void lcd_init (void);
-void lcd_send_cmd (uint8_t);
 void lcd_send_4_bits (uint8_t);
-void lcd_clear (void);
-void lcd_putc (char);
-void lcd_goto_XY(uint8_t,uint8_t);
-
 
 //Main lcd task which handles all interactions with the LCD
 __task void lcd (void)
 {
-	int i=0;
+	int i = 0;
+	char offset = 0;
 	os_dly_wait(10);
 	lcd_init();
+	GPIO_SetBits(GPIOB, LCD_BK_EN);
+	
+	os_dly_wait(100);
+	
+	lcd_goto_XY(0,0);
+	lcd_putc('L');
+	lcd_putc('i');
+	lcd_putc('n');
+	lcd_putc('e');
+	lcd_putc(' ');
+	lcd_putc('1');
+	
+	lcd_goto_XY(0,1);
+	lcd_putc('L');
+	lcd_putc('i');
+	lcd_putc('n');
+	lcd_putc('e');
+	lcd_putc(' ');
+	lcd_putc('2');
+	
+	os_dly_wait(200);
 	
 	while (1)
 	{
-		GPIO_SetBits(GPIOB, LCD_BK_EN);
-		lcd_goto_XY(i,0);
-		lcd_putc('a');
-		//Wait 2s
-		os_dly_wait(200);
-		GPIO_ResetBits(GPIOB, LCD_BK_EN);
-		lcd_goto_XY(i,1);
-		lcd_putc('b');
-		//Wait 2s
-		os_dly_wait(200);
-		i++;
+		if (i%2)
+		{
+			lcd_goto_XY((i/2),0);
+			lcd_putc('a'+offset);
+			os_dly_wait(100);
+		}
+		else
+		{
+			lcd_goto_XY((i/2),1);
+			lcd_putc('b'+offset);
+			os_dly_wait(100);			
+		}
+		
+		if( ++i == 32 )
+		{
+			i = 0;
+			offset++;
+		}
 	}
 }
 
-void lcd_goto_XY(uint8_t x,uint8_t y)
+void lcd_backlight(char en)
 {
- if(x<40)
- {
-  if(y) x|= 0x40;
-  x|=0x80;
-  lcd_send_cmd(x);
-  }
+	if (en)
+		GPIO_SetBits(GPIOB, LCD_BK_EN );
+	else
+		GPIO_ResetBits(GPIOB, LCD_BK_EN );
+}
+
+void lcd_write_int(const int val)
+{
+	char str[16];
+	
+	if ( snprintf( &str[0], 16, "%d", val ) > 16 )
+			printf( "Warning: String too long \n");
+	
+	lcd_write_string(str);
+}
+
+void lcd_write_string(const char *msg)
+{
+	while(*msg!='\0')
+	{
+		lcd_putc(*msg);
+		msg++;
+	}
+}
+
+void lcd_goto_XY(uint8_t x, uint8_t y)
+{
+	//Default line 0, pos 0 address
+	uint8_t addr = 0x80;
+	
+	if ( y == 1 )
+		addr = 0xC0;
+	
+	addr += x;	
+  lcd_send_cmd(addr); 
 }
 
 void delay100u (int dly)
@@ -83,9 +135,9 @@ void delay100u (int dly)
 void cycle_e (void)
 {
   GPIO_SetBits(GPIOB, LCD_E);
-  delay100u(1);
+  delay100u(100);
   GPIO_ResetBits(GPIOB, LCD_E);
-  delay100u(1);
+  delay100u(100);
 }
 
 void lcd_init (void) 
@@ -126,10 +178,10 @@ void lcd_init (void)
 	
 	GPIO_ResetBits(GPIOB, LCD_D4 );
 	cycle_e();
-	lcd_send_cmd(LCD_DISP_ON);
+	//lcd_send_cmd(LCD_DISP_ON);
 	lcd_send_cmd( 0x28 );
 	lcd_clear();
-	
+		
 	//Wait 20ms, handing control to other tasks
 	os_dly_wait(20);
 	
@@ -180,7 +232,7 @@ void lcd_send_cmd (uint8_t c)
 void lcd_clear (void)
 {
 	lcd_send_cmd(LCD_CLR);
-	delay100u(20);
+	delay100u(100);
 }
 
 void lcd_putc (char c)

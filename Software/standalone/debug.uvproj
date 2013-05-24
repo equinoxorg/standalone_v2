@@ -426,6 +426,11 @@
               <FileType>1</FileType>
               <FilePath>.\interrupted_charging.c</FilePath>
             </File>
+            <File>
+              <FileName>lcd_hd44780.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\lcd_hd44780.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
