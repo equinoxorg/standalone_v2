@@ -40,12 +40,16 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 
 __task void adc_test(void)
 {	
+	float sol_v, sol_i, batt_v, batt_i;
+	
 	while (1)
 	{
-		printf("Solar V: %f \n", get_adc_voltage(ADC_SOL_V) );
-		printf("Solar I: %f \n", get_adc_voltage(ADC_SOL_I) );
-		printf("Batt  V: %f \n", get_adc_voltage(ADC_BATT_V) );
-		printf("Batt  I: %f \n", get_adc_voltage(ADC_BATT_I) );
+		sol_v = get_adc_voltage(ADC_SOL_V);
+		sol_i = get_adc_voltage(ADC_SOL_I);
+		batt_v = get_adc_voltage(ADC_BATT_V);
+		batt_i = get_adc_voltage(ADC_BATT_I);
+		
+		printf("Solar V: %f \n Solar I: %f \n Batt  V: %f \n Batt  I: %f \n", sol_v, sol_i, batt_v, batt_i );
 		
 		os_dly_wait(100);
 	}
@@ -62,16 +66,18 @@ void init_adc( void )
 	DMA_InitTypeDef DMA_InitStructure;
 	GPIO_InitTypeDef GPIO_InitStructure;
 		
-  // GPIOC Periph clock enable 
-  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
+  // GPIOA Periph clock enable 
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
 
   
 	GPIO_StructInit(&GPIO_InitStructure);
-  // Configure ADC Channel10/11/12/13 PC0/1/2/3 as analog input 
-  GPIO_InitStructure.GPIO_Pin = (GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 );
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
+  //Configure ADC Channel10/11/12/13 PC0/1/2/3 as analog input 
+  //GPIO_InitStructure.GPIO_Pin = (GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 );
+  //Configure ADC Channel1/2/3/4 PA1/2/3/4 as analog input 
+  GPIO_InitStructure.GPIO_Pin = (GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 );
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
-  GPIO_Init(GPIOC, &GPIO_InitStructure);
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
   
   // ADC1 DeInit    
   ADC_DeInit(ADC1);

@@ -9,10 +9,10 @@
 	#define ADC_VREF 3.0f
 #endif
 
-#define ADC_SOL_V		ADC_Channel_10 //PC0
-#define ADC_SOL_I		ADC_Channel_11 //PC1
-#define ADC_BATT_V	ADC_Channel_12 //PC2
-#define ADC_BATT_I	ADC_Channel_13 //PC3
+#define ADC_SOL_V		ADC_Channel_1 //PA1
+#define ADC_SOL_I		ADC_Channel_2 //PA2
+#define ADC_BATT_V	ADC_Channel_3 //PA3
+#define ADC_BATT_I	ADC_Channel_4 //PA4
 
 
 #define SCALE_V_SOL(x)	((x) * ((10.0f + 1.32f) / 1.32f ) )
