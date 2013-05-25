@@ -48,7 +48,7 @@ __task void init (void)
 	init_adc();
 	
 	//Start the P&O charge control algo
-	perturb_and_observe_t = os_tsk_create( perturb_and_observe, 0);
+	//perturb_and_observe_t = os_tsk_create( perturb_and_observe, 0);
 	
 	//Start the interrupted charging algoritm
 	//interrupted_charging_t = os_tsk_create( interrupted_charging, 0);
@@ -59,8 +59,8 @@ __task void init (void)
 	//printf("Starting pwm_out task \n");
 	//pwm_out_t = os_tsk_create( pwm_out, 0);
 	
-	//printf("Starting adc_in task \n");
-	//adc_test_t = os_tsk_create( adc_test, 0);
+	printf("Starting adc_in task \n");
+	adc_test_t = os_tsk_create( adc_test, 0);
 		
 	os_tsk_delete_self ();
 }
@@ -96,6 +96,8 @@ void usb_outputs_config (void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	
+	//Set up USB Enable Pins
+	
 	/* GPIOF Clocks enable */
   RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOF, ENABLE);
   
@@ -106,7 +108,22 @@ void usb_outputs_config (void)
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
   GPIO_Init(GPIOF, &GPIO_InitStructure);
+	
+	//Set up USB Error input pins
+	
+	GPIO_StructInit(&GPIO_InitStructure);
+	
+	// GPIOA Clocks enable 
+  RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA, ENABLE);
   
+  // GPIOA Configuration
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP ;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
 }
 
 void dc_outputs_config (void)
