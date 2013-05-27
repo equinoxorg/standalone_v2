@@ -99,8 +99,8 @@ int main(void)
 	/* Configure PA0 in interrupt mode */
   EXTI0_Config();
 
-  /* Generate software interrupt: simulate a falling edge applied on EXTI0 line */
-  EXTI_GenerateSWInterrupt(EXTI_Line0);
+  /* Generate software interrupt: simulate a falling edge applied on EXTI5 line */
+	//EXTI_GenerateSWInterrupt(EXTI_Line5);
 	
 	//os_sys_init (init); 
 
@@ -122,30 +122,43 @@ void EXTI0_Config(void)
   GPIO_InitTypeDef   GPIO_InitStructure;
   NVIC_InitTypeDef   NVIC_InitStructure;
   
-  /* Enable GPIOA clock */
-  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
-
-  /* Configure PA0 pin as input floating */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+	// GPIOA Clocks enable 
+  RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA, ENABLE);
+  
+  // GPIOA Configuration
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	//Enable Pull-ups on USB Flag Pins
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP ;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 
   /* Enable SYSCFG clock */
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
   
-  /* Connect EXTI0 Line to PA0 pin */
-  SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource0);
+  /* Connect EXTI5 Line to PA5 pin */
+  SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource5);
 
-  /* Configure EXTI0 line */
-  EXTI_InitStructure.EXTI_Line = EXTI_Line0;
+  /* Configure EXTI5 line */
+  EXTI_InitStructure.EXTI_Line = EXTI_Line5;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
+
+	/* Connect EXTI6 Line to PA6 pin */
+  SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource6);
+
+  /* Configure EXTI6 line */
+  EXTI_InitStructure.EXTI_Line = EXTI_Line6;
   EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
   EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
   EXTI_InitStructure.EXTI_LineCmd = ENABLE;
   EXTI_Init(&EXTI_InitStructure);
 
   /* Enable and set EXTI0 Interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = EXTI0_1_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI4_15_IRQn;
   NVIC_InitStructure.NVIC_IRQChannelPriority = 0x00;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   NVIC_Init(&NVIC_InitStructure);
@@ -172,16 +185,7 @@ void usb_outputs_config (void)
 	//Set up USB Error input pins
 	GPIO_StructInit(&GPIO_InitStructure);
 	
-	// GPIOA Clocks enable 
-  RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOA, ENABLE);
-  
-  // GPIOA Configuration
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP ;
-  GPIO_Init(GPIOA, &GPIO_InitStructure);
+
 	
 }
 

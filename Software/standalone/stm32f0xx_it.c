@@ -101,6 +101,32 @@ void EXTI0_1_IRQHandler(void)
 	}
 }
 
+void EXTI4_15_IRQHandler(void)
+{
+	if (EXTI_GetITStatus(EXTI_Line5) != RESET) {
+		//Check Which Pin Caused Interrupt
+		
+		//USB_FLG_1 Error!!
+		
+		//Disable USB_EN_1
+		GPIO_ResetBits(GPIOF , GPIO_Pin_7 );
+		
+		//Clear the EXTI line 5 pending bit
+    EXTI_ClearITPendingBit(EXTI_Line5);
+	}
+	if (EXTI_GetITStatus(EXTI_Line6) != RESET) {
+		//Check Which Pin Caused Interrupt
+		
+		//USB_FLG_2 Error!!
+		
+		//Disable USB_EN_2
+		GPIO_ResetBits(GPIOF , GPIO_Pin_6 );
+		
+		//Clear the EXTI line 5 pending bit
+    EXTI_ClearITPendingBit(EXTI_Line6);
+	}
+}
+
 /**
   * @}
   */
