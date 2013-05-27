@@ -59,7 +59,7 @@ static char rcv_buff_full=0;           //rcv_buff is full. pt_rcv_write
 /* Private function prototypes -----------------------------------------------*/
 static void GPIO_Configuration_USART1(void);
 static void NVIC_Configuration(void);
-static void UART2_Init(uint32_t baud_rate);
+static void UART1_Init(uint32_t baud_rate);
 static USART_TypeDef* USARTx = USART1;
 
 /* Private functions ---------------------------------------------------------*/
@@ -68,7 +68,7 @@ static USART_TypeDef* USARTx = USART1;
   * @param  Serial baud rate communication speed
   * @retval None
   */
-static void UART2_Init(uint32_t baud_rate){
+static void UART1_Init(uint32_t baud_rate){
   /*The internal UART module module is set to :
 	default Tx and Rx pins. 
 	115200 baud
@@ -117,7 +117,7 @@ int putchar(int chr)
   * @retval None
   */
 void begin_fcn(uint32_t baudRate) {
-  UART2_Init(baudRate);
+  UART1_Init(baudRate);
   Serial.baudRate = baudRate;
 }
 

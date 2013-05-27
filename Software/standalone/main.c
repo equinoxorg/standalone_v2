@@ -96,9 +96,7 @@ int main(void)
 	GPIO_SetBits(GPIOF ,(GPIO_Pin_6 | GPIO_Pin_7) );
 	GPIO_SetBits(GPIOA ,GPIO_Pin_12 );
 	
-	/* Configure PA0 in interrupt mode */
-  EXTI0_Config();
-
+	
   /* Generate software interrupt: simulate a falling edge applied on EXTI5 line */
 	//EXTI_GenerateSWInterrupt(EXTI_Line5);
 	
@@ -106,7 +104,7 @@ int main(void)
 
 	while(1)
 	{
- 		//print_time_date();
+		//print_time_date();
 	}
 }
 
@@ -182,11 +180,8 @@ void usb_outputs_config (void)
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
   GPIO_Init(GPIOF, &GPIO_InitStructure);
 	
-	//Set up USB Error input pins
-	GPIO_StructInit(&GPIO_InitStructure);
-	
-
-	
+	//Set up USB Error Interrupts
+  EXTI0_Config();
 }
 
 void dc_outputs_config (void)

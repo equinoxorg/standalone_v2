@@ -1,5 +1,5 @@
 Dependencies for Project 'debug', Target 'Target 1': (DO NOT MODIFY !)
-F (.\main.c)(0x51A372E6)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0-Discovery -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\main.o" --omf_browse ".\debug\main.crf" --depend ".\debug\main.d")
+F (.\main.c)(0x51A378F0)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0-Discovery -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\main.o" --omf_browse ".\debug\main.crf" --depend ".\debug\main.d")
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\time.h)(0x4EB15112)
@@ -31,7 +31,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-I (serial.h)(0x51731863)
+I (serial.h)(0x51A378A3)
 I (adc.h)(0x51A09C0A)
 I (pwm.h)(0x519B5402)
 I (lcd_hd44780.h)(0x519FD67F)
@@ -41,7 +41,7 @@ F (.\Retarget.c)(0x513E03C0)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --ap
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\time.h)(0x4EB15112)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\rt_misc.h)(0x4EB15110)
-I (serial.h)(0x51731863)
+I (serial.h)(0x51A378A3)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB15114)
@@ -168,7 +168,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\serial.c)(0x51731949)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0-Discovery -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\serial.o" --omf_browse ".\debug\serial.crf" --depend ".\debug\serial.d")
+F (.\serial.c)(0x51A37804)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0-Discovery -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\serial.o" --omf_browse ".\debug\serial.crf" --depend ".\debug\serial.d")
 I (stm32f0xx_conf.h)(0x4F6C6E4F)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_adc.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
@@ -198,7 +198,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-I (serial.h)(0x51731863)
+I (serial.h)(0x51A378A3)
 F (.\interrupted_charging.c)(0x5159A0C8)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0-Discovery -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\interrupted_charging.o" --omf_browse ".\debug\interrupted_charging.crf" --depend ".\debug\interrupted_charging.d")
 I (interrupted_charging.h)(0x51598B74)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)

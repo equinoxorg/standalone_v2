@@ -63,10 +63,10 @@ extern Serial_TypeDef Serial;
 #define BUFFER_RCV_SIZE 	64
 
 /*Pins definition */
-#define TX_PIN  			GPIO_Pin_2 
-#define RX_PIN  			GPIO_Pin_3
-#define TX_PIN_SOURCE   	GPIO_PinSource2
-#define RX_PIN_SOURCE   	GPIO_PinSource3
+#define TX_PIN  			GPIO_Pin_9 
+#define RX_PIN  			GPIO_Pin_10
+#define TX_PIN_SOURCE   	GPIO_PinSource9
+#define RX_PIN_SOURCE   	GPIO_PinSource10
 #define UART_PORT 			GPIOA
 
 /* Exported macro ------------------------------------------------------------*/
