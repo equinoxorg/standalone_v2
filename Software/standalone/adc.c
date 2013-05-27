@@ -71,8 +71,6 @@ void init_adc( void )
 
   
 	GPIO_StructInit(&GPIO_InitStructure);
-  //Configure ADC Channel10/11/12/13 PC0/1/2/3 as analog input 
-  //GPIO_InitStructure.GPIO_Pin = (GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 );
   //Configure ADC Channel1/2/3/4 PA1/2/3/4 as analog input 
   GPIO_InitStructure.GPIO_Pin = (GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3 | GPIO_Pin_4 );
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;

@@ -13,7 +13,6 @@ __task void perturb_and_observe (void) {
 	while (1)
 	{
 		perturb_and_observe_itter();
-		printf("P&O Itteration \n");
 		os_dly_wait(P_AND_O_PERIOD);
 	}
 	
