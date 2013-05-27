@@ -1,6 +1,6 @@
 #include "perturb_and_observe.h"
 
-#define DUTY_CYCLE_INC (float)0.1f
+
 
 /* TODO:
  * Move scaling of adc reads and filtering to adc code files
@@ -13,6 +13,7 @@ __task void perturb_and_observe (void) {
 	while (1)
 	{
 		perturb_and_observe_itter();
+		printf("P&O Itteration \n");
 		os_dly_wait(P_AND_O_PERIOD);
 	}
 	

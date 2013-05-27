@@ -71,33 +71,6 @@ void HardFault_Handler(void)
   }
 }
 
-/**
-  * @brief  This function handles SVCall exception.
-  * @param  None
-  * @retval None
-  */
-void SVC_Handler(void)
-{
-}
-
-/**
-  * @brief  This function handles PendSVC exception.
-  * @param  None
-  * @retval None
-  */
-void PendSV_Handler(void)
-{
-}
-
-/**
-  * @brief  This function handles SysTick Handler.
-  * @param  None
-  * @retval None
-  */
-void SysTick_Handler(void)
-{
-}
-
 /******************************************************************************/
 /*                 STM32F0xx Peripherals Interrupt Handlers                   */
 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
@@ -113,6 +86,20 @@ void SysTick_Handler(void)
 /*void PPP_IRQHandler(void)
 {
 }*/
+
+void EXTI0_1_IRQHandler(void)
+{
+	if (EXTI_GetITStatus(EXTI_Line0) != RESET) {
+		//Check Which Pin Caused Interrupt
+		
+		//Do Something about it
+		
+		//Debouncing
+		delay(50000);
+		while(GPIOA->IDR & GPIO_IDR_0){}
+		EXTI->PR |= EXTI_PR_PR0 ;
+	}
+}
 
 /**
   * @}
