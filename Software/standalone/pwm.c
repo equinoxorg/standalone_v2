@@ -105,6 +105,24 @@ void TIM_Config(void)
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_Init(GPIOC, &GPIO_InitStructure);
+	
+		//Enable cc_en pin
+	//Turn on GPIOB Clock for port B
+	RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOB, ENABLE);	
+
+	//Configure Pins
+	GPIO_StructInit(&GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	
+	
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	
+	//Turn on cc_enable pin
+	GPIO_SetBits(GPIOB, GPIO_Pin_0);
 
 }
 

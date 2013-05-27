@@ -95,6 +95,7 @@ __task void interrupted_charging (void)
 				break;
 			
 			case NIGHT_MODE:
+				//Disable MPPT Circuit
 				GPIO_ResetBits(GPIOB, GPIO_Pin_0);
 			
 				if (get_adc_voltage(ADC_SOL_V) > batt_voltage) //Add proper condition
@@ -115,29 +116,9 @@ __task void interrupted_charging (void)
 
 void init_hardware (void)
 {
-	//Variables
-	GPIO_InitTypeDef GPIO_InitStructure;
 	
 	//Add extra parameter to show which pin
 	init_pwm(40000);
-	
-	//Enable cc_en pin
-	//Turn on GPIOB Clock for port B
-	RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOB, ENABLE);	
-
-	//Configure Pins
-	GPIO_StructInit(&GPIO_InitStructure);
-	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	
-	
-	GPIO_Init(GPIOB, &GPIO_InitStructure);
-	
-	//Turn on cc_enable pin
-	GPIO_SetBits(GPIOB, GPIO_Pin_0);
-	
+		
 }
 
