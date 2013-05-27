@@ -36,28 +36,16 @@ __task void lcd (void)
 	char offset = 0;
 	os_dly_wait(10);
 	lcd_init();
-	GPIO_SetBits(GPIOB, LCD_BK_EN);
-	
-	os_dly_wait(100);
-	
+	lcd_backlight(1);
+		
 	lcd_goto_XY(0,0);
-	lcd_putc('L');
-	lcd_putc('i');
-	lcd_putc('n');
-	lcd_putc('e');
-	lcd_putc(' ');
-	lcd_putc('1');
+	lcd_write_string("e.quinox");
 	
 	lcd_goto_XY(0,1);
-	lcd_putc('L');
-	lcd_putc('i');
-	lcd_putc('n');
-	lcd_putc('e');
-	lcd_putc(' ');
-	lcd_putc('2');
+	lcd_write_int(-12345);
 	
 	os_dly_wait(200);
-	
+		
 	while (1)
 	{
 		if (i%2)
@@ -68,8 +56,8 @@ __task void lcd (void)
 		}
 		else
 		{
-			lcd_goto_XY((i/2),1);
-			lcd_putc('b'+offset);
+			lcd_goto_XY(0,1);
+			lcd_write_int(i);
 			os_dly_wait(100);			
 		}
 		
@@ -135,9 +123,9 @@ void delay100u (int dly)
 void cycle_e (void)
 {
   GPIO_SetBits(GPIOB, LCD_E);
-  delay100u(100);
+  delay100u(10);
   GPIO_ResetBits(GPIOB, LCD_E);
-  delay100u(100);
+  delay100u(10);
 }
 
 void lcd_init (void) 
