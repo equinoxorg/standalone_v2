@@ -25903,7 +25903,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="IC1" library="equinox" deviceset="STM32F050C6T6A" device=""/>
 <part name="FRAME2" library="frames" deviceset="A3L-LOC" device=""/>
 <part name="FRAME1" library="frames" deviceset="A3L-LOC" device=""/>
-<part name="RSENSE2" library="rcl" deviceset="R-EU_" device="R2512" value="0.005"/>
+<part name="RSENSE2" library="rcl" deviceset="R-EU_" device="R2512" value="0.1"/>
 <part name="R1" library="rcl" deviceset="R-EU_" device="M0805" value="470K"/>
 <part name="D1" library="diode" deviceset="DIODE-" device="DO-214AC" value="S1A-E3/5AT"/>
 <part name="D2" library="diode" deviceset="DIODE-" device="DO-214AC" value="S1A-E3/5AT"/>
@@ -25929,7 +25929,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="L_MPPT" library="equinox" deviceset="INDUC_BOURNES_SDR1806" device="" value="330u"/>
 <part name="SENSE_AMP_SOL" library="equinox" deviceset="ZXCT1107SA-7" device=""/>
 <part name="R_GAIN" library="rcl" deviceset="R-EU_" device="M0805" value="1k65"/>
-<part name="RSENSE_BATT" library="rcl" deviceset="R-EU_" device="R2512" value="0.005"/>
+<part name="RSENSE_BATT" library="rcl" deviceset="R-EU_" device="R2512" value="0.1"/>
 <part name="SENSE_AMP_BATT" library="equinox" deviceset="ZXCT1107SA-7" device=""/>
 <part name="R_GAIN1" library="rcl" deviceset="R-EU_" device="M0805" value="1k65"/>
 <part name="GATE_DRIVE" library="equinox" deviceset="IR2104S" device=""/>
@@ -26067,9 +26067,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
   - Change Current Sense R
   - Check if LCD R/W Pin is needed?
   - Add filtering (LC) to AVCC
-  - Change Inductors and Cap for Buck
   - Remove U1 (Not needed)
-  - Change Power Switch
   - Place Keep-out border around the edge of board
   - Contrast Adjust Pot needs changing</text>
 <text x="662.94" y="127" size="1.778" layer="98">1A Current Limit</text>
@@ -26078,6 +26076,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <text x="208.28" y="88.9" size="1.778" layer="98">120mA Max</text>
 <text x="556.26" y="132.08" size="1.778" layer="98" rot="R90">250mA Output</text>
 <text x="297.18" y="66.04" size="1.778" layer="98">Must be 0placed near to IC1</text>
+<text x="165.1" y="193.04" size="1.778" layer="98" rot="R90">Use Internal Pull Ups</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="299.72" y="15.24"/>
@@ -26095,7 +26094,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 </instance>
 <instance part="FRAME2" gate="G$1" x="0" y="0"/>
 <instance part="FRAME1" gate="G$1" x="0" y="269.24"/>
-<instance part="RSENSE2" gate="G$1" x="69.85" y="459.74"/>
+<instance part="RSENSE2" gate="G$1" x="49.53" y="459.74"/>
 <instance part="R1" gate="G$1" x="185.42" y="452.12" rot="R90"/>
 <instance part="D1" gate="G$1" x="215.9" y="447.04" smashed="yes" rot="R180">
 <attribute name="NAME" x="218.44" y="441.4774" size="1.778" layer="95" rot="R180"/>
@@ -26109,9 +26108,9 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="C5" gate="G$1" x="276.86" y="436.88" rot="R90"/>
 <instance part="R2" gate="G$1" x="289.56" y="436.88" rot="R180"/>
 <instance part="C6" gate="G$1" x="294.64" y="408.94"/>
-<instance part="R3" gate="G$1" x="38.1" y="406.4" rot="R90"/>
-<instance part="R4" gate="G$1" x="38.1" y="388.62" rot="R90"/>
-<instance part="C7" gate="G$1" x="30.48" y="388.62" rot="R180"/>
+<instance part="R3" gate="G$1" x="86.36" y="408.94" rot="R90"/>
+<instance part="R4" gate="G$1" x="86.36" y="391.16" rot="R90"/>
+<instance part="C7" gate="G$1" x="78.74" y="388.62" rot="R180"/>
 <instance part="R5" gate="G$1" x="318.77" y="384.81" rot="R90"/>
 <instance part="R6" gate="G$1" x="318.77" y="370.84" rot="R90"/>
 <instance part="C8" gate="G$1" x="313.69" y="369.57" rot="R180"/>
@@ -26122,8 +26121,8 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="R10" gate="G$1" x="233.68" y="378.46" rot="R270"/>
 <instance part="C11" gate="G$1" x="167.64" y="378.46" rot="R90"/>
 <instance part="L_MPPT" gate="1" x="287.02" y="424.18"/>
-<instance part="SENSE_AMP_SOL" gate="A" x="68.58" y="436.88" rot="MR270"/>
-<instance part="R_GAIN" gate="G$1" x="71.12" y="411.48" rot="R90"/>
+<instance part="SENSE_AMP_SOL" gate="A" x="48.26" y="434.34" rot="MR270"/>
+<instance part="R_GAIN" gate="G$1" x="50.8" y="411.48" rot="R90"/>
 <instance part="RSENSE_BATT" gate="G$1" x="345.44" y="424.18"/>
 <instance part="SENSE_AMP_BATT" gate="A" x="342.9" y="401.32" rot="MR270"/>
 <instance part="R_GAIN1" gate="G$1" x="345.44" y="377.19" rot="R90"/>
@@ -26216,7 +26215,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="GND3" gate="1" x="101.6" y="78.74"/>
 <instance part="+3V9" gate="G$1" x="101.6" y="121.92"/>
 <instance part="C3" gate="G$1" x="116.84" y="91.44" rot="R180"/>
-<instance part="C19" gate="G$1" x="86.36" y="408.94" rot="R180"/>
+<instance part="C19" gate="G$1" x="63.5" y="408.94" rot="R180"/>
 <instance part="C20" gate="G$1" x="355.6" y="375.92" rot="R180"/>
 <instance part="D3" gate="1" x="304.8" y="424.18"/>
 <instance part="LED1" gate="G$1" x="533.4" y="127" smashed="yes">
@@ -26285,16 +26284,16 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 </net>
 <net name="SOL_V" class="0">
 <segment>
-<wire x1="38.1" y1="401.32" x2="38.1" y2="396.24" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="396.24" x2="38.1" y2="393.7" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="396.24" x2="30.48" y2="396.24" width="0.1524" layer="91"/>
-<wire x1="30.48" y1="396.24" x2="30.48" y2="393.7" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="396.24" x2="50.8" y2="396.24" width="0.1524" layer="91"/>
-<junction x="38.1" y="396.24"/>
+<wire x1="86.36" y1="403.86" x2="86.36" y2="398.78" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="398.78" x2="86.36" y2="396.24" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="398.78" x2="78.74" y2="398.78" width="0.1524" layer="91"/>
+<wire x1="78.74" y1="398.78" x2="78.74" y2="393.7" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="398.78" x2="96.52" y2="398.78" width="0.1524" layer="91"/>
+<junction x="86.36" y="398.78"/>
 <pinref part="R3" gate="G$1" pin="1"/>
 <pinref part="R4" gate="G$1" pin="2"/>
 <pinref part="C7" gate="G$1" pin="2"/>
-<label x="43.18" y="397.51" size="1.778" layer="95"/>
+<label x="91.44" y="400.05" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="1" pin="PA1"/>
@@ -26304,17 +26303,17 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 </net>
 <net name="SOL_I" class="0">
 <segment>
-<label x="83.82" y="420.37" size="1.778" layer="95"/>
+<label x="68.58" y="420.37" size="1.778" layer="95"/>
 <pinref part="SENSE_AMP_SOL" gate="A" pin="OUT"/>
 <pinref part="R_GAIN" gate="G$1" pin="2"/>
-<wire x1="71.12" y1="424.18" x2="71.12" y2="419.1" width="0.1524" layer="91"/>
-<wire x1="71.12" y1="419.1" x2="71.12" y2="416.56" width="0.1524" layer="91"/>
-<wire x1="71.12" y1="419.1" x2="86.36" y2="419.1" width="0.1524" layer="91"/>
-<junction x="71.12" y="419.1"/>
+<wire x1="50.8" y1="421.64" x2="50.8" y2="419.1" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="419.1" x2="50.8" y2="416.56" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="419.1" x2="63.5" y2="419.1" width="0.1524" layer="91"/>
+<junction x="50.8" y="419.1"/>
 <pinref part="C19" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="419.1" x2="93.98" y2="419.1" width="0.1524" layer="91"/>
-<wire x1="86.36" y1="414.02" x2="86.36" y2="419.1" width="0.1524" layer="91"/>
-<junction x="86.36" y="419.1"/>
+<wire x1="63.5" y1="419.1" x2="73.66" y2="419.1" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="414.02" x2="63.5" y2="419.1" width="0.1524" layer="91"/>
+<junction x="63.5" y="419.1"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="1" pin="PA2"/>
@@ -26356,16 +26355,29 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <pinref part="GATE_DRIVE" gate="G$1" pin="IN"/>
 </segment>
 </net>
-<net name="N$9" class="1">
+<net name="N$14" class="0">
 <segment>
+<wire x1="218.44" y1="447.04" x2="223.52" y2="447.04" width="0.1524" layer="91"/>
+<wire x1="223.52" y1="419.1" x2="223.52" y2="447.04" width="0.1524" layer="91"/>
+<pinref part="D1" gate="G$1" pin="A"/>
+<pinref part="R9" gate="G$1" pin="1"/>
+<pinref part="U2" gate="A" pin="G"/>
+<wire x1="233.68" y1="447.04" x2="223.52" y2="447.04" width="0.1524" layer="91"/>
+<junction x="223.52" y="447.04"/>
+</segment>
+</net>
+<net name="N$16" class="1">
+<segment>
+<pinref part="R3" gate="G$1" pin="2"/>
 <wire x1="185.42" y1="457.2" x2="185.42" y2="459.74" width="0.1524" layer="91"/>
 <wire x1="177.8" y1="459.74" x2="185.42" y2="459.74" width="0.1524" layer="91"/>
 <wire x1="182.88" y1="381" x2="177.8" y2="381" width="0.1524" layer="91"/>
 <wire x1="177.8" y1="381" x2="177.8" y2="398.78" width="0.1524" layer="91"/>
 <wire x1="177.8" y1="398.78" x2="187.96" y2="398.78" width="0.1524" layer="91"/>
 <wire x1="177.8" y1="398.78" x2="177.8" y2="459.74" width="0.1524" layer="91"/>
-<wire x1="74.93" y1="459.74" x2="80.01" y2="459.74" width="0.1524" layer="91"/>
-<wire x1="80.01" y1="459.74" x2="106.68" y2="459.74" width="0.1524" layer="91"/>
+<wire x1="54.61" y1="459.74" x2="59.69" y2="459.74" width="0.1524" layer="91"/>
+<wire x1="59.69" y1="459.74" x2="86.36" y2="459.74" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="459.74" x2="106.68" y2="459.74" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="459.74" x2="115.57" y2="459.74" width="0.1524" layer="91"/>
 <wire x1="115.57" y1="459.74" x2="177.8" y2="459.74" width="0.1524" layer="91"/>
 <wire x1="115.57" y1="453.39" x2="115.57" y2="459.74" width="0.1524" layer="91"/>
@@ -26384,9 +26396,9 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <pinref part="C10" gate="G$1" pin="1"/>
 <pinref part="C11" gate="G$1" pin="2"/>
 <pinref part="SENSE_AMP_SOL" gate="A" pin="S-"/>
-<wire x1="73.66" y1="449.58" x2="73.66" y2="452.12" width="0.1524" layer="91"/>
-<wire x1="73.66" y1="452.12" x2="80.01" y2="459.74" width="0.1524" layer="91"/>
-<junction x="80.01" y="459.74"/>
+<wire x1="53.34" y1="447.04" x2="53.34" y2="452.12" width="0.1524" layer="91"/>
+<wire x1="53.34" y1="452.12" x2="59.69" y2="459.74" width="0.1524" layer="91"/>
+<junction x="59.69" y="459.74"/>
 <pinref part="GATE_DRIVE" gate="G$1" pin="VCC"/>
 <pinref part="U1" gate="A" pin="S"/>
 <pinref part="U1" gate="A" pin="S_2"/>
@@ -26396,55 +26408,17 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <wire x1="190.5" y1="459.74" x2="190.5" y2="457.2" width="0.1524" layer="91"/>
 <wire x1="185.42" y1="459.74" x2="190.5" y2="459.74" width="0.1524" layer="91"/>
 <junction x="185.42" y="459.74"/>
-</segment>
-</net>
-<net name="N$14" class="0">
-<segment>
-<wire x1="218.44" y1="447.04" x2="223.52" y2="447.04" width="0.1524" layer="91"/>
-<wire x1="223.52" y1="419.1" x2="223.52" y2="447.04" width="0.1524" layer="91"/>
-<pinref part="D1" gate="G$1" pin="A"/>
-<pinref part="R9" gate="G$1" pin="1"/>
-<pinref part="U2" gate="A" pin="G"/>
-<wire x1="233.68" y1="447.04" x2="223.52" y2="447.04" width="0.1524" layer="91"/>
-<junction x="223.52" y="447.04"/>
-</segment>
-</net>
-<net name="N$16" class="1">
-<segment>
-<pinref part="RSENSE2" gate="G$1" pin="1"/>
-<wire x1="22.86" y1="459.74" x2="38.1" y2="459.74" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="459.74" x2="59.69" y2="459.74" width="0.1524" layer="91"/>
-<junction x="38.1" y="459.74"/>
-<wire x1="59.69" y1="459.74" x2="64.77" y2="459.74" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="459.74" x2="38.1" y2="411.48" width="0.1524" layer="91"/>
-<pinref part="R3" gate="G$1" pin="2"/>
-<pinref part="SENSE_AMP_SOL" gate="A" pin="S+"/>
-<wire x1="68.58" y1="449.58" x2="68.58" y2="452.12" width="0.1524" layer="91"/>
-<wire x1="68.58" y1="452.12" x2="59.69" y2="459.74" width="0.1524" layer="91"/>
-<junction x="59.69" y="459.74"/>
-<pinref part="SOL" gate="G$1" pin="3"/>
-<wire x1="22.86" y1="414.02" x2="22.86" y2="459.74" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="CC_~EN" class="0">
-<segment>
-<pinref part="R8" gate="G$1" pin="1"/>
-<wire x1="129.54" y1="370.84" x2="147.32" y2="370.84" width="0.1524" layer="91"/>
-<label x="132.08" y="370.84" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="IC1" gate="1" pin="PB0"/>
-<wire x1="190.5" y1="93.98" x2="190.5" y2="76.2" width="0.1524" layer="91"/>
-<label x="190.5" y="78.74" size="1.778" layer="95" rot="R90"/>
+<wire x1="86.36" y1="414.02" x2="86.36" y2="459.74" width="0.1524" layer="91"/>
+<junction x="86.36" y="459.74"/>
 </segment>
 </net>
 <net name="GND" class="1">
 <segment>
 <wire x1="115.57" y1="336.55" x2="115.57" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="115.57" y1="342.9" x2="115.57" y2="445.77" width="0.1524" layer="91"/>
-<wire x1="22.86" y1="342.9" x2="38.1" y2="342.9" width="0.1524" layer="91"/>
-<wire x1="38.1" y1="342.9" x2="71.12" y2="342.9" width="0.1524" layer="91"/>
-<wire x1="71.12" y1="342.9" x2="86.36" y2="342.9" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="342.9" x2="50.8" y2="342.9" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="342.9" x2="63.5" y2="342.9" width="0.1524" layer="91"/>
+<wire x1="63.5" y1="342.9" x2="86.36" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="86.36" y1="342.9" x2="106.68" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="342.9" x2="115.57" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="342.9" x2="106.68" y2="445.77" width="0.1524" layer="91"/>
@@ -26467,13 +26441,6 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <wire x1="115.57" y1="342.9" x2="175.26" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="342.9" x2="243.84" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="243.84" y1="342.9" x2="257.81" y2="342.9" width="0.1524" layer="91"/>
-<wire x1="30.48" y1="386.08" x2="30.48" y2="383.54" width="0.1524" layer="91"/>
-<wire x1="30.48" y1="383.54" x2="38.1" y2="383.54" width="0.1524" layer="91"/>
-<junction x="38.1" y="383.54"/>
-<pinref part="R4" gate="G$1" pin="1"/>
-<pinref part="C7" gate="G$1" pin="1"/>
-<wire x1="38.1" y1="383.54" x2="38.1" y2="342.9" width="0.1524" layer="91"/>
-<junction x="38.1" y="342.9"/>
 <wire x1="182.88" y1="365.76" x2="175.26" y2="365.76" width="0.1524" layer="91"/>
 <wire x1="175.26" y1="365.76" x2="165.1" y2="365.76" width="0.1524" layer="91"/>
 <wire x1="165.1" y1="365.76" x2="165.1" y2="378.46" width="0.1524" layer="91"/>
@@ -26509,12 +26476,12 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <junction x="243.84" y="342.9"/>
 <pinref part="BATT" gate="CON$2" pin="S"/>
 <pinref part="R_GAIN" gate="G$1" pin="1"/>
-<wire x1="71.12" y1="406.4" x2="71.12" y2="342.9" width="0.1524" layer="91"/>
-<junction x="71.12" y="342.9"/>
+<wire x1="50.8" y1="406.4" x2="50.8" y2="342.9" width="0.1524" layer="91"/>
+<junction x="50.8" y="342.9"/>
 <label x="264.16" y="342.9" size="1.778" layer="95"/>
 <pinref part="C19" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="406.4" x2="86.36" y2="342.9" width="0.1524" layer="91"/>
-<junction x="86.36" y="342.9"/>
+<wire x1="63.5" y1="406.4" x2="63.5" y2="342.9" width="0.1524" layer="91"/>
+<junction x="63.5" y="342.9"/>
 <pinref part="C20" gate="G$1" pin="1"/>
 <wire x1="355.6" y1="373.38" x2="355.6" y2="342.9" width="0.1524" layer="91"/>
 <junction x="355.6" y="342.9"/>
@@ -26522,6 +26489,12 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <wire x1="22.86" y1="411.48" x2="22.86" y2="408.94" width="0.1524" layer="91"/>
 <pinref part="SOL" gate="G$1" pin="1"/>
 <junction x="22.86" y="408.94"/>
+<pinref part="R4" gate="G$1" pin="1"/>
+<pinref part="C7" gate="G$1" pin="1"/>
+<wire x1="78.74" y1="386.08" x2="86.36" y2="386.08" width="0.1524" layer="91"/>
+<wire x1="86.36" y1="386.08" x2="86.36" y2="342.9" width="0.1524" layer="91"/>
+<junction x="86.36" y="386.08"/>
+<junction x="86.36" y="342.9"/>
 </segment>
 <segment>
 <wire x1="487.68" y1="180.34" x2="487.68" y2="177.8" width="0.1524" layer="91"/>
@@ -27600,6 +27573,31 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <segment>
 <pinref part="LED1" gate="G$1" pin="C"/>
 <pinref part="R21" gate="G$1" pin="2"/>
+</segment>
+</net>
+<net name="CC_EN" class="0">
+<segment>
+<pinref part="R8" gate="G$1" pin="1"/>
+<wire x1="129.54" y1="370.84" x2="147.32" y2="370.84" width="0.1524" layer="91"/>
+<label x="132.08" y="370.84" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="IC1" gate="1" pin="PB0"/>
+<wire x1="190.5" y1="93.98" x2="190.5" y2="76.2" width="0.1524" layer="91"/>
+<label x="190.5" y="78.74" size="1.778" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="N$38" class="1">
+<segment>
+<pinref part="RSENSE2" gate="G$1" pin="1"/>
+<pinref part="SOL" gate="G$1" pin="3"/>
+<wire x1="22.86" y1="414.02" x2="22.86" y2="459.74" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="459.74" x2="39.37" y2="459.74" width="0.1524" layer="91"/>
+<wire x1="39.37" y1="459.74" x2="44.45" y2="459.74" width="0.1524" layer="91"/>
+<pinref part="SENSE_AMP_SOL" gate="A" pin="S+"/>
+<wire x1="48.26" y1="447.04" x2="48.26" y2="452.12" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="452.12" x2="39.37" y2="459.74" width="0.1524" layer="91"/>
+<junction x="39.37" y="459.74"/>
 </segment>
 </net>
 </nets>
