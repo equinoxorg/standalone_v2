@@ -45,7 +45,9 @@ __task void lcd (void)
 	lcd_write_int(-12345);
 	
 	os_dly_wait(200);
-		
+	
+	lcd_clear();
+
 	while (1)
 	{
 		if (i%2)
@@ -115,7 +117,7 @@ void delay100u (int dly)
   int inner;
   while(dly--) 
   {
-    inner=130;
+    inner=1300;
     while(inner--);
   }
 }
@@ -123,9 +125,9 @@ void delay100u (int dly)
 void cycle_e (void)
 {
   GPIO_SetBits(GPIOB, LCD_E);
-  delay100u(10);
+  delay100u(1);
   GPIO_ResetBits(GPIOB, LCD_E);
-  delay100u(10);
+  delay100u(1);
 }
 
 void lcd_init (void) 
@@ -150,30 +152,16 @@ void lcd_init (void)
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
 	GPIO_ResetBits(GPIOB, (LCD_E | LCD_RS | LCD_RW | LCD_BK_EN) );
-	
+	GPIO_ResetBits(GPIOB, (LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7) );
+		
 	delay100u(100);
 	
-	//Software Reset Display
-	GPIO_SetBits(GPIOB, (LCD_D4 | LCD_D5) );
-	GPIO_ResetBits(GPIOB, (LCD_D6 | LCD_D7) );
-	
-	cycle_e(); 
-  delay100u(100);
-  cycle_e(); 
-  delay100u(100);
-  cycle_e(); 
-  delay100u(100);
-	
-	GPIO_ResetBits(GPIOB, LCD_D4 );
+	GPIO_SetBits(GPIOB, LCD_D5);
 	cycle_e();
-	//lcd_send_cmd(LCD_DISP_ON);
+	lcd_send_cmd(LCD_DISP_ON);
 	lcd_send_cmd( 0x28 );
 	lcd_clear();
 		
-	//Wait 20ms, handing control to other tasks
-	os_dly_wait(20);
-	
-	
 }
 
 void lcd_send_4_bits (uint8_t c)
@@ -213,14 +201,13 @@ void lcd_send_cmd (uint8_t c)
 	//Send Lower Bits
 	lcd_send_4_bits(c);	
 	GPIO_ResetBits(GPIOB, LCD_RS);
-	cycle_e();
-	
+	cycle_e();	
 }
 
 void lcd_clear (void)
 {
 	lcd_send_cmd(LCD_CLR);
-	delay100u(100);
+	os_dly_wait(1);
 }
 
 void lcd_putc (char c)
