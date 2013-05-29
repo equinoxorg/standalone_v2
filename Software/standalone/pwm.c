@@ -66,8 +66,11 @@ __task void pwm_out (void) {
 		if (mppt_duty_cycle > 40)
 			mppt_duty_cycle = 20;
 				
-		set_duty_cycle(mppt_duty_cycle);
+		//set_duty_cycle(mppt_duty_cycle);
+		set_duty_cycle(82);
 
+		printf("V_SOL=%.2f, I_SOL=%.4f \n", get_adc_voltage(ADC_SOL_V), get_adc_voltage(ADC_SOL_I));
+		
 		//Wait 200ms
 		os_dly_wait(20);
 	}
