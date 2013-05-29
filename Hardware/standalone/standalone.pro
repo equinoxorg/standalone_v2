@@ -2,14 +2,14 @@ EAGLE AutoRouter Statistics:
 
 Job           : C:/Users/Ashley/Documents/GitHub/standalone_fyp/Hardware/standalone/standalone.brd
 
-Start at      : 23:12:33 (14/04/2013)
-End at        : 23:12:33 (14/04/2013)
+Start at      : 13:48:27 (29/05/2013)
+End at        : 13:48:27 (29/05/2013)
 Elapsed time  : 00:00:00
 
-Signals       :    70   RoutingGrid: 50 mil  Layers: 2
-Connections   :   230   predefined:  230 ( 81 Vias )
+Signals       :    72   RoutingGrid: 50 mil  Layers: 2
+Connections   :   239   predefined:  239 ( 132 Vias )
 
-Router memory :   62920
+Router memory :   30240
 
 Passname          :     Route Optimize1 Optimize2 Optimize3 Optimize4
 
