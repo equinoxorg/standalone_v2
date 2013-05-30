@@ -29,6 +29,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_it.h"
+#include <RTL.h>
+#include "ui.h"
 
 /** @addtogroup STM32F0_Discovery_Peripheral_Examples
   * @{
@@ -126,11 +128,13 @@ void EXTI4_15_IRQHandler(void)
 		//Clear the EXTI line 5 pending bit
     EXTI_ClearITPendingBit(EXTI_Line6);
 	}
-	/*
+	
 	if (EXTI_GetITStatus(EXTI_Line7) != RESET) {
 		//Check Which Pin Caused Interrupt
+		//Keypad line 3 event, buttons 3, 6, 8, ./
 		
-		//Do Something
+		//Send event to ui task
+		isr_evt_set (UI_EVT_KEYPAD_3 , ui_t);
 		
 		//Clear the EXTI line 7 pending bit
     EXTI_ClearITPendingBit(EXTI_Line7);
@@ -138,8 +142,10 @@ void EXTI4_15_IRQHandler(void)
 	
 	if (EXTI_GetITStatus(EXTI_Line8) != RESET) {
 		//Check Which Pin Caused Interrupt
+		//Keypad line 2 event, buttons 2, 5, 8, 0
 		
-		//Do Something
+		//Send event to ui task
+		isr_evt_set (UI_EVT_KEYPAD_2 , ui_t);
 		
 		//Clear the EXTI line 8 pending bit
     EXTI_ClearITPendingBit(EXTI_Line8);
@@ -147,13 +153,15 @@ void EXTI4_15_IRQHandler(void)
 	
 	if (EXTI_GetITStatus(EXTI_Line9) != RESET) {
 		//Check Which Pin Caused Interrupt
+		//Keypad line 1 event, buttons 1, 4, 7, X
 		
-		//Do Something
+		//Send event to ui task
+		isr_evt_set (UI_EVT_KEYPAD_1 , ui_t);
 		
 		//Clear the EXTI line 9 pending bit
     EXTI_ClearITPendingBit(EXTI_Line9);
 	}
-	*/
+	
 }
 
 /**
