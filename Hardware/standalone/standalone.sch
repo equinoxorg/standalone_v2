@@ -26178,6 +26178,9 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <text x="556.26" y="132.08" size="1.778" layer="98" rot="R90">250mA Output</text>
 <text x="297.18" y="66.04" size="1.778" layer="98">Must be 0placed near to IC1</text>
 <text x="165.1" y="193.04" size="1.778" layer="98" rot="R90">Use Internal Pull Ups</text>
+<text x="170.688" y="217.424" size="1.778" layer="98">NP</text>
+<text x="170.942" y="207.518" size="1.778" layer="98">NP</text>
+<text x="170.688" y="197.358" size="1.778" layer="98">NP</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="299.72" y="15.24"/>

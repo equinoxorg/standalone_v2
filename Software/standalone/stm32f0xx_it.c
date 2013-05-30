@@ -114,6 +114,7 @@ void EXTI4_15_IRQHandler(void)
 		//Clear the EXTI line 5 pending bit
     EXTI_ClearITPendingBit(EXTI_Line5);
 	}
+	
 	if (EXTI_GetITStatus(EXTI_Line6) != RESET) {
 		//Check Which Pin Caused Interrupt
 		
@@ -125,6 +126,34 @@ void EXTI4_15_IRQHandler(void)
 		//Clear the EXTI line 5 pending bit
     EXTI_ClearITPendingBit(EXTI_Line6);
 	}
+	/*
+	if (EXTI_GetITStatus(EXTI_Line7) != RESET) {
+		//Check Which Pin Caused Interrupt
+		
+		//Do Something
+		
+		//Clear the EXTI line 7 pending bit
+    EXTI_ClearITPendingBit(EXTI_Line7);
+	}
+	
+	if (EXTI_GetITStatus(EXTI_Line8) != RESET) {
+		//Check Which Pin Caused Interrupt
+		
+		//Do Something
+		
+		//Clear the EXTI line 8 pending bit
+    EXTI_ClearITPendingBit(EXTI_Line8);
+	}
+	
+	if (EXTI_GetITStatus(EXTI_Line9) != RESET) {
+		//Check Which Pin Caused Interrupt
+		
+		//Do Something
+		
+		//Clear the EXTI line 9 pending bit
+    EXTI_ClearITPendingBit(EXTI_Line9);
+	}
+	*/
 }
 
 /**
