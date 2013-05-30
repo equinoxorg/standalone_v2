@@ -15,9 +15,9 @@
 #define ADC_BATT_I	ADC_Channel_4 //PA4
 
 
-#define SCALE_V_SOL(x)	((x) * ((10.0f + 1.32f) / 1.32f ) )
-#define SCALE_I_SOL(x)	((x) * 1.515f)
-#define SCALE_V_BATT(x)	((x) * ((10.0f + 1.32f) / 1.32f ) )
+#define SCALE_V_SOL(x)	((x) * ((10.0f + 1.32f) / 1.32f ) * /*Calibration*/ 1.0791f )
+#define SCALE_I_SOL(x)	((x) * 0.606060f)//((x) * 1.515f)
+#define SCALE_V_BATT(x)	((x) * ((10.0f + 1.32f) / 1.32f ) * /*Calibration*/ 1.0945f )
 #define SCALE_I_BATT(x) ((x) * 1.515f)
 
 /* Private variables ---------------------------------------------------------*/
