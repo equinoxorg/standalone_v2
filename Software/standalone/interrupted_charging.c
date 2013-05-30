@@ -7,9 +7,10 @@
 #define NIGHT_MODE 				4
 
 #define V_HI	13.8f
-#define V_LO	13.0f
+#define V_LO	13.4f
+#define V_LVDC 11.0f
 
-#define BATTERY_SIZE 7.0f
+#define BATTERY_AHR 7.0f
 
 void init_hardware (void);
 
@@ -28,6 +29,14 @@ __task void interrupted_charging (void)
 	{
 		batt_voltage = get_adc_voltage(ADC_BATT_V);
 		printf("State: %i, Batt Voltage: %.2f\n", state, batt_voltage);
+		
+		//Check for LVDC voltage
+		if (batt_voltage < V_LVDC)
+		{
+			//Turn off outputs and screen.
+			
+		}
+		
 		
 		switch (state)
 		{
