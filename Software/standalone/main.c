@@ -7,7 +7,6 @@
   * @brief   Main program body
   ******************************************************************************
   * @attention
-	* Based on code examples from ST Micro
   ******************************************************************************
 	*
 	* Enviroment Set Up:
@@ -47,11 +46,7 @@ void delay (int a)
 	volatile int i,j;
 
 	for (i=0; i < a; i++)
-	{
-		j++;
-	}
-
-	return;
+		j++;	
 }
 
 
@@ -59,7 +54,7 @@ void delay (int a)
 
 __task void init (void) 
 {	
-	//Maximum of three running tasks
+	//Maximum of three running tasks, so can only launch two tasks here, any more will be ignored.
 	
 	init_adc();
 	
@@ -70,20 +65,25 @@ __task void init (void)
 	//Start the interrupted charging algoritm
 	printf("Starting Interrupted Charging Task \n");
 	interrupted_charging_t = os_tsk_create( interrupted_charging, 0);
+	if (!interrupted_charging_t)
+		printf("ERROR: Interrupted Charging Task Failed to launch \n");
 	
-	printf("Starting lcd task \n");
-	lcd_t = os_tsk_create(lcd, 0);
+	printf("Starting UI task \n");
+	ui_t = os_tsk_create(ui, 2);
+	if (!ui_t)
+		printf("ERROR: UI Task Failed to launch \n");
+	
+	//printf("Starting lcd task \n");
+	//lcd_t = os_tsk_create(lcd, 0);
+	//if (!lcd_t)
+	//	printf("ERROR: LCD Task Failed to launch \n");
 	
 	//printf("Starting pwm_out task \n");
 	//pwm_out_t = os_tsk_create( pwm_out, 0);
 	
 	//printf("Starting adc_in task \n");
 	//adc_test_t = os_tsk_create( adc_test, 0);
-	
-	printf("Starting UI task \n");
-	ui_t = os_tsk_create(ui, 0);
-	
-		
+			
 	os_tsk_delete_self ();
 }
 
