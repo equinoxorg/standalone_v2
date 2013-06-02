@@ -9,11 +9,13 @@
 //Private Functions
 void keypad_init (void);
 uint8_t keypad_get_key (void);
+void pwr_sw_init (void);
 
 //Private variables
 
 //Public Variables
 OS_TID ui_t;
+char pwr_on = 1;
 
 /**
   * @brief  Task which handles all UI including keypad, LCD and all user power outputs.
@@ -35,15 +37,40 @@ __task void ui (void)
 	lcd_write_string("  e.quinox      ");
 	lcd_goto_XY(0,1);
 	lcd_write_string("     izuba.box  ");
+	
+	//2 second loading screen
+	os_dly_wait(200);
+	
+	lcd_clear();
+	
+	pwr_sw_init();
+	
 		
 	while(1)
 	{
 		//Wait for a task event or timeout after 5 seconds
-		if ( os_evt_wait_or(UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3, 500) == OS_R_EVT )
+		if ( os_evt_wait_or(UI_PWR_SW | UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3, 500) == OS_R_EVT )
 		{
 			//Find which event 
 			event_flag = os_evt_get();		
 			
+			if ( event_flag & UI_PWR_SW )
+			{
+				if (pwr_on)
+				{
+					//Turn off all outputs and UI devices
+					//Wait only for UI_PWR_SW tasks
+					lcd_backlight(0);
+					pwr_on = 0;
+				}
+				else
+				{
+					lcd_backlight(1);
+					//Turn on box
+					//Re-init all LCD
+					pwr_on = 1;
+				}
+			}
 		
 			if ( event_flag & (UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3) )
 			{
@@ -78,11 +105,43 @@ __task void ui (void)
 				//clear event flags
 				os_evt_clr(event_flag, ui_t);
 			}
-			else
-				printf("UI task timeout\n");
+			//else
+				//printf("UI task timeout\n");
 		}
 	}
 }
+
+void pwr_sw_init (void)
+{
+	EXTI_InitTypeDef   EXTI_InitStructure;
+  NVIC_InitTypeDef   NVIC_InitStructure;
+	
+	//Enable PA0 as WKUP Pin, this will Wake up Chip from Standby Mode on rising edge
+	//Configures pin as input with Pull-down resistor
+	PWR_WakeUpPinCmd(PWR_WakeUpPin_1, ENABLE);
+	
+	//Enable interrupt on PA0 Pin
+	// Enable SYSCFG clock 
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+  
+  // Connect EXTI0 Line to PA0 pin 
+  SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource0);
+
+  // Configure EXTI0 line 
+  EXTI_InitStructure.EXTI_Line = EXTI_Line0;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
+
+  // Enable and set EXTI4_15 Interrupt 
+  NVIC_InitStructure.NVIC_IRQChannel = EXTI0_1_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPriority = 0x00;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+	
+}
+
 
 /**
   * @brief  Checks which key on the keypad is curently pressed

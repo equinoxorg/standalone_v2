@@ -93,13 +93,13 @@ void EXTI0_1_IRQHandler(void)
 {
 	if (EXTI_GetITStatus(EXTI_Line0) != RESET) {
 		//Check Which Pin Caused Interrupt
+			//Only PA0 configures
 		
-		//Do Something about it
+		//Send event to ui task
+		isr_evt_set (UI_PWR_SW , ui_t);
 		
-		//Debouncing
-		delay(50000);
-		while(GPIOA->IDR & GPIO_IDR_0){}
-		EXTI->PR |= EXTI_PR_PR0 ;
+		//Clear the EXTI line 0 pending bit
+    EXTI_ClearITPendingBit(EXTI_Line0);
 	}
 }
 
