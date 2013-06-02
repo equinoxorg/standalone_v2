@@ -33,6 +33,7 @@ __task void ui (void)
 	lcd_init();
 	lcd_backlight(1);
 	
+	pwr_sw_init();
 	
 	lcd_write_string("  e.quinox      ");
 	lcd_goto_XY(0,1);
@@ -43,13 +44,12 @@ __task void ui (void)
 	
 	lcd_clear();
 	
-	pwr_sw_init();
 	
 		
 	while(1)
 	{
 		//Wait for a task event or timeout after 5 seconds
-		if ( os_evt_wait_or(UI_PWR_SW | UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3, 500) == OS_R_EVT )
+		if ( os_evt_wait_or(UI_PWR_SW | UI_EVT_USB_OC | UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3, 500) == OS_R_EVT )
 		{
 			//Find which event 
 			event_flag = os_evt_get();		
@@ -71,14 +71,27 @@ __task void ui (void)
 					pwr_on = 1;
 				}
 			}
+			
+			if ( event_flag & UI_EVT_USB_OC )
+			{
+				lcd_clear();
+				lcd_goto_XY(0,0);
+				lcd_write_string("       USB      ");
+				lcd_goto_XY(0,1);
+				lcd_write_string("      error!    ");
+				//2s wait
+				os_dly_wait(200);
+				lcd_clear();
+			}
 		
 			if ( event_flag & (UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3) )
 			{
-				//Debounce for 10ms (max wait 20ms unless interrupt blocks are used elsewhere)
-				os_dly_wait(1);
+				//Debounce time
+				os_dly_wait(2);
 				
-				//Read which key is pressed
+				//Read which key is pressed	
 				key = keypad_get_key();			
+				
 				switch (key)
 				{
 					case KEY_NONE:
@@ -100,14 +113,14 @@ __task void ui (void)
 				}
 				
 				//Reset backlight timer
-					
-
-				//clear event flags
-				os_evt_clr(event_flag, ui_t);
 			}
-			//else
-				//printf("UI task timeout\n");
+			
+			//clear event flags
+			os_evt_clr(event_flag, ui_t);
+			
 		}
+		//else
+				//printf("UI task timeout\n");
 	}
 }
 
@@ -151,6 +164,8 @@ void pwr_sw_init (void)
   */
 uint8_t keypad_get_key (void)
 {
+	uint8_t return_val = KEY_NONE;
+	
 	//Should use line parameter from interrupt
 	
 	//Set all output pins
@@ -162,13 +177,13 @@ uint8_t keypad_get_key (void)
 
 	if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9))
 		//Key 1
-		return 1;
+		return_val = 1;
 	else if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8))
 		//Key 2
-		return 2;
+		return_val = 2;
 	else if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_7))
 		//Key 3
-		return 3;
+		return_val = 3;
 	
 	GPIO_SetBits(GPIOA, GPIO_Pin_15);
 
@@ -178,13 +193,13 @@ uint8_t keypad_get_key (void)
 
 	if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9))
 		//Key 4
-		return 4;
+		return_val = 4;
 	else if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8))
 		//Key 5
-		return 5;
+		return_val = 5;
 	else if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_7))
 		//Key 6
-		return 6;
+		return_val = 6;
 	
 	GPIO_SetBits(GPIOB, GPIO_Pin_4);
 
@@ -193,13 +208,13 @@ uint8_t keypad_get_key (void)
 	
 	if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9))
 		//Key 7
-		return 7;
+		return_val = 7;
 	else if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8))
 		//Key 8
-		return 8;
+		return_val = 8;
 	else if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_7))
 		//Key 9
-		return 9;
+		return_val = 9;
 	
 	GPIO_SetBits(GPIOB, GPIO_Pin_5);
 		
@@ -207,13 +222,13 @@ uint8_t keypad_get_key (void)
 	
 	if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9))
 		//Key X
-		return KEY_CROSS;
+		return_val = KEY_CROSS;
 	else if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8))
 		//Key 0
-		return 0;
+		return_val = 0;
 	else if (!GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_7))
 		//Key ./
-		return KEY_TICK;
+		return_val = KEY_TICK;
 	
 	GPIO_SetBits(GPIOB, GPIO_Pin_6);
 	
@@ -221,7 +236,9 @@ uint8_t keypad_get_key (void)
 	GPIO_ResetBits(GPIOA, GPIO_Pin_15);
 	GPIO_ResetBits(GPIOB, ( GPIO_Pin_4 | GPIO_Pin_5 | GPIO_Pin_6 ));
 	
-	return KEY_NONE;
+	os_dly_wait(10);
+		
+	return return_val;
 }
 
 
@@ -284,18 +301,21 @@ void keypad_init (void)
   
   // Connect EXTI7 Line to PB7 pin 
   SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource7);
-
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource8);
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource9);
   // Configure EXTI7 line 
-  EXTI_InitStructure.EXTI_Line = EXTI_Line7;
+	EXTI_StructInit(&EXTI_InitStructure);
+  EXTI_InitStructure.EXTI_Line = (EXTI_Line7 | EXTI_Line8 | EXTI_Line9);
   EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
   EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
   EXTI_InitStructure.EXTI_LineCmd = ENABLE;
   EXTI_Init(&EXTI_InitStructure);
-
+/*
 	// Connect EXTI8 Line to PB8 pin 
   SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource8);
 
   // Configure EXTI8 line 
+	EXTI_StructInit(&EXTI_InitStructure);
   EXTI_InitStructure.EXTI_Line = EXTI_Line8;
   EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
   EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
@@ -306,12 +326,13 @@ void keypad_init (void)
   SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource9);
 
   // Configure EXTI9 line 
+	EXTI_StructInit(&EXTI_InitStructure);
   EXTI_InitStructure.EXTI_Line = EXTI_Line9;
   EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
   EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
   EXTI_InitStructure.EXTI_LineCmd = ENABLE;
   EXTI_Init(&EXTI_InitStructure);
-
+*/
   // Enable and set EXTI4_15 Interrupt 
   NVIC_InitStructure.NVIC_IRQChannel = EXTI4_15_IRQn;
   NVIC_InitStructure.NVIC_IRQChannelPriority = 0x00;

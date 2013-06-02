@@ -95,7 +95,7 @@ int main(void)
 	//Set up RTC
 	setup_rtc();
 			
-	usb_outputs_config();
+	usb_outputs_config(); //TODO: Change to init
 	dc_outputs_config();
 	GPIO_SetBits(GPIOF ,(GPIO_Pin_6 | GPIO_Pin_7) );
 	GPIO_SetBits(GPIOA ,GPIO_Pin_12 );

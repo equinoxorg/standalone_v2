@@ -14,26 +14,28 @@
 #define BATTERY_AHR 7.0f
 
 
+volatile float batt_current = 0.0f;
+
 int state = BULK_CHARGING;
 
 __task void interrupted_charging (void)
 {
 	float batt_voltage = 0.0f;
-	float batt_current = 0.0f;
 	int pulse = 0;
 	int counter = 0;
 	
 	//TODO: initialise hardware
 	init_pwm(40000);
 	init_adc();
-		
+	
 	set_mppt();
 		
 	while (1)
 	{
 		batt_voltage = get_adc_voltage(ADC_BATT_V);
 		batt_current = get_adc_voltage(ADC_BATT_I);
-		printf("Time=%i \t State=%i \t V_Batt=%.2f \t I_Batt = %.2f \t", os_time_get(), state, batt_voltage, batt_current);
+		if (batt_current > 0.05)
+			printf("Time=%i \t State=%i \t V_Batt=%.2f \t I_Batt = %.2f \t", os_time_get(), state, batt_voltage, batt_current);
 		
 		//Check for LVDC voltage
 		if (batt_voltage < V_LVDC)

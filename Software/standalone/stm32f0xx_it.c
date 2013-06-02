@@ -95,6 +95,9 @@ void EXTI0_1_IRQHandler(void)
 		//Check Which Pin Caused Interrupt
 			//Only PA0 configures
 		
+		//Temp: Use switch as Reset Switch
+		NVIC_SystemReset();
+		
 		//Send event to ui task
 		isr_evt_set (UI_PWR_SW , ui_t);
 		
@@ -109,6 +112,7 @@ void EXTI4_15_IRQHandler(void)
 		//Check Which Pin Caused Interrupt
 		
 		//USB_FLG_1 Error!!
+		isr_evt_set(UI_EVT_USB_OC, ui_t);
 		
 		//Disable USB_EN_1
 		GPIO_ResetBits(GPIOF , GPIO_Pin_7 );
@@ -121,6 +125,7 @@ void EXTI4_15_IRQHandler(void)
 		//Check Which Pin Caused Interrupt
 		
 		//USB_FLG_2 Error!!
+		isr_evt_set(UI_EVT_USB_OC, ui_t);
 		
 		//Disable USB_EN_2
 		GPIO_ResetBits(GPIOF , GPIO_Pin_6 );

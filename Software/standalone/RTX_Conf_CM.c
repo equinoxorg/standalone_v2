@@ -57,7 +57,7 @@
 // <i> Run all Tasks in privileged mode.
 // <i> Default: Unprivileged
 #ifndef OS_RUNPRIV
- #define OS_RUNPRIV     0
+ #define OS_RUNPRIV     1
 #endif
 
 // </h>
