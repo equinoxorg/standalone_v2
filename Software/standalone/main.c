@@ -55,8 +55,7 @@ void delay (int a)
 __task void init (void) 
 {	
 	//Maximum of three running tasks, so can only launch two tasks here, any more will be ignored.
-	
-	init_adc();
+
 	
 	//Start the P&O charge control algo
 	//printf("Starting Peturb and Observe Task \n");
@@ -72,11 +71,6 @@ __task void init (void)
 	ui_t = os_tsk_create(ui, 2);
 	if (!ui_t)
 		printf("ERROR: UI Task Failed to launch \n");
-	
-	//printf("Starting lcd task \n");
-	//lcd_t = os_tsk_create(lcd, 0);
-	//if (!lcd_t)
-	//	printf("ERROR: LCD Task Failed to launch \n");
 	
 	//printf("Starting pwm_out task \n");
 	//pwm_out_t = os_tsk_create( pwm_out, 0);

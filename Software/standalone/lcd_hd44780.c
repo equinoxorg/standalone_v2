@@ -29,8 +29,8 @@ void delay100u (int);
 void cycle_e (void);
 void lcd_send_4_bits (uint8_t);
 
-//Main lcd task which handles all interactions with the LCD
-__task void lcd (void)
+//LCD testing routine
+void lcd_test (void)
 {
 	int i = 0;
 	char offset = 0;

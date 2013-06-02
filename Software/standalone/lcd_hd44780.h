@@ -7,8 +7,7 @@
 #include <stdio.h>
 #include <RTL.h>
 
-__task void lcd (void);
-
+void lcd_test (void);
 void lcd_init (void);
 void lcd_write_string(const char*);
 void lcd_write_int(const int);
