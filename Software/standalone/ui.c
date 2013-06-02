@@ -16,6 +16,7 @@ void pwr_sw_init (void);
 //Public Variables
 OS_TID ui_t;
 char pwr_on = 1;
+int i;
 
 /**
   * @brief  Task which handles all UI including keypad, LCD and all user power outputs.
@@ -42,9 +43,7 @@ __task void ui (void)
 	//2 second loading screen
 	os_dly_wait(200);
 	
-	lcd_clear();
-	
-	
+	lcd_clear();	
 		
 	while(1)
 	{
@@ -87,8 +86,9 @@ __task void ui (void)
 			if ( event_flag & (UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3) )
 			{
 				//Debounce time
-				os_dly_wait(2);
+				os_dly_wait(1);
 				
+							
 				//Read which key is pressed	
 				key = keypad_get_key();			
 				
@@ -111,6 +111,17 @@ __task void ui (void)
 						printf("%i", key);
 						lcd_write_int(key);					
 				}
+				
+				i = 0;
+				while( keypad_get_key() != KEY_NONE )
+				{
+					i++;
+					os_dly_wait(1);
+					if ( i > 100)
+						break;
+				}
+									
+				os_dly_wait(1);
 				
 				//Reset backlight timer
 			}
