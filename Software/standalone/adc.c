@@ -3,7 +3,9 @@
 #define ADC1_DR_Address 0x40012440
 
 
-volatile uint16_t RegularConvData_Tab[4];
+volatile uint16_t RegularConvData_Tab[5];
+
+uint16_t ts_cal1, ts_cal2;
 
 /* Function for reading the latest ADC Reading
  * Parameter: ADC_Channel_x
@@ -14,6 +16,8 @@ volatile uint16_t RegularConvData_Tab[4];
  */
 float get_adc_voltage ( uint32_t ADC_Channel )
 {
+	float slope = (float)(ts_cal1 - ts_cal2) / (110.0f - 30.0f);
+	
 	/* Test DMA1 TC flag */
 	while((DMA_GetFlagStatus(DMA1_FLAG_TC1)) == RESET ); 
 	
@@ -29,7 +33,11 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 		case ADC_BATT_V:
 			return SCALE_V_BATT( (RegularConvData_Tab[3] * ADC_VREF) / 0xFFF );
 		case ADC_BATT_I:
-			return SCALE_I_BATT( (RegularConvData_Tab[0] * ADC_VREF) / 0xFFF );
+			return SCALE_I_BATT( (RegularConvData_Tab[4] * ADC_VREF) / 0xFFF );
+		case ADC_TEMP:
+			//Use the factory calibrated values to get tempreture in degrees
+			return ( ((float)ts_cal1 - (float)RegularConvData_Tab[0]) / slope) + 30.0f;
+			//return (RegularConvData_Tab[0] * ADC_VREF) / 0xFFF;
 		default:
 			printf ("ERROR: Attmept to read Invalid ADC Channel \n");
 			return -1.0f;
@@ -40,7 +48,7 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 
 __task void adc_test(void)
 {	
-	float sol_v, sol_i, batt_v, batt_i;
+	float sol_v, sol_i, batt_v, batt_i, temp;
 	
 	while (1)
 	{
@@ -48,8 +56,9 @@ __task void adc_test(void)
 		sol_i = get_adc_voltage(ADC_SOL_I);
 		batt_v = get_adc_voltage(ADC_BATT_V);
 		batt_i = get_adc_voltage(ADC_BATT_I);
+		temp = get_adc_voltage(ADC_TEMP);
 		
-		printf("Solar V: %f \n Solar I: %f \n Batt  V: %f \n Batt  I: %f \n", sol_v, sol_i, batt_v, batt_i );
+		printf("Solar V: %f \t Solar I: %f \t Batt  V: %f \t Batt  I: %f \t Temp : %f \n", sol_v, sol_i, batt_v, batt_i, temp );
 		
 		os_dly_wait(100);
 	}
@@ -91,7 +100,7 @@ void init_adc( void )
   DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)ADC1_DR_Address;
   DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)RegularConvData_Tab;
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
-  DMA_InitStructure.DMA_BufferSize = 4;
+  DMA_InitStructure.DMA_BufferSize = 5;
   DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
   DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
   DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
@@ -132,7 +141,15 @@ void init_adc( void )
   
   // Convert the ADC_BATT_I  with 239 Cycles as sampling time   
   ADC_ChannelConfig(ADC1, ADC_BATT_I , ADC_SampleTime_239_5Cycles);
-  
+	
+	//Enable Temperature Sensor
+	ADC_TempSensorCmd(ENABLE);
+	ADC_ChannelConfig(ADC1, ADC_TEMP, ADC_SampleTime_239_5Cycles);
+	
+	//Get Temp Calibration Values
+	ts_cal1 = *( (uint16_t*) 0x1FFFF7B8 );
+  ts_cal2 = *( (uint16_t*) 0x1FFFF7C2 );
+	
   // ADC Calibration  
   ADC_GetCalibrationFactor(ADC1);
   
