@@ -86,11 +86,19 @@ __task void ui (void)
 			if ( event_flag & (UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3) )
 			{
 				//Debounce time
-				os_dly_wait(1);
+				//os_dly_wait(1);
 				
 							
-				//Read which key is pressed	
-				key = keypad_get_key();			
+				//Read which key is pressed
+				i = 0;
+				do
+				{
+					key = keypad_get_key();		
+					i++;
+					os_dly_wait(1);
+					if ( i > 20)
+						break;
+				} while (key == KEY_NONE);
 				
 				switch (key)
 				{
@@ -121,7 +129,7 @@ __task void ui (void)
 						break;
 				}
 									
-				os_dly_wait(1);
+				//os_dly_wait(1);
 				
 				//Reset backlight timer
 			}
