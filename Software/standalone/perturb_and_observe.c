@@ -10,6 +10,7 @@ float duty_cycle_start = 100.0f;
 __task void perturb_and_observe (void) {
 	
 	init_pwm(40000);
+	init_adc();
 	
 	while (1)
 	{
@@ -22,7 +23,7 @@ __task void perturb_and_observe (void) {
 void set_mppt (void)
 {
 	float duty_cycle, duty_cycle_max = 100.0f;
-	float v_panel, i_panel, p_panel;
+	float v_panel, i_panel, p_panel, v_batt, i_batt;
 	float p_panel_max = 0.0f;
 	
 	for ( duty_cycle = 0; duty_cycle < 100; duty_cycle++)
@@ -34,6 +35,8 @@ void set_mppt (void)
 		//Read in v_panel and i_panel
 		v_panel = get_adc_voltage(ADC_SOL_V);
 		i_panel = get_adc_voltage(ADC_SOL_I);
+		v_batt = get_adc_voltage(ADC_BATT_V);
+		i_batt = get_adc_voltage(ADC_BATT_I);
 		
 		p_panel = v_panel * i_panel;
 		
@@ -43,7 +46,7 @@ void set_mppt (void)
 			duty_cycle_max = duty_cycle;
 		}
 		
-		printf("Duty cycle: %f \t\t P=%f \n", duty_cycle, p_panel);
+		printf("Duty cycle=%f, P_SOL=%.4f, V_SOL=%.4f, I_SOL=%.4f, V_BATT=%.4f, I_BATT=%.4f, TEMP=%.4f\n", duty_cycle, p_panel, v_panel, i_panel, v_batt, i_batt, get_adc_voltage(ADC_TEMP));
 	}
 	
 	printf("Duty cycle max: %f, with P=%f\n", duty_cycle_max, p_panel_max);
@@ -51,9 +54,18 @@ void set_mppt (void)
 	duty_cycle_start = duty_cycle_max;
 }
 
-void perturb_and_observe_itter (void) {
+void perturb_and_observe_itter (void)
+{
+	//Start p&o algorithm with  a 1000A target current
+	//1000A is never achivable so will MPPT to extract as
+	//much power as possible.
+	perturb_and_observe_cc_itter (1000.0f);
+}
+
+void perturb_and_observe_cc_itter (float i_batt_cc) {
 	static float duty_cycle = -1.0f;
 	float v_panel, i_panel, p_panel, delta_v, delta_p;
+	float i_batt;
 	static float p_panel_delay = 0.0f, v_panel_delay = 0.0f;
 	
 	if (duty_cycle == -1.0f )
@@ -63,27 +75,32 @@ void perturb_and_observe_itter (void) {
 	v_panel = get_adc_voltage(ADC_SOL_V);
 	i_panel = get_adc_voltage(ADC_SOL_I);
 	
+	i_batt = get_adc_voltage(ADC_BATT_I);
+	
 	p_panel = v_panel * i_panel;
 	
 	delta_p = p_panel - p_panel_delay;
 	delta_v = v_panel - v_panel_delay;
 	
-	if (delta_p == 0)
-	{
-			//duty_cycle = duty_cycle_delay;
-	}
+	if (i_batt > i_batt_cc)
+		//Increase operating voltage
+		duty_cycle -= DUTY_CYCLE_INC;
 	else if (delta_p > 0)
 	{
 		if (delta_v > 0)
+			//Increase operating voltage
 			duty_cycle -= DUTY_CYCLE_INC;
 		else
+			//Decrease operating voltage
 			duty_cycle += DUTY_CYCLE_INC;
 	}
 	else
 	{
 		if (delta_v > 0)
+			//Decrease operating voltage
 			duty_cycle += DUTY_CYCLE_INC;
 		else
+			//Increase operating voltage
 			duty_cycle -= DUTY_CYCLE_INC; 
 	}
 	 
@@ -101,64 +118,3 @@ void perturb_and_observe_itter (void) {
 	printf("V_SOL=%.2f \t I_SOL=%.2f \t P_SOL=%.2f \t duty=%f \n", v_panel, i_panel, p_panel, duty_cycle);
 	
 }
-
-// Matlab version of P&O code:
-/*
-function duty_cycle = fcn( v_panel, i_panel)
-
-    %Stores varialbe values over all fnctional calls
-    persistent duty_cycle_delay p_panel_delay v_panel_delay;  
-    
-    %----------------Check variables for initailsation---------------------
-    if isempty(v_panel)
-        v_panel = 18;
-    end
-    if isempty(i_panel)
-        i_panel = 0;
-    end
-    if isempty(duty_cycle_delay)
-        duty_cycle_delay = 0.4;
-    end
-    if isempty(p_panel_delay)
-        p_panel_delay = 0;
-    end
-    if isempty(v_panel_delay)
-        v_panel_delay = v_panel;
-    end 
-    %----------------------------------------------------------------------
-    
-    p_panel = v_panel * i_panel;
-    
-    delta_p = p_panel - p_panel_delay;
-    delta_v = v_panel - v_panel_delay;
-    
-    inc = 0.001;
-    
-    if delta_p == 0
-        duty_cycle = duty_cycle_delay;
-    elseif delta_p > 0
-        if delta_v >= 0
-            duty_cycle = duty_cycle_delay - inc;
-        else
-            duty_cycle = duty_cycle_delay + inc;
-        end
-    else
-        if delta_v > 0
-            duty_cycle = duty_cycle_delay + inc;
-        else
-            duty_cycle = duty_cycle_delay - inc;
-        end   
-    end       
-     
-    if duty_cycle > 1
-        duty_cycle = 0;
-    elseif duty_cycle < 0 
-        duty_cycle = 0;
-    end
-    
-    duty_cycle_delay = duty_cycle;
-    p_panel_delay = p_panel;
-    v_panel_delay = v_panel;   
-
-end
-*/

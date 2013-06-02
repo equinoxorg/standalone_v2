@@ -1,20 +1,20 @@
 #include "interrupted_charging.h"
 
-#define MPP_CHARGING			0
-#define VOLTAGE_SETTLE		1
-#define PULSED_CURRENT		2
-#define FULLY_CHARGED			3
-#define NIGHT_MODE 				4
+#define BULK_CHARGING			1
+#define VOLTAGE_SETTLE		2
+#define PULSED_CURRENT		3
+#define FULLY_CHARGED			4
+#define NIGHT_MODE 				5
 
-#define V_HI	13.8f
-#define V_LO	13.4f
+#define V_HI	14.7f
+#define V_LO	13.0f
+#define V_RESTART 12.8f
 #define V_LVDC 11.0f
 
 #define BATTERY_AHR 7.0f
 
-void init_hardware (void);
 
-int state = 0;
+int state = BULK_CHARGING;
 
 __task void interrupted_charging (void)
 {
@@ -24,8 +24,9 @@ __task void interrupted_charging (void)
 	int counter = 0;
 	
 	//TODO: initialise hardware
-	init_hardware();
-	
+	init_pwm(40000);
+	init_adc();
+		
 	set_mppt();
 		
 	while (1)
@@ -44,9 +45,9 @@ __task void interrupted_charging (void)
 		
 		switch (state)
 		{
-			case MPP_CHARGING:
-				//Call MPPT algorithm, P&O??
-				perturb_and_observe_itter();
+			case BULK_CHARGING:
+				//Start charging battery with 0.1C current or as high as possible if 0.1C cannot be met
+				perturb_and_observe_cc_itter(BATTERY_AHR*0.1f);
 			
 				if (batt_voltage > V_HI)
 				{
@@ -58,7 +59,7 @@ __task void interrupted_charging (void)
 
 				break;
 			
-			case VOLTAGE_SETTLE:				
+			case VOLTAGE_SETTLE:
 				if (batt_voltage < V_LO)
 				{
 					state = PULSED_CURRENT;
@@ -69,7 +70,7 @@ __task void interrupted_charging (void)
 				break;
 				
 			case PULSED_CURRENT:
-				if ( ++counter > 50 ) //5s pulse time
+				if ( ++counter > 50 ) //5s pulse time, change to 30s period with 33% duty cycle
 				{				
 					counter = 0;
 					pulse = !pulse;
@@ -78,7 +79,7 @@ __task void interrupted_charging (void)
 				if (pulse)
 				{
 					//Change to Regulate at 0.05C
-					perturb_and_observe_itter();
+					perturb_and_observe_cc_itter(BATTERY_AHR*0.05f);
 					printf("Battery Current = %f A\n", get_adc_voltage(ADC_BATT_I));
 				}
 				
@@ -97,11 +98,14 @@ __task void interrupted_charging (void)
 					//This means that the battery is no longer charged
 					//But the panel is used to power any connected load
 			
+				//Turn off Gate Driver
+				
+			
 				//Check when to start recharging again.
-				if (batt_voltage < V_LO)
+				if (batt_voltage < V_RESTART)
 				{
-					state = MPP_CHARGING;
-					printf("Restarting the MPP Charging State \n");
+					state = BULK_CHARGING;
+					printf("Restarting the Bulk Charging State \n");
 				}
 			
 				//5s delay
@@ -115,24 +119,17 @@ __task void interrupted_charging (void)
 				if (get_adc_voltage(ADC_SOL_V) > batt_voltage) //Add proper condition
 				{
 					GPIO_SetBits(GPIOB, GPIO_Pin_0);
-					state = MPP_CHARGING;
+					state = BULK_CHARGING;
 					printf("Exiting Night Mode\n");
 				}
 				//20s wait time
 				os_dly_wait(2000);
 				break;
 			default:
-				state = MPP_CHARGING;
-				printf("ERROR: Charging State machine entered Unknown State. Restarting with MPP Charging \n");
+				state = BULK_CHARGING;
+				printf("ERROR: Charging State machine entered Unknown State. Restarting with Bulk Charging \n");
 		}
 	}
 }
 
-void init_hardware (void)
-{
-	
-	//Add extra parameter to show which pin
-	init_pwm(40000);
-		
-}
 
