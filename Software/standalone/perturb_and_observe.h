@@ -8,7 +8,7 @@
 #include "pwm.h"
 
 #define P_AND_O_PERIOD	10 //1s
-#define DUTY_CYCLE_INC (float)0.1f
+#define DUTY_CYCLE_INC (float)0.25f
 
 __task void perturb_and_observe (void);
 void perturb_and_observe_itter (void);

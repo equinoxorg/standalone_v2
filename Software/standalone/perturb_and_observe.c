@@ -3,11 +3,6 @@
 //Private Variables
 float duty_cycle_start = 100.0f;
 
-float v_panel, i_panel, p_panel, delta_v, delta_p;
-
-/* TODO:
- * Move scaling of adc reads and filtering to adc code files
- */
 
 __task void perturb_and_observe (void) {
 	
@@ -66,6 +61,7 @@ void perturb_and_observe_itter (void)
 
 void perturb_and_observe_cc_itter (float i_batt_cc) {
 	static float duty_cycle = -1.0f;
+	float v_panel, i_panel, p_panel, delta_v, delta_p;
 
 	float i_batt;
 	static float p_panel_delay = 0.0f, v_panel_delay = 0.0f;
