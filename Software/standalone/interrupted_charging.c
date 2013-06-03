@@ -11,16 +11,19 @@
 #define V_RESTART 12.8f
 #define V_LVDC 11.0f
 
-#define BATTERY_AHR 7.0f
+#define P_NIGHT_MODE 0.7f
+
+#define BATTERY_AHR 	7.0f
+#define PV_PANEL_PEAK	7.0f
 
 
-volatile float batt_current = 0.0f;
 
 int state = BULK_CHARGING;
 
 __task void interrupted_charging (void)
 {
-	float batt_voltage = 0.0f;
+	float batt_voltage = 0.0f, batt_current = 0.0f;
+	float sol_voltage = 0.0f, sol_current = 0.0f, sol_power = 0.0f;
 	int pulse = 0;
 	int counter = 0;
 	
@@ -34,6 +37,10 @@ __task void interrupted_charging (void)
 	{
 		batt_voltage = get_adc_voltage(ADC_BATT_V);
 		batt_current = get_adc_voltage(ADC_BATT_I);
+		sol_voltage = get_adc_voltage(ADC_SOL_V);
+		sol_current = get_adc_voltage(ADC_SOL_I);
+		sol_power = sol_voltage * sol_current;
+		
 		if (batt_current > 0.05)
 			printf("Time=%i \t State=%i \t V_Batt=%.2f \t I_Batt = %.2f \t", os_time_get(), state, batt_voltage, batt_current);
 		
@@ -44,13 +51,26 @@ __task void interrupted_charging (void)
 			
 		}
 		
+		if (state != NIGHT_MODE)
+		{
+			if (sol_power < P_NIGHT_MODE)
+			{
+				if (set_mppt() < P_NIGHT_MODE)
+				{
+					state = NIGHT_MODE;
+					printf("Starting Night Mode State State at P_SOL=%f \n", set_mppt());
+				}
+				printf("Rescaned Power and Night mode not entered \n");
+			}
+		}
+		
 		
 		switch (state)
 		{
 			case BULK_CHARGING:
 				//Start charging battery with 0.1C current or as high as possible if 0.1C cannot be met
 				perturb_and_observe_cc_itter(BATTERY_AHR*0.1f);
-			
+						
 				if (batt_voltage > V_HI)
 				{
 					state = VOLTAGE_SETTLE;
@@ -118,7 +138,9 @@ __task void interrupted_charging (void)
 				//Disable MPPT Circuit
 				GPIO_ResetBits(GPIOB, GPIO_Pin_0);
 			
-				if (get_adc_voltage(ADC_SOL_V) > batt_voltage) //Add proper condition
+				
+			
+				if (set_mppt() > P_NIGHT_MODE) //Add proper condition
 				{
 					GPIO_SetBits(GPIOB, GPIO_Pin_0);
 					state = BULK_CHARGING;

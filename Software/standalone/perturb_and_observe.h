@@ -13,6 +13,6 @@
 __task void perturb_and_observe (void);
 void perturb_and_observe_itter (void);
 void perturb_and_observe_cc_itter (float);
-void set_mppt (void);
+float set_mppt (void);
 
 #endif

@@ -17,7 +17,7 @@ __task void perturb_and_observe (void) {
 	
 }
 
-void set_mppt (void)
+float set_mppt (void)
 {
 	float duty_cycle, duty_cycle_max = 100.0f;
 	float v_panel, i_panel, p_panel, v_batt, i_batt;
@@ -49,6 +49,8 @@ void set_mppt (void)
 	printf("Duty cycle max: %f, with P=%f\n", duty_cycle_max, p_panel_max);
 	
 	duty_cycle_start = duty_cycle_max;
+	
+	return p_panel_max;
 }
 
 void perturb_and_observe_itter (void)
