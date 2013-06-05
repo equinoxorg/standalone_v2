@@ -89,6 +89,18 @@ void HardFault_Handler(void)
 {
 }*/
 
+
+void ADC1_COMP_IRQHandler(void)
+{
+	if(ADC_GetITStatus(ADC1, ADC_IT_AWD) != RESET)
+	{
+		//Turn off DC output
+		GPIO_ResetBits(GPIOA ,GPIO_Pin_12 );
+		
+		ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);
+	}
+}
+
 void EXTI0_1_IRQHandler(void)
 {
 	if (EXTI_GetITStatus(EXTI_Line0) != RESET) {
@@ -96,7 +108,7 @@ void EXTI0_1_IRQHandler(void)
 			//Only PA0 configures
 		
 		//Temp: Use switch as Reset Switch
-		NVIC_SystemReset();
+		//NVIC_SystemReset();
 		
 		//Send event to ui task
 		isr_evt_set (UI_PWR_SW , ui_t);

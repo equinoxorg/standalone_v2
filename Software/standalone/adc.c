@@ -2,6 +2,7 @@
 
 #define ADC1_DR_Address 0x40012440
 
+void adc_init_analog_watchdog (void);
 
 volatile uint16_t RegularConvData_Tab[5];
 
@@ -158,7 +159,37 @@ void init_adc( void )
   
   // Wait the ADCEN falg  
   while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_ADEN)); 
+	
+	adc_init_analog_watchdog();
   
   // ADC1 regular Software Start Conv   
   ADC_StartOfConversion(ADC1);
+}
+
+void adc_init_analog_watchdog (void)
+{
+	//Set up interruts
+	ADC_ITConfig(ADC1, ADC_IT_AWD, ENABLE);
+	
+	
+	
+	//   [..] A typical configuration Analog Watchdog is done following these steps :
+	//        (#) the ADC guarded channel(s) is (are) selected using the 
+	//            ADC_AnalogWatchdogSingleChannelConfig() function.
+	//Setup single channel function for ADC Channel 4, ADC_BATT_I
+	ADC_AnalogWatchdogSingleChannelConfig(ADC1, ADC_AnalogWatchdog_Channel_4);
+
+
+	//        (#) The Analog watchdog lower and higher threshold are configured using the  
+	//            ADC_AnalogWatchdogThresholdsConfig() function.
+	ADC_AnalogWatchdogThresholdsConfig(ADC1, I_BATT_TO_ADC(0.1), I_BATT_TO_ADC(0) );
+
+	//        (#) The Analog watchdog is enabled and configured to enable the check, on one
+	//           or more channels, using the  ADC_AnalogWatchdogCmd() function.
+	ADC_AnalogWatchdogCmd(ADC1, ENABLE);
+
+	//        (#) Enable the analog watchdog on the selected channel using
+	//            ADC_AnalogWatchdogSingleChannelCmd() function
+	ADC_AnalogWatchdogSingleChannelCmd(ADC1, ENABLE);
+
 }
