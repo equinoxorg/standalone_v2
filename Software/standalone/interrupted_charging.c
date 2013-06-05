@@ -101,29 +101,42 @@ __task void interrupted_charging (void)
 				break;
 				
 			case PULSED_CURRENT:
-				if ( ++counter > 50 ) //5s pulse time, change to 30s period with 33% duty cycle
-				{				
-					counter = 0;
-					pulse = !pulse;
-				}
-				
+				counter++;
+
 				if (pulse)
 				{
+					//If greater than 10 seconds, pulse is low. i.e sets up 33% duty cycle
+					if ( counter > 100)
+						pulse = 0;
+					
+					//Enable MPPT hardware
 					GPIO_SetBits(GPIOB, GPIO_Pin_0);
+					
+					//Run p&o itteration
 					perturb_and_observe_cc_itter(BATTERY_AHR*0.05f);
-					if (sol_power < P_NIGHT_MODE)
-					{
-						if (set_mppt() < P_NIGHT_MODE)
+					
+					if ( counter > 10 )
 						{
-							state = NIGHT_MODE;
-							printf("Starting Night Mode State State at P_SOL=%f \n", set_mppt());
-							break;
+						if (sol_power < P_NIGHT_MODE)
+						{
+							if (set_mppt() < P_NIGHT_MODE)
+							{
+								state = NIGHT_MODE;
+								printf("Starting Night Mode State State at P_SOL=%f \n", set_mppt());
+								break;
+							}
+							printf("Rescaned Power and Night mode not entered \n");
 						}
-						printf("Rescaned Power and Night mode not entered \n");
 					}
 				}
 				else
 				{
+					//If greater than 30s, reset.
+					if ( counter > 300)
+					{
+						counter = 0;
+						pulse = 1;
+					}
 					//Diable the MPPT Charging Circuit
 					GPIO_ResetBits(GPIOB, GPIO_Pin_0);
 				}
