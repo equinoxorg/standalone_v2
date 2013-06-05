@@ -35,7 +35,7 @@ __task void ui (void)
 	keypad_init();
 	
 	lcd_init();
-	//lcd_backlight(1);
+	lcd_backlight(1);
 	
 	pwr_sw_init();
 	
@@ -108,6 +108,9 @@ __task void ui (void)
 					//Re-init all LCD
 					pwr_on = 1;
 				}
+				
+				//1 second delay
+				os_dly_wait(100);
 			}
 			
 			if ( event_flag & UI_EVT_USB_OC )

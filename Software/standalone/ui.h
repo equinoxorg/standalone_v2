@@ -14,8 +14,6 @@ extern char pwr_on;
 //Public Functions
 __task void ui (void);
 
-
-
 //Event Flags
 	// Upto 16 event flags per task
 #define UI_PWR_SW						(1 << 0)
