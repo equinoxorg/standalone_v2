@@ -127,7 +127,7 @@ void EXTI4_15_IRQHandler(void)
 		isr_evt_set(UI_EVT_USB_OC, ui_t);
 		
 		//Disable USB_EN_1
-		GPIO_ResetBits(GPIOF , GPIO_Pin_7 );
+		USB1_DISABLE();
 		
 		//Clear the EXTI line 5 pending bit
     EXTI_ClearITPendingBit(EXTI_Line5);
@@ -140,7 +140,7 @@ void EXTI4_15_IRQHandler(void)
 		isr_evt_set(UI_EVT_USB_OC, ui_t);
 		
 		//Disable USB_EN_2
-		GPIO_ResetBits(GPIOF , GPIO_Pin_6 );
+		USB2_DISABLE();
 		
 		//Clear the EXTI line 5 pending bit
     EXTI_ClearITPendingBit(EXTI_Line6);

@@ -8,7 +8,6 @@
 //Public Functions
 void usb_outputs_init (void);
 void dc_outputs_init (void);
-void usb_err_isr_init (void);
 
 //Definitions
 #define USB1_ENABLE()			GPIO_SetBits(GPIOF , GPIO_Pin_7 );
