@@ -1,6 +1,8 @@
 #include "ui.h"
 #include "lcd_hd44780.h"
 
+#include "adc.h" //temp, SOC values should be received through CC task
+
 //Preprocessor
 #define KEY_NONE 	0xFF
 #define KEY_TICK 	0xEF
@@ -17,6 +19,7 @@ void pwr_sw_init (void);
 OS_TID ui_t;
 char pwr_on = 1;
 int i;
+char str [8];
 
 /**
   * @brief  Task which handles all UI including keypad, LCD and all user power outputs.
@@ -32,9 +35,15 @@ __task void ui (void)
 	keypad_init();
 	
 	lcd_init();
-	lcd_backlight(1);
+	//lcd_backlight(1);
 	
 	pwr_sw_init();
+	
+	usb_outputs_init();
+	dc_outputs_init();
+	USB1_ENABLE();
+	USB2_ENABLE();
+	DC_ENABLE();
 	
 	lcd_write_string("  e.quinox      ");
 	lcd_goto_XY(0,1);
@@ -43,15 +52,36 @@ __task void ui (void)
 	//2 second loading screen
 	os_dly_wait(200);
 	
-	lcd_clear();	
-		
+	lcd_clear();
+	
 	while(1)
 	{
-		//Wait for a task event or timeout after 5 seconds
-		if ( os_evt_wait_or(UI_PWR_SW | UI_EVT_USB_OC | UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3, 500) == OS_R_EVT )
+		//Wait for a task event or timeout after 1 second
+		if ( os_evt_wait_or((UI_PWR_SW | UI_EVT_USB_OC | UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3 | UI_LVDC), 100) == OS_R_EVT )
 		{
 			//Find which event 
 			event_flag = os_evt_get();		
+			
+			if ( event_flag & UI_LVDC )
+			{
+				//Turn off outputs
+				USB1_DISABLE();
+				USB2_DISABLE();
+				DC_DISABLE();
+				
+				lcd_clear();
+				lcd_goto_XY(0,0);
+				lcd_write_string("    Battery     ");
+				lcd_goto_XY(0,1);
+				lcd_write_string("     empty!     ");
+				
+				//Delay and Buzz
+				//20 Seconds
+				os_dly_wait(2000);
+				
+				//Turn off Screen
+				lcd_backlight(0);
+			}
 			
 			if ( event_flag & UI_PWR_SW )
 			{
@@ -60,12 +90,21 @@ __task void ui (void)
 					//Turn off all outputs and UI devices
 					//Wait only for UI_PWR_SW tasks
 					lcd_backlight(0);
+					
+					//Turn off outputs
+					USB1_DISABLE();
+					USB2_DISABLE();
+					DC_DISABLE();
+					
 					pwr_on = 0;
 				}
 				else
 				{
 					lcd_backlight(1);
 					//Turn on box
+					USB1_ENABLE();
+					USB2_ENABLE();
+					DC_ENABLE();
 					//Re-init all LCD
 					pwr_on = 1;
 				}
@@ -140,6 +179,30 @@ __task void ui (void)
 		}
 		//else
 				//printf("UI task timeout\n");
+		
+		sprintf(str, "P=%.2f", get_adc_voltage(ADC_SOL_V)*get_adc_voltage(ADC_SOL_I));
+		lcd_goto_XY(0,0);
+		lcd_write_string(str);
+		
+		str[0] = NULL;
+		
+		sprintf(str, "T=%.2f", get_adc_voltage(ADC_TEMP));
+		lcd_goto_XY(8,0);
+		lcd_write_string(str);
+		
+		str[0] = NULL;
+		
+		sprintf(str, "V=%.2f", get_adc_voltage(ADC_BATT_V));
+		lcd_goto_XY(0,1);
+		lcd_write_string(str);
+		
+		str[0] = NULL;
+		
+		sprintf(str, "I=%.2f", get_adc_voltage(ADC_BATT_I));
+		lcd_goto_XY(8,1);
+		lcd_write_string(str);
+		
+		str[0] = NULL;
 	}
 }
 
@@ -166,7 +229,7 @@ void pwr_sw_init (void)
   EXTI_InitStructure.EXTI_LineCmd = ENABLE;
   EXTI_Init(&EXTI_InitStructure);
 
-  // Enable and set EXTI4_15 Interrupt 
+  // Enable and set EXTI0_1_IRQn Interrupt 
   NVIC_InitStructure.NVIC_IRQChannel = EXTI0_1_IRQn;
   NVIC_InitStructure.NVIC_IRQChannelPriority = 0x00;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
@@ -318,40 +381,19 @@ void keypad_init (void)
   // Enable SYSCFG clock 
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
   
-  // Connect EXTI7 Line to PB7 pin 
+  // Connect External Line x to PBx pin 
   SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource7);
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource8);
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource9);
-  // Configure EXTI7 line 
+  
+	// Configure External Interrupts on Lines
 	EXTI_StructInit(&EXTI_InitStructure);
   EXTI_InitStructure.EXTI_Line = (EXTI_Line7 | EXTI_Line8 | EXTI_Line9);
   EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
   EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
   EXTI_InitStructure.EXTI_LineCmd = ENABLE;
   EXTI_Init(&EXTI_InitStructure);
-/*
-	// Connect EXTI8 Line to PB8 pin 
-  SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource8);
 
-  // Configure EXTI8 line 
-	EXTI_StructInit(&EXTI_InitStructure);
-  EXTI_InitStructure.EXTI_Line = EXTI_Line8;
-  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
-  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-  EXTI_Init(&EXTI_InitStructure);
-	
-	// Connect EXTI9 Line to PB9 pin 
-  SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource9);
-
-  // Configure EXTI9 line 
-	EXTI_StructInit(&EXTI_InitStructure);
-  EXTI_InitStructure.EXTI_Line = EXTI_Line9;
-  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
-  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-  EXTI_Init(&EXTI_InitStructure);
-*/
   // Enable and set EXTI4_15 Interrupt 
   NVIC_InitStructure.NVIC_IRQChannel = EXTI4_15_IRQn;
   NVIC_InitStructure.NVIC_IRQChannelPriority = 0x00;

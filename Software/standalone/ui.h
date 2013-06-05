@@ -5,6 +5,7 @@
 #include <RTL.h>
 #include <stdio.h>
 #include "lcd_hd44780.h"
+#include "user_outputs.h"
 
 //Public Variables
 extern OS_TID ui_t;
@@ -25,6 +26,8 @@ __task void ui (void);
 
 #define UI_PAYMENT_VALID		(1 << 5)
 #define UI_PAYMENT_INVALID	(1 << 6)
+
+#define UI_LVDC							(1 << 7)
 
 
 

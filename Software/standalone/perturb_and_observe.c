@@ -1,8 +1,7 @@
 #include "perturb_and_observe.h"
 
 //Private Variables
-float duty_cycle_start = 100.0f;
-
+float duty_cycle_global = 100.0f;
 
 __task void perturb_and_observe (void) {
 	
@@ -48,7 +47,7 @@ float set_mppt (void)
 	
 	printf("Duty cycle max: %f, with P=%f\n", duty_cycle_max, p_panel_max);
 	
-	duty_cycle_start = duty_cycle_max;
+	duty_cycle_global = duty_cycle_max;
 	
 	return p_panel_max;
 }
@@ -62,14 +61,11 @@ void perturb_and_observe_itter (void)
 }
 
 void perturb_and_observe_cc_itter (float i_batt_cc) {
-	static float duty_cycle = -1.0f;
-	float v_panel, i_panel, p_panel, delta_v, delta_p;
 
+	float v_panel, i_panel, p_panel, delta_v, delta_p;
+	float duty_cycle = duty_cycle_global;
 	float i_batt;
 	static float p_panel_delay = 0.0f, v_panel_delay = 0.0f;
-	
-	if (duty_cycle == -1.0f )
-		duty_cycle = duty_cycle_start;
 	
 	//Read in v_panel and i_panel
 	v_panel = get_adc_voltage(ADC_SOL_V);
