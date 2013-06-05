@@ -3,7 +3,7 @@
 <eagle version="6.3">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
@@ -26060,10 +26060,6 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="P+1" library="supply1" deviceset="+5V" device=""/>
 <part name="GND17" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="KEYPAD" library="pinhead" deviceset="PINHD-1X7" device="/90"/>
-<part name="KEY_1" library="rcl" deviceset="R-EU_" device="M0805" value="10K"/>
-<part name="KEY_2" library="rcl" deviceset="R-EU_" device="M0805" value="10K"/>
-<part name="KEY_3" library="rcl" deviceset="R-EU_" device="M0805" value="10K"/>
-<part name="+3V7" library="supply1" deviceset="+3V3" device=""/>
 <part name="L_5V" library="equinox" deviceset="INDUC_BOURNES_SDR2207" device="" value="100uH"/>
 <part name="GND19" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="R11" library="resistor" deviceset="R-EU_" device="M0805" value="75k"/>
@@ -26177,10 +26173,6 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <text x="208.28" y="88.9" size="1.778" layer="98">120mA Max</text>
 <text x="556.26" y="132.08" size="1.778" layer="98" rot="R90">250mA Output</text>
 <text x="297.18" y="66.04" size="1.778" layer="98">Must be 0placed near to IC1</text>
-<text x="165.1" y="193.04" size="1.778" layer="98" rot="R90">Use Internal Pull Ups</text>
-<text x="170.688" y="217.424" size="1.778" layer="98">NP</text>
-<text x="170.942" y="207.518" size="1.778" layer="98">NP</text>
-<text x="170.688" y="197.358" size="1.778" layer="98">NP</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="299.72" y="15.24"/>
@@ -26259,10 +26251,6 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="P+1" gate="1" x="279.4" y="226.06"/>
 <instance part="GND17" gate="1" x="259.08" y="99.06"/>
 <instance part="KEYPAD" gate="A" x="193.04" y="231.14" rot="R90"/>
-<instance part="KEY_1" gate="G$1" x="175.26" y="215.9" rot="R180"/>
-<instance part="KEY_2" gate="G$1" x="175.26" y="205.74" rot="R180"/>
-<instance part="KEY_3" gate="G$1" x="175.26" y="195.58" rot="R180"/>
-<instance part="+3V7" gate="G$1" x="167.64" y="223.52"/>
 <instance part="L_5V" gate="1" x="525.78" y="66.04"/>
 <instance part="GND19" gate="1" x="467.36" y="33.02"/>
 <instance part="R11" gate="G$1" x="680.72" y="116.84" rot="R90"/>
@@ -26751,20 +26739,6 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <junction x="322.58" y="55.88"/>
 </segment>
 <segment>
-<pinref part="+3V7" gate="G$1" pin="+3V3"/>
-<pinref part="KEY_1" gate="G$1" pin="2"/>
-<wire x1="167.64" y1="220.98" x2="167.64" y2="215.9" width="0.1524" layer="91"/>
-<pinref part="KEY_2" gate="G$1" pin="2"/>
-<wire x1="167.64" y1="215.9" x2="170.18" y2="215.9" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="205.74" x2="167.64" y2="205.74" width="0.1524" layer="91"/>
-<wire x1="167.64" y1="205.74" x2="167.64" y2="215.9" width="0.1524" layer="91"/>
-<junction x="167.64" y="215.9"/>
-<wire x1="167.64" y1="205.74" x2="167.64" y2="195.58" width="0.1524" layer="91"/>
-<junction x="167.64" y="205.74"/>
-<pinref part="KEY_3" gate="G$1" pin="2"/>
-<wire x1="167.64" y1="195.58" x2="170.18" y2="195.58" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <pinref part="VREG" gate="A" pin="VOUT"/>
 <wire x1="505.46" y1="132.08" x2="518.16" y2="132.08" width="0.1524" layer="91"/>
 <pinref part="C18" gate="G$1" pin="2"/>
@@ -26934,11 +26908,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <net name="N$23" class="0">
 <segment>
 <pinref part="KEYPAD" gate="A" pin="1"/>
-<wire x1="185.42" y1="228.6" x2="185.42" y2="215.9" width="0.1524" layer="91"/>
-<pinref part="KEY_1" gate="G$1" pin="1"/>
-<wire x1="185.42" y1="215.9" x2="185.42" y2="185.42" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="215.9" x2="185.42" y2="215.9" width="0.1524" layer="91"/>
-<junction x="185.42" y="215.9"/>
+<wire x1="185.42" y1="228.6" x2="185.42" y2="185.42" width="0.1524" layer="91"/>
 <wire x1="185.42" y1="185.42" x2="182.88" y2="185.42" width="0.1524" layer="91"/>
 <pinref part="IC1" gate="1" pin="PB9"/>
 <wire x1="182.88" y1="185.42" x2="182.88" y2="152.4" width="0.1524" layer="91"/>
@@ -26947,11 +26917,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <net name="N$24" class="0">
 <segment>
 <pinref part="KEYPAD" gate="A" pin="2"/>
-<wire x1="187.96" y1="228.6" x2="187.96" y2="205.74" width="0.1524" layer="91"/>
-<pinref part="KEY_2" gate="G$1" pin="1"/>
-<wire x1="187.96" y1="205.74" x2="187.96" y2="182.88" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="205.74" x2="187.96" y2="205.74" width="0.1524" layer="91"/>
-<junction x="187.96" y="205.74"/>
+<wire x1="187.96" y1="228.6" x2="187.96" y2="182.88" width="0.1524" layer="91"/>
 <pinref part="IC1" gate="1" pin="PB8"/>
 <wire x1="185.42" y1="152.4" x2="185.42" y2="182.88" width="0.1524" layer="91"/>
 <wire x1="185.42" y1="182.88" x2="187.96" y2="182.88" width="0.1524" layer="91"/>
@@ -26960,12 +26926,8 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <net name="N$26" class="0">
 <segment>
 <pinref part="KEYPAD" gate="A" pin="3"/>
-<wire x1="190.5" y1="228.6" x2="190.5" y2="195.58" width="0.1524" layer="91"/>
-<pinref part="KEY_3" gate="G$1" pin="1"/>
-<wire x1="180.34" y1="195.58" x2="190.5" y2="195.58" width="0.1524" layer="91"/>
-<junction x="190.5" y="195.58"/>
 <pinref part="IC1" gate="1" pin="PB7"/>
-<wire x1="190.5" y1="152.4" x2="190.5" y2="195.58" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="152.4" x2="190.5" y2="228.6" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$27" class="0">
