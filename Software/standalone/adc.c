@@ -1,4 +1,5 @@
 #include "adc.h"
+#include "pwm.h"
 
 #define ADC1_DR_Address 0x40012440
 
@@ -51,6 +52,11 @@ __task void adc_test(void)
 {	
 	float sol_v, sol_i, batt_v, batt_i, temp;
 	
+	init_pwm(40000);
+	init_adc();
+	
+	set_duty_cycle(82);
+	
 	while (1)
 	{
 		sol_v = get_adc_voltage(ADC_SOL_V);
@@ -59,7 +65,7 @@ __task void adc_test(void)
 		batt_i = get_adc_voltage(ADC_BATT_I);
 		temp = get_adc_voltage(ADC_TEMP);
 		
-		printf("Solar V: %f \t Solar I: %f \t Batt  V: %f \t Batt  I: %f \t Temp : %f \n", sol_v, sol_i, batt_v, batt_i, temp );
+		printf("Solar V: %f \t Solar I: %f \t Solar P: %f \t Batt  V: %f \t Batt  I: %f \t Batt P: %f \t Temp : %f \n", sol_v, sol_i, sol_i*sol_v, batt_v, batt_i, batt_i*batt_v, temp );
 		
 		os_dly_wait(100);
 	}
@@ -131,18 +137,22 @@ void init_adc( void )
   ADC_InitStructure.ADC_ScanDirection = ADC_ScanDirection_Upward;
   ADC_Init(ADC1, &ADC_InitStructure); 
 	
-	//ADC_JitterCmd(ADC1, ADC_JitterOff_PCLKDiv4, ENABLE);
+	ADC_JitterCmd(ADC1, ADC_JitterOff_PCLKDiv4, ENABLE);
  
-  // Convert the ADC_SOL_V  with 239 Cycles as sampling time   
+	//ADC Frequency set as 12MHz
+	//With 5 ADC readings at 239.5 + 12.5 ADC Cycles 
+	//this gives a sampling rate of 
+	
+  // Convert the ADC_SOL_V  with 239.5 + 12.5 = ADC Cycles as sampling time      
   ADC_ChannelConfig(ADC1, ADC_SOL_V , ADC_SampleTime_239_5Cycles);
   
-  // Convert the ADC_SOL_I  with 239 Cycles as sampling time   
+  // Convert the ADC_SOL_I  with 239.5 + 12.5 = ADC Cycles as sampling time      
   ADC_ChannelConfig(ADC1, ADC_SOL_I , ADC_SampleTime_239_5Cycles);
   
-	// Convert the ADC_BATT_V  with 239 Cycles as sampling time   
+	// Convert the ADC_BATT_V  with 239.5 + 12.5 = ADC Cycles as sampling time      
   ADC_ChannelConfig(ADC1, ADC_BATT_V , ADC_SampleTime_239_5Cycles);
   
-  // Convert the ADC_BATT_I  with 239 Cycles as sampling time   
+  // Convert the ADC_BATT_I  with 239.5 + 12.5 = ADC Cycles as sampling time   
   ADC_ChannelConfig(ADC1, ADC_BATT_I , ADC_SampleTime_239_5Cycles);
 	
 	//Enable Temperature Sensor
