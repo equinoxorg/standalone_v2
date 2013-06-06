@@ -19,7 +19,7 @@ __task void perturb_and_observe (void) {
 float set_mppt (void)
 {
 	float duty_cycle, duty_cycle_max = 100.0f;
-	float v_panel, i_panel, p_panel, v_batt, i_batt;
+	float v_panel, i_panel, p_panel;//, v_batt, i_batt;
 	float p_panel_max = 0.0f;
 	
 	for ( duty_cycle = 0; duty_cycle < 100; duty_cycle++)
@@ -45,7 +45,7 @@ float set_mppt (void)
 		//printf("Duty cycle=%f, P_SOL=%.4f, V_SOL=%.4f, I_SOL=%.4f, V_BATT=%.4f, I_BATT=%.4f, TEMP=%.4f\n", duty_cycle, p_panel, v_panel, i_panel, v_batt, i_batt, get_adc_voltage(ADC_TEMP));
 	}
 	
-	printf("Duty cycle max: %f, with P=%f\n", duty_cycle_max, p_panel_max);
+	//printf("Duty cycle max: %f, with P=%f\n", duty_cycle_max, p_panel_max);
 	
 	duty_cycle_global = duty_cycle_max;
 	
@@ -111,6 +111,6 @@ void perturb_and_observe_cc_itter (float i_batt_cc) {
 	/*Set PWM to duty_cycle*/
 	set_duty_cycle(duty_cycle);
 		
-	printf("V_SOL=%.2f \t I_SOL=%.2f \t P_SOL=%.2f \t duty=%f \n", v_panel, i_panel, p_panel, duty_cycle);
+	//printf("V_SOL=%.2f \t I_SOL=%.2f \t P_SOL=%.2f \t duty=%f \n", v_panel, i_panel, p_panel, duty_cycle);
 	
 }

@@ -441,6 +441,11 @@
               <FileType>1</FileType>
               <FilePath>.\ui.c</FilePath>
             </File>
+            <File>
+              <FileName>user_outputs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user_outputs.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
