@@ -24,9 +24,20 @@
 //Convert a current to an equivilent ADC reading
 #define I_BATT_TO_ADC(x)	( (uint16_t) ( ( (x/1.515f) / ADC_VREF ) * 0xFFF) )
 
+#define NO_SAMPLES 16
+#define NO_CHANNELS 5
+
+//Public Variables
+extern volatile uint16_t RegularConvData_Tab[5];
+extern uint16_t adc_v_batt	[NO_SAMPLES];
+extern uint16_t adc_i_batt	[NO_SAMPLES];
+extern uint16_t adc_v_sol		[NO_SAMPLES];
+extern uint16_t adc_i_sol		[NO_SAMPLES];
+extern uint16_t adc_temp		[NO_SAMPLES];
 
 /* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
+
+/* Public function prototypes -----------------------------------------------*/
 //void init_adc(void);
 void init_adc( void );
 float get_adc_voltage (uint32_t);

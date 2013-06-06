@@ -7,7 +7,15 @@ void adc_init_analog_watchdog (void);
 
 volatile uint16_t RegularConvData_Tab[5];
 
+uint16_t adc_v_batt	[NO_SAMPLES];
+uint16_t adc_i_batt	[NO_SAMPLES];
+uint16_t adc_v_sol	[NO_SAMPLES];
+uint16_t adc_i_sol	[NO_SAMPLES];
+uint16_t adc_temp		[NO_SAMPLES];
+
 uint16_t ts_cal1, ts_cal2;
+
+const int filter = 1;
 
 /* Function for reading the latest ADC Reading
  * Parameter: ADC_Channel_x
@@ -19,6 +27,8 @@ uint16_t ts_cal1, ts_cal2;
 float get_adc_voltage ( uint32_t ADC_Channel )
 {
 	float slope = (float)(ts_cal1 - ts_cal2) / (110.0f - 30.0f);
+	int i;
+	uint32_t sum = 0;
 	
 	/* Test DMA1 TC flag */
 	while((DMA_GetFlagStatus(DMA1_FLAG_TC1)) == RESET ); 
@@ -29,17 +39,72 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 	switch (ADC_Channel)
 	{
 		case ADC_SOL_V:
-			return SCALE_V_SOL( (RegularConvData_Tab[1] * ADC_VREF) / 0xFFF );
+			if (filter)
+			{
+				sum = 0;
+				for (i = 0; i < NO_SAMPLES; i++)
+					sum += adc_v_sol[i];
+				
+				sum = sum / NO_SAMPLES;
+				
+				return SCALE_V_SOL( (sum * ADC_VREF) / 0xFFF );
+			}
+			else
+				return SCALE_V_SOL( (RegularConvData_Tab[1] * ADC_VREF) / 0xFFF );
 		case ADC_SOL_I:
-			return SCALE_I_SOL( (RegularConvData_Tab[2] * ADC_VREF) / 0xFFF );
+			if (filter)
+			{
+				sum = 0;
+				for (i = 0; i < NO_SAMPLES; i++)
+					sum += adc_i_sol[i];
+				
+				sum = sum / NO_SAMPLES;
+				
+				return SCALE_I_SOL( (sum * ADC_VREF) / 0xFFF );
+			}
+			else
+				return SCALE_I_SOL( (RegularConvData_Tab[2] * ADC_VREF) / 0xFFF );
 		case ADC_BATT_V:
-			return SCALE_V_BATT( (RegularConvData_Tab[3] * ADC_VREF) / 0xFFF );
+			if (filter)
+			{
+				sum = 0;
+				for (i = 0; i < NO_SAMPLES; i++)
+					sum += adc_v_batt[i];
+				
+				sum = sum / NO_SAMPLES;
+				
+				return SCALE_V_BATT( (sum * ADC_VREF) / 0xFFF );
+			}
+			else
+				return SCALE_V_BATT( (RegularConvData_Tab[3] * ADC_VREF) / 0xFFF );
 		case ADC_BATT_I:
-			return SCALE_I_BATT( (RegularConvData_Tab[4] * ADC_VREF) / 0xFFF );
+			if (filter)
+			{
+				sum = 0;
+				for (i = 0; i < NO_SAMPLES; i++)
+					sum += adc_i_batt[i];
+				
+				sum = sum / NO_SAMPLES;
+				
+				return SCALE_I_BATT( (sum * ADC_VREF) / 0xFFF );
+			}
+			else
+				return SCALE_I_BATT( (RegularConvData_Tab[4] * ADC_VREF) / 0xFFF );
 		case ADC_TEMP:
-			//Use the factory calibrated values to get tempreture in degrees
-			return ( ((float)ts_cal1 - (float)RegularConvData_Tab[0]) / slope) + 30.0f;
-			//return (RegularConvData_Tab[0] * ADC_VREF) / 0xFFF;
+			if (filter)
+			{
+				sum = 0;
+				for (i = 0; i < NO_SAMPLES; i++)
+					sum += adc_temp[i];
+				
+				sum = sum / NO_SAMPLES;
+				
+				//Use the factory calibrated values to get tempreture in degrees
+				return ( ((float)ts_cal1 - (float)sum) / slope) + 30.0f;
+			}
+			else
+				//Use the factory calibrated values to get tempreture in degrees
+				return ( ((float)ts_cal1 - (float)RegularConvData_Tab[0]) / slope) + 30.0f;
 		default:
 			printf ("ERROR: Attmept to read Invalid ADC Channel \n");
 			return -1.0f;
@@ -51,6 +116,7 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 __task void adc_test(void)
 {	
 	float sol_v, sol_i, batt_v, batt_i, temp;
+
 	
 	init_pwm(40000);
 	init_adc();
@@ -81,6 +147,7 @@ void init_adc( void )
 	ADC_InitTypeDef ADC_InitStructure;
 	DMA_InitTypeDef DMA_InitStructure;
 	GPIO_InitTypeDef GPIO_InitStructure;
+	NVIC_InitTypeDef   NVIC_InitStructure;
 		
   // GPIOA Periph clock enable 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
@@ -172,8 +239,16 @@ void init_adc( void )
   // Wait the ADCEN falg  
   while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_ADEN)); 
 	
-	adc_init_analog_watchdog();
+	//adc_init_analog_watchdog();
   
+	ADC_ITConfig(ADC1, ADC_IT_EOSEQ, ENABLE);
+	
+	/* Enable and set ADC1_COMP Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = ADC1_COMP_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPriority = 0x00;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+	
   // ADC1 regular Software Start Conv   
   ADC_StartOfConversion(ADC1);
 }

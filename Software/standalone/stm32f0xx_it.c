@@ -31,6 +31,7 @@
 #include "stm32f0xx_it.h"
 #include <RTL.h>
 #include "ui.h"
+#include "adc.h"
 
 /** @addtogroup STM32F0_Discovery_Peripheral_Examples
   * @{
@@ -92,12 +93,28 @@ void HardFault_Handler(void)
 
 void ADC1_COMP_IRQHandler(void)
 {
-	if(ADC_GetITStatus(ADC1, ADC_IT_AWD) != RESET)
+	static int i = 0;
+// 	if(ADC_GetITStatus(ADC1, ADC_IT_AWD) == SET)
+// 	{
+// 		//Turn off DC output
+// 		GPIO_ResetBits(GPIOA ,GPIO_Pin_12 );
+// 		
+// 		ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);
+// 	}
+// 	
+	if(ADC_GetITStatus(ADC1, ADC_IT_EOSEQ) == SET)
 	{
 		//Turn off DC output
-		GPIO_ResetBits(GPIOA ,GPIO_Pin_12 );
+		adc_temp[i] 	= RegularConvData_Tab[0];
+		adc_v_sol[i] 	= RegularConvData_Tab[1];
+		adc_i_sol[i] 	= RegularConvData_Tab[2];
+		adc_v_batt[i] = RegularConvData_Tab[3];
+		adc_i_batt[i] = RegularConvData_Tab[4];
 		
-		ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);
+		if (++i > NO_SAMPLES)
+			i = 0;
+		
+		ADC_ClearITPendingBit(ADC1, ADC_IT_EOSEQ);
 	}
 }
 
