@@ -130,6 +130,8 @@ void init_adc( void )
   ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
   ADC_InitStructure.ADC_ScanDirection = ADC_ScanDirection_Upward;
   ADC_Init(ADC1, &ADC_InitStructure); 
+	
+	//ADC_JitterCmd(ADC1, ADC_JitterOff_PCLKDiv4, ENABLE);
  
   // Convert the ADC_SOL_V  with 239 Cycles as sampling time   
   ADC_ChannelConfig(ADC1, ADC_SOL_V , ADC_SampleTime_239_5Cycles);

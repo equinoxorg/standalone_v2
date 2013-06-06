@@ -45,13 +45,14 @@ __task void ui (void)
 	USB2_ENABLE();
 	DC_ENABLE();
 	
+	lcd_clear();	
 	lcd_write_string("  e.quinox      ");
 	lcd_goto_XY(0,1);
 	lcd_write_string("     izuba.box  ");
 	
 	//2 second loading screen
 	os_dly_wait(200);
-	
+		
 	lcd_clear();
 	
 	while(1)
@@ -105,7 +106,10 @@ __task void ui (void)
 					USB1_ENABLE();
 					USB2_ENABLE();
 					DC_ENABLE();
+					
 					//Re-init all LCD
+					lcd_init();
+					
 					pwr_on = 1;
 				}
 				

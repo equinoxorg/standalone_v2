@@ -28,6 +28,7 @@
 void delay100u (int);
 void cycle_e (void);
 void lcd_send_4_bits (uint8_t);
+void lcd_set_custom_chars (void);
 
 //LCD testing routine
 void lcd_test (void)
@@ -154,7 +155,7 @@ void lcd_init (void)
 	
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
-	GPIO_ResetBits(GPIOB, (LCD_E | LCD_RS | LCD_RW | LCD_BK_EN) );
+	GPIO_ResetBits(GPIOB, (LCD_E | LCD_RS | LCD_RW ) );
 	GPIO_ResetBits(GPIOB, (LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7) );
 		
 	delay100u(100);
@@ -165,6 +166,7 @@ void lcd_init (void)
 	lcd_send_cmd( 0x28 );
 	lcd_clear();
 		
+	lcd_set_custom_chars();
 }
 
 void lcd_send_4_bits (uint8_t c)
@@ -224,5 +226,66 @@ void lcd_putc (char c)
 	lcd_send_4_bits(c);	
 	GPIO_SetBits(GPIOB, LCD_RS);
 	cycle_e();
+}
+
+__inline void lcd_send_data (uint8_t data)
+{
+	lcd_putc(data);
+}
+
+void lcd_set_custom_chars(void)
+{
+    //Shift to start of RAM
+    lcd_send_cmd(0x40);
+
+    //Char0
+    lcd_send_data(0x1F);
+    lcd_send_data(0x10);
+    lcd_send_data(0x10);
+    lcd_send_data(0x10);
+    lcd_send_data(0x10);
+    lcd_send_data(0x10);
+    lcd_send_data(0x10);
+    lcd_send_data(0x1F);
+
+    //Char1
+    lcd_send_data(0x1F);
+    lcd_send_data(0x00);
+    lcd_send_data(0x00);
+    lcd_send_data(0x00);
+    lcd_send_data(0x00);
+    lcd_send_data(0x00);
+    lcd_send_data(0x00);
+    lcd_send_data(0x1F);
+
+    //Char2
+    lcd_send_data(0x1C);
+    lcd_send_data(0x04);
+    lcd_send_data(0x07);
+    lcd_send_data(0x01);
+    lcd_send_data(0x01);
+    lcd_send_data(0x07);
+    lcd_send_data(0x04);
+    lcd_send_data(0x1C);
+
+    //Char3
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1F);
+
+    //Char4
+    lcd_send_data(0x1C);
+    lcd_send_data(0x1C);
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1F);
+    lcd_send_data(0x1C);
+    lcd_send_data(0x1C);
 }
 
