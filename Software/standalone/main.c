@@ -51,7 +51,7 @@ void delay (int a)
 
 __task void init (void) 
 {	
-	//Maximum of three running tasks, so can only launch two tasks here, any more will be ignored.
+	//Maximum of four running tasks, so can only launch three tasks here, any more will be ignored.
 
 	
 	//Start the P&O charge control algo
@@ -60,21 +60,25 @@ __task void init (void)
 	
 	//Start the interrupted charging algoritm
 	printf("Starting Interrupted Charging Task \n");
-	interrupted_charging_t = os_tsk_create( interrupted_charging, 0);
+	//interrupted_charging_t = os_tsk_create( interrupted_charging, 0);
+	interrupted_charging_t = os_tsk_create_user ( interrupted_charging, 0, &interrupted_charging_stk , sizeof(interrupted_charging_stk) );
 	if (!interrupted_charging_t)
 		printf("ERROR: Interrupted Charging Task Failed to launch \n");
 	
 	printf("Starting UI task \n");
-	ui_t = os_tsk_create(ui, 2);
+	//ui_t = os_tsk_create(ui, 2);
+	ui_t = os_tsk_create_user (ui, 2, &ui_stk, sizeof(ui_stk) );
 	if (!ui_t)
 		printf("ERROR: UI Task Failed to launch \n");
 	
 	//printf("Starting pwm_out task \n");
 	//pwm_out_t = os_tsk_create( pwm_out, 0);
 	
-	//printf("Starting adc_in task \n");
-	//adc_test_t = os_tsk_create( adc_test, 0);
-			
+// 	printf("Starting adc_in task \n");
+// 	adc_test_t = os_tsk_create( adc_test, 0);
+// 	if (!adc_test_t)
+// 		printf("ERROR: ADC Task Failed to launch \n");
+// 			
 	os_tsk_delete_self ();
 }
 

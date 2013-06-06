@@ -32,6 +32,7 @@
 #include <RTL.h>
 #include "ui.h"
 #include "adc.h"
+//#include "coefs_iir_single_section.h"
 
 /** @addtogroup STM32F0_Discovery_Peripheral_Examples
   * @{
@@ -93,6 +94,7 @@ void HardFault_Handler(void)
 
 void ADC1_COMP_IRQHandler(void)
 {
+	//float temp, batt_v_in;
 	static int i = 0;
 // 	if(ADC_GetITStatus(ADC1, ADC_IT_AWD) == SET)
 // 	{
@@ -110,6 +112,15 @@ void ADC1_COMP_IRQHandler(void)
 		adc_i_sol[i] 	= RegularConvData_Tab[2];
 		adc_v_batt[i] = RegularConvData_Tab[3];
 		adc_i_batt[i] = RegularConvData_Tab[4];
+		
+// 		batt_v_in = SCALE_V_BATT( (((float)RegularConvData_Tab[3]) * ADC_VREF) / (float)((uint16_t)0xFFF) );
+// 		
+// 		temp = adc_v_batt_iir[0];
+// 		adc_v_batt_iir[0] = adc_v_batt_iir[1] +   (batt_v_in * NUM[0]);
+// 		adc_v_batt_iir[1] = adc_v_batt_iir[2] + ( (batt_v_in * NUM[1]) - (temp * DEN[1])  );
+// 		adc_v_batt_iir[2] = adc_v_batt_iir[3] + ( (batt_v_in * NUM[2]) - (temp * DEN[2])  );
+// 		adc_v_batt_iir[3] = adc_v_batt_iir[4] + ( (batt_v_in * NUM[3]) - (temp * DEN[3])  );
+// 		adc_v_batt_iir[4] = 										( (batt_v_in * NUM[4]) - (temp * DEN[4])  );
 		
 		if (++i > NO_SAMPLES)
 			i = 0;

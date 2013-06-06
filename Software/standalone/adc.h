@@ -35,6 +35,8 @@ extern uint16_t adc_v_sol		[NO_SAMPLES];
 extern uint16_t adc_i_sol		[NO_SAMPLES];
 extern uint16_t adc_temp		[NO_SAMPLES];
 
+//extern float adc_v_batt_iir[5];
+
 /* Private variables ---------------------------------------------------------*/
 
 /* Public function prototypes -----------------------------------------------*/

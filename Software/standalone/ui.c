@@ -21,6 +21,9 @@ char pwr_on = 1;
 int i;
 char str [8];
 
+
+U32 ui_stk[UI_STK_SIZE];
+
 /**
   * @brief  Task which handles all UI including keypad, LCD and all user power outputs.
 	* 				Responds to events caused by other tasks and ISRs

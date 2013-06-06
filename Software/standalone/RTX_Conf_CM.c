@@ -12,6 +12,7 @@
 #include <RTL.h>
 #include <stdio.h>
 
+
 /*----------------------------------------------------------------------------
  *      RTX User configuration part BEGIN
  *---------------------------------------------------------------------------*/
@@ -25,7 +26,7 @@
 //   <i> Define max. number of tasks that will run at the same time.
 //   <i> Default: 6
 #ifndef OS_TASKCNT
- #define OS_TASKCNT     3
+ #define OS_TASKCNT     4
 #endif
 
 //   <o>Number of tasks with user-provided stack <0-250>
@@ -41,7 +42,7 @@
 //   <i> Default: 200
 //   <i> This give 4 x Value bytes of stack as we have a 32bit system
 #ifndef OS_STKSIZE
- #define OS_STKSIZE     128
+ #define OS_STKSIZE     32
 #endif
 
 // <q>Check for the stack overflow
@@ -165,7 +166,18 @@ void os_tmr_call (U16 info) {
 void os_error (U32 err_code) {
   /* This function is called when a runtime error is detected. Parameter */
   /* 'err_code' holds the runtime error code (defined in RTL.H).         */
-	printf("OS Error: %i", err_code);
+	switch (err_code)
+	{
+		case OS_ERR_STK_OVF:
+			printf("OS Error: Stack Overflow \n");
+			break;
+		case OS_ERR_FIFO_OVF:
+			printf("OS Error: FIFO Overflow \n");
+			break;
+		case OS_ERR_MBX_OVF:
+			printf("OS Error: Mailbox Overflow \n");
+			break;
+	}
 
   /* HERE: include optional code to be executed on runtime error. */
   for (;;);

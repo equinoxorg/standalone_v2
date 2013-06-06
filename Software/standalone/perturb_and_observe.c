@@ -26,13 +26,13 @@ float set_mppt (void)
 	{
 		set_duty_cycle(duty_cycle);
 		
-		os_dly_wait(1);
+		os_dly_wait(10);
 		
 		//Read in v_panel and i_panel
 		v_panel = get_adc_voltage(ADC_SOL_V);
 		i_panel = get_adc_voltage(ADC_SOL_I);
-		v_batt = get_adc_voltage(ADC_BATT_V);
-		i_batt = get_adc_voltage(ADC_BATT_I);
+		//v_batt = get_adc_voltage(ADC_BATT_V);
+		//i_batt = get_adc_voltage(ADC_BATT_I);
 		
 		p_panel = v_panel * i_panel;
 		
@@ -42,7 +42,7 @@ float set_mppt (void)
 			duty_cycle_max = duty_cycle;
 		}
 		
-		printf("Duty cycle=%f, P_SOL=%.4f, V_SOL=%.4f, I_SOL=%.4f, V_BATT=%.4f, I_BATT=%.4f, TEMP=%.4f\n", duty_cycle, p_panel, v_panel, i_panel, v_batt, i_batt, get_adc_voltage(ADC_TEMP));
+		//printf("Duty cycle=%f, P_SOL=%.4f, V_SOL=%.4f, I_SOL=%.4f, V_BATT=%.4f, I_BATT=%.4f, TEMP=%.4f\n", duty_cycle, p_panel, v_panel, i_panel, v_batt, i_batt, get_adc_voltage(ADC_TEMP));
 	}
 	
 	printf("Duty cycle max: %f, with P=%f\n", duty_cycle_max, p_panel_max);

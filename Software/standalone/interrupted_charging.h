@@ -8,4 +8,6 @@
 
 __task void interrupted_charging (void);
 
+extern U32 interrupted_charging_stk[128];
+
 #endif

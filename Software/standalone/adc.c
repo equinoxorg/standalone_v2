@@ -13,6 +13,8 @@ uint16_t adc_v_sol	[NO_SAMPLES];
 uint16_t adc_i_sol	[NO_SAMPLES];
 uint16_t adc_temp		[NO_SAMPLES];
 
+//float adc_v_batt_iir[5];
+
 uint16_t ts_cal1, ts_cal2;
 
 const int filter = 1;
@@ -73,7 +75,7 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 				
 				sum = sum / NO_SAMPLES;
 				
-				return SCALE_V_BATT( (sum * ADC_VREF) / 0xFFF );
+				return SCALE_V_BATT( (sum * ADC_VREF) / 0xFFF ); 
 			}
 			else
 				return SCALE_V_BATT( (RegularConvData_Tab[3] * ADC_VREF) / 0xFFF );
