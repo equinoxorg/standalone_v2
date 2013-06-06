@@ -25,7 +25,7 @@ float calc_lvdc ( float );
 int state = BULK_CHARGING;
 
 //Public Variables
-U32 interrupted_charging_stk[128];
+U64 interrupted_charging_stk[I_CHARGING_STK_SIZE];
 
 __task void interrupted_charging (void)
 {

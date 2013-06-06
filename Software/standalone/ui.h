@@ -11,8 +11,8 @@
 extern OS_TID ui_t;
 extern char pwr_on;
 
-#define UI_STK_SIZE 100
-extern U32 ui_stk[UI_STK_SIZE];
+#define UI_STK_SIZE 50
+extern U64 ui_stk[UI_STK_SIZE];
 
 //Public Functions
 __task void ui (void);

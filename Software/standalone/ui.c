@@ -22,7 +22,7 @@ int i;
 char str [8];
 
 
-U32 ui_stk[UI_STK_SIZE];
+U64 ui_stk[UI_STK_SIZE];
 
 /**
   * @brief  Task which handles all UI including keypad, LCD and all user power outputs.

@@ -8,6 +8,7 @@
 
 __task void interrupted_charging (void);
 
-extern U32 interrupted_charging_stk[128];
+#define I_CHARGING_STK_SIZE 64
+extern U64  interrupted_charging_stk[I_CHARGING_STK_SIZE];
 
 #endif
