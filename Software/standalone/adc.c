@@ -5,18 +5,12 @@
 
 void adc_init_analog_watchdog (void);
 
-volatile uint16_t RegularConvData_Tab[5];
-
-uint16_t adc_v_batt	[NO_SAMPLES];
-uint16_t adc_i_batt	[NO_SAMPLES];
-uint16_t adc_v_sol	[NO_SAMPLES];
-uint16_t adc_i_sol	[NO_SAMPLES];
-uint16_t adc_temp		[NO_SAMPLES];
-
-//float adc_v_batt_iir[5];
+volatile uint16_t RegularConvData_Tab[NO_SAMPLES * NO_CHANNELS];
 
 uint16_t ts_cal1, ts_cal2;
 
+//Can be made non const and using to turn on/off filtering
+//through the debugger
 const int filter = 1;
 
 /* Function for reading the latest ADC Reading
@@ -45,7 +39,7 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 			{
 				sum = 0;
 				for (i = 0; i < NO_SAMPLES; i++)
-					sum += adc_v_sol[i];
+					sum += RegularConvData_Tab[(i*NO_CHANNELS)+1];
 				
 				sum = sum / NO_SAMPLES;
 				
@@ -58,7 +52,7 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 			{
 				sum = 0;
 				for (i = 0; i < NO_SAMPLES; i++)
-					sum += adc_i_sol[i];
+					sum += RegularConvData_Tab[(i*NO_CHANNELS)+2];
 				
 				sum = sum / NO_SAMPLES;
 				
@@ -71,7 +65,7 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 			{
 				sum = 0;
 				for (i = 0; i < NO_SAMPLES; i++)
-					sum += adc_v_batt[i];
+					sum += RegularConvData_Tab[(i*NO_CHANNELS)+3];
 				
 				sum = sum / NO_SAMPLES;
 				
@@ -84,7 +78,7 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 			{
 				sum = 0;
 				for (i = 0; i < NO_SAMPLES; i++)
-					sum += adc_i_batt[i];
+					sum += RegularConvData_Tab[(i*NO_CHANNELS)+4];
 				
 				sum = sum / NO_SAMPLES;
 				
@@ -97,7 +91,7 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 			{
 				sum = 0;
 				for (i = 0; i < NO_SAMPLES; i++)
-					sum += adc_temp[i];
+					sum += RegularConvData_Tab[(i*NO_CHANNELS)+0];
 				
 				sum = sum / NO_SAMPLES;
 				
@@ -149,7 +143,6 @@ void init_adc( void )
 	ADC_InitTypeDef ADC_InitStructure;
 	DMA_InitTypeDef DMA_InitStructure;
 	GPIO_InitTypeDef GPIO_InitStructure;
-	NVIC_InitTypeDef   NVIC_InitStructure;
 		
   // GPIOA Periph clock enable 
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
@@ -176,7 +169,7 @@ void init_adc( void )
   DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)ADC1_DR_Address;
   DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)RegularConvData_Tab;
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;
-  DMA_InitStructure.DMA_BufferSize = 5;
+  DMA_InitStructure.DMA_BufferSize = NO_SAMPLES * NO_CHANNELS;
   DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
   DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
   DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
@@ -225,6 +218,7 @@ void init_adc( void )
   ADC_ChannelConfig(ADC1, ADC_BATT_I , ADC_SampleTime_239_5Cycles);
 	
 	//Enable Temperature Sensor
+	//>2.2us Sampling time required
 	ADC_TempSensorCmd(ENABLE);
 	ADC_ChannelConfig(ADC1, ADC_TEMP, ADC_SampleTime_239_5Cycles);
 	
@@ -242,21 +236,15 @@ void init_adc( void )
   while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_ADEN)); 
 	
 	//adc_init_analog_watchdog();
-  
-	ADC_ITConfig(ADC1, ADC_IT_EOSEQ, ENABLE);
-	
-	/* Enable and set ADC1_COMP Interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = ADC1_COMP_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPriority = 0x00;
-  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-  NVIC_Init(&NVIC_InitStructure);
-	
+		
   // ADC1 regular Software Start Conv   
   ADC_StartOfConversion(ADC1);
 }
 
 void adc_init_analog_watchdog (void)
 {
+	NVIC_InitTypeDef   NVIC_InitStructure;
+	
 	//Set up interruts
 	ADC_ITConfig(ADC1, ADC_IT_AWD, ENABLE);
 	
@@ -280,5 +268,11 @@ void adc_init_analog_watchdog (void)
 	//        (#) Enable the analog watchdog on the selected channel using
 	//            ADC_AnalogWatchdogSingleChannelCmd() function
 	ADC_AnalogWatchdogSingleChannelCmd(ADC1, ENABLE);
+	
+	/* Enable and set ADC1_COMP Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = ADC1_COMP_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPriority = 0x00;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
 
 }

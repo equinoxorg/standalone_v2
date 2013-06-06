@@ -28,19 +28,12 @@
 #define NO_CHANNELS 5
 
 //Public Variables
-extern volatile uint16_t RegularConvData_Tab[5];
-extern uint16_t adc_v_batt	[NO_SAMPLES];
-extern uint16_t adc_i_batt	[NO_SAMPLES];
-extern uint16_t adc_v_sol		[NO_SAMPLES];
-extern uint16_t adc_i_sol		[NO_SAMPLES];
-extern uint16_t adc_temp		[NO_SAMPLES];
+extern volatile uint16_t RegularConvData_Tab[NO_SAMPLES * NO_CHANNELS];
 
-//extern float adc_v_batt_iir[5];
 
 /* Private variables ---------------------------------------------------------*/
 
 /* Public function prototypes -----------------------------------------------*/
-//void init_adc(void);
 void init_adc( void );
 float get_adc_voltage (uint32_t);
 __task void adc_test (void);
