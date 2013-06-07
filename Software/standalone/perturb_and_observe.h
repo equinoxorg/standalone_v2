@@ -16,6 +16,6 @@ void perturb_and_observe_cc_itter (float);
 float set_mppt (void);
 
 //Public variables
-extern float duty_cycle_global;
+extern float duty_cycle;
 
 #endif

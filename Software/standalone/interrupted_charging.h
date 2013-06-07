@@ -6,9 +6,13 @@
 #include <stdio.h>
 #include "perturb_and_observe.h"
 
+//Public Functions
 __task void interrupted_charging (void);
 
+//Task Parameters
+extern OS_TID interrupted_charging_t;
 #define I_CHARGING_STK_SIZE 64
 extern U64  interrupted_charging_stk[I_CHARGING_STK_SIZE];
+
 
 #endif

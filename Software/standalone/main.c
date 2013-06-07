@@ -28,9 +28,10 @@
 #include "perturb_and_observe.h"
 #include "interrupted_charging.h"
 #include "ui.h"
+#include "payment_control.h"
 
 /* Private variables ---------------------------------------------------------*/
-OS_TID pwm_out_t, adc_test_t, perturb_and_observe_t, lcd_t, interrupted_charging_t;
+OS_TID adc_test_t;
 
 /* Private function prototypes -----------------------------------------------*/
 void setup_rtc(void);
@@ -38,42 +39,27 @@ void print_time_date ( void );
 struct tm get_time_struct (void);
 
 
-void delay (int a)
-{
-	volatile int i,j;
-
-	for (i=0; i < a; i++)
-		j++;	
-}
-
-
-
-
 __task void init (void) 
 {	
 	//Maximum of four running tasks, so can only launch three tasks here, any more will be ignored.
 
-	
-	//Start the P&O charge control algo
-	//printf("Starting Peturb and Observe Task \n");
-	//perturb_and_observe_t = os_tsk_create( perturb_and_observe, 0);
-	
 	//Start the interrupted charging algoritm
 	printf("Starting Interrupted Charging Task \n");
-	//interrupted_charging_t = os_tsk_create( interrupted_charging, 0);
 	interrupted_charging_t = os_tsk_create_user ( interrupted_charging, 0, &interrupted_charging_stk , sizeof(interrupted_charging_stk) );
 	if (!interrupted_charging_t)
 		printf("ERROR: Interrupted Charging Task Failed to launch \n");
 	
 	printf("Starting UI task \n");
-	//ui_t = os_tsk_create(ui, 2);
 	ui_t = os_tsk_create_user (ui, 2, &ui_stk, sizeof(ui_stk) );
 	if (!ui_t)
 		printf("ERROR: UI Task Failed to launch \n");
 	
-	//printf("Starting pwm_out task \n");
-	//pwm_out_t = os_tsk_create( pwm_out, 0);
+	printf("Starting Payment Control task \n");
+	payment_control_t = os_tsk_create_user (payment_control, 2, &payment_control_stk, sizeof(payment_control_stk) );
+	if (!payment_control_t)
+		printf("ERROR: Payment Control Task Failed to launch \n");
 	
+//	//Can be used to test ADC readings
 // 	printf("Starting adc_in task \n");
 // 	adc_test_t = os_tsk_create( adc_test, 0);
 // 	if (!adc_test_t)
@@ -98,10 +84,8 @@ int main(void)
 			
 	os_sys_init(init); 
 
-	while(1)
-	{
-		//print_time_date();
-	}
+	while(1);
+	
 }
 
 

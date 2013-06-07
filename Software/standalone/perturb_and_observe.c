@@ -1,7 +1,7 @@
 #include "perturb_and_observe.h"
 
 //Private Variables
-float duty_cycle_global = 100.0f;
+float duty_cycle = 100.0f;
 
 __task void perturb_and_observe (void) {
 	
@@ -18,13 +18,13 @@ __task void perturb_and_observe (void) {
 
 float set_mppt (void)
 {
-	float duty_cycle, duty_cycle_max = 100.0f;
+	float duty_cycle_sweep, duty_cycle_max = 100.0f;
 	float v_panel, i_panel, p_panel;//, v_batt, i_batt;
 	float p_panel_max = 0.0f;
 	
-	for ( duty_cycle = 0; duty_cycle < 100; duty_cycle++)
+	for ( duty_cycle_sweep = 0; duty_cycle_sweep < 100; duty_cycle_sweep++)
 	{
-		set_duty_cycle(duty_cycle);
+		set_duty_cycle(duty_cycle_sweep);
 		
 		os_dly_wait(10);
 		
@@ -39,15 +39,15 @@ float set_mppt (void)
 		if ( p_panel > p_panel_max)
 		{
 			p_panel_max = p_panel;
-			duty_cycle_max = duty_cycle;
+			duty_cycle_max = duty_cycle_sweep;
 		}
 		
-		//printf("Duty cycle=%f, P_SOL=%.4f, V_SOL=%.4f, I_SOL=%.4f, V_BATT=%.4f, I_BATT=%.4f, TEMP=%.4f\n", duty_cycle, p_panel, v_panel, i_panel, v_batt, i_batt, get_adc_voltage(ADC_TEMP));
+		//printf("Duty cycle=%f, P_SOL=%.4f, V_SOL=%.4f, I_SOL=%.4f, V_BATT=%.4f, I_BATT=%.4f, TEMP=%.4f\n", duty_cycle_sweep, p_panel, v_panel, i_panel, v_batt, i_batt, get_adc_voltage(ADC_TEMP));
 	}
 	
 	//printf("Duty cycle max: %f, with P=%f\n", duty_cycle_max, p_panel_max);
 	
-	duty_cycle_global = duty_cycle_max;
+	duty_cycle = duty_cycle_max;
 	
 	return p_panel_max;
 }
@@ -63,7 +63,6 @@ void perturb_and_observe_itter (void)
 void perturb_and_observe_cc_itter (float i_batt_cc) {
 
 	float v_panel, i_panel, p_panel, delta_v, delta_p;
-	float duty_cycle = duty_cycle_global;
 	float i_batt;
 	static float p_panel_delay = 0.0f, v_panel_delay = 0.0f;
 	

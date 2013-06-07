@@ -26,6 +26,7 @@ int state = BULK_CHARGING;
 
 //Public Variables
 U64 interrupted_charging_stk[I_CHARGING_STK_SIZE];
+OS_TID interrupted_charging_t;
 
 __task void interrupted_charging (void)
 {
@@ -49,7 +50,7 @@ __task void interrupted_charging (void)
 		sol_power = sol_voltage * sol_current;
 		
 		printf("Time=%i \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.2f \t P_SOL=%.2f \t duty=%f \n",
-					os_time_get(), state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle_global);
+					os_time_get(), state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle);
 		
 		//Check for LVDC voltage
 		if ( batt_voltage < calc_lvdc(batt_current) )
