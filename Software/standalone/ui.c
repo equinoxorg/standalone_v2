@@ -1,5 +1,6 @@
 #include "ui.h"
 #include "lcd_hd44780.h"
+#include "buzzer.h"
 
 #include "adc.h" //temp, SOC values should be received through CC task
 
@@ -40,6 +41,8 @@ __task void ui (void)
 	lcd_init();
 	lcd_backlight(1);
 	
+	buzzer_init();
+	
 	pwr_sw_init();
 	
 	usb_outputs_init();
@@ -55,7 +58,7 @@ __task void ui (void)
 	
 	//2 second loading screen
 	os_dly_wait(200);
-		
+			
 	lcd_clear();
 	
 	while(1)
@@ -156,15 +159,18 @@ __task void ui (void)
 						break;
 					//Special Key Cases
 					case KEY_TICK:
+						buzz(1);
 						printf("./");
 						lcd_goto_XY(0,1);
 						break;
 					case KEY_CROSS:
+						buzz(1);
 						printf("X");
 						lcd_clear();
 						break;
 					default:
 						//Print the key number
+						buzz(1);
 						printf("%i", key);
 						lcd_write_int(key);					
 				}
