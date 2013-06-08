@@ -5,10 +5,11 @@
 #include <RTL.h>
 #include <stdio.h>
 #include "rtc.h"
+#include "eeprom.h"
 
 //Task Parameters
 extern OS_TID payment_control_t;
-#define PAYMENT_CONTROL_STK_SIZE 32
+#define PAYMENT_CONTROL_STK_SIZE 64
 extern U64 payment_control_stk[PAYMENT_CONTROL_STK_SIZE];
 
 //Public Definitions
