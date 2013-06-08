@@ -2748,17 +2748,15 @@ Datasheet: &lt;a href="http://www.bourns.com/data/global/pdfs/SDR1806.pdf"&gt; h
 &lt;/p&gt;&lt;p&gt;
 Onecall #: 1929705
 &lt;/p&gt;</description>
-<smd name="P$1" x="0" y="0" dx="2.921" dy="2.9972" layer="1"/>
-<smd name="P$2" x="15.6972" y="0" dx="2.921" dy="2.9972" layer="1"/>
-<circle x="7.62" y="0" radius="5.08" width="0.127" layer="21"/>
-<wire x1="0" y1="1.27" x2="6.35" y2="5.08" width="0.127" layer="21"/>
-<wire x1="6.35" y1="5.08" x2="8.89" y2="5.08" width="0.127" layer="21"/>
-<wire x1="8.89" y1="5.08" x2="15.24" y2="1.27" width="0.127" layer="21"/>
-<wire x1="0" y1="-1.27" x2="6.35" y2="-5.08" width="0.127" layer="21"/>
-<wire x1="6.35" y1="-5.08" x2="8.89" y2="-5.08" width="0.127" layer="21"/>
-<wire x1="8.89" y1="-5.08" x2="15.24" y2="-1.27" width="0.127" layer="21"/>
-<text x="5.08" y="2.54" size="1.27" layer="25">&gt;NAME</text>
-<text x="5.08" y="0" size="1.27" layer="27">&gt;VALUE</text>
+<smd name="P$1" x="0" y="0" dx="3.5" dy="3.5" layer="1"/>
+<smd name="P$2" x="15.6972" y="0" dx="3.5" dy="3.5" layer="1"/>
+<circle x="7.62" y="0" radius="7" width="0.127" layer="21"/>
+<text x="13.08" y="5.54" size="1.27" layer="25">&gt;NAME</text>
+<text x="13.08" y="-7" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="17" y1="-2" x2="12" y2="-5.5" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="-2" x2="4" y2="-6" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="2" x2="4" y2="6" width="0.127" layer="21"/>
+<wire x1="17" y1="2" x2="12" y2="5.5" width="0.127" layer="21"/>
 </package>
 <package name="TO263-5">
 <description>&lt;b&gt;TO-263&lt;/b&gt;</description>
@@ -25991,25 +25989,41 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 </classes>
 <parts>
 <part name="U$1" library="equinox" deviceset="EQUINOX_LOGO_LARGE" device=""/>
-<part name="U$2" library="equinox" deviceset="KYCON_KLDVX-0202" device=""/>
-<part name="U$3" library="equinox" deviceset="KYCON_KLDVX-0202" device=""/>
-<part name="U$4" library="equinox" deviceset="KYCON_KLDVX-0202" device=""/>
+<part name="U$2" library="equinox" deviceset="KYCON_KLDVX-0202" device="">
+<attribute name="TOBY" value="DC-031-B"/>
+</part>
+<part name="U$3" library="equinox" deviceset="KYCON_KLDVX-0202" device="">
+<attribute name="TOBY" value="DC-031-B"/>
+</part>
+<part name="U$4" library="equinox" deviceset="KYCON_KLDVX-0202" device="">
+<attribute name="TOBY" value="DC-031-B"/>
+</part>
 <part name="X1" library="con-kycon" deviceset="KUSBVX" device=""/>
 <part name="X2" library="con-kycon" deviceset="KUSBVX" device=""/>
-<part name="BATT" library="equinox" deviceset="CON_MOLEX_39_29_1028" device=""/>
+<part name="BATT" library="equinox" deviceset="CON_MOLEX_39_29_1028" device="">
+<attribute name="OC_FARNELL" value="1012166"/>
+</part>
 <part name="DIS1" library="equinox" deviceset="LCD_16X2_R2" device=""/>
-<part name="IC1" library="equinox" deviceset="STM32F050C6T6A" device=""/>
+<part name="IC1" library="equinox" deviceset="STM32F050C6T6A" device="">
+<attribute name="OC_FARNELL" value="2115059"/>
+</part>
 <part name="FRAME2" library="frames" deviceset="A3L-LOC" device=""/>
 <part name="FRAME1" library="frames" deviceset="A3L-LOC" device=""/>
 <part name="RS_S" library="rcl" deviceset="R-EU_" device="R2512" value="0.1"/>
-<part name="D2" library="diode" deviceset="DIODE-" device="DO-214AC" value="S1A-E3/5AT"/>
+<part name="D2" library="diode" deviceset="DIODE-" device="DO-214AC" value="S1A-E3/5AT">
+<attribute name="OC_FARNELL" value="9550216"/>
+</part>
 <part name="C2" library="resistor" deviceset="C-EU" device="C0805K" value="1uF"/>
-<part name="C4" library="resistor" deviceset="CPOL-EU" device="E" value="100uF"/>
+<part name="C4" library="resistor" deviceset="CPOL-EU" device="E" value="100uF">
+<attribute name="OC_FARNELL" value="1539489"/>
+</part>
 <part name="GND4" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="GND5" library="supply1" deviceset="GND" device="" value="GND"/>
-<part name="C5" library="resistor" deviceset="C-EU" device="C0805K" value="0.1uF"/>
+<part name="C5" library="resistor" deviceset="C-EU" device="C0805K" value="100nF"/>
 <part name="R2" library="rcl" deviceset="R-EU_" device="M0805" value="200"/>
-<part name="C6" library="resistor" deviceset="CPOL-EU" device="F" value="220uF"/>
+<part name="C6" library="resistor" deviceset="CPOL-EU" device="F" value="220uF">
+<attribute name="OC_FARNELL" value="9695877"/>
+</part>
 <part name="R3" library="rcl" deviceset="R-EU_" device="M0805" value="10K"/>
 <part name="R4" library="rcl" deviceset="R-EU_" device="M0805" value="1.32k"/>
 <part name="C7" library="resistor" deviceset="C-EU" device="C0805K" value="10uF"/>
@@ -26022,19 +26036,39 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="R9" library="rcl" deviceset="R-EU_" device="M0805" value="5"/>
 <part name="R10" library="rcl" deviceset="R-EU_" device="M0805" value="5"/>
 <part name="C11" library="resistor" deviceset="C-EU" device="C0805K" value="1uF"/>
-<part name="L_MPPT" library="equinox" deviceset="INDUC_BOURNES_SDR1806" device="" value="330u"/>
+<part name="L_MPPT" library="equinox" deviceset="INDUC_BOURNES_SDR1806" device="" value="330u">
+<attribute name="OC_FARNELL" value="1929706"/>
+</part>
 <part name="U10" library="equinox" deviceset="ZXCT1107SA-7" device=""/>
 <part name="R30" library="rcl" deviceset="R-EU_" device="M0805" value="1k65"/>
 <part name="RS_B" library="rcl" deviceset="R-EU_" device="R2512" value="0.01"/>
-<part name="GATE_DRIVE" library="equinox" deviceset="IR2104S" device=""/>
-<part name="U2" library="equinox" deviceset="DMS3016SSS-13" device=""/>
-<part name="U3" library="equinox" deviceset="DMS3016SSS-13" device=""/>
-<part name="D4" library="diode" deviceset="DIODE-" device="DO-214AC" value="US1D - 1625280"/>
+<part name="GATE_DRIVE" library="equinox" deviceset="IR2104S" device="">
+<attribute name="OC_FARNELL" value="8638756"/>
+</part>
+<part name="U2" library="equinox" deviceset="DMS3016SSS-13" device="" value="FDS6690a">
+<attribute name="MPN" value=""/>
+<attribute name="OC_FARNELL" value="9845275"/>
+<attribute name="OC_NEWARK" value=""/>
+<attribute name="SUPPLIER" value=""/>
+</part>
+<part name="U3" library="equinox" deviceset="DMS3016SSS-13" device="" value="FDS6690a">
+<attribute name="MPN" value=""/>
+<attribute name="OC_FARNELL" value="9845275 "/>
+<attribute name="OC_NEWARK" value=""/>
+<attribute name="SUPPLIER" value=""/>
+</part>
+<part name="D4" library="diode" deviceset="DIODE-" device="DO-214AC" value="US1D">
+<attribute name="OC_FARNELL" value="1625280"/>
+</part>
 <part name="FRAME3" library="frames" deviceset="A3L-LOC" device=""/>
 <part name="FRAME4" library="frames" deviceset="A3L-LOC" device=""/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
-<part name="BATT_BCKUP" library="coin_cells" deviceset="PANASONIC_CR2032_1298246" device="" value="RENATA_COIN_CELL"/>
-<part name="BUZZ1" library="buzzer" deviceset="BUZZ_14MM" device=""/>
+<part name="BATT_BCKUP" library="coin_cells" deviceset="PANASONIC_CR2032_1298246" device="" value="RENATA_COIN_CELL">
+<attribute name="OC_FARNELL" value="1298246 "/>
+</part>
+<part name="BUZZ1" library="buzzer" deviceset="BUZZ_14MM" device="">
+<attribute name="OC_FARNELL" value="1669967"/>
+</part>
 <part name="GND1" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="R_RST" library="rcl" deviceset="R-EU_" device="M0805" value="100K"/>
 <part name="+3V1" library="supply1" deviceset="+3V3" device=""/>
@@ -26044,7 +26078,9 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="GND6" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="GND11" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="GND13" library="supply1" deviceset="GND" device="" value="GND"/>
-<part name="Q2" library="equinox" deviceset="CRYSTAL_CMJ206T" device="" value="32.768khz"/>
+<part name="Q2" library="equinox" deviceset="CRYSTAL_CMJ206T" device="" value="32.768khz">
+<attribute name="OC_FARNELL" value="2101358"/>
+</part>
 <part name="C1" library="resistor" deviceset="C-EU" device="C0805K" value="12.5pF"/>
 <part name="C9" library="resistor" deviceset="C-EU" device="C0805K" value="12.5pF"/>
 <part name="GND14" library="supply1" deviceset="GND" device="" value="GND"/>
@@ -26059,8 +26095,12 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="C16" library="resistor" deviceset="C-EU" device="C0805K" value="1uF"/>
 <part name="P+1" library="supply1" deviceset="+5V" device=""/>
 <part name="GND17" library="supply1" deviceset="GND" device="" value="GND"/>
-<part name="KEYPAD" library="pinhead" deviceset="PINHD-1X7" device="/90"/>
-<part name="L_5V" library="equinox" deviceset="INDUC_BOURNES_SDR2207" device="" value="100uH"/>
+<part name="KEYPAD" library="pinhead" deviceset="PINHD-1X7" device="/90">
+<attribute name="OC_FARNELL" value="588763"/>
+</part>
+<part name="L_5V" library="equinox" deviceset="INDUC_BOURNES_SDR2207" device="" value="100uH">
+<attribute name="OC_FARNELL" value="1612709"/>
+</part>
 <part name="GND19" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="R11" library="resistor" deviceset="R-EU_" device="M0805" value="75k"/>
 <part name="R12" library="resistor" deviceset="R-EU_" device="M0805" value="49.9k"/>
@@ -26080,12 +26120,20 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="GND22" library="supply1" deviceset="GND" device=""/>
 <part name="+3V2" library="supply1" deviceset="+3V3" device=""/>
 <part name="P+3" library="supply1" deviceset="+5V" device=""/>
-<part name="5V_COUT" library="resistor" deviceset="CPOL-EU" device="G" value="1000uF"/>
-<part name="5V_CIN" library="resistor" deviceset="CPOL-EU" device="E" value="100u"/>
-<part name="IC2" library="equinox" deviceset="AP1212" device=""/>
+<part name="5V_COUT" library="resistor" deviceset="CPOL-EU" device="G" value="1000uF">
+<attribute name="OC_FARNELL" value="1244342"/>
+</part>
+<part name="5V_CIN" library="resistor" deviceset="CPOL-EU" device="E" value="100uF">
+<attribute name="OC_FARNELL" value="1539489"/>
+</part>
+<part name="IC2" library="equinox" deviceset="AP1212" device="">
+<attribute name="OC_FARNELL" value="1825302"/>
+</part>
 <part name="GND8" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="P+4" library="supply1" deviceset="+5V" device=""/>
-<part name="U9" library="equinox" deviceset="PMOS_RSS090P03" device=""/>
+<part name="U9" library="equinox" deviceset="PMOS_RSS090P03" device="">
+<attribute name="OC_FARNELL" value="1525544"/>
+</part>
 <part name="R14" library="rcl" deviceset="R-EU_" device="M0805" value="100K"/>
 <part name="U5" library="equinox" deviceset="NMOS_2N7002" device=""/>
 <part name="GND10" library="supply1" deviceset="GND" device="" value="GND"/>
@@ -26110,19 +26158,27 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="+3V9" library="supply1" deviceset="+3V3" device=""/>
 <part name="C3" library="resistor" deviceset="C-EU" device="C0805K" value="100nF"/>
 <part name="C19" library="resistor" deviceset="C-EU" device="C0805K" value="1uF"/>
-<part name="D3" library="equinox" deviceset="DIODE_SSB43L" device=""/>
+<part name="D3" library="equinox" deviceset="DIODE_SSB43L" device="" value="SSB43L">
+<attribute name="OC_FARNELL" value="1336556"/>
+</part>
 <part name="LED1" library="led" deviceset="LED" device="CHIPLED_0805" value="POW_3V3"/>
-<part name="R21" library="resistor" deviceset="R-EU_" device="M0805" value="1K"/>
+<part name="R21" library="resistor" deviceset="R-EU_" device="M0805" value="1k"/>
 <part name="GND24" library="supply1" deviceset="GND" device=""/>
 <part name="GND25" library="supply1" deviceset="GND" device=""/>
 <part name="SERIAL" library="pinhead" deviceset="PINHD-1X3" device=""/>
 <part name="GND26" library="supply1" deviceset="GND" device="" value="GND"/>
-<part name="U4" library="equinox" deviceset="LM2576S" device=""/>
-<part name="D6" library="equinox" deviceset="DIODE_B340-13-F" device="" value="B340-13-F"/>
+<part name="U4" library="equinox" deviceset="LM2576S" device="">
+<attribute name="OC_FARNELL" value="1469178"/>
+</part>
+<part name="D6" library="equinox" deviceset="DIODE_B340-13-F" device="" value="B340-13-F">
+<attribute name="OC_FARNELL" value="1843695"/>
+</part>
 <part name="GND27" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="GND28" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="GND29" library="supply1" deviceset="GND" device="" value="GND"/>
-<part name="SOL" library="con-jack" deviceset="JACK-PLUG" device="0"/>
+<part name="SOL" library="con-jack" deviceset="JACK-PLUG" device="0">
+<attribute name="TOBY" value="DC-001-A-2.1mm-R"/>
+</part>
 <part name="U1" library="equinox" deviceset="NMOS_2N7002" device="">
 <attribute name="MPN" value="2N7002-7-F"/>
 <attribute name="OC_FARNELL" value="1713823"/>
@@ -26166,39 +26222,59 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <text x="406.4" y="513.08" size="6.4516" layer="94" font="vector">NOTES</text>
 <text x="406.4" y="502.92" size="3.81" layer="98" rot="MR180">TODO:
   - Contrast Adjust Pot needs changing
+  - Add PTC &amp; Diode
+  - Change Buzzer and add mosfet switching for higher voltage, thus louder
 </text>
-<text x="662.94" y="127" size="1.778" layer="98">1A Current Limit</text>
-<text x="662.94" y="86.36" size="1.778" layer="98">1A Current Limit</text>
+<text x="662.94" y="127" size="1.778" layer="98">0.5A Current Limit</text>
+<text x="662.94" y="86.36" size="1.778" layer="98">0.5A Current Limit</text>
 <text x="556.26" y="66.04" size="1.778" layer="98" rot="R90">3A Output</text>
 <text x="208.28" y="88.9" size="1.778" layer="98">120mA Max</text>
 <text x="556.26" y="132.08" size="1.778" layer="98" rot="R90">250mA Output</text>
 <text x="297.18" y="66.04" size="1.778" layer="98">Must be 0placed near to IC1</text>
+<text x="355.6" y="426.72" size="1.778" layer="98">Add PTC: 1800724
+And Diode</text>
+<text x="274.32" y="96.52" size="1.778" layer="98" rot="R90">Swap with 1192513</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="299.72" y="15.24"/>
-<instance part="U$2" gate="G$1" x="701.04" y="200.66"/>
-<instance part="U$3" gate="G$1" x="701.04" y="185.42"/>
-<instance part="U$4" gate="G$1" x="701.04" y="170.18"/>
+<instance part="U$2" gate="G$1" x="701.04" y="200.66">
+<attribute name="TOBY" x="701.04" y="200.66" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$3" gate="G$1" x="701.04" y="185.42">
+<attribute name="TOBY" x="701.04" y="185.42" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U$4" gate="G$1" x="701.04" y="170.18">
+<attribute name="TOBY" x="701.04" y="170.18" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="X1" gate="G$1" x="721.36" y="119.38"/>
 <instance part="X2" gate="G$1" x="721.36" y="78.74"/>
-<instance part="BATT" gate="CON$1" x="370.84" y="403.86"/>
+<instance part="BATT" gate="CON$1" x="370.84" y="403.86">
+<attribute name="OC_FARNELL" x="370.84" y="403.86" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="BATT" gate="CON$2" x="370.84" y="398.78"/>
 <instance part="DIS1" gate="G$1" x="307.34" y="228.6"/>
 <instance part="IC1" gate="1" x="193.04" y="124.46" smashed="yes">
 <attribute name="NAME" x="193.04" y="117.5385" size="1.778" layer="95"/>
 <attribute name="VALUE" x="180.34" y="114.3" size="1.778" layer="96"/>
+<attribute name="OC_FARNELL" x="193.04" y="124.46" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="FRAME2" gate="G$1" x="0" y="0"/>
 <instance part="FRAME1" gate="G$1" x="0" y="269.24"/>
-<instance part="RS_S" gate="G$1" x="49.53" y="459.74"/>
-<instance part="D2" gate="G$1" x="175.26" y="398.78"/>
+<instance part="RS_S" gate="G$1" x="41.91" y="459.74"/>
+<instance part="D2" gate="G$1" x="175.26" y="398.78">
+<attribute name="OC_FARNELL" x="175.26" y="398.78" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="C2" gate="G$1" x="200.66" y="388.62"/>
-<instance part="C4" gate="G$1" x="115.57" y="450.85"/>
+<instance part="C4" gate="G$1" x="115.57" y="450.85">
+<attribute name="OC_FARNELL" x="115.57" y="450.85" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND4" gate="1" x="115.57" y="334.01"/>
 <instance part="GND5" gate="1" x="242.57" y="334.01"/>
 <instance part="C5" gate="G$1" x="251.46" y="436.88" rot="R90"/>
 <instance part="R2" gate="G$1" x="264.16" y="436.88" rot="R180"/>
-<instance part="C6" gate="G$1" x="269.24" y="408.94"/>
+<instance part="C6" gate="G$1" x="269.24" y="408.94">
+<attribute name="OC_FARNELL" x="269.24" y="408.94" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="R3" gate="G$1" x="86.36" y="408.94" rot="R90"/>
 <instance part="R4" gate="G$1" x="86.36" y="391.16" rot="R90"/>
 <instance part="C7" gate="G$1" x="78.74" y="388.62" rot="R180"/>
@@ -26211,20 +26287,29 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="R9" gate="G$1" x="208.28" y="414.02" rot="R270"/>
 <instance part="R10" gate="G$1" x="218.44" y="378.46" rot="R270"/>
 <instance part="C11" gate="G$1" x="152.4" y="378.46" rot="R90"/>
-<instance part="L_MPPT" gate="1" x="261.62" y="424.18"/>
-<instance part="U10" gate="A" x="48.26" y="434.34" rot="MR270"/>
-<instance part="R30" gate="G$1" x="50.8" y="411.48" rot="R90"/>
+<instance part="L_MPPT" gate="1" x="261.62" y="424.18">
+<attribute name="OC_FARNELL" x="261.62" y="424.18" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="U10" gate="A" x="38.1" y="434.34" rot="MR270"/>
+<instance part="R30" gate="G$1" x="40.64" y="411.48" rot="R90"/>
 <instance part="RS_B" gate="G$1" x="332.74" y="424.18"/>
-<instance part="GATE_DRIVE" gate="G$1" x="172.72" y="363.22"/>
+<instance part="GATE_DRIVE" gate="G$1" x="172.72" y="363.22">
+<attribute name="OC_FARNELL" x="172.72" y="363.22" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="U2" gate="A" x="226.06" y="441.96" rot="MR180"/>
 <instance part="U3" gate="A" x="226.06" y="401.32" rot="MR180"/>
-<instance part="D4" gate="G$1" x="248.92" y="383.54" rot="R90"/>
+<instance part="D4" gate="G$1" x="248.92" y="383.54" rot="R90">
+<attribute name="OC_FARNELL" x="248.92" y="383.54" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
 <instance part="FRAME3" gate="G$1" x="396.24" y="0"/>
 <instance part="FRAME4" gate="G$1" x="396.24" y="269.24"/>
 <instance part="GND7" gate="1" x="487.68" y="175.26"/>
-<instance part="BATT_BCKUP" gate="G$1" x="487.68" y="190.5"/>
+<instance part="BATT_BCKUP" gate="G$1" x="487.68" y="190.5">
+<attribute name="OC_FARNELL" x="487.68" y="190.5" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="BUZZ1" gate="G$1" x="261.62" y="111.76" smashed="yes" rot="R270">
 <attribute name="NAME" x="267.97" y="114.3" size="1.778" layer="95" rot="R270"/>
+<attribute name="OC_FARNELL" x="261.62" y="111.76" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
 <instance part="GND1" gate="1" x="327.66" y="162.56"/>
 <instance part="R_RST" gate="G$1" x="124.46" y="121.92" rot="R180"/>
@@ -26235,7 +26320,9 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="GND6" gate="1" x="203.2" y="73.66"/>
 <instance part="GND11" gate="1" x="132.08" y="111.76"/>
 <instance part="GND13" gate="1" x="170.18" y="167.64"/>
-<instance part="Q2" gate="G$1" x="127" y="149.86" rot="R270"/>
+<instance part="Q2" gate="G$1" x="127" y="149.86" rot="R270">
+<attribute name="OC_FARNELL" x="127" y="149.86" size="1.778" layer="96" rot="R270" display="off"/>
+</instance>
 <instance part="C1" gate="G$1" x="109.22" y="160.02" rot="R90"/>
 <instance part="C9" gate="G$1" x="109.22" y="139.7" rot="R90"/>
 <instance part="GND14" gate="1" x="101.6" y="134.62"/>
@@ -26250,8 +26337,12 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="C16" gate="G$1" x="477.52" y="190.5" rot="R180"/>
 <instance part="P+1" gate="1" x="279.4" y="226.06"/>
 <instance part="GND17" gate="1" x="259.08" y="99.06"/>
-<instance part="KEYPAD" gate="A" x="193.04" y="231.14" rot="R90"/>
-<instance part="L_5V" gate="1" x="525.78" y="66.04"/>
+<instance part="KEYPAD" gate="A" x="193.04" y="231.14" rot="R90">
+<attribute name="OC_FARNELL" x="193.04" y="231.14" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
+<instance part="L_5V" gate="1" x="525.78" y="66.04">
+<attribute name="OC_FARNELL" x="525.78" y="66.04" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND19" gate="1" x="467.36" y="33.02"/>
 <instance part="R11" gate="G$1" x="680.72" y="116.84" rot="R90"/>
 <instance part="R12" gate="G$1" x="680.72" y="104.14" rot="R90"/>
@@ -26271,14 +26362,21 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="GND22" gate="1" x="518.16" y="106.68"/>
 <instance part="+3V2" gate="G$1" x="548.64" y="137.16" rot="MR0"/>
 <instance part="P+3" gate="1" x="548.64" y="71.12" rot="MR0"/>
-<instance part="5V_COUT" gate="G$1" x="541.02" y="53.34"/>
-<instance part="5V_CIN" gate="G$1" x="436.88" y="53.34"/>
-<instance part="IC2" gate="A" x="645.16" y="116.84"/>
+<instance part="5V_COUT" gate="G$1" x="541.02" y="53.34">
+<attribute name="OC_FARNELL" x="541.02" y="53.34" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="5V_CIN" gate="G$1" x="436.88" y="53.34">
+<attribute name="OC_FARNELL" x="436.88" y="53.34" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="IC2" gate="A" x="645.16" y="116.84">
+<attribute name="OC_FARNELL" x="645.16" y="116.84" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="GND8" gate="1" x="645.16" y="93.98"/>
 <instance part="P+4" gate="1" x="619.76" y="129.54"/>
 <instance part="U9" gate="A" x="660.4" y="200.66" smashed="yes" rot="R270">
 <attribute name="NAME" x="665.48" y="196.85" size="1.778" layer="95"/>
 <attribute name="VALUE" x="651.256" y="208.788" size="1.778" layer="96"/>
+<attribute name="OC_FARNELL" x="660.4" y="200.66" size="1.778" layer="96" rot="R270" display="off"/>
 </instance>
 <instance part="R14" gate="G$1" x="645.16" y="195.58" rot="R90"/>
 <instance part="U5" gate="A" x="660.4" y="175.26"/>
@@ -26297,8 +26395,10 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="GND3" gate="1" x="101.6" y="78.74"/>
 <instance part="+3V9" gate="G$1" x="101.6" y="121.92"/>
 <instance part="C3" gate="G$1" x="116.84" y="91.44" rot="R180"/>
-<instance part="C19" gate="G$1" x="63.5" y="408.94" rot="R180"/>
-<instance part="D3" gate="1" x="279.4" y="424.18"/>
+<instance part="C19" gate="G$1" x="53.34" y="408.94" rot="R180"/>
+<instance part="D3" gate="1" x="279.4" y="424.18">
+<attribute name="OC_FARNELL" x="279.4" y="424.18" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="LED1" gate="G$1" x="533.4" y="127" smashed="yes">
 <attribute name="NAME" x="536.956" y="122.428" size="1.778" layer="95" rot="R90"/>
 </instance>
@@ -26307,12 +26407,18 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="GND25" gate="1" x="454.66" y="106.68"/>
 <instance part="SERIAL" gate="A" x="30.48" y="193.04" rot="MR0"/>
 <instance part="GND26" gate="1" x="66.04" y="182.88"/>
-<instance part="U4" gate="1" x="490.22" y="60.96"/>
-<instance part="D6" gate="1" x="513.08" y="50.8" rot="R90"/>
+<instance part="U4" gate="1" x="490.22" y="60.96">
+<attribute name="OC_FARNELL" x="490.22" y="60.96" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="D6" gate="1" x="513.08" y="50.8" rot="R90">
+<attribute name="OC_FARNELL" x="513.08" y="50.8" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
 <instance part="GND27" gate="1" x="513.08" y="33.02"/>
 <instance part="GND28" gate="1" x="541.02" y="33.02"/>
 <instance part="GND29" gate="1" x="436.88" y="33.02"/>
-<instance part="SOL" gate="G$1" x="17.78" y="411.48"/>
+<instance part="SOL" gate="G$1" x="17.78" y="411.48">
+<attribute name="TOBY" x="17.78" y="411.48" size="1.778" layer="96" display="off"/>
+</instance>
 <instance part="U1" gate="A" x="287.02" y="177.8"/>
 <instance part="GND30" gate="1" x="289.56" y="162.56"/>
 <instance part="R1" gate="G$1" x="269.24" y="172.72" rot="R180"/>
@@ -26383,17 +26489,17 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 </net>
 <net name="SOL_I" class="0">
 <segment>
-<label x="68.58" y="420.37" size="1.778" layer="95"/>
+<label x="60.96" y="420.37" size="1.778" layer="95"/>
 <pinref part="U10" gate="A" pin="OUT"/>
 <pinref part="R30" gate="G$1" pin="2"/>
-<wire x1="50.8" y1="421.64" x2="50.8" y2="419.1" width="0.1524" layer="91"/>
-<wire x1="50.8" y1="419.1" x2="50.8" y2="416.56" width="0.1524" layer="91"/>
-<wire x1="50.8" y1="419.1" x2="63.5" y2="419.1" width="0.1524" layer="91"/>
-<junction x="50.8" y="419.1"/>
+<wire x1="40.64" y1="421.64" x2="40.64" y2="419.1" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="419.1" x2="40.64" y2="416.56" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="419.1" x2="53.34" y2="419.1" width="0.1524" layer="91"/>
+<junction x="40.64" y="419.1"/>
 <pinref part="C19" gate="G$1" pin="2"/>
-<wire x1="63.5" y1="419.1" x2="73.66" y2="419.1" width="0.1524" layer="91"/>
-<wire x1="63.5" y1="414.02" x2="63.5" y2="419.1" width="0.1524" layer="91"/>
-<junction x="63.5" y="419.1"/>
+<wire x1="53.34" y1="419.1" x2="73.66" y2="419.1" width="0.1524" layer="91"/>
+<wire x1="53.34" y1="414.02" x2="53.34" y2="419.1" width="0.1524" layer="91"/>
+<junction x="53.34" y="419.1"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="1" pin="PA2"/>
@@ -26450,8 +26556,8 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <wire x1="162.56" y1="381" x2="162.56" y2="398.78" width="0.1524" layer="91"/>
 <wire x1="162.56" y1="398.78" x2="172.72" y2="398.78" width="0.1524" layer="91"/>
 <wire x1="162.56" y1="398.78" x2="162.56" y2="459.74" width="0.1524" layer="91"/>
-<wire x1="54.61" y1="459.74" x2="59.69" y2="459.74" width="0.1524" layer="91"/>
-<wire x1="59.69" y1="459.74" x2="86.36" y2="459.74" width="0.1524" layer="91"/>
+<wire x1="46.99" y1="459.74" x2="52.07" y2="459.74" width="0.1524" layer="91"/>
+<wire x1="52.07" y1="459.74" x2="86.36" y2="459.74" width="0.1524" layer="91"/>
 <wire x1="86.36" y1="459.74" x2="106.68" y2="459.74" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="459.74" x2="115.57" y2="459.74" width="0.1524" layer="91"/>
 <wire x1="115.57" y1="459.74" x2="162.56" y2="459.74" width="0.1524" layer="91"/>
@@ -26470,9 +26576,9 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <pinref part="C10" gate="G$1" pin="1"/>
 <pinref part="C11" gate="G$1" pin="2"/>
 <pinref part="U10" gate="A" pin="S-"/>
-<wire x1="53.34" y1="447.04" x2="53.34" y2="452.12" width="0.1524" layer="91"/>
-<wire x1="53.34" y1="452.12" x2="59.69" y2="459.74" width="0.1524" layer="91"/>
-<junction x="59.69" y="459.74"/>
+<wire x1="43.18" y1="447.04" x2="43.18" y2="452.12" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="452.12" x2="52.07" y2="459.74" width="0.1524" layer="91"/>
+<junction x="52.07" y="459.74"/>
 <pinref part="GATE_DRIVE" gate="G$1" pin="VCC"/>
 <wire x1="86.36" y1="414.02" x2="86.36" y2="459.74" width="0.1524" layer="91"/>
 <junction x="86.36" y="459.74"/>
@@ -27285,12 +27391,12 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <pinref part="RS_S" gate="G$1" pin="1"/>
 <pinref part="SOL" gate="G$1" pin="3"/>
 <wire x1="22.86" y1="414.02" x2="22.86" y2="459.74" width="0.1524" layer="91"/>
-<wire x1="22.86" y1="459.74" x2="39.37" y2="459.74" width="0.1524" layer="91"/>
-<wire x1="39.37" y1="459.74" x2="44.45" y2="459.74" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="459.74" x2="31.75" y2="459.74" width="0.1524" layer="91"/>
+<wire x1="31.75" y1="459.74" x2="36.83" y2="459.74" width="0.1524" layer="91"/>
 <pinref part="U10" gate="A" pin="S+"/>
-<wire x1="48.26" y1="447.04" x2="48.26" y2="452.12" width="0.1524" layer="91"/>
-<wire x1="48.26" y1="452.12" x2="39.37" y2="459.74" width="0.1524" layer="91"/>
-<junction x="39.37" y="459.74"/>
+<wire x1="38.1" y1="447.04" x2="38.1" y2="452.12" width="0.1524" layer="91"/>
+<wire x1="38.1" y1="452.12" x2="31.75" y2="459.74" width="0.1524" layer="91"/>
+<junction x="31.75" y="459.74"/>
 </segment>
 </net>
 <net name="GND" class="1">
@@ -27302,9 +27408,9 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <segment>
 <wire x1="115.57" y1="336.55" x2="115.57" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="115.57" y1="342.9" x2="115.57" y2="445.77" width="0.1524" layer="91"/>
-<wire x1="22.86" y1="342.9" x2="50.8" y2="342.9" width="0.1524" layer="91"/>
-<wire x1="50.8" y1="342.9" x2="63.5" y2="342.9" width="0.1524" layer="91"/>
-<wire x1="63.5" y1="342.9" x2="86.36" y2="342.9" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="342.9" x2="40.64" y2="342.9" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="342.9" x2="53.34" y2="342.9" width="0.1524" layer="91"/>
+<wire x1="53.34" y1="342.9" x2="86.36" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="86.36" y1="342.9" x2="106.68" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="342.9" x2="115.57" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="106.68" y1="342.9" x2="106.68" y2="445.77" width="0.1524" layer="91"/>
@@ -27359,12 +27465,12 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <junction x="228.6" y="342.9"/>
 <pinref part="BATT" gate="CON$2" pin="S"/>
 <pinref part="R30" gate="G$1" pin="1"/>
-<wire x1="50.8" y1="406.4" x2="50.8" y2="342.9" width="0.1524" layer="91"/>
-<junction x="50.8" y="342.9"/>
+<wire x1="40.64" y1="406.4" x2="40.64" y2="342.9" width="0.1524" layer="91"/>
+<junction x="40.64" y="342.9"/>
 <label x="248.92" y="342.9" size="1.778" layer="95"/>
 <pinref part="C19" gate="G$1" pin="1"/>
-<wire x1="63.5" y1="406.4" x2="63.5" y2="342.9" width="0.1524" layer="91"/>
-<junction x="63.5" y="342.9"/>
+<wire x1="53.34" y1="406.4" x2="53.34" y2="342.9" width="0.1524" layer="91"/>
+<junction x="53.34" y="342.9"/>
 <pinref part="SOL" gate="G$1" pin="2"/>
 <wire x1="22.86" y1="411.48" x2="22.86" y2="408.94" width="0.1524" layer="91"/>
 <pinref part="SOL" gate="G$1" pin="1"/>

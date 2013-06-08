@@ -55,7 +55,7 @@
 <layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
-<layer number="48" name="Document" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="48" name="Document" color="6" fill="1" visible="no" active="yes"/>
 <layer number="49" name="Reference" color="7" fill="1" visible="no" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
 <layer number="51" name="tDocu" color="11" fill="1" visible="no" active="yes"/>
@@ -145,6 +145,7 @@
 <text x="33" y="52.5" size="1.016" layer="25" rot="R90">RX</text>
 <text x="38" y="51.75" size="1.016" layer="25" rot="R90">GND</text>
 <text x="43" y="25" size="1.016" layer="48">Move these to below USB</text>
+<circle x="54" y="72" radius="12.2" width="0.4064" layer="48"/>
 </plain>
 <libraries>
 <library name="equinox">
@@ -2696,17 +2697,15 @@ Datasheet: &lt;a href="http://www.bourns.com/data/global/pdfs/SDR1806.pdf"&gt; h
 &lt;/p&gt;&lt;p&gt;
 Onecall #: 1929705
 &lt;/p&gt;</description>
-<smd name="P$1" x="0" y="0" dx="2.921" dy="2.9972" layer="1"/>
-<smd name="P$2" x="15.6972" y="0" dx="2.921" dy="2.9972" layer="1"/>
-<circle x="7.62" y="0" radius="5.08" width="0.127" layer="21"/>
-<wire x1="0" y1="1.27" x2="6.35" y2="5.08" width="0.127" layer="21"/>
-<wire x1="6.35" y1="5.08" x2="8.89" y2="5.08" width="0.127" layer="21"/>
-<wire x1="8.89" y1="5.08" x2="15.24" y2="1.27" width="0.127" layer="21"/>
-<wire x1="0" y1="-1.27" x2="6.35" y2="-5.08" width="0.127" layer="21"/>
-<wire x1="6.35" y1="-5.08" x2="8.89" y2="-5.08" width="0.127" layer="21"/>
-<wire x1="8.89" y1="-5.08" x2="15.24" y2="-1.27" width="0.127" layer="21"/>
-<text x="5.08" y="2.54" size="1.27" layer="25">&gt;NAME</text>
-<text x="5.08" y="0" size="1.27" layer="27">&gt;VALUE</text>
+<smd name="P$1" x="0" y="0" dx="3.5" dy="3.5" layer="1"/>
+<smd name="P$2" x="15.6972" y="0" dx="3.5" dy="3.5" layer="1"/>
+<circle x="7.62" y="0" radius="7" width="0.127" layer="21"/>
+<text x="13.08" y="5.54" size="1.27" layer="25">&gt;NAME</text>
+<text x="13.08" y="-7" size="1.27" layer="27">&gt;VALUE</text>
+<wire x1="17" y1="-2" x2="12" y2="-5.5" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="-2" x2="4" y2="-6" width="0.127" layer="21"/>
+<wire x1="-1.5" y1="2" x2="4" y2="6" width="0.127" layer="21"/>
+<wire x1="17" y1="2" x2="12" y2="5.5" width="0.127" layer="21"/>
 </package>
 <package name="TO263-5">
 <description>&lt;b&gt;TO-263&lt;/b&gt;</description>
@@ -5810,13 +5809,20 @@ design rules under a new name.</description>
 </autorouter>
 <elements>
 <element name="U$1" library="equinox" package="EQUINOX_LOGO_LARGE" value="EQUINOX_LOGO_LARGE" x="61.71" y="35.87" rot="MR0"/>
-<element name="U$2" library="equinox" package="KYCON_KLVDX_2020_B" value="KYCON_KLDVX-0202" x="43.76" y="8.37" locked="yes" rot="MR0"/>
-<element name="U$3" library="equinox" package="KYCON_KLVDX_2020_B" value="KYCON_KLDVX-0202" x="63" y="8.37" locked="yes" rot="MR0"/>
-<element name="U$4" library="equinox" package="KYCON_KLVDX_2020_B" value="KYCON_KLDVX-0202" x="82.24" y="8.37" locked="yes" rot="MR0"/>
+<element name="U$2" library="equinox" package="KYCON_KLVDX_2020_B" value="KYCON_KLDVX-0202" x="43.76" y="8.37" locked="yes" rot="MR0">
+<attribute name="TOBY" value="DC-031-B" x="43.76" y="8.37" size="1.778" layer="28" rot="MR0" display="off"/>
+</element>
+<element name="U$3" library="equinox" package="KYCON_KLVDX_2020_B" value="KYCON_KLDVX-0202" x="63" y="8.37" locked="yes" rot="MR0">
+<attribute name="TOBY" value="DC-031-B" x="63" y="8.37" size="1.778" layer="28" rot="MR0" display="off"/>
+</element>
+<element name="U$4" library="equinox" package="KYCON_KLVDX_2020_B" value="KYCON_KLDVX-0202" x="82.24" y="8.37" locked="yes" rot="MR0">
+<attribute name="TOBY" value="DC-031-B" x="82.24" y="8.37" size="1.778" layer="28" rot="MR0" display="off"/>
+</element>
 <element name="X1" library="con-kycon" package="KUSBVX" value="KUSBVX" x="73.2265" y="25.634" locked="yes" rot="MR180"/>
 <element name="X2" library="con-kycon" package="KUSBVX" value="KUSBVX" x="52.917" y="25.634" locked="yes" rot="MR180"/>
 <element name="BATT" library="equinox" package="MOLEX_39_29_1028" value="CON_MOLEX_39_29_1028" x="14.66" y="60.09" smashed="yes" rot="R270">
 <attribute name="NAME" x="1.96" y="64.01" size="1.27" layer="25"/>
+<attribute name="OC_FARNELL" value="1012166" x="14.66" y="60.09" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="DIS1" library="equinox" package="LCD_16X2_R2" value="LCD_16X2_R2" x="103.1" y="56" locked="yes" rot="MR0">
 <attribute name="OC_NEWARK" value="unknown" x="103.1" y="56" size="1.778" layer="28" rot="MR0" display="off"/>
@@ -5824,25 +5830,31 @@ design rules under a new name.</description>
 <attribute name="MF" value="" x="103.1" y="56" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="OC_FARNELL" value="unknown" x="103.1" y="56" size="1.778" layer="28" rot="MR0" display="off"/>
 </element>
-<element name="IC1" library="equinox" package="LQFP48" value="STM32F050C6T6A" x="38.44" y="44.72" rot="R90"/>
+<element name="IC1" library="equinox" package="LQFP48" value="STM32F050C6T6A" x="38.44" y="44.72" rot="R90">
+<attribute name="OC_FARNELL" value="2115059" x="38.44" y="44.72" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
 <element name="RS_S" library="rcl" package="R2512" value="0.1" x="21" y="72.75"/>
-<element name="D2" library="diode" package="DO-214AC" value="S1A-E3/5AT" x="92" y="69"/>
+<element name="D2" library="diode" package="DO-214AC" value="S1A-E3/5AT" x="92" y="69">
+<attribute name="OC_FARNELL" value="9550216" x="92" y="69" size="1.778" layer="27" display="off"/>
+</element>
 <element name="C2" library="resistor" package="C0805K" value="1uF" x="92" y="66" rot="R180"/>
 <element name="C4" library="resistor" package="PANASONIC_E" value="100uF" x="37" y="74" smashed="yes" rot="R180">
 <attribute name="NAME" x="41.55" y="77.8" size="1.016" layer="25" rot="R270"/>
 <attribute name="VALUE" x="38.8" y="76.225" size="1.016" layer="27" rot="R180"/>
+<attribute name="OC_FARNELL" value="1539489" x="37" y="74" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="C5" library="resistor" package="C0805K" value="0.1uF" x="65" y="78" smashed="yes" rot="R180">
-<attribute name="NAME" x="69" y="79.375" size="1.016" layer="25" rot="R180"/>
-<attribute name="VALUE" x="66" y="79.9" size="1.016" layer="27" rot="R180"/>
+<element name="C5" library="resistor" package="C0805K" value="100nF" x="68" y="78" smashed="yes" rot="R180">
+<attribute name="NAME" x="69" y="76.375" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="69" y="79.9" size="1.016" layer="27" rot="R180"/>
 </element>
-<element name="R2" library="rcl" package="M0805" value="200" x="61" y="78" smashed="yes">
-<attribute name="NAME" x="56.73" y="78.27" size="1.27" layer="25"/>
-<attribute name="VALUE" x="59.73" y="75.46" size="1.27" layer="27"/>
+<element name="R2" library="rcl" package="M0805" value="200" x="64" y="78" smashed="yes">
+<attribute name="NAME" x="63.73" y="75.27" size="1.27" layer="25"/>
+<attribute name="VALUE" x="62.73" y="75.46" size="1.27" layer="27"/>
 </element>
-<element name="C6" library="resistor" package="PANASONIC_F" value="220uF" x="62" y="66" smashed="yes" rot="R180">
-<attribute name="NAME" x="58.25" y="62.95" size="1.016" layer="25" rot="R180"/>
-<attribute name="VALUE" x="63.75" y="68.375" size="1.016" layer="27" rot="R180"/>
+<element name="C6" library="resistor" package="PANASONIC_F" value="220uF" x="63" y="65" smashed="yes" rot="R180">
+<attribute name="NAME" x="59.25" y="61.95" size="1.016" layer="25" rot="R180"/>
+<attribute name="VALUE" x="64.75" y="67.375" size="1.016" layer="27" rot="R180"/>
+<attribute name="OC_FARNELL" value="9695877" x="63" y="65" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="R3" library="rcl" package="M0805" value="10K" x="35" y="67" smashed="yes" rot="R90">
 <attribute name="NAME" x="35.73" y="62.73" size="1.27" layer="25" rot="R90"/>
@@ -5884,8 +5896,9 @@ design rules under a new name.</description>
 </element>
 <element name="C11" library="resistor" package="C0805K" value="1uF" x="97" y="69" rot="R90"/>
 <element name="L_MPPT" library="equinox" package="INDUC_BOURNS_SDR1806" value="330u" x="61" y="74" smashed="yes" rot="R180">
-<attribute name="NAME" x="56.92" y="68.46" size="1.016" layer="25" rot="R180"/>
+<attribute name="NAME" x="46.92" y="79.46" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="55.92" y="74" size="1.27" layer="27" rot="R180"/>
+<attribute name="OC_FARNELL" value="1929706" x="61" y="74" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="U10" library="equinox" package="SOT91P240X110-3N" value="ZXCT1107SA-7" x="21" y="77" smashed="yes" rot="R270">
 <attribute name="PACKAGE" value="SOT-23-3" x="-74" y="117" size="1.778" layer="27" rot="R270" display="off"/>
@@ -5899,33 +5912,38 @@ design rules under a new name.</description>
 <attribute name="VALUE" x="29.54" y="73.73" size="1.27" layer="27" rot="R90"/>
 </element>
 <element name="RS_B" library="rcl" package="R2512" value="0.01" x="17" y="66" rot="R270"/>
-<element name="GATE_DRIVE" library="equinox" package="IR2104S" value="IR2104S" x="80" y="65"/>
-<element name="U2" library="equinox" package="SOIC127P600X175-8N" value="DMS3016SSS-13" x="86" y="75" smashed="yes">
+<element name="GATE_DRIVE" library="equinox" package="IR2104S" value="IR2104S" x="80" y="65">
+<attribute name="OC_FARNELL" value="8638756" x="80" y="65" size="1.778" layer="27" display="off"/>
+</element>
+<element name="U2" library="equinox" package="SOIC127P600X175-8N" value="FDS6690a" x="86" y="75" smashed="yes">
 <attribute name="PACKAGE" value="SOIC-8" x="-7" y="-74" size="1.778" layer="27" display="off"/>
-<attribute name="OC_NEWARK" value="27T2704" x="-7" y="-74" size="1.778" layer="27" display="off"/>
-<attribute name="MPN" value="DMS3016SSS-13" x="-7" y="-74" size="1.778" layer="27" display="off"/>
-<attribute name="SUPPLIER" value="DIODES INC." x="-7" y="-74" size="1.778" layer="27" display="off"/>
-<attribute name="OC_FARNELL" value="1863729" x="-7" y="-74" size="1.778" layer="27" display="off"/>
+<attribute name="OC_NEWARK" value="" x="-7" y="-74" size="1.778" layer="27" display="off"/>
+<attribute name="MPN" value="" x="-7" y="-74" size="1.778" layer="27" display="off"/>
+<attribute name="SUPPLIER" value="" x="-7" y="-74" size="1.778" layer="27" display="off"/>
+<attribute name="OC_FARNELL" value="9845275" x="-7" y="-74" size="1.778" layer="27" display="off"/>
 <attribute name="NAME" x="85.1056" y="77.955" size="1.016" layer="25" ratio="10" rot="SR0"/>
 </element>
-<element name="U3" library="equinox" package="SOIC127P600X175-8N" value="DMS3016SSS-13" x="75" y="75" smashed="yes">
+<element name="U3" library="equinox" package="SOIC127P600X175-8N" value="FDS6690a" x="75" y="75" smashed="yes">
 <attribute name="PACKAGE" value="SOIC-8" x="-6" y="-60" size="1.778" layer="27" display="off"/>
-<attribute name="OC_NEWARK" value="27T2704" x="-6" y="-60" size="1.778" layer="27" display="off"/>
-<attribute name="MPN" value="DMS3016SSS-13" x="-6" y="-60" size="1.778" layer="27" display="off"/>
-<attribute name="SUPPLIER" value="DIODES INC." x="-6" y="-60" size="1.778" layer="27" display="off"/>
-<attribute name="OC_FARNELL" value="1863729" x="-6" y="-60" size="1.778" layer="27" display="off"/>
+<attribute name="OC_NEWARK" value="" x="-6" y="-60" size="1.778" layer="27" display="off"/>
+<attribute name="MPN" value="" x="-6" y="-60" size="1.778" layer="27" display="off"/>
+<attribute name="SUPPLIER" value="" x="-6" y="-60" size="1.778" layer="27" display="off"/>
+<attribute name="OC_FARNELL" value="9845275 " x="-6" y="-60" size="1.778" layer="27" display="off"/>
 <attribute name="NAME" x="74.2356" y="77.905" size="1.016" layer="25" ratio="10" rot="SR0"/>
 </element>
-<element name="D4" library="diode" package="DO-214AC" value="US1D - 1625280" x="92" y="62" smashed="yes">
+<element name="D4" library="diode" package="DO-214AC" value="US1D" x="92" y="62" smashed="yes">
 <attribute name="NAME" x="97.095" y="60.96" size="1.27" layer="25" rot="R90"/>
 <attribute name="VALUE" x="89.46" y="58.825" size="1.27" layer="27"/>
+<attribute name="OC_FARNELL" value="1625280" x="92" y="62" size="1.778" layer="27" display="off"/>
 </element>
 <element name="BATT_BCKUP" library="coin_cells" package="PANASONIC_CR2032_1298246" value="RENATA_COIN_CELL" x="24" y="15" smashed="yes" rot="MR270">
 <attribute name="NAME" x="24.5" y="21.5" size="1.27" layer="22" font="vector" rot="MR270"/>
+<attribute name="OC_FARNELL" value="1298246 " x="24" y="15" size="1.778" layer="28" rot="MR270" display="off"/>
 </element>
 <element name="BUZZ1" library="buzzer" package="14MM_5M_PINS" value="BUZZ_14MM" x="91" y="47" rot="MR180">
 <attribute name="VERSION" value="0.1" x="91" y="47" size="1.778" layer="28" rot="MR180" display="off"/>
 <attribute name="AUTHOR" value="Ashley Grealish" x="91" y="47" size="1.778" layer="28" rot="MR180" display="off"/>
+<attribute name="OC_FARNELL" value="1669967" x="91" y="47" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
 <element name="R_RST" library="rcl" package="M0805" value="100K" x="43" y="33" smashed="yes">
 <attribute name="VERSION" value="0.1" x="43" y="33" size="1.778" layer="27" display="off"/>
@@ -5933,7 +5951,9 @@ design rules under a new name.</description>
 <attribute name="NAME" x="39.98" y="34.27" size="1.27" layer="25"/>
 <attribute name="VALUE" x="41.73" y="30.46" size="1.27" layer="27"/>
 </element>
-<element name="Q2" library="equinox" package="CRYSTAL_CMJ206T" value="32.768khz" x="34" y="31" rot="R90"/>
+<element name="Q2" library="equinox" package="CRYSTAL_CMJ206T" value="32.768khz" x="34" y="31" rot="R90">
+<attribute name="OC_FARNELL" value="2101358" x="34" y="31" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
 <element name="C1" library="resistor" package="C0805K" value="12.5pF" x="30" y="30" rot="R90">
 <attribute name="VERSION" value="0.1" x="30" y="30" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="AUTHOR" value="Ashley Grealish" x="30" y="30" size="1.778" layer="27" rot="R90" display="off"/>
@@ -5967,11 +5987,13 @@ design rules under a new name.</description>
 <element name="KEYPAD" library="pinhead" package="1X07/90" value="" x="9" y="36" smashed="yes" rot="R90">
 <attribute name="NAME" x="15.025" y="39.31" size="1.27" layer="25" ratio="10" rot="R270"/>
 <attribute name="VALUE" x="12.81" y="46.795" size="1.27" layer="27" rot="R180"/>
+<attribute name="OC_FARNELL" value="588763" x="9" y="36" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="L_5V" library="equinox" package="INDUC_BOURNS_SDR2207" value="100uH" x="90" y="32" rot="R270">
 <attribute name="VERSION" value="0.1" x="90" y="32" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="AUTHOR" value="Ashley Grealish" x="90" y="32" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="FARNELL" value="1612709" x="90" y="32" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="OC_FARNELL" value="1612709" x="90" y="32" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="R11" library="resistor" package="M0805" value="75k" x="74" y="30" smashed="yes" rot="R90">
 <attribute name="NAME" x="72.984" y="26.766" size="1.27" layer="25"/>
@@ -6027,16 +6049,21 @@ design rules under a new name.</description>
 <attribute name="AUTHOR" value="Ashley Grealish" x="76.94" y="13.75" size="1.778" layer="27" display="off"/>
 <attribute name="NAME" x="72.14" y="19.25" size="1.016" layer="25"/>
 <attribute name="VALUE" x="74.39" y="11.075" size="1.016" layer="27"/>
+<attribute name="OC_FARNELL" value="1244342" x="76.94" y="13.75" size="1.778" layer="27" display="off"/>
 </element>
-<element name="5V_CIN" library="resistor" package="PANASONIC_E" value="100u" x="61" y="14" smashed="yes">
+<element name="5V_CIN" library="resistor" package="PANASONIC_E" value="100uF" x="61" y="14" smashed="yes">
 <attribute name="VERSION" value="0.1" x="61" y="14" size="1.778" layer="27" display="off"/>
 <attribute name="AUTHOR" value="Ashley Grealish" x="61" y="14" size="1.778" layer="27" display="off"/>
 <attribute name="NAME" x="57.2" y="18.55" size="1.016" layer="25"/>
 <attribute name="VALUE" x="59.2" y="11.775" size="1.016" layer="27"/>
+<attribute name="OC_FARNELL" value="1539489" x="61" y="14" size="1.778" layer="27" display="off"/>
 </element>
-<element name="IC2" library="equinox" package="SO8" value="AP1212" x="72" y="37" rot="R180"/>
+<element name="IC2" library="equinox" package="SO8" value="AP1212" x="72" y="37" rot="R180">
+<attribute name="OC_FARNELL" value="1825302" x="72" y="37" size="1.778" layer="27" rot="R180" display="off"/>
+</element>
 <element name="U9" library="equinox" package="SO8" value="PMOS_RSS090P03" x="33" y="10" rot="R270">
 <attribute name="FARNELL" value="1525544" x="33" y="10" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="OC_FARNELL" value="1525544" x="33" y="10" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="R14" library="rcl" package="M0805" value="100K" x="30" y="6" smashed="yes">
 <attribute name="VERSION" value="0.1" x="30" y="6" size="1.778" layer="27" display="off"/>
@@ -6099,18 +6126,23 @@ design rules under a new name.</description>
 <attribute name="NAME" x="25.25" y="79.625" size="1.016" layer="25" rot="R180"/>
 <attribute name="VALUE" x="25.9" y="76" size="1.016" layer="27" rot="R90"/>
 </element>
-<element name="D3" library="equinox" package="DO214AA" value="" x="47" y="67"/>
+<element name="D3" library="equinox" package="DO214AA" value="SSB43L" x="47" y="65">
+<attribute name="OC_FARNELL" value="1336556" x="47" y="65" size="1.778" layer="27" display="off"/>
+</element>
 <element name="LED1" library="led" package="CHIPLED_0805" value="POW_3V3" x="13" y="8" smashed="yes" rot="R180">
 <attribute name="NAME" x="10.77" y="10.77" size="1.27" layer="25" rot="R270"/>
 <attribute name="VALUE" x="10.46" y="9.27" size="1.27" layer="27" rot="R270"/>
 </element>
-<element name="R21" library="resistor" package="M0805" value="1K" x="16" y="8" rot="R270"/>
+<element name="R21" library="resistor" package="M0805" value="1k" x="16" y="8" rot="R270"/>
 <element name="SERIAL" library="pinhead" package="1X03" value="" x="35" y="56"/>
 <element name="U4" library="equinox" package="TO263-5" value="LM2576S" x="94.25" y="9.5" smashed="yes" rot="R180">
 <attribute name="NAME" x="87.838" y="15.088" size="1.27" layer="25" rot="R270"/>
 <attribute name="VALUE" x="87.392" y="15.088" size="1.27" layer="27" rot="R270"/>
+<attribute name="OC_FARNELL" value="1469178" x="94.25" y="9.5" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="D6" library="equinox" package="SMC" value="B340-13-F" x="80" y="41" rot="R270"/>
+<element name="D6" library="equinox" package="SMC" value="B340-13-F" x="80" y="41" rot="R270">
+<attribute name="OC_FARNELL" value="1843695" x="80" y="41" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
 <element name="SOL" library="con-jack" package="SPC4077" value="" x="11.89" y="74.705" smashed="yes">
 <attribute name="OC_NEWARK" value="unknown" x="11.89" y="74.705" size="1.778" layer="27" display="off"/>
 <attribute name="MPN" value="" x="11.89" y="74.705" size="1.778" layer="27" display="off"/>
@@ -6118,6 +6150,7 @@ design rules under a new name.</description>
 <attribute name="OC_FARNELL" value="unknown" x="11.89" y="74.705" size="1.778" layer="27" display="off"/>
 <attribute name="NAME" x="1.73" y="68.535" size="1.27" layer="25"/>
 <attribute name="VALUE" x="1.73" y="68.355" size="1.27" layer="27"/>
+<attribute name="TOBY" value="DC-001-A-2.1mm-R" x="11.89" y="74.705" size="1.778" layer="27" display="off"/>
 </element>
 <element name="U1" library="equinox" package="SOT103P240X110-3N" value="NMOS_2N7002" x="66" y="55" smashed="yes">
 <attribute name="PACKAGE" value="SOT-23-3" x="66" y="55" size="1.778" layer="27" display="off"/>
@@ -6400,7 +6433,7 @@ design rules under a new name.</description>
 <signal name="N$15">
 <contactref element="C5" pad="2"/>
 <contactref element="R2" pad="2"/>
-<wire x1="64" y1="78" x2="61.95" y2="78" width="0.6096" layer="1"/>
+<wire x1="67" y1="78" x2="64.95" y2="78" width="0.6096" layer="1"/>
 </signal>
 <signal name="SOL_V">
 <contactref element="R3" pad="1"/>
@@ -6616,12 +6649,12 @@ design rules under a new name.</description>
 <wire x1="77.6416" y1="73.095" x2="77.6416" y2="74.365" width="0.6096" layer="1"/>
 <wire x1="83.3584" y1="74.365" x2="83.3584" y2="75.635" width="0.4064" layer="1"/>
 <wire x1="83.3584" y1="74.365" x2="83.3584" y2="76.905" width="0.4064" layer="1"/>
-<wire x1="67" y1="79" x2="75.5466" y2="79" width="1.4224" layer="1"/>
+<wire x1="70" y1="79" x2="75.5466" y2="79" width="1.4224" layer="1"/>
 <wire x1="75.5466" y1="79" x2="77.6416" y2="76.905" width="1.4224" layer="1"/>
-<wire x1="66" y1="78" x2="67" y2="79" width="1.4224" layer="1"/>
+<wire x1="69" y1="78" x2="70" y2="79" width="1.4224" layer="1"/>
 <wire x1="61" y1="74" x2="62" y2="75" width="1.016" layer="1"/>
-<wire x1="62" y1="75" x2="66" y2="75" width="1.016" layer="1"/>
-<wire x1="66" y1="75" x2="66" y2="78" width="1.016" layer="1"/>
+<wire x1="62" y1="75" x2="69" y2="75" width="1.016" layer="1"/>
+<wire x1="69" y1="75" x2="69" y2="78" width="1.016" layer="1"/>
 <wire x1="77.6416" y1="73.095" x2="79.905" y2="73.095" width="0.4064" layer="1"/>
 <wire x1="79.905" y1="73.095" x2="83" y2="70" width="0.4064" layer="1"/>
 <wire x1="83" y1="70" x2="83" y2="67" width="0.4064" layer="1"/>
@@ -6710,8 +6743,8 @@ design rules under a new name.</description>
 <wire x1="19" y1="69" x2="18" y2="68" width="0.6096" layer="1"/>
 <wire x1="18" y1="68" x2="16.2" y2="68" width="0.6096" layer="1"/>
 <wire x1="16.2" y1="68" x2="17" y2="68.8" width="0.6096" layer="1"/>
-<wire x1="44.45" y1="66.04" x2="44.45" y2="67" width="0.381" layer="1"/>
-<wire x1="44.45" y1="66.04" x2="44.45" y2="64.45" width="1.778" layer="1"/>
+<wire x1="44.45" y1="65.04" x2="44.45" y2="65" width="0.381" layer="1"/>
+<wire x1="44.45" y1="65.04" x2="44.45" y2="64.45" width="1.778" layer="1"/>
 <wire x1="44.45" y1="64.45" x2="41" y2="61" width="1.778" layer="1"/>
 <wire x1="41" y1="61" x2="38" y2="61" width="1.778" layer="1"/>
 <via x="38" y="61" extent="1-16" drill="0.6" diameter="1.016"/>
@@ -6743,13 +6776,12 @@ design rules under a new name.</description>
 <contactref element="L_MPPT" pad="P$2"/>
 <contactref element="C6" pad="+"/>
 <contactref element="D3" pad="A"/>
-<wire x1="60.05" y1="78" x2="47.05" y2="77.95" width="0.6096" layer="1"/>
+<wire x1="63.05" y1="78" x2="47.05" y2="77.95" width="0.6096" layer="1"/>
 <wire x1="47.05" y1="77.95" x2="45.5" y2="76.5" width="0.6096" layer="1"/>
 <wire x1="45.5" y1="76.5" x2="45.3028" y2="74" width="0.6096" layer="1"/>
-<wire x1="49.55" y1="67" x2="49.55" y2="71.7528" width="1.016" layer="1"/>
-<wire x1="49.55" y1="71.7528" x2="45.3028" y2="74" width="1.016" layer="1"/>
-<wire x1="58.45" y1="66" x2="50.55" y2="66" width="1.4224" layer="1"/>
-<wire x1="50.55" y1="66" x2="49.55" y2="67" width="1.4224" layer="1"/>
+<wire x1="49.55" y1="65" x2="49.55" y2="69.7528" width="1.016" layer="1"/>
+<wire x1="49.55" y1="69.7528" x2="45.3028" y2="74" width="1.016" layer="1"/>
+<wire x1="59.45" y1="65" x2="49.55" y2="65" width="1.4224" layer="1"/>
 </signal>
 <signal name="USB_OUT2" class="1">
 <contactref element="R18" pad="2"/>
