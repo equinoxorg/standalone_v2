@@ -29,8 +29,9 @@
 #include "ui.h"
 #include "payment_control.h"
 
+
 /* Private variables ---------------------------------------------------------*/
-OS_TID adc_test_t;
+
 
 /* Private function prototypes -----------------------------------------------*/
 
@@ -40,15 +41,15 @@ __task void init (void)
 	//Maximum of four running tasks, so can only launch three tasks here, any more will be ignored.
 
 	//Start the interrupted charging algoritm
-// 	printf("Starting Interrupted Charging Task \n");
-// 	interrupted_charging_t = os_tsk_create_user ( interrupted_charging, 0, &interrupted_charging_stk , sizeof(interrupted_charging_stk) );
-// 	if (!interrupted_charging_t)
-// 		printf("ERROR: Interrupted Charging Task Failed to launch \n");
-// 	
-// 	printf("Starting UI task \n");
-// 	ui_t = os_tsk_create_user (ui, 2, &ui_stk, sizeof(ui_stk) );
-// 	if (!ui_t)
-// 		printf("ERROR: UI Task Failed to launch \n");
+	printf("Starting Interrupted Charging Task \n");
+	interrupted_charging_t = os_tsk_create_user ( interrupted_charging, 0, &interrupted_charging_stk , sizeof(interrupted_charging_stk) );
+	if (!interrupted_charging_t)
+		printf("ERROR: Interrupted Charging Task Failed to launch \n");
+	
+	printf("Starting UI task \n");
+	ui_t = os_tsk_create_user (ui, 2, &ui_stk, sizeof(ui_stk) );
+	if (!ui_t)
+		printf("ERROR: UI Task Failed to launch \n");
 	
 	printf("Starting Payment Control task \n");
 	payment_control_t = os_tsk_create_user (payment_control, 2, &payment_control_stk, sizeof(payment_control_stk) );

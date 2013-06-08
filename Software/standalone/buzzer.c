@@ -23,6 +23,9 @@ void buzzer_init (void)
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
+	
+	GPIO_ResetBits(GPIOA, GPIO_Pin_8 );
+	
 }
 
 void buzz(int cycles)

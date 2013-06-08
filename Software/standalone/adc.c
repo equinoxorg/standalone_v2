@@ -1,6 +1,8 @@
 #include "adc.h"
 #include "pwm.h"
 
+OS_TID adc_test_t;
+
 #define ADC1_DR_Address 0x40012440
 
 void adc_init_analog_watchdog (void);

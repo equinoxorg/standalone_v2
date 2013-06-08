@@ -29,6 +29,7 @@
 
 //Public Variables
 extern volatile uint16_t RegularConvData_Tab[NO_SAMPLES * NO_CHANNELS];
+extern OS_TID adc_test_t;
 
 
 /* Private variables ---------------------------------------------------------*/

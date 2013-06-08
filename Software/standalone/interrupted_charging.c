@@ -22,7 +22,7 @@ float calc_lvdc ( float );
 #define PV_PANEL_PEAK	7.0f
 
 //Private Variables
-int state = BULK_CHARGING;
+int cc_state = BULK_CHARGING;
 
 //Public Variables
 U64 interrupted_charging_stk[I_CHARGING_STK_SIZE];
@@ -49,8 +49,8 @@ __task void interrupted_charging (void)
 		sol_current = get_adc_voltage(ADC_SOL_I);
 		sol_power = sol_voltage * sol_current;
 		
-		printf("Time=%i \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.2f \t P_SOL=%.2f \t duty=%f \n",
-					os_time_get(), state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle);
+		printf("Time=%i \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.3f \t P_SOL=%.2f \t duty=%.1f \n",
+					os_time_get(), cc_state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle);
 		
 		//Check for LVDC voltage
 		if ( batt_voltage < calc_lvdc(batt_current) )
@@ -61,7 +61,7 @@ __task void interrupted_charging (void)
 						
 		}
 		
-		switch (state)
+		switch (cc_state)
 		{
 			case BULK_CHARGING:
 				//Start charging battery with 0.1C current or as high as possible if 0.1C cannot be met
@@ -71,7 +71,7 @@ __task void interrupted_charging (void)
 				{
 					if (set_mppt() < (P_NIGHT_MODE*1.2))
 					{
-						state = NIGHT_MODE;
+						cc_state = NIGHT_MODE;
 						printf("INFO: Starting Night Mode State\n");
 						break;
 					}
@@ -81,7 +81,7 @@ __task void interrupted_charging (void)
 						
 				if (batt_voltage > V_HI)
 				{
-					state = VOLTAGE_SETTLE;
+					cc_state = VOLTAGE_SETTLE;
 					printf("INFO: Starting Voltage Settle Charging State at V=%f \n", batt_voltage);
 					break;
 				}
@@ -97,7 +97,7 @@ __task void interrupted_charging (void)
 				if (batt_voltage < V_LO)
 				{
 					GPIO_SetBits(GPIOB, GPIO_Pin_0);
-					state = PULSED_CURRENT;
+					cc_state = PULSED_CURRENT;
 					printf("INFO: Starting Pulsed Current Charging State at V=%f \n", batt_voltage);
 					break;
 				}				
@@ -126,7 +126,7 @@ __task void interrupted_charging (void)
 						{
 							if (set_mppt() < (P_NIGHT_MODE*1.2))
 							{
-								state = NIGHT_MODE;
+								cc_state = NIGHT_MODE;
 								printf("INFO: Starting Night Mode State\n");
 								break;
 							}
@@ -149,7 +149,7 @@ __task void interrupted_charging (void)
 								
 				if (batt_voltage > V_HI)
 				{
-					state = FULLY_CHARGED;
+					cc_state = FULLY_CHARGED;
 					printf("INFO: Starting Fully Charged Charging State at V=%f \n", batt_voltage);
 					break;
 				}
@@ -168,7 +168,7 @@ __task void interrupted_charging (void)
 				//Check when to start recharging again.
 				if (batt_voltage < V_RESTART)
 				{
-					state = BULK_CHARGING;
+					cc_state = BULK_CHARGING;
 					printf("INFO: Restarting the Bulk Charging State \n");
 					break;
 				}
@@ -188,7 +188,7 @@ __task void interrupted_charging (void)
 				
 					if (set_mppt() > (P_NIGHT_MODE*1.2)) 
 					{
-						state = BULK_CHARGING;
+						cc_state = BULK_CHARGING;
 						printf("INFO: Exiting Night Mode\n");
 						break;
 					}
@@ -204,7 +204,7 @@ __task void interrupted_charging (void)
 				
 				break;
 			default:
-				state = BULK_CHARGING;
+				cc_state = BULK_CHARGING;
 				printf("ERROR: Charging State machine entered Unknown State. Restarting with Bulk Charging \n");
 		}
 	}

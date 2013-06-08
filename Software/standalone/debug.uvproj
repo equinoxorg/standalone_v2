@@ -446,6 +446,16 @@
               <FileType>1</FileType>
               <FilePath>.\user_outputs.c</FilePath>
             </File>
+            <File>
+              <FileName>payment_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\payment_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\buzzer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

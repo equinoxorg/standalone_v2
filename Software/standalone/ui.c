@@ -9,6 +9,13 @@
 #define KEY_TICK 	0xEF
 #define KEY_CROSS	0xDF
 
+//State Machine
+#define STATE_NORM 					0
+#define STATE_AWAIT_PAYMENT	1
+#define STATE_LVDC					2
+#define STATE_OFF						3
+
+
 //Private Functions
 void keypad_init (void);
 uint8_t keypad_get_key (void);
@@ -18,9 +25,10 @@ void pwr_sw_init (void);
 
 //Public Variables
 OS_TID ui_t;
-char pwr_on = 1;
 int i;
 char str [8];
+
+int ui_state = STATE_NORM;
 
 
 U64 ui_stk[UI_STK_SIZE];
@@ -56,8 +64,24 @@ __task void ui (void)
 	lcd_goto_XY(0,1);
 	lcd_write_string("     izuba.box  ");
 	
-	//2 second loading screen
-	os_dly_wait(200);
+	//2 second timeout
+	if ( os_evt_wait_or((UI_PAYMENT_VALID | UI_PAYMENT_INVALID), 200) == OS_R_EVT )
+	{
+			//Find which event 
+			if( os_evt_get() == UI_PAYMENT_VALID )
+				ui_state = STATE_NORM;
+			else
+				ui_state = STATE_AWAIT_PAYMENT;
+			
+			//1 sec delay to display splash screen
+			os_dly_wait(100);
+	}
+	else
+	{
+		ui_state = STATE_AWAIT_PAYMENT;
+	}		
+
+		
 			
 	lcd_clear();
 	
@@ -92,7 +116,7 @@ __task void ui (void)
 			
 			if ( event_flag & UI_PWR_SW )
 			{
-				if (pwr_on)
+				if (ui_state == STATE_NORM)
 				{
 					//Turn off all outputs and UI devices
 					//Wait only for UI_PWR_SW tasks
@@ -103,7 +127,7 @@ __task void ui (void)
 					USB2_DISABLE();
 					DC_DISABLE();
 					
-					pwr_on = 0;
+					ui_state = STATE_OFF;
 				}
 				else
 				{
@@ -116,7 +140,7 @@ __task void ui (void)
 					//Re-init all LCD
 					lcd_init();
 					
-					pwr_on = 1;
+					ui_state = STATE_NORM;
 				}
 				
 				//1 second delay

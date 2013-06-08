@@ -156,7 +156,7 @@ void lcd_init (void)
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
 	GPIO_ResetBits(GPIOB, (LCD_E | LCD_RS | LCD_RW ) );
-	GPIO_ResetBits(GPIOB, (LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7) );
+	GPIO_ResetBits(GPIOB, (LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7 | LCD_BK_EN) );
 		
 	delay100u(100);
 	
