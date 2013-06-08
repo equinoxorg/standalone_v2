@@ -4,6 +4,7 @@
 #include "stm32f0xx.h"
 #include <RTL.h>
 #include <stdio.h>
+#include "rtc.h"
 
 //Task Parameters
 extern OS_TID payment_control_t;
