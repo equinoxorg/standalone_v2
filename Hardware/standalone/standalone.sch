@@ -26025,10 +26025,10 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <attribute name="OC_FARNELL" value="9695877"/>
 </part>
 <part name="R3" library="rcl" deviceset="R-EU_" device="M0805" value="10K"/>
-<part name="R4" library="rcl" deviceset="R-EU_" device="M0805" value="1.32k"/>
+<part name="R4" library="rcl" deviceset="R-EU_" device="M0805" value="1.33k"/>
 <part name="C7" library="resistor" deviceset="C-EU" device="C0805K" value="10uF"/>
 <part name="R5" library="rcl" deviceset="R-EU_" device="M0805" value="10K"/>
-<part name="R6" library="rcl" deviceset="R-EU_" device="M0805" value="1.32k"/>
+<part name="R6" library="rcl" deviceset="R-EU_" device="M0805" value="1.33k"/>
 <part name="C8" library="resistor" deviceset="C-EU" device="C0805K" value="10uF"/>
 <part name="R8" library="rcl" deviceset="R-EU_" device="M0805" value="200"/>
 <part name="R7" library="rcl" deviceset="R-EU_" device="M0805" value="200"/>
@@ -26092,7 +26092,6 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="C13" library="resistor" deviceset="C-EU" device="C0805K" value="100nF"/>
 <part name="C14" library="resistor" deviceset="C-EU" device="C0805K" value="100nF"/>
 <part name="C15" library="resistor" deviceset="C-EU" device="C0805K" value="100nF"/>
-<part name="C16" library="resistor" deviceset="C-EU" device="C0805K" value="1uF"/>
 <part name="P+1" library="supply1" deviceset="+5V" device=""/>
 <part name="GND17" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="KEYPAD" library="pinhead" deviceset="PINHD-1X7" device="/90">
@@ -26152,7 +26151,9 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="JTAG" library="pinhead" deviceset="PINHD-1X6" device=""/>
 <part name="+3V8" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND23" library="supply1" deviceset="GND" device="" value="GND"/>
-<part name="POW" library="equinox" deviceset="TAC_SWITCH" device="PTH"/>
+<part name="POW" library="equinox" deviceset="TAC_SWITCH" device="PTH">
+<attribute name="RS" value="758-1979"/>
+</part>
 <part name="R24" library="resistor" deviceset="R-EU_" device="M0805" value="1k"/>
 <part name="GND3" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="+3V9" library="supply1" deviceset="+3V3" device=""/>
@@ -26195,6 +26196,14 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="R27" library="rcl" deviceset="R-EU_" device="M0805" value="10"/>
 <part name="R28" library="rcl" deviceset="R-EU_" device="M0805" value="10"/>
 <part name="C20" library="resistor" deviceset="C-EU" device="C0805K" value="10uF"/>
+<part name="U8" library="equinox" deviceset="NMOS_2N7002" device="">
+<attribute name="MPN" value="2N7002-7-F"/>
+<attribute name="OC_FARNELL" value="1713823"/>
+<attribute name="OC_NEWARK" value="25R5679"/>
+<attribute name="PACKAGE" value="SOT-23-3"/>
+<attribute name="SUPPLIER" value="DIODES INC."/>
+</part>
+<part name="R29" library="resistor" deviceset="R-EU_" device="M0805" value="1k"/>
 </parts>
 <sheets>
 <sheet>
@@ -26223,14 +26232,13 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <text x="406.4" y="502.92" size="3.81" layer="98" rot="MR180">TODO:
   - Contrast Adjust Pot needs changing
   - Add PTC &amp; Diode
-  - Change Buzzer and add mosfet switching for higher voltage, thus louder
 </text>
 <text x="662.94" y="127" size="1.778" layer="98">0.5A Current Limit</text>
 <text x="662.94" y="86.36" size="1.778" layer="98">0.5A Current Limit</text>
 <text x="556.26" y="66.04" size="1.778" layer="98" rot="R90">3A Output</text>
 <text x="208.28" y="88.9" size="1.778" layer="98">120mA Max</text>
 <text x="556.26" y="132.08" size="1.778" layer="98" rot="R90">250mA Output</text>
-<text x="297.18" y="66.04" size="1.778" layer="98">Must be 0placed near to IC1</text>
+<text x="297.18" y="66.04" size="1.778" layer="98">Must be placed near to IC1</text>
 <text x="355.6" y="426.72" size="1.778" layer="98">Add PTC: 1800724
 And Diode</text>
 <text x="274.32" y="96.52" size="1.778" layer="98" rot="R90">Swap with 1192513</text>
@@ -26334,9 +26342,8 @@ And Diode</text>
 <instance part="C13" gate="G$1" x="304.8" y="50.8" rot="R180"/>
 <instance part="C14" gate="G$1" x="322.58" y="50.8" rot="R180"/>
 <instance part="C15" gate="G$1" x="332.74" y="50.8" rot="R180"/>
-<instance part="C16" gate="G$1" x="477.52" y="190.5" rot="R180"/>
 <instance part="P+1" gate="1" x="279.4" y="226.06"/>
-<instance part="GND17" gate="1" x="259.08" y="99.06"/>
+<instance part="GND17" gate="1" x="259.08" y="66.04"/>
 <instance part="KEYPAD" gate="A" x="193.04" y="231.14" rot="R90">
 <attribute name="OC_FARNELL" x="193.04" y="231.14" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
@@ -26390,7 +26397,9 @@ And Diode</text>
 <instance part="JTAG" gate="A" x="30.48" y="215.9" rot="MR0"/>
 <instance part="+3V8" gate="G$1" x="63.5" y="228.6"/>
 <instance part="GND23" gate="1" x="68.58" y="205.74"/>
-<instance part="POW" gate="S" x="101.6" y="109.22" rot="R90"/>
+<instance part="POW" gate="S" x="101.6" y="109.22" rot="R90">
+<attribute name="RS" x="101.6" y="109.22" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
 <instance part="R24" gate="G$1" x="101.6" y="91.44" rot="R270"/>
 <instance part="GND3" gate="1" x="101.6" y="78.74"/>
 <instance part="+3V9" gate="G$1" x="101.6" y="121.92"/>
@@ -26429,6 +26438,8 @@ And Diode</text>
 <instance part="R27" gate="G$1" x="327.66" y="414.02" rot="R90"/>
 <instance part="R28" gate="G$1" x="337.82" y="414.02" rot="R90"/>
 <instance part="C20" gate="G$1" x="334.01" y="407.67" rot="R270"/>
+<instance part="U8" gate="A" x="256.54" y="83.82"/>
+<instance part="R29" gate="G$1" x="248.92" y="96.52" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -26701,6 +26712,12 @@ And Diode</text>
 <label x="424.18" y="66.04" size="1.778" layer="95"/>
 <pinref part="U4" gate="1" pin="VIN"/>
 </segment>
+<segment>
+<pinref part="BUZZ1" gate="G$1" pin="+"/>
+<wire x1="259.08" y1="114.3" x2="259.08" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="259.08" y1="129.54" x2="276.86" y2="129.54" width="0.1524" layer="91"/>
+<label x="264.16" y="129.54" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="N$12" class="0">
 <segment>
@@ -26760,10 +26777,6 @@ And Diode</text>
 <pinref part="BATT_BCKUP" gate="G$1" pin="POS"/>
 <wire x1="487.68" y1="205.74" x2="508" y2="205.74" width="0.1524" layer="91"/>
 <label x="492.76" y="205.74" size="1.778" layer="95"/>
-<pinref part="C16" gate="G$1" pin="2"/>
-<wire x1="477.52" y1="195.58" x2="477.52" y2="205.74" width="0.1524" layer="91"/>
-<wire x1="477.52" y1="205.74" x2="487.68" y2="205.74" width="0.1524" layer="91"/>
-<junction x="487.68" y="205.74"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -27006,9 +27019,9 @@ And Diode</text>
 <net name="N$22" class="0">
 <segment>
 <pinref part="IC1" gate="1" pin="PA8"/>
-<pinref part="BUZZ1" gate="G$1" pin="+"/>
-<wire x1="259.08" y1="114.3" x2="259.08" y2="119.38" width="0.1524" layer="91"/>
-<wire x1="259.08" y1="119.38" x2="220.98" y2="119.38" width="0.1524" layer="91"/>
+<wire x1="248.92" y1="119.38" x2="220.98" y2="119.38" width="0.1524" layer="91"/>
+<pinref part="R29" gate="G$1" pin="1"/>
+<wire x1="248.92" y1="101.6" x2="248.92" y2="119.38" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$23" class="0">
@@ -27401,11 +27414,6 @@ And Diode</text>
 </net>
 <net name="GND" class="1">
 <segment>
-<pinref part="BUZZ1" gate="G$1" pin="-"/>
-<pinref part="GND17" gate="1" pin="GND"/>
-<wire x1="259.08" y1="106.68" x2="259.08" y2="101.6" width="0.1524" layer="91"/>
-</segment>
-<segment>
 <wire x1="115.57" y1="336.55" x2="115.57" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="115.57" y1="342.9" x2="115.57" y2="445.77" width="0.1524" layer="91"/>
 <wire x1="22.86" y1="342.9" x2="40.64" y2="342.9" width="0.1524" layer="91"/>
@@ -27490,13 +27498,9 @@ And Diode</text>
 <junction x="307.34" y="342.9"/>
 </segment>
 <segment>
+<pinref part="BATT_BCKUP" gate="G$1" pin="NEG"/>
 <wire x1="487.68" y1="180.34" x2="487.68" y2="177.8" width="0.1524" layer="91"/>
 <pinref part="GND7" gate="1" pin="GND"/>
-<pinref part="BATT_BCKUP" gate="G$1" pin="NEG"/>
-<pinref part="C16" gate="G$1" pin="1"/>
-<wire x1="477.52" y1="187.96" x2="477.52" y2="180.34" width="0.1524" layer="91"/>
-<wire x1="477.52" y1="180.34" x2="487.68" y2="180.34" width="0.1524" layer="91"/>
-<junction x="487.68" y="180.34"/>
 </segment>
 <segment>
 <pinref part="IC1" gate="1" pin="VSS"/>
@@ -27710,6 +27714,11 @@ And Diode</text>
 <pinref part="U1" gate="A" pin="S"/>
 <wire x1="289.56" y1="165.1" x2="289.56" y2="167.64" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="GND17" gate="1" pin="GND"/>
+<pinref part="U8" gate="A" pin="S"/>
+<wire x1="259.08" y1="68.58" x2="259.08" y2="73.66" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="N$5" class="1">
 <segment>
@@ -27791,6 +27800,20 @@ And Diode</text>
 <pinref part="C20" gate="G$1" pin="1"/>
 <wire x1="336.55" y1="407.67" x2="337.82" y2="407.67" width="0.1524" layer="91"/>
 <junction x="337.82" y="407.67"/>
+</segment>
+</net>
+<net name="N$42" class="0">
+<segment>
+<pinref part="U8" gate="A" pin="D"/>
+<pinref part="BUZZ1" gate="G$1" pin="-"/>
+<wire x1="259.08" y1="91.44" x2="259.08" y2="106.68" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$43" class="0">
+<segment>
+<pinref part="R29" gate="G$1" pin="2"/>
+<pinref part="U8" gate="A" pin="G"/>
+<wire x1="248.92" y1="78.74" x2="248.92" y2="91.44" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
