@@ -26198,6 +26198,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <text x="848.36" y="121.92" size="1.778" layer="98">1A Current Limit</text>
 <text x="848.36" y="81.28" size="1.778" layer="98">1A Current Limit</text>
 <text x="731.52" y="208.28" size="1.778" layer="98">Add Inv Out</text>
+<text x="259.08" y="396.24" size="1.778" layer="98" rot="R90">Swap with 1433428C</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="299.72" y="15.24"/>
