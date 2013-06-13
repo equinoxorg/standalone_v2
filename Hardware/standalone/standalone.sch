@@ -2866,6 +2866,12 @@ Onecall #: 1929705
 <text x="-3.4544" y="2.54" size="2.0828" layer="25" ratio="10" rot="SR0">&gt;NAME</text>
 <text x="-3.4544" y="-4.445" size="2.0828" layer="27" ratio="10" rot="SR0">&gt;VALUE</text>
 </package>
+<package name="BUZZ_14MM_5M_PINS">
+<circle x="0" y="0" radius="6.3" width="0.127" layer="21"/>
+<pad name="P$1" x="-2.5" y="0" drill="0.8" shape="square"/>
+<pad name="P$2" x="2.5" y="0" drill="0.8" shape="square"/>
+<text x="-2.54" y="2.54" size="1.27" layer="21">&gt;NAME</text>
+</package>
 </packages>
 <symbols>
 <symbol name="EQUINOX_LOGO_LARGE">
@@ -5307,6 +5313,18 @@ Onecall #: 1929705
 <wire x1="2.54" y1="2.54" x2="1.778" y2="1.524" width="0.254" layer="94"/>
 <text x="0.508" y="0.762" size="1.27" layer="94" ratio="10">I</text>
 </symbol>
+<symbol name="BUZZER">
+<wire x1="-2.54" y1="5.08" x2="5.08" y2="5.08" width="0.254" layer="94" curve="180"/>
+<wire x1="-2.54" y1="5.08" x2="1.27" y2="5.08" width="0.254" layer="94"/>
+<wire x1="1.27" y1="1.27" x2="1.27" y2="5.08" width="0.1524" layer="94"/>
+<wire x1="1.27" y1="5.08" x2="5.08" y2="5.08" width="0.254" layer="94"/>
+<wire x1="2.54" y1="-2.54" x2="2.54" y2="1.397" width="0.1524" layer="94"/>
+<wire x1="0" y1="-2.54" x2="0" y2="1.397" width="0.1524" layer="94"/>
+<text x="-2.54" y="6.35" size="1.778" layer="95">&gt;NAME</text>
+<text x="5.08" y="0" size="1.778" layer="96">&gt;VALUE</text>
+<pin name="-" x="5.08" y="-2.54" visible="pad" length="short" direction="pas" rot="R180"/>
+<pin name="+" x="-2.54" y="-2.54" visible="pad" length="short" direction="pas"/>
+</symbol>
 </symbols>
 <devicesets>
 <deviceset name="EQUINOX_LOGO_LARGE">
@@ -5802,6 +5820,24 @@ Onecall #: 1929705
 <attribute name="OC_NEWARK" value="05N1040" constant="no"/>
 <attribute name="PACKAGE" value="SC-70-6" constant="no"/>
 <attribute name="SUPPLIER" value="Texas Instruments" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="BUZZ_14MM">
+<gates>
+<gate name="G$1" symbol="BUZZER" x="0" y="2.54"/>
+</gates>
+<devices>
+<device name="" package="BUZZ_14MM_5M_PINS">
+<connects>
+<connect gate="G$1" pin="+" pad="P$1"/>
+<connect gate="G$1" pin="-" pad="P$2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="OC_FARNELL" value="1192513" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -23731,48 +23767,6 @@ Source: www.farnell.com/datasheets/247.pdf</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="buzzer">
-<packages>
-<package name="14MM_5M_PINS">
-<circle x="-0.5" y="0" radius="7" width="0.127" layer="21"/>
-<pad name="P$1" x="-3" y="0" drill="0.8" shape="square"/>
-<pad name="P$2" x="2" y="0" drill="0.8" shape="square"/>
-<text x="-2.54" y="2.54" size="1.27" layer="21">&gt;NAME</text>
-</package>
-</packages>
-<symbols>
-<symbol name="BUZZER">
-<wire x1="-2.54" y1="5.08" x2="5.08" y2="5.08" width="0.254" layer="94" curve="180"/>
-<wire x1="-2.54" y1="5.08" x2="1.27" y2="5.08" width="0.254" layer="94"/>
-<wire x1="1.27" y1="1.27" x2="1.27" y2="5.08" width="0.1524" layer="94"/>
-<wire x1="1.27" y1="5.08" x2="5.08" y2="5.08" width="0.254" layer="94"/>
-<wire x1="2.54" y1="-2.54" x2="2.54" y2="1.397" width="0.1524" layer="94"/>
-<wire x1="0" y1="-2.54" x2="0" y2="1.397" width="0.1524" layer="94"/>
-<text x="-2.54" y="6.35" size="1.778" layer="95">&gt;NAME</text>
-<text x="5.08" y="0" size="1.778" layer="96">&gt;VALUE</text>
-<pin name="-" x="5.08" y="-2.54" visible="pad" length="short" direction="pas" rot="R180"/>
-<pin name="+" x="-2.54" y="-2.54" visible="pad" length="short" direction="pas"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="BUZZ_14MM">
-<gates>
-<gate name="G$1" symbol="BUZZER" x="0" y="2.54"/>
-</gates>
-<devices>
-<device name="" package="14MM_5M_PINS">
-<connects>
-<connect gate="G$1" pin="+" pad="P$1"/>
-<connect gate="G$1" pin="-" pad="P$2"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="coin_cells">
 <packages>
 <package name="PANASONIC_CR2032_1298246">
@@ -26066,9 +26060,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="BATT_BCKUP" library="coin_cells" deviceset="PANASONIC_CR2032_1298246" device="" value="RENATA_COIN_CELL">
 <attribute name="OC_FARNELL" value="1298246 "/>
 </part>
-<part name="BUZZ1" library="buzzer" deviceset="BUZZ_14MM" device="">
-<attribute name="OC_FARNELL" value="1669967"/>
-</part>
+<part name="BUZZ1" library="equinox" deviceset="BUZZ_14MM" device=""/>
 <part name="GND1" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="R_RST" library="rcl" deviceset="R-EU_" device="M0805" value="100K"/>
 <part name="+3V1" library="supply1" deviceset="+3V3" device=""/>
@@ -26241,7 +26233,6 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <text x="297.18" y="66.04" size="1.778" layer="98">Must be placed near to IC1</text>
 <text x="355.6" y="426.72" size="1.778" layer="98">Add PTC: 1800724
 And Diode</text>
-<text x="274.32" y="96.52" size="1.778" layer="98" rot="R90">Swap with 1192513</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="299.72" y="15.24"/>

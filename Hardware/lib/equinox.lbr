@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.5" altunitdist="mm" altunit="mm"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="no"/>
@@ -3375,9 +3375,9 @@
 <text x="11.43" y="1.27" size="1.27" layer="21">-</text>
 </package>
 <package name="BUZZ_14MM_5M_PINS">
-<circle x="-0.5" y="0" radius="7" width="0.127" layer="21"/>
-<pad name="P$1" x="-3" y="0" drill="0.8" shape="square"/>
-<pad name="P$2" x="2" y="0" drill="0.8" shape="square"/>
+<circle x="0" y="0" radius="6.3" width="0.127" layer="21"/>
+<pad name="P$1" x="-2.5" y="0" drill="0.8" shape="square"/>
+<pad name="P$2" x="2.5" y="0" drill="0.8" shape="square"/>
 <text x="-2.54" y="2.54" size="1.27" layer="21">&gt;NAME</text>
 </package>
 <package name="TO220-5">
@@ -8504,7 +8504,9 @@ Source: http://www.diodes.com/datasheets/ds31262.pdf</description>
 <connect gate="G$1" pin="-" pad="P$2"/>
 </connects>
 <technologies>
-<technology name=""/>
+<technology name="">
+<attribute name="OC_FARNELL" value="1192513" constant="no"/>
+</technology>
 </technologies>
 </device>
 </devices>
