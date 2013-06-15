@@ -26324,8 +26324,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <text x="406.4" y="513.08" size="6.4516" layer="94" font="vector">NOTES</text>
 <text x="406.4" y="502.92" size="3.81" layer="98" rot="MR180">TODO:
   - Contrast Adjust Pot needs changing
-  - Swap MOS with BJT
-  - Remove LCD Switching</text>
+  - Swap MOS with BJT</text>
 <text x="662.94" y="127" size="1.778" layer="98">0.5A Current Limit</text>
 <text x="662.94" y="86.36" size="1.778" layer="98">0.5A Current Limit</text>
 <text x="556.26" y="66.04" size="1.778" layer="98" rot="R90">3A Output</text>
