@@ -9,7 +9,7 @@
 
 //Task Parameters
 extern OS_TID payment_control_t;
-#define PAYMENT_CONTROL_STK_SIZE 64
+#define PAYMENT_CONTROL_STK_SIZE 40
 extern U64 payment_control_stk[PAYMENT_CONTROL_STK_SIZE];
 
 //Public Definitions
