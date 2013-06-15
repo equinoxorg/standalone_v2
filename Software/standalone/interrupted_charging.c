@@ -2,6 +2,8 @@
 #include "ui.h"
 
 float calc_lvdc ( float );
+void set_temperature_compensation( float );
+void set_current_compensation ( float, float );
 
 #define BULK_CHARGING			1
 #define VOLTAGE_SETTLE		2
@@ -9,10 +11,10 @@ float calc_lvdc ( float );
 #define FULLY_CHARGED			4
 #define NIGHT_MODE 				5
 
-#define V_HI	14.7f
-#define V_LO	13.0f
-#define V_RESTART 12.8f
-#define V_LVDC 11.0f
+float v_high = 14.7f;
+float v_low = 13.4f;
+float v_restart = 12.8f;
+float pulse_duty = 0.33f;
 
 //Choosen based on the consumption of running 
 //CC circuitry
@@ -58,14 +60,18 @@ __task void interrupted_charging (void)
 			//Turn off outputs and screen.
 			//send os event to turn off
 			os_evt_set( UI_LVDC, ui_t );
-						
 		}
+		
+		set_temperature_compensation( get_adc_voltage(ADC_TEMP) );
+		
 		
 		switch (cc_state)
 		{
 			case BULK_CHARGING:
 				//Start charging battery with 0.1C current or as high as possible if 0.1C cannot be met
 				perturb_and_observe_cc_itter(BATTERY_AHR*0.1f);
+			
+				set_current_compensation(BATTERY_AHR*0.1f, batt_current);
 			
 				if (sol_power < P_NIGHT_MODE)
 				{
@@ -79,7 +85,7 @@ __task void interrupted_charging (void)
 				}
 		
 						
-				if (batt_voltage > V_HI)
+				if (batt_voltage > v_high)
 				{
 					cc_state = VOLTAGE_SETTLE;
 					printf("INFO: Starting Voltage Settle Charging State at V=%f \n", batt_voltage);
@@ -94,7 +100,7 @@ __task void interrupted_charging (void)
 				//Diable the MPPT Charging Circuit
 				GPIO_ResetBits(GPIOB, GPIO_Pin_0);
 			
-				if (batt_voltage < V_LO)
+				if (batt_voltage < v_low)
 				{
 					GPIO_SetBits(GPIOB, GPIO_Pin_0);
 					cc_state = PULSED_CURRENT;
@@ -110,8 +116,8 @@ __task void interrupted_charging (void)
 
 				if (pulse)
 				{
-					//If greater than 10 seconds, pulse is low. i.e sets up 33% duty cycle
-					if ( counter > 100)
+					//If greater than high period seconds, pulse is low. i.e sets up x% duty cycle
+					if ( counter > (300 * pulse_duty) )
 						pulse = 0;
 					
 					//Enable MPPT hardware
@@ -120,8 +126,11 @@ __task void interrupted_charging (void)
 					//Run p&o itteration
 					perturb_and_observe_cc_itter(BATTERY_AHR*0.05f);
 					
+					
 					if ( counter > 10 )
 						{
+						set_current_compensation(BATTERY_AHR*0.05f, batt_current);
+							
 						if (sol_power < P_NIGHT_MODE)
 						{
 							if (set_mppt() < (P_NIGHT_MODE*1.2))
@@ -147,7 +156,7 @@ __task void interrupted_charging (void)
 				}
 				
 								
-				if (batt_voltage > V_HI)
+				if (batt_voltage > v_high)
 				{
 					cc_state = FULLY_CHARGED;
 					printf("INFO: Starting Fully Charged Charging State at V=%f \n", batt_voltage);
@@ -166,7 +175,7 @@ __task void interrupted_charging (void)
 				GPIO_ResetBits(GPIOB, GPIO_Pin_0);				
 			
 				//Check when to start recharging again.
-				if (batt_voltage < V_RESTART)
+				if (batt_voltage < v_restart)
 				{
 					cc_state = BULK_CHARGING;
 					printf("INFO: Restarting the Bulk Charging State \n");
@@ -194,7 +203,8 @@ __task void interrupted_charging (void)
 					}
 					
 					//Diable the MPPT Charging Circuit
-					GPIO_ResetBits(GPIOB, GPIO_Pin_0);
+					//GPIO_ResetBits(GPIOB, GPIO_Pin_0);
+					set_duty_cycle(100);
 					
 					counter = 0;
 				}
@@ -218,6 +228,42 @@ float calc_lvdc ( float current )
 		return ( (current / BATTERY_AHR) * (2.2f / 4.9f) ) + 11.2449f;
 	else
 		return 11.2f;
+}
+
+
+//For explainations of these compensation values please read project report.
+void set_temperature_compensation( float temp )
+{
+	if ( temp < 5 )
+	{
+		v_high = 14.7;
+		pulse_duty = 0.167f;
+	}
+	else if ( temp < 25 )
+	{
+		v_high = 14.7;
+		pulse_duty = (0.00815f * temp) + 0.1265f;
+	}
+	else if ( temp < 50 )
+	{
+		v_high = 16.2f - (0.06f * temp);
+		pulse_duty = 0.33f;
+	}
+	else
+	{
+		v_high = 13.2;
+		pulse_duty = 0.33f;
+	}
+}
+
+void set_current_compensation (float target_current, float measured_current)
+{
+	float current_ratio = target_current / measured_current;
+	
+	if ( current_ratio < 0.25f)
+		v_high = v_high * 0.897959184f;
+	else
+		v_high = v_high * ( (2*current_ratio + 12.7f) / 14.7f);
 }
 
 
