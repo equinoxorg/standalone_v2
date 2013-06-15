@@ -64,25 +64,25 @@ __task void ui (void)
 	lcd_goto_XY(0,1);
 	lcd_write_string("     izuba.box  ");
 	
-	//2 second timeout
-	if ( os_evt_wait_or((UI_PAYMENT_VALID | UI_PAYMENT_INVALID), 200) == OS_R_EVT )
-	{
-			//Find which event 
-			if( os_evt_get() == UI_PAYMENT_VALID )
-				ui_state = STATE_NORM;
-			else
-				ui_state = STATE_AWAIT_PAYMENT;
+// 	//2 second timeout
+// 	if ( os_evt_wait_or((UI_PAYMENT_VALID | UI_PAYMENT_INVALID), 200) == OS_R_EVT )
+// 	{
+// 			//Find which event 
+// 			if( os_evt_get() == UI_PAYMENT_VALID )
+// 				ui_state = STATE_NORM;
+// 			else
+// 				ui_state = STATE_AWAIT_PAYMENT;
+// 			
+// 			//1 sec delay to display splash screen
+// 			os_dly_wait(100);
+// 	}
+// 	else
+// 	{
+// 		ui_state = STATE_AWAIT_PAYMENT;
+// 	}	
 			
-			//1 sec delay to display splash screen
-			os_dly_wait(100);
-	}
-	else
-	{
-		ui_state = STATE_AWAIT_PAYMENT;
-	}		
-
-		
-			
+	os_dly_wait(200);
+	
 	lcd_clear();
 	
 	while(1)
@@ -111,7 +111,7 @@ __task void ui (void)
 				os_dly_wait(2000);
 				
 				//Turn off Screen
-				lcd_backlight(0);
+				lcd_power(0);
 			}
 			
 			if ( event_flag & UI_PWR_SW )
@@ -120,7 +120,7 @@ __task void ui (void)
 				{
 					//Turn off all outputs and UI devices
 					//Wait only for UI_PWR_SW tasks
-					lcd_backlight(0);
+					lcd_power(0);
 					
 					//Turn off outputs
 					USB1_DISABLE();
@@ -131,20 +131,20 @@ __task void ui (void)
 				}
 				else
 				{
-					lcd_backlight(1);
 					//Turn on box
 					USB1_ENABLE();
 					USB2_ENABLE();
 					DC_ENABLE();
 					
 					//Re-init all LCD
-					lcd_init();
+					lcd_power(1);				
 					
 					ui_state = STATE_NORM;
 				}
 				
 				//1 second delay
 				os_dly_wait(100);
+				EXTI_ClearITPendingBit(EXTI_Line0);
 			}
 			
 			if ( event_flag & UI_EVT_USB_OC )
