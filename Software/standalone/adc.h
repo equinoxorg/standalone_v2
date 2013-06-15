@@ -16,13 +16,13 @@
 #define ADC_TEMP		ADC_Channel_TempSensor
 
 
-#define SCALE_V_SOL(x)	((x) * ((10.0f + 1.32f) / 1.32f ) )
-#define SCALE_I_SOL(x)	((x) * 0.606060f)//((x) * 1.515f)
-#define SCALE_V_BATT(x)	((x) * ((10.0f + 1.32f) / 1.32f ) )
-#define SCALE_I_BATT(x) ((x) * 1.515f * /*Calibration*/ 0.349f)
+#define SCALE_V_SOL(x)	((x) * ((10.0f + 1.33f) / 1.33f ) )
+#define SCALE_I_SOL(x)	( x / (0.004f * 0.1f * 1330.0f) )
+#define SCALE_V_BATT(x)	((x) * ((10.0f + 1.33f) / 1.33f ) )
+#define SCALE_I_BATT(x) ((x-(ADC_VREF/2)) * (0.01f * 50.0f) )
 
 //Convert a current to an equivilent ADC reading
-#define I_BATT_TO_ADC(x)	( (uint16_t) ( ( (x/1.515f) / ADC_VREF ) * 0xFFF) )
+#define I_BATT_TO_ADC(x)	( (uint16_t) ( ( ((x/(0.01f * 50.f))+(ADC_VREF/2)) / ADC_VREF ) * 0xFFF) )
 
 #define NO_SAMPLES 16
 #define NO_CHANNELS 5
