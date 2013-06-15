@@ -16,6 +16,7 @@ void lcd_clear (void);
 void lcd_putc (char);
 void lcd_goto_XY(uint8_t,uint8_t);
 void lcd_backlight(char);
+void lcd_power(char);
 __inline void lcd_send_data (uint8_t);
 
 #define lcd_home() lcd_send_cmd(0x02);

@@ -16,6 +16,7 @@
 #define LCD_E		GPIO_Pin_11
 
 #define LCD_BK_EN GPIO_Pin_1
+#define LCD_PWR		GPIO_Pin_11
 
 //Macro Definitions
 #define		LCD_DISP_ON			0x0c
@@ -78,6 +79,21 @@ void lcd_backlight(char en)
 		GPIO_SetBits(GPIOB, LCD_BK_EN );
 	else
 		GPIO_ResetBits(GPIOB, LCD_BK_EN );
+}
+
+void lcd_power(char en)
+{
+
+	lcd_backlight(en);
+	if (en)
+	{
+		lcd_send_cmd(LCD_DISP_ON);
+	}
+	else
+	{
+		//Turn off the display in software
+		lcd_send_cmd(LCD_DISP_OFF);
+	}
 }
 
 void lcd_write_int(const int val)
@@ -149,11 +165,18 @@ void lcd_init (void)
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	
-	
-	//Todo: Power Cycle LCD
-	
-	
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	
+	GPIO_StructInit(&GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = LCD_PWR;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	GPIO_SetBits(GPIOA, LCD_PWR);	
 	
 	GPIO_ResetBits(GPIOB, (LCD_E | LCD_RS | LCD_RW ) );
 	GPIO_ResetBits(GPIOB, (LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7 | LCD_BK_EN) );
