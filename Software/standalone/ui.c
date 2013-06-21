@@ -20,6 +20,7 @@
 void keypad_init (void);
 uint8_t keypad_get_key (void);
 void pwr_sw_init (void);
+char *utoa_b(char *, uint32_t, int, uint8_t);
 
 //Private variables
 
@@ -28,7 +29,7 @@ OS_TID ui_t;
 int i;
 char str [8];
 
-int ui_state = STATE_NORM;
+int ui_state = STATE_AWAIT_PAYMENT;
 
 
 U64 ui_stk[UI_STK_SIZE];
@@ -43,6 +44,10 @@ __task void ui (void)
 {
 	uint16_t event_flag = 0;
 	uint8_t key;
+	int i;
+	char keypad_result_str [10];
+	uint8_t digit_count = 0;
+	uint32_t entry_code = 0;
 	
 	keypad_init();
 	
@@ -64,6 +69,7 @@ __task void ui (void)
 	lcd_goto_XY(0,1);
 	lcd_write_string("     izuba.box  ");
 	
+	
 // 	//2 second timeout
 // 	if ( os_evt_wait_or((UI_PAYMENT_VALID | UI_PAYMENT_INVALID), 200) == OS_R_EVT )
 // 	{
@@ -75,43 +81,69 @@ __task void ui (void)
 // 			
 // 			//1 sec delay to display splash screen
 // 			os_dly_wait(100);
+// 			os_evt_clr(event_flag, ui_t);
 // 	}
 // 	else
 // 	{
 // 		ui_state = STATE_AWAIT_PAYMENT;
 // 	}	
-			
+
+	
 	os_dly_wait(200);
 	
-	lcd_clear();
+	switch (ui_state)
+	{
+		case STATE_NORM:
+			lcd_write_string_XY(0, 0, "  e.quinox      ");
+			lcd_write_string_XY(0, 1, "          Locked");
+			break;
+		case STATE_AWAIT_PAYMENT:
+			lcd_write_string_XY(0, 0, "Enter:__________");
+			lcd_write_string_XY(0, 1, "          Locked");
+			break;
+		case STATE_LVDC:
+			lcd_write_string_XY(0, 0, " Battery Empty  ");
+			lcd_write_string_XY(0, 1, "  Turning Off   ");
+			break;
+		case STATE_OFF:
+			break;
+	}
 	
 	while(1)
 	{
 		//Wait for a task event or timeout after 1 second
-		if ( os_evt_wait_or((UI_PWR_SW | UI_EVT_USB_OC | UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3 | UI_LVDC), 100) == OS_R_EVT )
+		if ( os_evt_wait_or((UI_PWR_SW | UI_EVT_USB_OC | UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3 | UI_LVDC | UI_PAYMENT_INVALID), 100) == OS_R_EVT )
 		{
 			//Find which event 
 			event_flag = os_evt_get();		
 			
 			if ( event_flag & UI_LVDC )
 			{
-				//Turn off outputs
-				USB1_DISABLE();
-				USB2_DISABLE();
-				DC_DISABLE();
-				
-				lcd_clear();
-				lcd_goto_XY(0,0);
-				lcd_write_string("    Battery     ");
-				lcd_goto_XY(0,1);
-				lcd_write_string("     empty!     ");
-				
-				//Delay and Buzz
-				//20 Seconds
-				os_dly_wait(2000);
-				
-				//Turn off Screen
-				lcd_power(0);
+				if ( (ui_state != STATE_LVDC) && (ui_state != STATE_OFF) )
+				{
+					//Turn off outputs
+					USB1_DISABLE();
+					USB2_DISABLE();
+					DC_DISABLE();
+					
+					lcd_clear();
+					lcd_goto_XY(0,0);
+					lcd_write_string("    Battery     ");
+					lcd_goto_XY(0,1);
+					lcd_write_string("     empty!     ");
+					
+					//Delay and Buzz
+					//20 Seconds
+					for ( i = 0; i < 5; i++)
+					{
+						buzz(1);
+						os_dly_wait(400);
+					}
+					
+					//Turn off Screen
+					lcd_power(0);
+				}
+				ui_state = UI_LVDC;
 			}
 			
 			if ( event_flag & UI_PWR_SW )
@@ -136,7 +168,7 @@ __task void ui (void)
 					USB2_ENABLE();
 					DC_ENABLE();
 					
-					//Re-init all LCD
+					//Re-init LCD
 					lcd_power(1);				
 					
 					ui_state = STATE_NORM;
@@ -161,10 +193,6 @@ __task void ui (void)
 		
 			if ( event_flag & (UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3) )
 			{
-				//Debounce time
-				//os_dly_wait(1);
-				
-							
 				//Read which key is pressed
 				i = 0;
 				do
@@ -176,29 +204,66 @@ __task void ui (void)
 						break;
 				} while (key == KEY_NONE);
 				
-				switch (key)
+				if (key != KEY_NONE)
 				{
-					case KEY_NONE:
-						//No Action
-						break;
-					//Special Key Cases
-					case KEY_TICK:
-						buzz(1);
-						printf("./");
-						lcd_goto_XY(0,1);
-						break;
-					case KEY_CROSS:
-						buzz(1);
-						printf("X");
-						lcd_clear();
-						break;
-					default:
-						//Print the key number
-						buzz(1);
-						printf("%i", key);
-						lcd_write_int(key);					
+					lcd_backlight(1);
+					buzz(1);
 				}
 				
+				if (ui_state == STATE_AWAIT_PAYMENT)
+				{
+					//Build number and display on LCD
+					
+					//If 10 digits or tick then call payment control function
+					if (key == KEY_CROSS) {
+						//'X' Pressed
+						//LCDWriteString("x");
+						digit_count = 0;
+						entry_code = 0;
+						lcd_write_string_XY(6, 0, "__________");
+						lcd_goto_XY(6, 0);
+					} else if (key == KEY_TICK) {
+						//Tick Pressed
+						//LCDWriteString("./");
+					} else {
+						entry_code = (entry_code * 10) + key;
+						keypad_result_str[0] = '\0';
+						utoa_b(keypad_result_str, entry_code, 10, digit_count);
+						lcd_write_string_XY(6, 0, keypad_result_str);
+						lcd_goto_XY((7 + digit_count), 0);
+
+						if (digit_count++ == 9) {
+							//Send code to payment control task
+							
+							os_dly_wait(50);
+							printf("INFO: Unlock code: %i", entry_code);
+							lcd_write_string_XY(6, 0, "__________");
+							entry_code = 0;
+							digit_count = 0;
+						}
+					}
+				}
+				else
+				{											
+					switch (key)
+					{
+						case KEY_NONE:
+							//No Action
+							break;
+						//Special Key Cases
+						case KEY_TICK:
+							printf("./");
+							break;
+						case KEY_CROSS:
+							printf("X");
+							break;
+						default:
+							//Print the key number
+							printf("%i", key);			
+					}
+				}
+				
+				//Wait for release of key (with time-out)
 				i = 0;
 				while( keypad_get_key() != KEY_NONE )
 				{
@@ -207,10 +272,9 @@ __task void ui (void)
 					if ( i > 100)
 						break;
 				}
-									
-				//os_dly_wait(1);
 				
 				//Reset backlight timer
+				
 			}
 			
 			//clear event flags
@@ -220,29 +284,35 @@ __task void ui (void)
 		//else
 				//printf("UI task timeout\n");
 		
-		sprintf(str, "P=%.2f", get_adc_voltage(ADC_SOL_V)*get_adc_voltage(ADC_SOL_I));
-		lcd_goto_XY(0,0);
-		lcd_write_string(str);
+		//Update battery levels, days remaining and if normal state then time/date
 		
-		str[0] = NULL;
-		
-		sprintf(str, "T=%.2f", get_adc_voltage(ADC_TEMP));
-		lcd_goto_XY(8,0);
-		lcd_write_string(str);
-		
-		str[0] = NULL;
-		
-		sprintf(str, "V=%.2f", get_adc_voltage(ADC_BATT_V));
-		lcd_goto_XY(0,1);
-		lcd_write_string(str);
-		
-		str[0] = NULL;
-		
-		sprintf(str, "I=%.2f", get_adc_voltage(ADC_BATT_I));
-		lcd_goto_XY(8,1);
-		lcd_write_string(str);
-		
-		str[0] = NULL;
+		// Debugging Info on LCD
+// 		sprintf(str, "P=%.2f", get_adc_voltage(ADC_SOL_V)*get_adc_voltage(ADC_SOL_I));
+// 		lcd_goto_XY(0,0);
+// 		lcd_write_string(str);
+// 		
+// 		str[0] = NULL;
+// 		
+// 		sprintf(str, "T=%.2f", get_adc_voltage(ADC_TEMP));
+// 		lcd_goto_XY(8,0);
+// 		lcd_write_string(str);
+// 		
+// 		str[0] = NULL;
+// 		
+// 		sprintf(str, "V=%.2f", get_adc_voltage(ADC_BATT_V));
+// 		lcd_goto_XY(0,1);
+// 		lcd_write_string(str);
+// 		
+// 		str[0] = NULL;
+// 		
+// 		sprintf(str, "I=%.2f", get_adc_voltage(ADC_BATT_I));
+// 		lcd_goto_XY(8,1);
+// 		lcd_write_string(str);
+// 		
+// 		str[0] = NULL;
+
+			lcd_batt_level(90);
+
 	}
 }
 
@@ -441,3 +511,29 @@ void keypad_init (void)
   NVIC_Init(&NVIC_InitStructure);
 	
 }
+
+//------------------------------------------------------------------------------
+char *utoa_b(char *buf, uint32_t val, int base, uint8_t pad) {
+    uint32_t v;
+    char c;
+    int i = 0;
+
+    v = val;
+    do {
+        v /= base;
+        buf++;
+    } while (i++ != pad);
+    *buf-- = 0;
+    i = 0;
+    do {
+        c = val % base;
+        val /= base;
+        if (c >= 10)
+            c += 'A' - '0' - 10;
+        c += '0';
+        *buf-- = c;
+    } while (i++ != pad);
+    return buf;
+}
+
+

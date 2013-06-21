@@ -31,6 +31,8 @@ void cycle_e (void);
 void lcd_send_4_bits (uint8_t);
 void lcd_set_custom_chars (void);
 
+OS_ID bk_tmr = NULL;
+
 //LCD testing routine
 void lcd_test (void)
 {
@@ -76,9 +78,32 @@ void lcd_test (void)
 void lcd_backlight(char en)
 {
 	if (en)
+	{
 		GPIO_SetBits(GPIOB, LCD_BK_EN );
+		
+		//Stop old timer
+		if (bk_tmr != NULL)
+			os_tmr_kill(bk_tmr);
+		
+		//Restart timer
+		bk_tmr = os_tmr_create (BK_TIMEOUT_S*100, 1);
+		if (bk_tmr == NULL)
+			printf("ERROR: Failed to create backlight timer \n");
+		
+	}
 	else
+	{
+		//Stop old timer
+		os_tmr_kill(bk_tmr);
+		
 		GPIO_ResetBits(GPIOB, LCD_BK_EN );
+	}
+}
+
+
+void lcd_bk_tmr_expire(void)
+{
+	GPIO_ResetBits(GPIOB, LCD_BK_EN );
 }
 
 void lcd_power(char en)
@@ -187,9 +212,11 @@ void lcd_init (void)
 	cycle_e();
 	lcd_send_cmd(LCD_DISP_ON);
 	lcd_send_cmd( 0x28 );
-	lcd_clear();
-		
+	
 	lcd_set_custom_chars();
+	
+	lcd_clear();		
+	
 }
 
 void lcd_send_4_bits (uint8_t c)
@@ -310,5 +337,37 @@ void lcd_set_custom_chars(void)
     lcd_send_data(0x1F);
     lcd_send_data(0x1C);
     lcd_send_data(0x1C);
+}
+
+void lcd_batt_level(int batt_level) {
+	
+    lcd_goto_XY(0,1);
+	
+    if (batt_level >= 90)
+		{
+			lcd_batt_100();
+		}
+		else if (batt_level >= 70)
+		{
+			lcd_batt_80();
+    }
+		else if (batt_level >= 50)
+		{
+			lcd_batt_60();
+    } 
+		else if (batt_level >= 30)
+		{
+			lcd_batt_40();
+    } 
+		else if (batt_level >= 10)
+		{
+			lcd_batt_20();
+    } 
+		else 
+		{
+			lcd_batt_0();
+    }
+
+    lcd_goto_XY(17, 0);
 }
 
