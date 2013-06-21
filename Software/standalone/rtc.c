@@ -5,6 +5,7 @@ void rtc_init (void)
 {
 	// Example Taken from firmware examples and:
 	// http://www.st.com/st-web-ui/static/active/en/resource/technical/document/application_note/DM00025071.pdf
+	int i = 0;
 	
 	RTC_InitTypeDef   RTC_InitStructure;
 	
@@ -18,7 +19,19 @@ void rtc_init (void)
 	//32.768 External Osc
   RCC_LSEConfig(RCC_LSE_ON);
 	
-	while(RCC_GetFlagStatus(RCC_FLAG_LSERDY) == RESET);
+	//Check for clock stability
+	while (RCC_GetFlagStatus(RCC_FLAG_LSERDY) == RESET)
+	{
+		i++;
+		if (i > 200)
+		{
+			//Time out after 2 seconds 
+			printf("ERROR: LSE clock not stable \n");
+			i = 0;
+			break;
+		}
+		os_dly_wait(1);
+	}
 	
   // Select the RTC Clock Source
   RCC_RTCCLKConfig(RCC_RTCCLKSource_LSE);
