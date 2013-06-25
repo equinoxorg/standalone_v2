@@ -200,3 +200,6 @@ pip-log.txt
 
 #Keil Specific Files
 *.map
+
+#Protect Unlock Code Generation code
+unlock_codes.*
