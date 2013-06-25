@@ -371,3 +371,17 @@ void lcd_batt_level(int batt_level) {
     lcd_goto_XY(17, 0);
 }
 
+void lcd_charging( float charging_rate )
+{
+	lcd_goto_XY(5,1);
+	
+	if ( charging_rate > 0.5f)
+		lcd_write_string("<<");
+	else if ( charging_rate > 0.1f)
+		lcd_write_string("< ");
+	else
+		lcd_write_string("  ");
+	 	
+}
+
+

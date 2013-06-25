@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <RTL.h>
 
+//LCD timeout turns off backlight after
+//defined numer of seconds
 #define BK_TIMEOUT_S 15
 
 void lcd_test (void);
@@ -21,6 +23,7 @@ void lcd_backlight(char);
 void lcd_power(char);
 void lcd_batt_level(int);
 void lcd_bk_tmr_expire(void);
+void lcd_charging( float );
 
 __inline void lcd_send_data (uint8_t);
 

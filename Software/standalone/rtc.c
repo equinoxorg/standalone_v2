@@ -18,6 +18,14 @@ void rtc_init (void)
   // Enable the LSE OSC 
 	//32.768 External Osc
   RCC_LSEConfig(RCC_LSE_ON);
+	/*
+	*     @arg RCC_LSEDrive_Low: LSE oscillator low drive capability.
+  *     @arg RCC_LSEDrive_MediumLow: LSE oscillator medium low drive capability.
+  *     @arg RCC_LSEDrive_MediumHigh: LSE oscillator medium high drive capability.
+  *     @arg RCC_LSEDrive_High: LSE oscillator high drive capability.
+  * @retval None
+  */
+	RCC_LSEDriveConfig(RCC_LSEDrive_High);
 	
 	//Check for clock stability
 	while (RCC_GetFlagStatus(RCC_FLAG_LSERDY) == RESET)

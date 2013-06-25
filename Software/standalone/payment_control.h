@@ -16,7 +16,7 @@ extern U64 payment_control_stk[PAYMENT_CONTROL_STK_SIZE];
 
 //Public Functions
 __task void payment_control (void);
-
+char check_unlock_code (uint32_t);
 //Public Variables
 
 #endif

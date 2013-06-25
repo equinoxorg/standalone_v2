@@ -51,11 +51,11 @@ __task void init (void)
 	if (!ui_t)
 		printf("ERROR: UI Task Failed to launch \n");
 	
-// 	printf("Starting Payment Control task \n");
-// 	payment_control_t = os_tsk_create_user (payment_control, 2, &payment_control_stk, sizeof(payment_control_stk) );
-// 	if (!payment_control_t)
-// 		printf("ERROR: Payment Control Task Failed to launch \n");
-// 	
+	printf("Starting Payment Control task \n");
+	payment_control_t = os_tsk_create_user (payment_control, 1, &payment_control_stk, sizeof(payment_control_stk) );
+	if (!payment_control_t)
+		printf("ERROR: Payment Control Task Failed to launch \n");
+
 // 	//Can be used to test ADC readings
 // 	printf("Starting adc_in task \n");
 // 	adc_test_t = os_tsk_create( adc_test, 0);
@@ -75,7 +75,7 @@ int main(void)
 {
 
 	Serial.begin(115200); //Open com on uart1 0-1 pins
-			
+		
 	os_sys_init(init); 
 	
 	while(1);

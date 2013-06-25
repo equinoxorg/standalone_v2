@@ -1,6 +1,7 @@
 #include "payment_control.h"
 #include "ui.h"
 
+
 //EEPROM Variable Storage Tables
 uint16_t VirtAddVarTab[NumbOfVar];
 
@@ -8,15 +9,20 @@ uint16_t VirtAddVarTab[NumbOfVar];
 OS_TID payment_control_t;
 U64 payment_control_stk[PAYMENT_CONTROL_STK_SIZE];
 
+#define DEBUG
+
 #define VAR_BOXID_ID 0
 uint16_t boxid;
 
 __task void payment_control (void)
 {
 	
+	os_dly_wait(200);
+	
 	//Set up RTC
  	rtc_init();
-#ifdef DEBUG	
+	
+#ifndef DEBUG	
 	//Allows code to access the flash memory
 	FLASH_Unlock();
 	
@@ -44,7 +50,7 @@ __task void payment_control (void)
 	FLASH_Lock();
 #endif
 	
-	os_evt_set(UI_PAYMENT_VALID, ui_t);
+	//os_evt_set(UI_PAYMENT_VALID, ui_t);
 	
 	while(1)
 	{
@@ -52,4 +58,12 @@ __task void payment_control (void)
 		print_time_date();
 		os_dly_wait(1000);
 	}
+}
+
+char check_unlock_code (uint32_t unlock_code)
+{
+	if (unlock_code == 1234567890)
+		return 1;
+	else
+		return 0;
 }

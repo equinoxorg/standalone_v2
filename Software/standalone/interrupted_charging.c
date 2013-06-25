@@ -1,7 +1,7 @@
 #include "interrupted_charging.h"
 #include "ui.h"
 
-float calc_lvdc ( float );
+void calc_lvdc ( float );
 void set_temperature_compensation( float );
 void set_current_compensation ( float, float );
 
@@ -14,7 +14,11 @@ void set_current_compensation ( float, float );
 float v_high = 14.7f;
 float v_low = 13.4f;
 float v_restart = 12.8f;
+float v_lvdc = 11.2f;
 float pulse_duty = 0.33f;
+
+float batt_voltage = 0.0f, batt_current = 0.0f;
+float temp;
 
 //Choosen based on the consumption of running 
 //CC circuitry
@@ -24,7 +28,7 @@ float pulse_duty = 0.33f;
 #define PV_PANEL_PEAK	7.0f
 
 //Private Variables
-int cc_state = BULK_CHARGING;
+int cc_state = NIGHT_MODE;
 
 //Public Variables
 U64 interrupted_charging_stk[I_CHARGING_STK_SIZE];
@@ -32,7 +36,6 @@ OS_TID interrupted_charging_t;
 
 __task void interrupted_charging (void)
 {
-	float batt_voltage = 0.0f, batt_current = 0.0f;
 	float sol_voltage = 0.0f, sol_current = 0.0f, sol_power = 0.0f;
 	int pulse = 0;
 	int counter = 0;
@@ -50,34 +53,37 @@ __task void interrupted_charging (void)
 		sol_voltage = get_adc_voltage(ADC_SOL_V);
 		sol_current = get_adc_voltage(ADC_SOL_I);
 		sol_power = sol_voltage * sol_current;
+		temp = get_adc_voltage(ADC_TEMP);
 		
-		printf("Time=%i \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.3f \t P_SOL=%.2f \t duty=%.1f \n",
-					os_time_get(), cc_state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle);
+		set_temperature_compensation( temp );
+		
+		printf("Time=%i \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.3f \t P_SOL=%.2f \t duty=%.1f \t Temp=%.2F\n",
+					os_time_get(), cc_state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle, temp);
 		
 		//Check for LVDC voltage
-		if ( batt_voltage < calc_lvdc(batt_current) )
+		calc_lvdc(batt_current);
+		if ( batt_voltage < v_lvdc )
 		{
 			//Turn off outputs and screen.
 			//send os event to turn off
 			os_evt_set( UI_LVDC, ui_t );
-		}
-		
-		set_temperature_compensation( get_adc_voltage(ADC_TEMP) );
-		
+		}	
 		
 		switch (cc_state)
 		{
 			case BULK_CHARGING:
 				//Start charging battery with 0.1C current or as high as possible if 0.1C cannot be met
 				perturb_and_observe_cc_itter(BATTERY_AHR*0.1f);
-			
-				set_current_compensation(BATTERY_AHR*0.1f, batt_current);
+				
+				if (++counter > 10)
+					set_current_compensation(BATTERY_AHR*0.1f, batt_current);
 			
 				if (sol_power < P_NIGHT_MODE)
 				{
 					if (set_mppt() < (P_NIGHT_MODE*1.2))
 					{
 						cc_state = NIGHT_MODE;
+						counter = 0;
 						printf("INFO: Starting Night Mode State\n");
 						break;
 					}
@@ -88,6 +94,7 @@ __task void interrupted_charging (void)
 				if (batt_voltage > v_high)
 				{
 					cc_state = VOLTAGE_SETTLE;
+					counter = 0;
 					printf("INFO: Starting Voltage Settle Charging State at V=%f \n", batt_voltage);
 					break;
 				}
@@ -136,6 +143,7 @@ __task void interrupted_charging (void)
 							if (set_mppt() < (P_NIGHT_MODE*1.2))
 							{
 								cc_state = NIGHT_MODE;
+								counter = 0;
 								printf("INFO: Starting Night Mode State\n");
 								break;
 							}
@@ -158,6 +166,7 @@ __task void interrupted_charging (void)
 								
 				if (batt_voltage > v_high)
 				{
+					counter = 0;
 					cc_state = FULLY_CHARGED;
 					printf("INFO: Starting Fully Charged Charging State at V=%f \n", batt_voltage);
 					break;
@@ -190,7 +199,7 @@ __task void interrupted_charging (void)
 				//Check every 5 minutes
 				//Counter used so that LVDC is still
 				//checked every 5 seconds
-				if (++counter > 60)
+				if (++counter > 2)
 				{
 					//Enable MPPT Circuit
 					GPIO_SetBits(GPIOB, GPIO_Pin_0);
@@ -220,14 +229,14 @@ __task void interrupted_charging (void)
 	}
 }
 
-float calc_lvdc ( float current )
+void calc_lvdc ( float current )
 {
 	if ( current < (-5.0f * BATTERY_AHR) )
-		return 9.0f;
+		v_lvdc = 9.0f;
 	else if ( current < (-0.1f * BATTERY_AHR) )
-		return ( (current / BATTERY_AHR) * (2.2f / 4.9f) ) + 11.2449f;
+		v_lvdc = ( (current / BATTERY_AHR) * (2.2f / 4.9f) ) + 11.2449f;
 	else
-		return 11.2f;
+		v_lvdc = 11.2f;
 }
 
 
@@ -258,12 +267,44 @@ void set_temperature_compensation( float temp )
 
 void set_current_compensation (float target_current, float measured_current)
 {
-	float current_ratio = target_current / measured_current;
+	//float current_ratio = measured_current / target_current;
 	
-	if ( current_ratio < 0.25f)
-		v_high = v_high * 0.897959184f;
+	//if ( current_ratio < 0.25f)
+	//	v_high = v_high * 0.897959184f;
+	//else
+	//	v_high = v_high * ( (2*current_ratio + 12.7f) / 14.7f);
+}
+
+float get_charging_rate (void)
+{
+	if (cc_state == BULK_CHARGING)
+		return batt_current / 0.1f;
+	else if (cc_state == PULSED_CURRENT)
+		return batt_current / 0.05f;
+	else if (cc_state == VOLTAGE_SETTLE)
+		return 1.0f;
 	else
-		v_high = v_high * ( (2*current_ratio + 12.7f) / 14.7f);
+		return 0.0f;
+}
+
+int get_soc (void)
+{
+	
+	if (cc_state == FULLY_CHARGED)
+		return 100;
+	else if (cc_state == PULSED_CURRENT)
+		return 90;
+	else if (cc_state == VOLTAGE_SETTLE)
+		return 80;
+	else
+	{
+		batt_voltage = get_adc_voltage(ADC_BATT_V);
+		set_temperature_compensation( get_adc_voltage(ADC_TEMP) );
+		//set_current_compensation(BATTERY_AHR*0.1f, batt_current);
+		//Linear appoximation
+		return (int)( 80.0f*(batt_voltage - v_lvdc) / (v_high - v_lvdc) );
+	}
+
 }
 
 

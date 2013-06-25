@@ -100,18 +100,18 @@ void TIM_Config(void)
   
   GPIO_PinAFConfig(GPIOA, GPIO_PinSource7, GPIO_AF_2);
 	
-	/* GPIOC Periph clock enable */
-  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
+// 	/* GPIOC Periph clock enable */
+//   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 
-  /* Configure PC7 in output pushpull mode */
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  GPIO_Init(GPIOC, &GPIO_InitStructure);
+//   /* Configure PC7 in output pushpull mode */
+//   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
+//   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+//   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+//   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+//   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+//   GPIO_Init(GPIOC, &GPIO_InitStructure);
 	
-		//Enable cc_en pin
+	//Enable cc_en pin
 	//Turn on GPIOB Clock for port B
 	RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOB, ENABLE);	
 

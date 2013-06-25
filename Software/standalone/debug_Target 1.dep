@@ -1,5 +1,5 @@
 Dependencies for Project 'debug', Target 'Target 1': (DO NOT MODIFY !)
-F (.\main.c)(0x51C43A06)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\main.o" --omf_browse ".\debug\main.crf" --depend ".\debug\main.d")
+F (.\main.c)(0x51C5F33B)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\main.o" --omf_browse ".\debug\main.crf" --depend ".\debug\main.d")
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
@@ -34,15 +34,15 @@ I (serial.h)(0x51A378A3)
 I (adc.h)(0x51C428C4)
 I (pwm.h)(0x51A5E567)
 I (perturb_and_observe.h)(0x51B1A764)
-I (interrupted_charging.h)(0x51B21E04)
+I (interrupted_charging.h)(0x51C87FD3)
 I (ui.h)(0x51B10371)
-I (lcd_hd44780.h)(0x51C44AB1)
+I (lcd_hd44780.h)(0x51C8447C)
 I (user_outputs.h)(0x51AF4092)
-I (payment_control.h)(0x51B3B66F)
+I (payment_control.h)(0x51C482F6)
 I (rtc.h)(0x51B31DBF)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\time.h)(0x4EB15112)
-I (.\EEPROMEmulation\include\eeprom.h)(0x51B3B393)
-F (.\Retarget.c)(0x513E03C0)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\retarget.o" --omf_browse ".\debug\retarget.crf" --depend ".\debug\retarget.d")
+I (.\EEPROMEmulation\include\eeprom.h)(0x51C5F23C)
+F (.\Retarget.c)(0x513E03C0)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\retarget.o" --omf_browse ".\debug\retarget.crf" --depend ".\debug\retarget.d")
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\time.h)(0x4EB15112)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\rt_misc.h)(0x4EB15110)
@@ -75,7 +75,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\adc.c)(0x51BCB2FC)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\adc.o" --omf_browse ".\debug\adc.crf" --depend ".\debug\adc.d")
+F (.\adc.c)(0x51BCB2FC)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\adc.o" --omf_browse ".\debug\adc.crf" --depend ".\debug\adc.d")
 I (adc.h)(0x51C428C4)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -108,7 +108,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (pwm.h)(0x51A5E567)
-F (.\perturb_and_observe.c)(0x51BCB2C5)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\perturb_and_observe.o" --omf_browse ".\debug\perturb_and_observe.crf" --depend ".\debug\perturb_and_observe.d")
+F (.\perturb_and_observe.c)(0x51BCB2C5)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\perturb_and_observe.o" --omf_browse ".\debug\perturb_and_observe.crf" --depend ".\debug\perturb_and_observe.d")
 I (perturb_and_observe.h)(0x51B1A764)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -142,7 +142,7 @@ I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (adc.h)(0x51C428C4)
 I (pwm.h)(0x51A5E567)
-F (.\pwm.c)(0x51AB2912)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\pwm.o" --omf_browse ".\debug\pwm.crf" --depend ".\debug\pwm.d")
+F (.\pwm.c)(0x51C4D670)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\pwm.o" --omf_browse ".\debug\pwm.crf" --depend ".\debug\pwm.d")
 I (pwm.h)(0x51A5E567)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
@@ -175,7 +175,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 I (adc.h)(0x51C428C4)
-F (.\serial.c)(0x51A37804)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\serial.o" --omf_browse ".\debug\serial.crf" --depend ".\debug\serial.d")
+F (.\serial.c)(0x51A37804)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\serial.o" --omf_browse ".\debug\serial.crf" --depend ".\debug\serial.d")
 I (stm32f0xx_conf.h)(0x4F6C6E4F)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_adc.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
@@ -206,8 +206,8 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 I (serial.h)(0x51A378A3)
-F (.\interrupted_charging.c)(0x51BCB03A)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\interrupted_charging.o" --omf_browse ".\debug\interrupted_charging.crf" --depend ".\debug\interrupted_charging.d")
-I (interrupted_charging.h)(0x51B21E04)
+F (.\interrupted_charging.c)(0x51C87503)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\interrupted_charging.o" --omf_browse ".\debug\interrupted_charging.crf" --depend ".\debug\interrupted_charging.d")
+I (interrupted_charging.h)(0x51C87FD3)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB15114)
@@ -242,10 +242,10 @@ I (perturb_and_observe.h)(0x51B1A764)
 I (adc.h)(0x51C428C4)
 I (pwm.h)(0x51A5E567)
 I (ui.h)(0x51B10371)
-I (lcd_hd44780.h)(0x51C44AB1)
+I (lcd_hd44780.h)(0x51C8447C)
 I (user_outputs.h)(0x51AF4092)
-F (.\lcd_hd44780.c)(0x51C44922)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\lcd_hd44780.o" --omf_browse ".\debug\lcd_hd44780.crf" --depend ".\debug\lcd_hd44780.d")
-I (lcd_hd44780.h)(0x51C44AB1)
+F (.\lcd_hd44780.c)(0x51C856FB)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\lcd_hd44780.o" --omf_browse ".\debug\lcd_hd44780.crf" --depend ".\debug\lcd_hd44780.d")
+I (lcd_hd44780.h)(0x51C8447C)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB15114)
@@ -276,7 +276,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
-F (.\stm32f0xx_it.c)(0x51B111D0)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_it.o" --omf_browse ".\debug\stm32f0xx_it.crf" --depend ".\debug\stm32f0xx_it.d")
+F (.\stm32f0xx_it.c)(0x51C5BD83)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_it.o" --omf_browse ".\debug\stm32f0xx_it.crf" --depend ".\debug\stm32f0xx_it.d")
 I (stm32f0xx_it.h)(0x4F6C6E4F)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -309,10 +309,10 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (ui.h)(0x51B10371)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
-I (lcd_hd44780.h)(0x51C44AB1)
+I (lcd_hd44780.h)(0x51C8447C)
 I (user_outputs.h)(0x51AF4092)
 I (adc.h)(0x51C428C4)
-F (.\ui.c)(0x51C44ADD)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\ui.o" --omf_browse ".\debug\ui.crf" --depend ".\debug\ui.d")
+F (.\ui.c)(0x51C8605D)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\ui.o" --omf_browse ".\debug\ui.crf" --depend ".\debug\ui.d")
 I (ui.h)(0x51B10371)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -344,11 +344,18 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
-I (lcd_hd44780.h)(0x51C44AB1)
+I (lcd_hd44780.h)(0x51C8447C)
 I (user_outputs.h)(0x51AF4092)
 I (buzzer.h)(0x51B25A77)
+I (interrupted_charging.h)(0x51C87FD3)
+I (perturb_and_observe.h)(0x51B1A764)
 I (adc.h)(0x51C428C4)
-F (.\user_outputs.c)(0x51B0CB7F)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\user_outputs.o" --omf_browse ".\debug\user_outputs.crf" --depend ".\debug\user_outputs.d")
+I (pwm.h)(0x51A5E567)
+I (payment_control.h)(0x51C482F6)
+I (rtc.h)(0x51B31DBF)
+I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\time.h)(0x4EB15112)
+I (.\EEPROMEmulation\include\eeprom.h)(0x51C5F23C)
+F (.\user_outputs.c)(0x51B0CB7F)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\user_outputs.o" --omf_browse ".\debug\user_outputs.crf" --depend ".\debug\user_outputs.d")
 I (user_outputs.h)(0x51AF4092)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -380,8 +387,8 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
-F (.\payment_control.c)(0x51B8D6D1)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\payment_control.o" --omf_browse ".\debug\payment_control.crf" --depend ".\debug\payment_control.d")
-I (payment_control.h)(0x51B3B66F)
+F (.\payment_control.c)(0x51C9B1D2)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\payment_control.o" --omf_browse ".\debug\payment_control.crf" --depend ".\debug\payment_control.d")
+I (payment_control.h)(0x51C482F6)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB15114)
@@ -414,11 +421,11 @@ I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (rtc.h)(0x51B31DBF)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\time.h)(0x4EB15112)
-I (.\EEPROMEmulation\include\eeprom.h)(0x51B3B393)
+I (.\EEPROMEmulation\include\eeprom.h)(0x51C5F23C)
 I (ui.h)(0x51B10371)
-I (lcd_hd44780.h)(0x51C44AB1)
+I (lcd_hd44780.h)(0x51C8447C)
 I (user_outputs.h)(0x51AF4092)
-F (.\buzzer.c)(0x51B381C3)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\buzzer.o" --omf_browse ".\debug\buzzer.crf" --depend ".\debug\buzzer.d")
+F (.\buzzer.c)(0x51B381C3)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\buzzer.o" --omf_browse ".\debug\buzzer.crf" --depend ".\debug\buzzer.d")
 I (buzzer.h)(0x51B25A77)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -450,7 +457,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
-F (.\rtc.c)(0x51B36776)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\rtc.o" --omf_browse ".\debug\rtc.crf" --depend ".\debug\rtc.d")
+F (.\rtc.c)(0x51C9B0A7)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\rtc.o" --omf_browse ".\debug\rtc.crf" --depend ".\debug\rtc.d")
 I (rtc.h)(0x51B31DBF)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -483,7 +490,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\time.h)(0x4EB15112)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_adc.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_adc.o" --omf_browse ".\debug\stm32f0xx_adc.crf" --depend ".\debug\stm32f0xx_adc.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_adc.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_adc.o" --omf_browse ".\debug\stm32f0xx_adc.crf" --depend ".\debug\stm32f0xx_adc.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_adc.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -512,7 +519,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_cec.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_cec.o" --omf_browse ".\debug\stm32f0xx_cec.crf" --depend ".\debug\stm32f0xx_cec.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_cec.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_cec.o" --omf_browse ".\debug\stm32f0xx_cec.crf" --depend ".\debug\stm32f0xx_cec.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_cec.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -541,7 +548,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_comp.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_comp.o" --omf_browse ".\debug\stm32f0xx_comp.crf" --depend ".\debug\stm32f0xx_comp.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_comp.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_comp.o" --omf_browse ".\debug\stm32f0xx_comp.crf" --depend ".\debug\stm32f0xx_comp.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_comp.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -570,7 +577,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_crc.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_crc.o" --omf_browse ".\debug\stm32f0xx_crc.crf" --depend ".\debug\stm32f0xx_crc.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_crc.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_crc.o" --omf_browse ".\debug\stm32f0xx_crc.crf" --depend ".\debug\stm32f0xx_crc.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_crc.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -599,7 +606,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_dac.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_dac.o" --omf_browse ".\debug\stm32f0xx_dac.crf" --depend ".\debug\stm32f0xx_dac.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_dac.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_dac.o" --omf_browse ".\debug\stm32f0xx_dac.crf" --depend ".\debug\stm32f0xx_dac.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_dac.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -628,7 +635,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_dbgmcu.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_dbgmcu.o" --omf_browse ".\debug\stm32f0xx_dbgmcu.crf" --depend ".\debug\stm32f0xx_dbgmcu.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_dbgmcu.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_dbgmcu.o" --omf_browse ".\debug\stm32f0xx_dbgmcu.crf" --depend ".\debug\stm32f0xx_dbgmcu.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_dbgmcu.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -657,7 +664,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_dma.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_dma.o" --omf_browse ".\debug\stm32f0xx_dma.crf" --depend ".\debug\stm32f0xx_dma.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_dma.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_dma.o" --omf_browse ".\debug\stm32f0xx_dma.crf" --depend ".\debug\stm32f0xx_dma.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_dma.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -686,7 +693,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_exti.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_exti.o" --omf_browse ".\debug\stm32f0xx_exti.crf" --depend ".\debug\stm32f0xx_exti.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_exti.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_exti.o" --omf_browse ".\debug\stm32f0xx_exti.crf" --depend ".\debug\stm32f0xx_exti.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_exti.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -715,7 +722,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_flash.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_flash.o" --omf_browse ".\debug\stm32f0xx_flash.crf" --depend ".\debug\stm32f0xx_flash.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_flash.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_flash.o" --omf_browse ".\debug\stm32f0xx_flash.crf" --depend ".\debug\stm32f0xx_flash.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_flash.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -744,7 +751,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_gpio.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_gpio.o" --omf_browse ".\debug\stm32f0xx_gpio.crf" --depend ".\debug\stm32f0xx_gpio.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_gpio.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_gpio.o" --omf_browse ".\debug\stm32f0xx_gpio.crf" --depend ".\debug\stm32f0xx_gpio.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_gpio.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -773,7 +780,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_i2c.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_i2c.o" --omf_browse ".\debug\stm32f0xx_i2c.crf" --depend ".\debug\stm32f0xx_i2c.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_i2c.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_i2c.o" --omf_browse ".\debug\stm32f0xx_i2c.crf" --depend ".\debug\stm32f0xx_i2c.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_i2c.h)(0x4F6C6E36)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -802,7 +809,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_iwdg.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_iwdg.o" --omf_browse ".\debug\stm32f0xx_iwdg.crf" --depend ".\debug\stm32f0xx_iwdg.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_iwdg.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_iwdg.o" --omf_browse ".\debug\stm32f0xx_iwdg.crf" --depend ".\debug\stm32f0xx_iwdg.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_iwdg.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -831,7 +838,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_misc.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_misc.o" --omf_browse ".\debug\stm32f0xx_misc.crf" --depend ".\debug\stm32f0xx_misc.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_misc.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_misc.o" --omf_browse ".\debug\stm32f0xx_misc.crf" --depend ".\debug\stm32f0xx_misc.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -860,7 +867,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_spi.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_pwr.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_pwr.o" --omf_browse ".\debug\stm32f0xx_pwr.crf" --depend ".\debug\stm32f0xx_pwr.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_pwr.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_pwr.o" --omf_browse ".\debug\stm32f0xx_pwr.crf" --depend ".\debug\stm32f0xx_pwr.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_pwr.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -889,7 +896,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_rcc.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_rcc.o" --omf_browse ".\debug\stm32f0xx_rcc.crf" --depend ".\debug\stm32f0xx_rcc.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_rcc.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_rcc.o" --omf_browse ".\debug\stm32f0xx_rcc.crf" --depend ".\debug\stm32f0xx_rcc.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_rcc.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -918,7 +925,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_rtc.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_rtc.o" --omf_browse ".\debug\stm32f0xx_rtc.crf" --depend ".\debug\stm32f0xx_rtc.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_rtc.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_rtc.o" --omf_browse ".\debug\stm32f0xx_rtc.crf" --depend ".\debug\stm32f0xx_rtc.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_rtc.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -947,7 +954,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_spi.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_spi.o" --omf_browse ".\debug\stm32f0xx_spi.crf" --depend ".\debug\stm32f0xx_spi.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_spi.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_spi.o" --omf_browse ".\debug\stm32f0xx_spi.crf" --depend ".\debug\stm32f0xx_spi.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_spi.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -976,7 +983,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_syscfg.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_syscfg.o" --omf_browse ".\debug\stm32f0xx_syscfg.crf" --depend ".\debug\stm32f0xx_syscfg.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_syscfg.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_syscfg.o" --omf_browse ".\debug\stm32f0xx_syscfg.crf" --depend ".\debug\stm32f0xx_syscfg.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_syscfg.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -1005,7 +1012,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_tim.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_tim.o" --omf_browse ".\debug\stm32f0xx_tim.crf" --depend ".\debug\stm32f0xx_tim.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_tim.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_tim.o" --omf_browse ".\debug\stm32f0xx_tim.crf" --depend ".\debug\stm32f0xx_tim.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -1034,7 +1041,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_spi.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_usart.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_usart.o" --omf_browse ".\debug\stm32f0xx_usart.crf" --depend ".\debug\stm32f0xx_usart.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_usart.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_usart.o" --omf_browse ".\debug\stm32f0xx_usart.crf" --depend ".\debug\stm32f0xx_usart.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -1063,7 +1070,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_spi.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_wwdg.c)(0x4F6C6E37)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_wwdg.o" --omf_browse ".\debug\stm32f0xx_wwdg.crf" --depend ".\debug\stm32f0xx_wwdg.d")
+F (.\STM32F0xx_StdPeriph_Driver\src\stm32f0xx_wwdg.c)(0x4F6C6E37)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\stm32f0xx_wwdg.o" --omf_browse ".\debug\stm32f0xx_wwdg.crf" --depend ".\debug\stm32f0xx_wwdg.d")
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
@@ -1092,7 +1099,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_spi.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-F (.\system_stm32f0xx.c)(0x511A649B)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\system_stm32f0xx.o" --omf_browse ".\debug\system_stm32f0xx.crf" --depend ".\debug\system_stm32f0xx.d")
+F (.\system_stm32f0xx.c)(0x511A649B)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\system_stm32f0xx.o" --omf_browse ".\debug\system_stm32f0xx.crf" --depend ".\debug\system_stm32f0xx.d")
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB15114)
@@ -1122,7 +1129,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
 F (.\CMSIS\ST\STM32F0xx\Source\Templates\arm\startup_stm32f0xx.s)(0x4F6C6E36)(--cpu Cortex-M0 --pd "__RTX SETA 1" -g --apcs=interwork --pd "__MICROLIB SETA 1" -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" --list ".\startup_stm32f0xx.lst" --xref -o ".\debug\startup_stm32f0xx.o" --depend ".\debug\startup_stm32f0xx.d")
-F (.\RTX_Conf_CM.c)(0x51C44A9E)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\rtx_conf_cm.o" --omf_browse ".\debug\rtx_conf_cm.crf" --depend ".\debug\rtx_conf_cm.d")
+F (.\RTX_Conf_CM.c)(0x51C44A9E)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\rtx_conf_cm.o" --omf_browse ".\debug\rtx_conf_cm.crf" --depend ".\debug\rtx_conf_cm.d")
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTL.h)(0x504DB17C)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB15116)
 I (ui.h)(0x51B10371)
@@ -1154,11 +1161,11 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_tim.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x4F6C6E37)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x4F6C6E37)
-I (lcd_hd44780.h)(0x51C44AB1)
+I (lcd_hd44780.h)(0x51C8447C)
 I (user_outputs.h)(0x51AF4092)
 I (C:\Program Files (x86)\Keil\ARM\RV31\INC\RTX_lib.c)(0x505092F8)
-F (.\EEPROMEmulation\source\eeprom.c)(0x51B3B2D8)(-c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O0 --apcs=interwork -I.\EEPROMEmulation\include -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\eeprom.o" --omf_browse ".\debug\eeprom.crf" --depend ".\debug\eeprom.d")
-I (.\EEPROMEmulation\include\eeprom.h)(0x51B3B393)
+F (.\EEPROMEmulation\source\eeprom.c)(0x51B3B2D8)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O1 --apcs=interwork -I.\EEPROMEmulation\include -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I "C:\Program Files (x86)\Keil\ARM\RV31\INC" -I "C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I "C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx" -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\eeprom.o" --omf_browse ".\debug\eeprom.crf" --depend ".\debug\eeprom.d")
+I (.\EEPROMEmulation\include\eeprom.h)(0x51C5F23C)
 I (C:\Program Files (x86)\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
 I (C:\Program Files (x86)\Keil\ARM\CMSIS\Include\core_cm0.h)(0x50069A02)
 I (C:\Program Files (x86)\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB15114)

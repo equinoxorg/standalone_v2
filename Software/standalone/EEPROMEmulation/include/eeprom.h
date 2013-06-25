@@ -43,11 +43,8 @@ typedef volatile uint32_t vu32;
 
 /* Exported constants --------------------------------------------------------*/
 /* Define the STM32F10Xxx Flash page size depending on the used STM32 device */
-//#if defined (STM32F10X_LD) || defined (STM32F10X_MD)
-  #define PAGE_SIZE  (u16)0x400  /* Page size = 1KByte */
-//#elif defined (STM32F10X_HD) || defined (STM32F10X_CL)
-//  #define PAGE_SIZE  (u16)0x800  /* Page size = 2KByte */
-//#endif
+#define PAGE_SIZE  (u16)0x400  /* Page size = 1KByte */
+
 
 
 /* EEPROM start address in Flash */

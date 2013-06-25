@@ -8,10 +8,12 @@
 
 //Public Functions
 __task void interrupted_charging (void);
+int get_soc (void);
+float get_charging_rate (void);
 
 //Task Parameters
 extern OS_TID interrupted_charging_t;
-#define I_CHARGING_STK_SIZE 64
+#define I_CHARGING_STK_SIZE 80
 extern U64  interrupted_charging_stk[I_CHARGING_STK_SIZE];
 
 
