@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.3">
+<eagle version="6.4">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -26972,6 +26972,14 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <wire x1="688.34" y1="203.2" x2="688.34" y2="228.6" width="0.1524" layer="91"/>
 <pinref part="U$3" gate="CON$1" pin="S"/>
 <wire x1="688.34" y1="228.6" x2="695.96" y2="228.6" width="0.1524" layer="91"/>
+<pinref part="DC4" gate="G$1" pin="PAD1"/>
+<wire x1="693.42" y1="157.48" x2="688.34" y2="157.48" width="0.1524" layer="91"/>
+<wire x1="688.34" y1="157.48" x2="688.34" y2="172.72" width="0.1524" layer="91"/>
+<wire x1="688.34" y1="142.24" x2="688.34" y2="157.48" width="0.1524" layer="91"/>
+<junction x="688.34" y="157.48"/>
+<pinref part="DC5" gate="G$1" pin="PAD1"/>
+<wire x1="688.34" y1="142.24" x2="693.42" y2="142.24" width="0.1524" layer="91"/>
+<junction x="688.34" y="172.72"/>
 </segment>
 </net>
 <net name="V_BACKUP" class="0">
@@ -28196,17 +28204,6 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <junction x="871.22" y="68.58"/>
 <wire x1="878.84" y1="78.74" x2="899.16" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="X4" gate="G$1" pin="3"/>
-</segment>
-</net>
-<net name="12V_OUT1" class="2">
-<segment>
-<pinref part="DC4" gate="G$1" pin="PAD1"/>
-<wire x1="693.42" y1="157.48" x2="688.34" y2="157.48" width="0.1524" layer="91"/>
-<wire x1="688.34" y1="157.48" x2="688.34" y2="172.72" width="0.1524" layer="91"/>
-<wire x1="688.34" y1="142.24" x2="688.34" y2="157.48" width="0.1524" layer="91"/>
-<junction x="688.34" y="157.48"/>
-<pinref part="DC5" gate="G$1" pin="PAD1"/>
-<wire x1="688.34" y1="142.24" x2="693.42" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$50" class="0">
