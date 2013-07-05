@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f0xx_gpio.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    23-March-2012
+  * @version V1.0.1
+  * @date    20-April-2012
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the GPIO peripheral:
   *           + Initialization and Configuration functions
@@ -155,8 +155,8 @@ void GPIO_DeInit(GPIO_TypeDef* GPIOx)
   * @param  GPIOx: where x can be (A, B, C, D or F) to select the GPIO peripheral.
   * @param  GPIO_InitStruct: pointer to a GPIO_InitTypeDef structure that contains
   *         the configuration information for the specified GPIO peripheral.
-  * @note   The configured pins can be: GPIO_Pin_0 -> GPIO_Pin_15 for GPIOA, GPIOB and GPIOC,
-  *         GPIO_Pin_0 -> GPIO_Pin_2 for GPIOD, GPIO_Pin_0 -> GPIO_Pin_3 for GPIOF.
+  * @note   The configured pins can be: GPIO_Pin_0 to GPIO_Pin_15 for GPIOA, GPIOB and GPIOC,
+  *         GPIO_Pin_0 to GPIO_Pin_2 for GPIOD, GPIO_Pin_0 to GPIO_Pin_3 for GPIOF.
   * @retval None
   */
 void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct)
@@ -226,13 +226,13 @@ void GPIO_StructInit(GPIO_InitTypeDef* GPIO_InitStruct)
 
 /**
   * @brief  Locks GPIO Pins configuration registers.
-  *         The locked registers are GPIOx_MODER, GPIOx_OTYPER, GPIOx_OSPEEDR,
+  * @note   The locked registers are GPIOx_MODER, GPIOx_OTYPER, GPIOx_OSPEEDR,
   *         GPIOx_PUPDR, GPIOx_AFRL and GPIOx_AFRH.
   * @note   The configuration of the locked GPIO pins can no longer be modified
-  *         until the next reset.
+  *         until the next device reset.
   * @param  GPIOx: where x can be (A or B) to select the GPIO peripheral.
   * @param  GPIO_Pin: specifies the port bit to be written.
-  *   This parameter can be any combination of GPIO_Pin_x where x can be (0..15).
+  *          This parameter can be any combination of GPIO_Pin_x where x can be (0..15).
   * @retval None
   */
 void GPIO_PinLockConfig(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
@@ -391,9 +391,9 @@ void GPIO_ResetBits(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin)
   * @param  GPIOx: where x can be (A, B, C, D or F) to select the GPIO peripheral.
   * @param  GPIO_Pin: specifies the port bit to be written.
   * @param  BitVal: specifies the value to be written to the selected bit.
-  *   This parameter can be one of the BitAction enumeration values:
-  *     @arg Bit_RESET: to clear the port pin
-  *     @arg Bit_SET: to set the port pin
+  *          This parameter can be one of the BitAction enumeration values:
+  *            @arg Bit_RESET: to clear the port pin
+  *            @arg Bit_SET: to set the port pin
   * @note   The GPIO_Pin parameter can be GPIO_Pin_x where x can be: (0..15) for GPIOA, 
   *         GPIOB or GPIOC,(0..2) for GPIOD and(0..3) for GPIOF.  
   * @retval None
@@ -418,8 +418,7 @@ void GPIO_WriteBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, BitAction BitVal)
 /**
   * @brief  Writes data to the specified GPIO data port.
   * @param  GPIOx: where x can be (A, B, C, D or F) to select the GPIO peripheral.
-  * @param  PortVal: specifies the value to be written to the port output data 
-  *                  register.
+  * @param  PortVal: specifies the value to be written to the port output data register.
   * @retval None
   */
 void GPIO_Write(GPIO_TypeDef* GPIOx, uint16_t PortVal)
@@ -450,25 +449,25 @@ void GPIO_Write(GPIO_TypeDef* GPIOx, uint16_t PortVal)
   * @brief  Writes data to the specified GPIO data port.
   * @param  GPIOx: where x can be (A or B) to select the GPIO peripheral.
   * @param  GPIO_PinSource: specifies the pin for the Alternate function.
-  *   This parameter can be GPIO_PinSourcex where x can be (0..15).
+  *          This parameter can be GPIO_PinSourcex where x can be (0..15).
   * @param  GPIO_AF: selects the pin to used as Alternate function.
-  *   This parameter can be one of the following value:
- *     @arg GPIO_AF_0:WKUP, EVENTOUT, TIM15, SPI1, TIM17,MCO, SWDAT, SWCLK, TIM14,
- *                    BOOT,USART1, CEC, IR_OUT, SPI2 
- *     @arg GPIO_AF_1:USART2, CEC, Tim3, USART1, USART2,EVENTOUT, I2C1, I2C2, TIM15 
- *     @arg GPIO_AF_2:TIM2, TIM1, EVENTOUT, TIM16, TIM17.
- *     @arg GPIO_AF_3:TS, I2C1, TIM15, EVENTOUT 
- *     @arg GPIO_AF_4:TIM14.
- *     @arg GPIO_AF_5:TIM16, TIM17.
- *     @arg GPIO_AF_6:EVENTOUT.
- *     @arg GPIO_AF_7:COMP1 OUT, COMP2 OUT 
- * @note  The pin should already been configured in Alternate Function mode(AF)
- *        using GPIO_InitStruct->GPIO_Mode = GPIO_Mode_AF
- * @note  Refer to the Alternate function mapping table in the device datasheet 
- *        for the detailed mapping of the system and peripherals'alternate 
- *        function I/O pins.
- * @retval None
- */
+  *          This parameter can be one of the following value:
+  *            @arg GPIO_AF_0: WKUP, EVENTOUT, TIM15, SPI1, TIM17,MCO, SWDAT, SWCLK, TIM14,
+  *                            BOOT,USART1, CEC, IR_OUT, SPI2 
+  *            @arg GPIO_AF_1: USART2, CEC, Tim3, USART1, USART2,EVENTOUT, I2C1, I2C2, TIM15 
+  *            @arg GPIO_AF_2: TIM2, TIM1, EVENTOUT, TIM16, TIM17
+  *            @arg GPIO_AF_3: TS, I2C1, TIM15, EVENTOUT 
+  *            @arg GPIO_AF_4: TIM14
+  *            @arg GPIO_AF_5: TIM16, TIM17
+  *            @arg GPIO_AF_6: EVENTOUT
+  *            @arg GPIO_AF_7: COMP1 OUT, COMP2 OUT 
+  * @note   The pin should already been configured in Alternate Function mode(AF)
+  *         using GPIO_InitStruct->GPIO_Mode = GPIO_Mode_AF
+  * @note   Refer to the Alternate function mapping table in the device datasheet 
+  *         for the detailed mapping of the system and peripherals'alternate 
+  *         function I/O pins.
+  * @retval None
+  */
 void GPIO_PinAFConfig(GPIO_TypeDef* GPIOx, uint16_t GPIO_PinSource, uint8_t GPIO_AF)
 {
   uint32_t temp = 0x00;

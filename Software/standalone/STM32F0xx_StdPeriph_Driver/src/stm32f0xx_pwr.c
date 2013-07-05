@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f0xx_pwr.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    23-March-2012
+  * @version V1.0.1
+  * @date    20-April-2012
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the Power Controller (PWR) peripheral:
   *           + Backup Domain Access
@@ -95,7 +95,7 @@ void PWR_DeInit(void)
   * @note   If the HSE divided by 32 is used as the RTC clock, the 
   *         Backup Domain Access should be kept enabled.
   * @param  NewState: new state of the access to the Backup domain registers.
-  *         This parameter can be: ENABLE or DISABLE.
+  *          This parameter can be: ENABLE or DISABLE.
   * @retval None
   */
 void PWR_BackupAccessCmd(FunctionalState NewState)
@@ -141,15 +141,18 @@ void PWR_BackupAccessCmd(FunctionalState NewState)
 /**
   * @brief  Configures the voltage threshold detected by the Power Voltage Detector(PVD).
   * @param  PWR_PVDLevel: specifies the PVD detection level
-  *         This parameter can be one of the following values:
-  *             @arg PWR_PVDLevel_0: PVD detection level set to 1.9V
-  *             @arg PWR_PVDLevel_1: PVD detection level set to 2.1V
-  *             @arg PWR_PVDLevel_2: PVD detection level set to 2.3V
-  *             @arg PWR_PVDLevel_3: PVD detection level set to 2.5V
-  *             @arg PWR_PVDLevel_4: PVD detection level set to 2.7V
-  *             @arg PWR_PVDLevel_5: PVD detection level set to 2.9V
-  *             @arg PWR_PVDLevel_6: PVD detection level set to 3.1V
-  *             @arg PWR_PVDLevel_7: PVD detection level set to 3.3V
+  *          This parameter can be one of the following values:
+  *             @arg PWR_PVDLevel_0
+  *             @arg PWR_PVDLevel_1
+  *             @arg PWR_PVDLevel_2
+  *             @arg PWR_PVDLevel_3
+  *             @arg PWR_PVDLevel_4
+  *             @arg PWR_PVDLevel_5
+  *             @arg PWR_PVDLevel_6
+  *             @arg PWR_PVDLevel_7
+  * @note   Refer to the electrical characteristics of your device datasheet for
+  *         more details about the voltage threshold corresponding to each 
+  *         detection level.
   * @retval None
   */
 void PWR_PVDLevelConfig(uint32_t PWR_PVDLevel)
@@ -174,7 +177,7 @@ void PWR_PVDLevelConfig(uint32_t PWR_PVDLevel)
 /**
   * @brief  Enables or disables the Power Voltage Detector(PVD).
   * @param  NewState: new state of the PVD.
-  *         This parameter can be: ENABLE or DISABLE.
+  *          This parameter can be: ENABLE or DISABLE.
   * @retval None
   */
 void PWR_PVDCmd(FunctionalState NewState)
@@ -217,9 +220,9 @@ void PWR_PVDCmd(FunctionalState NewState)
 /**
   * @brief  Enables or disables the WakeUp Pin functionality.
   * @param  PWR_WakeUpPin: specifies the WakeUpPin.
-  *         This parameter can be: PWR_WakeUpPin_1 or PWR_WakeUpPin_2.
+  *          This parameter can be: PWR_WakeUpPin_1 or PWR_WakeUpPin_2.
   * @param  NewState: new state of the WakeUp Pin functionality.
-  *         This parameter can be: ENABLE or DISABLE.
+  *          This parameter can be: ENABLE or DISABLE.
   * @retval None
   */
 void PWR_WakeUpPinCmd(uint32_t PWR_WakeUpPin, FunctionalState NewState)
@@ -350,7 +353,7 @@ void PWR_WakeUpPinCmd(uint32_t PWR_WakeUpPin, FunctionalState NewState)
   * @brief  Enters Sleep mode.
   * @note   In Sleep mode, all I/O pins keep the same state as in Run mode.
   * @param  PWR_SLEEPEntry: specifies if SLEEP mode in entered with WFI or WFE instruction.
-  *         This parameter can be one of the following values:
+  *          This parameter can be one of the following values:
   *             @arg PWR_SLEEPEntry_WFI: enter SLEEP mode with WFI instruction
   *             @arg PWR_SLEEPEntry_WFE: enter SLEEP mode with WFE instruction
   * @retval None
@@ -386,11 +389,11 @@ void PWR_EnterSleepMode(uint8_t PWR_SLEEPEntry)
   *         By keeping the internal regulator ON during Stop mode, the consumption 
   *         is higher although the startup time is reduced.
   * @param  PWR_Regulator: specifies the regulator state in STOP mode.
-  *         This parameter can be one of the following values:
+  *          This parameter can be one of the following values:
   *             @arg PWR_Regulator_ON: STOP mode with regulator ON
   *             @arg PWR_Regulator_LowPower: STOP mode with regulator in low power mode
   * @param  PWR_STOPEntry: specifies if STOP mode in entered with WFI or WFE instruction.
-  *         This parameter can be one of the following values:
+  *          This parameter can be one of the following values:
   *             @arg PWR_STOPEntry_WFI: enter STOP mode with WFI instruction
   *             @arg PWR_STOPEntry_WFE: enter STOP mode with WFE instruction
   * @retval None
@@ -435,10 +438,10 @@ void PWR_EnterSTOPMode(uint32_t PWR_Regulator, uint8_t PWR_STOPEntry)
 /**
   * @brief  Enters STANDBY mode.
   * @note   In Standby mode, all I/O pins are high impedance except for:
-  *         Reset pad (still available) 
-  *         RTC_AF1 pin (PC13) if configured for Wakeup pin 2 (WKUP2), tamper, 
-  *         time-stamp, RTC Alarm out, or RTC clock calibration out.
-  *         WKUP pin 1 (PA0) if enabled.
+  *          - Reset pad (still available) 
+  *          - RTC_AF1 pin (PC13) if configured for Wakeup pin 2 (WKUP2), tamper, 
+  *             time-stamp, RTC Alarm out, or RTC clock calibration out.
+  *          - WKUP pin 1 (PA0) if enabled.
   * @param  None
   * @retval None
   */
@@ -476,7 +479,7 @@ void PWR_EnterSTANDBYMode(void)
 /**
   * @brief  Checks whether the specified PWR flag is set or not.
   * @param  PWR_FLAG: specifies the flag to check.
-  *         This parameter can be one of the following values:
+  *          This parameter can be one of the following values:
   *             @arg PWR_FLAG_WU: Wake Up flag. This flag indicates that a wakeup
   *                  event was received from the WKUP pin or from the RTC alarm 
   *                  (Alarm A or Alarm B), RTC Tamper event or RTC TimeStamp event.
@@ -510,7 +513,7 @@ FlagStatus PWR_GetFlagStatus(uint32_t PWR_FLAG)
 /**
   * @brief  Clears the PWR's pending flags.
   * @param  PWR_FLAG: specifies the flag to clear.
-  *         This parameter can be one of the following values:
+  *          This parameter can be one of the following values:
   *             @arg PWR_FLAG_WU: Wake Up flag
   *             @arg PWR_FLAG_SB: StandBy flag
   * @retval None

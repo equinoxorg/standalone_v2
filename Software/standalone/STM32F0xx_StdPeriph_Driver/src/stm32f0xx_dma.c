@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f0xx_dma.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    23-March-2012
+  * @version V1.0.1
+  * @date    20-April-2012
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the Direct Memory Access controller (DMA):
   *           + Initialization and Configuration
@@ -420,10 +420,10 @@ uint16_t DMA_GetCurrDataCounter(DMA_Channel_TypeDef* DMAy_Channelx)
   *         x can be 1 to 5 for DMA1 to select the DMA Channel.
   * @param  DMA_IT: specifies the DMA interrupts sources to be enabled
   *         or disabled. 
-  *   This parameter can be any combination of the following values:
-  *     @arg DMA_IT_TC: Transfer complete interrupt mask
-  *     @arg DMA_IT_HT: Half transfer interrupt mask
-  *     @arg DMA_IT_TE: Transfer error interrupt mask
+  *          This parameter can be any combination of the following values:
+  *            @arg DMA_IT_TC: Transfer complete interrupt mask
+  *            @arg DMA_IT_HT: Half transfer interrupt mask
+  *            @arg DMA_IT_TE: Transfer error interrupt mask
   * @param  NewState: new state of the specified DMA interrupts.
   *         This parameter can be: ENABLE or DISABLE.
   * @retval None
@@ -450,33 +450,32 @@ void DMA_ITConfig(DMA_Channel_TypeDef* DMAy_Channelx, uint32_t DMA_IT, Functiona
 /**
   * @brief  Checks whether the specified DMAy Channelx flag is set or not.
   * @param  DMA_FLAG: specifies the flag to check.
-  *   This parameter can be one of the following values:
-  *     @arg DMA1_FLAG_GL1: DMA1 Channel1 global flag.
-  *     @arg DMA1_FLAG_TC1: DMA1 Channel1 transfer complete flag.
-  *     @arg DMA1_FLAG_HT1: DMA1 Channel1 half transfer flag.
-  *     @arg DMA1_FLAG_TE1: DMA1 Channel1 transfer error flag.
-  *     @arg DMA1_FLAG_GL2: DMA1 Channel2 global flag.
-  *     @arg DMA1_FLAG_TC2: DMA1 Channel2 transfer complete flag.
-  *     @arg DMA1_FLAG_HT2: DMA1 Channel2 half transfer flag.
-  *     @arg DMA1_FLAG_TE2: DMA1 Channel2 transfer error flag.
-  *     @arg DMA1_FLAG_GL3: DMA1 Channel3 global flag.
-  *     @arg DMA1_FLAG_TC3: DMA1 Channel3 transfer complete flag.
-  *     @arg DMA1_FLAG_HT3: DMA1 Channel3 half transfer flag.
-  *     @arg DMA1_FLAG_TE3: DMA1 Channel3 transfer error flag.
-  *     @arg DMA1_FLAG_GL4: DMA1 Channel4 global flag.
-  *     @arg DMA1_FLAG_TC4: DMA1 Channel4 transfer complete flag.
-  *     @arg DMA1_FLAG_HT4: DMA1 Channel4 half transfer flag.
-  *     @arg DMA1_FLAG_TE4: DMA1 Channel4 transfer error flag.
-  *     @arg DMA1_FLAG_GL5: DMA1 Channel5 global flag.
-  *     @arg DMA1_FLAG_TC5: DMA1 Channel5 transfer complete flag.
-  *     @arg DMA1_FLAG_HT5: DMA1 Channel5 half transfer flag.
-  *     @arg DMA1_FLAG_TE5: DMA1 Channel5 transfer error flag.
+  *          This parameter can be one of the following values:
+  *            @arg DMA1_FLAG_GL1: DMA1 Channel1 global flag.
+  *            @arg DMA1_FLAG_TC1: DMA1 Channel1 transfer complete flag.
+  *            @arg DMA1_FLAG_HT1: DMA1 Channel1 half transfer flag.
+  *            @arg DMA1_FLAG_TE1: DMA1 Channel1 transfer error flag.
+  *            @arg DMA1_FLAG_GL2: DMA1 Channel2 global flag.
+  *            @arg DMA1_FLAG_TC2: DMA1 Channel2 transfer complete flag.
+  *            @arg DMA1_FLAG_HT2: DMA1 Channel2 half transfer flag.
+  *            @arg DMA1_FLAG_TE2: DMA1 Channel2 transfer error flag.
+  *            @arg DMA1_FLAG_GL3: DMA1 Channel3 global flag.
+  *            @arg DMA1_FLAG_TC3: DMA1 Channel3 transfer complete flag.
+  *            @arg DMA1_FLAG_HT3: DMA1 Channel3 half transfer flag.
+  *            @arg DMA1_FLAG_TE3: DMA1 Channel3 transfer error flag.
+  *            @arg DMA1_FLAG_GL4: DMA1 Channel4 global flag.
+  *            @arg DMA1_FLAG_TC4: DMA1 Channel4 transfer complete flag.
+  *            @arg DMA1_FLAG_HT4: DMA1 Channel4 half transfer flag.
+  *            @arg DMA1_FLAG_TE4: DMA1 Channel4 transfer error flag.
+  *            @arg DMA1_FLAG_GL5: DMA1 Channel5 global flag.
+  *            @arg DMA1_FLAG_TC5: DMA1 Channel5 transfer complete flag.
+  *            @arg DMA1_FLAG_HT5: DMA1 Channel5 half transfer flag.
+  *            @arg DMA1_FLAG_TE5: DMA1 Channel5 transfer error flag.
   *     
-  * @note
-  *    The Global flag (DMAy_FLAG_GLx) is set whenever any of the other flags 
-  *    relative to the same channel is set (Transfer Complete, Half-transfer 
-  *    Complete or Transfer Error flags: DMAy_FLAG_TCx, DMAy_FLAG_HTx or 
-  *    DMAy_FLAG_TEx). 
+  * @note   The Global flag (DMAy_FLAG_GLx) is set whenever any of the other flags 
+  *         relative to the same channel is set (Transfer Complete, Half-transfer 
+  *         Complete or Transfer Error flags: DMAy_FLAG_TCx, DMAy_FLAG_HTx or 
+  *         DMAy_FLAG_TEx). 
   *      
   * @retval The new state of DMA_FLAG (SET or RESET).
   */
@@ -506,32 +505,31 @@ FlagStatus DMA_GetFlagStatus(uint32_t DMA_FLAG)
 /**
   * @brief  Clears the DMAy Channelx's pending flags.
   * @param  DMA_FLAG: specifies the flag to clear.
-  *   This parameter can be any combination (for the same DMA) of the following values:
-  *     @arg DMA1_FLAG_GL1: DMA1 Channel1 global flag.
-  *     @arg DMA1_FLAG_TC1: DMA1 Channel1 transfer complete flag.
-  *     @arg DMA1_FLAG_HT1: DMA1 Channel1 half transfer flag.
-  *     @arg DMA1_FLAG_TE1: DMA1 Channel1 transfer error flag.
-  *     @arg DMA1_FLAG_GL2: DMA1 Channel2 global flag.
-  *     @arg DMA1_FLAG_TC2: DMA1 Channel2 transfer complete flag.
-  *     @arg DMA1_FLAG_HT2: DMA1 Channel2 half transfer flag.
-  *     @arg DMA1_FLAG_TE2: DMA1 Channel2 transfer error flag.
-  *     @arg DMA1_FLAG_GL3: DMA1 Channel3 global flag.
-  *     @arg DMA1_FLAG_TC3: DMA1 Channel3 transfer complete flag.
-  *     @arg DMA1_FLAG_HT3: DMA1 Channel3 half transfer flag.
-  *     @arg DMA1_FLAG_TE3: DMA1 Channel3 transfer error flag.
-  *     @arg DMA1_FLAG_GL4: DMA1 Channel4 global flag.
-  *     @arg DMA1_FLAG_TC4: DMA1 Channel4 transfer complete flag.
-  *     @arg DMA1_FLAG_HT4: DMA1 Channel4 half transfer flag.
-  *     @arg DMA1_FLAG_TE4: DMA1 Channel4 transfer error flag.
-  *     @arg DMA1_FLAG_GL5: DMA1 Channel5 global flag.
-  *     @arg DMA1_FLAG_TC5: DMA1 Channel5 transfer complete flag.
-  *     @arg DMA1_FLAG_HT5: DMA1 Channel5 half transfer flag.
-  *     @arg DMA1_FLAG_TE5: DMA1 Channel5 transfer error flag.
+  *          This parameter can be any combination (for the same DMA) of the following values:
+  *            @arg DMA1_FLAG_GL1: DMA1 Channel1 global flag.
+  *            @arg DMA1_FLAG_TC1: DMA1 Channel1 transfer complete flag.
+  *            @arg DMA1_FLAG_HT1: DMA1 Channel1 half transfer flag.
+  *            @arg DMA1_FLAG_TE1: DMA1 Channel1 transfer error flag.
+  *            @arg DMA1_FLAG_GL2: DMA1 Channel2 global flag.
+  *            @arg DMA1_FLAG_TC2: DMA1 Channel2 transfer complete flag.
+  *            @arg DMA1_FLAG_HT2: DMA1 Channel2 half transfer flag.
+  *            @arg DMA1_FLAG_TE2: DMA1 Channel2 transfer error flag.
+  *            @arg DMA1_FLAG_GL3: DMA1 Channel3 global flag.
+  *            @arg DMA1_FLAG_TC3: DMA1 Channel3 transfer complete flag.
+  *            @arg DMA1_FLAG_HT3: DMA1 Channel3 half transfer flag.
+  *            @arg DMA1_FLAG_TE3: DMA1 Channel3 transfer error flag.
+  *            @arg DMA1_FLAG_GL4: DMA1 Channel4 global flag.
+  *            @arg DMA1_FLAG_TC4: DMA1 Channel4 transfer complete flag.
+  *            @arg DMA1_FLAG_HT4: DMA1 Channel4 half transfer flag.
+  *            @arg DMA1_FLAG_TE4: DMA1 Channel4 transfer error flag.
+  *            @arg DMA1_FLAG_GL5: DMA1 Channel5 global flag.
+  *            @arg DMA1_FLAG_TC5: DMA1 Channel5 transfer complete flag.
+  *            @arg DMA1_FLAG_HT5: DMA1 Channel5 half transfer flag.
+  *            @arg DMA1_FLAG_TE5: DMA1 Channel5 transfer error flag.
   *
-  * @note
-  *    Clearing the Global flag (DMAy_FLAG_GLx) results in clearing all other flags
-  *    relative to the same channel (Transfer Complete, Half-transfer Complete and
-  *    Transfer Error flags: DMAy_FLAG_TCx, DMAy_FLAG_HTx and DMAy_FLAG_TEx).
+  * @note   Clearing the Global flag (DMAy_FLAG_GLx) results in clearing all other flags
+  *         relative to the same channel (Transfer Complete, Half-transfer Complete and
+  *         Transfer Error flags: DMAy_FLAG_TCx, DMAy_FLAG_HTx and DMAy_FLAG_TEx).
   *
   * @retval None
   */
@@ -547,33 +545,32 @@ void DMA_ClearFlag(uint32_t DMA_FLAG)
 /**
   * @brief  Checks whether the specified DMAy Channelx interrupt has occurred or not.
   * @param  DMA_IT: specifies the DMA interrupt source to check. 
-  *   This parameter can be one of the following values:
-  *     @arg DMA1_IT_GL1: DMA1 Channel1 global interrupt.
-  *     @arg DMA1_IT_TC1: DMA1 Channel1 transfer complete interrupt.
-  *     @arg DMA1_IT_HT1: DMA1 Channel1 half transfer interrupt.
-  *     @arg DMA1_IT_TE1: DMA1 Channel1 transfer error interrupt.
-  *     @arg DMA1_IT_GL2: DMA1 Channel2 global interrupt.
-  *     @arg DMA1_IT_TC2: DMA1 Channel2 transfer complete interrupt.
-  *     @arg DMA1_IT_HT2: DMA1 Channel2 half transfer interrupt.
-  *     @arg DMA1_IT_TE2: DMA1 Channel2 transfer error interrupt.
-  *     @arg DMA1_IT_GL3: DMA1 Channel3 global interrupt.
-  *     @arg DMA1_IT_TC3: DMA1 Channel3 transfer complete interrupt.
-  *     @arg DMA1_IT_HT3: DMA1 Channel3 half transfer interrupt.
-  *     @arg DMA1_IT_TE3: DMA1 Channel3 transfer error interrupt.
-  *     @arg DMA1_IT_GL4: DMA1 Channel4 global interrupt.
-  *     @arg DMA1_IT_TC4: DMA1 Channel4 transfer complete interrupt.
-  *     @arg DMA1_IT_HT4: DMA1 Channel4 half transfer interrupt.
-  *     @arg DMA1_IT_TE4: DMA1 Channel4 transfer error interrupt.
-  *     @arg DMA1_IT_GL5: DMA1 Channel5 global interrupt.
-  *     @arg DMA1_IT_TC5: DMA1 Channel5 transfer complete interrupt.
-  *     @arg DMA1_IT_HT5: DMA1 Channel5 half transfer interrupt.
-  *     @arg DMA1_IT_TE5: DMA1 Channel5 transfer error interrupt.
+  *          This parameter can be one of the following values:
+  *            @arg DMA1_IT_GL1: DMA1 Channel1 global interrupt.
+  *            @arg DMA1_IT_TC1: DMA1 Channel1 transfer complete interrupt.
+  *            @arg DMA1_IT_HT1: DMA1 Channel1 half transfer interrupt.
+  *            @arg DMA1_IT_TE1: DMA1 Channel1 transfer error interrupt.
+  *            @arg DMA1_IT_GL2: DMA1 Channel2 global interrupt.
+  *            @arg DMA1_IT_TC2: DMA1 Channel2 transfer complete interrupt.
+  *            @arg DMA1_IT_HT2: DMA1 Channel2 half transfer interrupt.
+  *            @arg DMA1_IT_TE2: DMA1 Channel2 transfer error interrupt.
+  *            @arg DMA1_IT_GL3: DMA1 Channel3 global interrupt.
+  *            @arg DMA1_IT_TC3: DMA1 Channel3 transfer complete interrupt.
+  *            @arg DMA1_IT_HT3: DMA1 Channel3 half transfer interrupt.
+  *            @arg DMA1_IT_TE3: DMA1 Channel3 transfer error interrupt.
+  *            @arg DMA1_IT_GL4: DMA1 Channel4 global interrupt.
+  *            @arg DMA1_IT_TC4: DMA1 Channel4 transfer complete interrupt.
+  *            @arg DMA1_IT_HT4: DMA1 Channel4 half transfer interrupt.
+  *            @arg DMA1_IT_TE4: DMA1 Channel4 transfer error interrupt.
+  *            @arg DMA1_IT_GL5: DMA1 Channel5 global interrupt.
+  *            @arg DMA1_IT_TC5: DMA1 Channel5 transfer complete interrupt.
+  *            @arg DMA1_IT_HT5: DMA1 Channel5 half transfer interrupt.
+  *            @arg DMA1_IT_TE5: DMA1 Channel5 transfer error interrupt.
   *     
-  * @note
-  *    The Global interrupt (DMAy_FLAG_GLx) is set whenever any of the other 
-  *    interrupts relative to the same channel is set (Transfer Complete, 
-  *    Half-transfer Complete or Transfer Error interrupts: DMAy_IT_TCx, 
-  *    DMAy_IT_HTx or DMAy_IT_TEx). 
+  * @note   The Global interrupt (DMAy_FLAG_GLx) is set whenever any of the other 
+  *         interrupts relative to the same channel is set (Transfer Complete, 
+  *         Half-transfer Complete or Transfer Error interrupts: DMAy_IT_TCx, 
+  *         DMAy_IT_HTx or DMAy_IT_TEx). 
   *      
   * @retval The new state of DMA_IT (SET or RESET).
   */
@@ -602,33 +599,32 @@ ITStatus DMA_GetITStatus(uint32_t DMA_IT)
 /**
   * @brief  Clears the DMAy Channelx's interrupt pending bits.
   * @param  DMA_IT: specifies the DMA interrupt pending bit to clear.
-  *   This parameter can be any combination (for the same DMA) of the following values:
-  *     @arg DMA1_IT_GL1: DMA1 Channel1 global interrupt.
-  *     @arg DMA1_IT_TC1: DMA1 Channel1 transfer complete interrupt.
-  *     @arg DMA1_IT_HT1: DMA1 Channel1 half transfer interrupt.
-  *     @arg DMA1_IT_TE1: DMA1 Channel1 transfer error interrupt.
-  *     @arg DMA1_IT_GL2: DMA1 Channel2 global interrupt.
-  *     @arg DMA1_IT_TC2: DMA1 Channel2 transfer complete interrupt.
-  *     @arg DMA1_IT_HT2: DMA1 Channel2 half transfer interrupt.
-  *     @arg DMA1_IT_TE2: DMA1 Channel2 transfer error interrupt.
-  *     @arg DMA1_IT_GL3: DMA1 Channel3 global interrupt.
-  *     @arg DMA1_IT_TC3: DMA1 Channel3 transfer complete interrupt.
-  *     @arg DMA1_IT_HT3: DMA1 Channel3 half transfer interrupt.
-  *     @arg DMA1_IT_TE3: DMA1 Channel3 transfer error interrupt.
-  *     @arg DMA1_IT_GL4: DMA1 Channel4 global interrupt.
-  *     @arg DMA1_IT_TC4: DMA1 Channel4 transfer complete interrupt.
-  *     @arg DMA1_IT_HT4: DMA1 Channel4 half transfer interrupt.
-  *     @arg DMA1_IT_TE4: DMA1 Channel4 transfer error interrupt.
-  *     @arg DMA1_IT_GL5: DMA1 Channel5 global interrupt.
-  *     @arg DMA1_IT_TC5: DMA1 Channel5 transfer complete interrupt.
-  *     @arg DMA1_IT_HT5: DMA1 Channel5 half transfer interrupt.
-  *     @arg DMA1_IT_TE5: DMA1 Channel5 transfer error interrupt.
+  *          This parameter can be any combination (for the same DMA) of the following values:
+  *            @arg DMA1_IT_GL1: DMA1 Channel1 global interrupt.
+  *            @arg DMA1_IT_TC1: DMA1 Channel1 transfer complete interrupt.
+  *            @arg DMA1_IT_HT1: DMA1 Channel1 half transfer interrupt.
+  *            @arg DMA1_IT_TE1: DMA1 Channel1 transfer error interrupt.
+  *            @arg DMA1_IT_GL2: DMA1 Channel2 global interrupt.
+  *            @arg DMA1_IT_TC2: DMA1 Channel2 transfer complete interrupt.
+  *            @arg DMA1_IT_HT2: DMA1 Channel2 half transfer interrupt.
+  *            @arg DMA1_IT_TE2: DMA1 Channel2 transfer error interrupt.
+  *            @arg DMA1_IT_GL3: DMA1 Channel3 global interrupt.
+  *            @arg DMA1_IT_TC3: DMA1 Channel3 transfer complete interrupt.
+  *            @arg DMA1_IT_HT3: DMA1 Channel3 half transfer interrupt.
+  *            @arg DMA1_IT_TE3: DMA1 Channel3 transfer error interrupt.
+  *            @arg DMA1_IT_GL4: DMA1 Channel4 global interrupt.
+  *            @arg DMA1_IT_TC4: DMA1 Channel4 transfer complete interrupt.
+  *            @arg DMA1_IT_HT4: DMA1 Channel4 half transfer interrupt.
+  *            @arg DMA1_IT_TE4: DMA1 Channel4 transfer error interrupt.
+  *            @arg DMA1_IT_GL5: DMA1 Channel5 global interrupt.
+  *            @arg DMA1_IT_TC5: DMA1 Channel5 transfer complete interrupt.
+  *            @arg DMA1_IT_HT5: DMA1 Channel5 half transfer interrupt.
+  *            @arg DMA1_IT_TE5: DMA1 Channel5 transfer error interrupt.
   *     
-  * @note
-  *    Clearing the Global interrupt (DMAy_IT_GLx) results in clearing all other 
-  *    interrupts relative to the same channel (Transfer Complete, Half-transfer 
-  *    Complete and Transfer Error interrupts: DMAy_IT_TCx, DMAy_IT_HTx and 
-  *    DMAy_IT_TEx).  
+  * @note   Clearing the Global interrupt (DMAy_IT_GLx) results in clearing all other 
+  *         interrupts relative to the same channel (Transfer Complete, Half-transfer 
+  *         Complete and Transfer Error interrupts: DMAy_IT_TCx, DMAy_IT_HTx and 
+  *         DMAy_IT_TEx).  
   *        
   * @retval None
   */

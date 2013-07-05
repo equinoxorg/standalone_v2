@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f0xx_usart.h
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    23-March-2012
+  * @version V1.0.1
+  * @date    20-April-2012
   * @brief   This file contains all the functions prototypes for the USART 
   *          firmware library.
   ******************************************************************************
@@ -129,8 +129,8 @@ typedef struct
   */ 
 
 #define USART_StopBits_1                     ((uint32_t)0x00000000)
-#define USART_StopBits_2                     ((uint32_t)USART_CR2_STOP_1)
-#define USART_StopBits_1_5                   ((uint32_t)USART_CR2_STOP_0 | USART_CR2_STOP_1)
+#define USART_StopBits_2                     USART_CR2_STOP_1
+#define USART_StopBits_1_5                   (USART_CR2_STOP_0 | USART_CR2_STOP_1)
 #define IS_USART_STOPBITS(STOPBITS) (((STOPBITS) == USART_StopBits_1) || \
                                      ((STOPBITS) == USART_StopBits_2) || \
                                      ((STOPBITS) == USART_StopBits_1_5))
@@ -143,8 +143,8 @@ typedef struct
   */ 
 
 #define USART_Parity_No                      ((uint32_t)0x00000000)
-#define USART_Parity_Even                    ((uint32_t)USART_CR1_PCE)
-#define USART_Parity_Odd                     ((uint32_t)USART_CR1_PCE | USART_CR1_PS) 
+#define USART_Parity_Even                    USART_CR1_PCE
+#define USART_Parity_Odd                     (USART_CR1_PCE | USART_CR1_PS) 
 #define IS_USART_PARITY(PARITY) (((PARITY) == USART_Parity_No) || \
                                  ((PARITY) == USART_Parity_Even) || \
                                  ((PARITY) == USART_Parity_Odd))
@@ -169,9 +169,9 @@ typedef struct
   */ 
 
 #define USART_HardwareFlowControl_None       ((uint32_t)0x00000000)
-#define USART_HardwareFlowControl_RTS        ((uint32_t)USART_CR3_RTSE)
-#define USART_HardwareFlowControl_CTS        ((uint32_t)USART_CR3_CTSE)
-#define USART_HardwareFlowControl_RTS_CTS    ((uint32_t)USART_CR3_RTSE | USART_CR3_CTSE)
+#define USART_HardwareFlowControl_RTS        USART_CR3_RTSE
+#define USART_HardwareFlowControl_CTS        USART_CR3_CTSE
+#define USART_HardwareFlowControl_RTS_CTS    (USART_CR3_RTSE | USART_CR3_CTSE)
 #define IS_USART_HARDWARE_FLOW_CONTROL(CONTROL)\
                               (((CONTROL) == USART_HardwareFlowControl_None) || \
                                ((CONTROL) == USART_HardwareFlowControl_RTS) || \
@@ -283,8 +283,8 @@ typedef struct
   */ 
 
 #define USART_WakeUpSource_AddressMatch      ((uint32_t)0x00000000)
-#define USART_WakeUpSource_StartBit          ((uint32_t)USART_CR3_WUS_1)
-#define USART_WakeUpSource_RXNE              ((uint32_t)USART_CR3_WUS_0 | USART_CR3_WUS_1)
+#define USART_WakeUpSource_StartBit          USART_CR3_WUS_1
+#define USART_WakeUpSource_RXNE              (USART_CR3_WUS_0 | USART_CR3_WUS_1)
 #define IS_USART_STOPMODE_WAKEUPSOURCE(SOURCE) (((SOURCE) == USART_WakeUpSource_AddressMatch) || \
                                                 ((SOURCE) == USART_WakeUpSource_StartBit) || \
                                                 ((SOURCE) == USART_WakeUpSource_RXNE))
@@ -528,7 +528,6 @@ void USART_StopModeWakeUpSourceConfig(USART_TypeDef* USARTx, uint32_t USART_Wake
 /* AutoBaudRate functions *****************************************************/
 void USART_AutoBaudRateCmd(USART_TypeDef* USARTx, FunctionalState NewState);
 void USART_AutoBaudRateConfig(USART_TypeDef* USARTx, uint32_t USART_AutoBaudRate);
-void USART_AutoBaudRateNewRequest(USART_TypeDef* USARTx);
 
 /* Data transfers functions ***************************************************/
 void USART_SendData(USART_TypeDef* USARTx, uint16_t Data);

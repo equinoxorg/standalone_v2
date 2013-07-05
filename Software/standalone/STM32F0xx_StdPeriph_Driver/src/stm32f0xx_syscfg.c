@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f0xx_syscfg.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    23-March-2012
+  * @version V1.0.1
+  * @date    20-April-2012
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the SYSCFG peripheral:
   *           + Remapping the memory mapped at 0x00000000  
@@ -84,10 +84,10 @@
   * @param  None
   * @retval None
   * @note   MEM_MODE bits are not affected by APB reset.
-  *         MEM_MODE bits took the value from the user option bytes.
+  * @note   MEM_MODE bits took the value from the user option bytes.
   * @note   CFGR2 register is not affected by APB reset.
-  *         CLABBB configuration bits are locked when set.
-  *         To unlock the configuration, perform a system reset.
+  * @note   CLABBB configuration bits are locked when set.
+  * @note   To unlock the configuration, perform a system reset.
   */
 void SYSCFG_DeInit(void)
 {
@@ -105,10 +105,10 @@ void SYSCFG_DeInit(void)
 /**
   * @brief  Configures the memory mapping at address 0x00000000.
   * @param  SYSCFG_MemoryRemap: selects the memory remapping.
-  *   This parameter can be one of the following values:
-  *     @arg SYSCFG_MemoryRemap_Flash: Main Flash memory mapped at 0x00000000  
-  *     @arg SYSCFG_MemoryRemap_SystemMemory: System Flash memory mapped at 0x00000000
-  *     @arg SYSCFG_MemoryRemap_SRAM: Embedded SRAM mapped at 0x00000000
+  *          This parameter can be one of the following values:
+  *            @arg SYSCFG_MemoryRemap_Flash: Main Flash memory mapped at 0x00000000  
+  *            @arg SYSCFG_MemoryRemap_SystemMemory: System Flash memory mapped at 0x00000000
+  *            @arg SYSCFG_MemoryRemap_SRAM: Embedded SRAM mapped at 0x00000000
   * @retval None
   */
 void SYSCFG_MemoryRemapConfig(uint32_t SYSCFG_MemoryRemap)
@@ -134,22 +134,21 @@ void SYSCFG_MemoryRemapConfig(uint32_t SYSCFG_MemoryRemap)
 /**
   * @brief  Configure the DMA channels remapping.
   * @param  SYSCFG_DMARemap: selects the DMA channels remap.
-  *   This parameter can be one of the following values:
-  *     @arg SYSCFG_DMARemap_TIM17: Remap TIM17 DMA requests from channel1 to channel2
-  *     @arg SYSCFG_DMARemap_TIM16: Remap TIM16 DMA requests from channel3 to channel4
-  *     @arg SYSCFG_DMARemap_USART1Rx: Remap USART1 Rx DMA requests from channel3 to channel5
-  *     @arg SYSCFG_DMARemap_USART1Tx: Remap USART1 Tx DMA requests from channel2 to channel4
-  *     @arg SYSCFG_DMARemap_ADC1: Remap ADC1 DMA requests from channel1 to channel2
+  *          This parameter can be one of the following values:
+  *            @arg SYSCFG_DMARemap_TIM17: Remap TIM17 DMA requests from channel1 to channel2
+  *            @arg SYSCFG_DMARemap_TIM16: Remap TIM16 DMA requests from channel3 to channel4
+  *            @arg SYSCFG_DMARemap_USART1Rx: Remap USART1 Rx DMA requests from channel3 to channel5
+  *            @arg SYSCFG_DMARemap_USART1Tx: Remap USART1 Tx DMA requests from channel2 to channel4
+  *            @arg SYSCFG_DMARemap_ADC1: Remap ADC1 DMA requests from channel1 to channel2
   * @param  NewState: new state of the DMA channel remapping. 
   *         This parameter can be: ENABLE or DISABLE.
   * @note   When enabled, DMA channel of the selected peripheral is remapped
   * @note   When disabled, Default DMA channel is mapped to the selected peripheral
-  * @note 
-  *           By default TIM17 DMA requests is mapped to channel 1
-  *           use SYSCFG_DMAChannelRemapConfig(SYSCFG_DMARemap_TIM17, Enable)
-  *           to remap TIM17 DMA requests to channel 2
-  *           use SYSCFG_DMAChannelRemapConfig(SYSCFG_DMARemap_TIM17, Disable)
-  *           to map TIM17 DMA requests to channel 1 (default mapping)
+  * @note   By default TIM17 DMA requests is mapped to channel 1, 
+  *         use SYSCFG_DMAChannelRemapConfig(SYSCFG_DMARemap_TIM17, Enable) to remap
+  *         TIM17 DMA requests to channel 2 and use
+  *         SYSCFG_DMAChannelRemapConfig(SYSCFG_DMARemap_TIM17, Disable) to map
+  *         TIM17 DMA requests to channel 1 (default mapping)
   * @retval None
   */
 void SYSCFG_DMAChannelRemapConfig(uint32_t SYSCFG_DMARemap, FunctionalState NewState)
@@ -173,11 +172,11 @@ void SYSCFG_DMAChannelRemapConfig(uint32_t SYSCFG_DMARemap, FunctionalState NewS
 /**
   * @brief  Configure the I2C fast mode plus driving capability.
   * @param  SYSCFG_I2CFastModePlus: selects the pin.
-  *   This parameter can be one of the following values:
-  *     @arg SYSCFG_I2CFastModePlus_PB6: Configure fast mode plus driving capability for PB6
-  *     @arg SYSCFG_I2CFastModePlus_PB7: Configure fast mode plus driving capability for PB7
-  *     @arg SYSCFG_I2CFastModePlus_PB8: Configure fast mode plus driving capability for PB8
-  *     @arg SYSCFG_I2CFastModePlus_PB9: Configure fast mode plus driving capability for PB9
+  *          This parameter can be one of the following values:
+  *            @arg SYSCFG_I2CFastModePlus_PB6: Configure fast mode plus driving capability for PB6
+  *            @arg SYSCFG_I2CFastModePlus_PB7: Configure fast mode plus driving capability for PB7
+  *            @arg SYSCFG_I2CFastModePlus_PB8: Configure fast mode plus driving capability for PB8
+  *            @arg SYSCFG_I2CFastModePlus_PB9: Configure fast mode plus driving capability for PB9
   * @param  NewState: new state of the DMA channel remapping. 
   *         This parameter can be: ENABLE or DISABLE.
   * @note   ENABLE:  Enable fast mode plus driving capability for selected pin
@@ -204,8 +203,8 @@ void SYSCFG_I2CFastModePlusConfig(uint32_t SYSCFG_I2CFastModePlus, FunctionalSta
 
 /**
   * @brief  Selects the GPIO pin used as EXTI Line.
-  * @param  EXTI_PortSourceGPIOx : selects the GPIO port to be used as source 
-  *                                for EXTI lines where x can be (A, B, C, D or F).
+  * @param  EXTI_PortSourceGPIOx: selects the GPIO port to be used as source 
+  *                               for EXTI lines where x can be (A, B, C, D or F).
   * @param  EXTI_PinSourcex: specifies the EXTI line to be configured.
   *         This parameter can be EXTI_PinSourcex where x can be (0..15)
   * @retval None
@@ -228,10 +227,10 @@ void SYSCFG_EXTILineConfig(uint8_t EXTI_PortSourceGPIOx, uint8_t EXTI_PinSourcex
   * @note   The selected configuration is locked and can be unlocked by system reset
   * @param  SYSCFG_Break: selects the configuration to be connected to break
   *         input of TIM1
-  *   This parameter can be any combination of the following values:
-  *     @arg SYSCFG_Break_PVD: Connects the PVD event to the Break Input of TIM1.
-  *     @arg SYSCFG_Break_SRAMParity: Connects the SRAM_PARITY error signal to the Break Input of TIM1 .
-  *     @arg SYSCFG_Break_Lockup: Connects Lockup output of CortexM0 to the break input of TIM1.
+  *          This parameter can be any combination of the following values:
+  *            @arg SYSCFG_Break_PVD: Connects the PVD event to the Break Input of TIM1.
+  *            @arg SYSCFG_Break_SRAMParity: Connects the SRAM_PARITY error signal to the Break Input of TIM1 .
+  *            @arg SYSCFG_Break_Lockup: Connects Lockup output of CortexM0 to the break input of TIM1.
   * @retval None
   */
 void SYSCFG_BreakConfig(uint32_t SYSCFG_Break)
@@ -245,8 +244,8 @@ void SYSCFG_BreakConfig(uint32_t SYSCFG_Break)
 /**
   * @brief  Checks whether the specified SYSCFG flag is set or not.
   * @param  SYSCFG_Flag: specifies the SYSCFG flag to check. 
-  *   This parameter can be one of the following values:
-  *     @arg SYSCFG_FLAG_PE: SRAM parity error flag.
+  *          This parameter can be one of the following values:
+  *            @arg SYSCFG_FLAG_PE: SRAM parity error flag.
   * @retval The new state of SYSCFG_Flag (SET or RESET).
   */
 FlagStatus SYSCFG_GetFlagStatus(uint32_t SYSCFG_Flag)
@@ -274,8 +273,8 @@ FlagStatus SYSCFG_GetFlagStatus(uint32_t SYSCFG_Flag)
 /**
   * @brief  Clear the selected SYSCFG flag.
   * @param  SYSCFG_Flag: selects the flag to be cleared.
-  *   This parameter can be any combination of the following values:
-  *     @arg SYSCFG_FLAG_PE: SRAM parity error flag.
+  *          This parameter can be any combination of the following values:
+  *            @arg SYSCFG_FLAG_PE: SRAM parity error flag.
   * @retval None
   */
 void SYSCFG_ClearFlag(uint32_t SYSCFG_Flag)

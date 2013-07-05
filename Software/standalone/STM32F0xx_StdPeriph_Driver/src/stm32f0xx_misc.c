@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f0xx_misc.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    23-March-2012
+  * @version V1.0.1
+  * @date    20-April-2012
   * @brief   This file provides all the miscellaneous firmware functions (add-on
   *          to CMSIS functions).
   ******************************************************************************
@@ -106,12 +106,12 @@ void NVIC_Init(NVIC_InitTypeDef* NVIC_InitStruct)
 /**
   * @brief  Selects the condition for the system to enter low power mode.
   * @param  LowPowerMode: Specifies the new mode for the system to enter low power mode.
-  *   This parameter can be one of the following values:
-  *     @arg NVIC_LP_SEVONPEND: Low Power SEV on Pend.
-  *     @arg NVIC_LP_SLEEPDEEP: Low Power DEEPSLEEP request.
-  *     @arg NVIC_LP_SLEEPONEXIT: Low Power Sleep on Exit.
+  *          This parameter can be one of the following values:
+  *            @arg NVIC_LP_SEVONPEND: Low Power SEV on Pend.
+  *            @arg NVIC_LP_SLEEPDEEP: Low Power DEEPSLEEP request.
+  *            @arg NVIC_LP_SLEEPONEXIT: Low Power Sleep on Exit.
   * @param  NewState: new state of LP condition. 
-  *         This parameter can be: ENABLE or DISABLE.
+  *          This parameter can be: ENABLE or DISABLE.
   * @retval None
   */
 void NVIC_SystemLPConfig(uint8_t LowPowerMode, FunctionalState NewState)
@@ -134,9 +134,9 @@ void NVIC_SystemLPConfig(uint8_t LowPowerMode, FunctionalState NewState)
 /**
   * @brief  Configures the SysTick clock source.
   * @param  SysTick_CLKSource: specifies the SysTick clock source.
-  *   This parameter can be one of the following values:
-  *     @arg SysTick_CLKSource_HCLK_Div8: AHB clock divided by 8 selected as SysTick clock source.
-  *     @arg SysTick_CLKSource_HCLK: AHB clock selected as SysTick clock source.
+  *          This parameter can be one of the following values:
+  *            @arg SysTick_CLKSource_HCLK_Div8: AHB clock divided by 8 selected as SysTick clock source.
+  *            @arg SysTick_CLKSource_HCLK: AHB clock selected as SysTick clock source.
   * @retval None
   */
 void SysTick_CLKSourceConfig(uint32_t SysTick_CLKSource)

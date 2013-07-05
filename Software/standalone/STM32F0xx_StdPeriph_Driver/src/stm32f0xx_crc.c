@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f0xx_crc.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    23-March-2012
+  * @version V1.0.1
+  * @date    20-April-2012
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of CRC computation unit peripheral:
   *            + Configuration of the CRC computation unit
@@ -117,11 +117,11 @@ void CRC_ResetDR(void)
 /**
   * @brief  Selects the reverse operation to be performed on input data.
   * @param  CRC_ReverseInputData: Specifies the reverse operation on input data.
-  *         This parameter can be:
-  *      @arg CRC_ReverseInputData_No: No reverse operation is performed
-  *      @arg CRC_ReverseInputData_8bits: reverse operation performed on 8 bits
-  *      @arg CRC_ReverseInputData_16bits: reverse operation performed on 16 bits
-  *      @arg CRC_ReverseInputData_32bits: reverse operation performed on 32 bits
+  *          This parameter can be:
+  *            @arg CRC_ReverseInputData_No: No reverse operation is performed
+  *            @arg CRC_ReverseInputData_8bits: reverse operation performed on 8 bits
+  *            @arg CRC_ReverseInputData_16bits: reverse operation performed on 16 bits
+  *            @arg CRC_ReverseInputData_32bits: reverse operation performed on 32 bits
   * @retval None
   */
 void CRC_ReverseInputDataSelect(uint32_t CRC_ReverseInputData)
@@ -147,7 +147,7 @@ void CRC_ReverseInputDataSelect(uint32_t CRC_ReverseInputData)
   * @brief  Enables or disable the reverse operation on output data.
   *         The reverse operation on output data is performed on 32-bit.
   * @param  NewState: new state of the reverse operation on output data.
-  *   This parameter can be: ENABLE or DISABLE.
+  *          This parameter can be: ENABLE or DISABLE.
   * @retval None
   */
 void CRC_ReverseOutputDataCmd(FunctionalState NewState)

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f0xx_pwr.h
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    23-March-2012
+  * @version V1.0.1
+  * @date    20-April-2012
   * @brief   This file contains all the functions prototypes for the PWR firmware 
   *          library.
   ******************************************************************************

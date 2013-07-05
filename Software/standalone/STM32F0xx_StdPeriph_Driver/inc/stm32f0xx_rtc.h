@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f0xx_rtc.h
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    23-March-2012
+  * @version V1.0.1
+  * @date    20-April-2012
   * @brief   This file contains all the functions prototypes for the RTC firmware 
   *          library.
   ******************************************************************************
@@ -555,8 +555,6 @@ typedef struct
                                                  input tamper 1 */
 #define RTC_Tamper_2            RTC_TAFCR_TAMP2E /*!< Tamper detection enable for 
                                                  input tamper 2 */
-#define RTC_Tamper_3            RTC_TAFCR_TAMP3E /*!< Tamper detection enable for 
-                                                 input tamper 3 */
 
 #define IS_RTC_TAMPER(TAMPER) ((((TAMPER) & (uint32_t)0xFFFFFFD6) == 0x00) && ((TAMPER) != (uint32_t)RESET))
 
@@ -629,7 +627,6 @@ typedef struct
   * @{
   */ 
 #define RTC_FLAG_RECALPF                  ((uint32_t)0x00010000)
-#define RTC_FLAG_TAMP3F                   ((uint32_t)0x00008000)
 #define RTC_FLAG_TAMP2F                   ((uint32_t)0x00004000)
 #define RTC_FLAG_TAMP1F                   ((uint32_t)0x00002000)
 #define RTC_FLAG_TSOVF                    ((uint32_t)0x00001000)
@@ -640,13 +637,12 @@ typedef struct
 #define RTC_FLAG_INITS                    ((uint32_t)0x00000010)
 #define RTC_FLAG_SHPF                     ((uint32_t)0x00000008)
 
-#define IS_RTC_GET_FLAG(FLAG) (((FLAG) == RTC_FLAG_RECALPF) || ((FLAG) == RTC_FLAG_TAMP3F) || \
+#define IS_RTC_GET_FLAG(FLAG) (((FLAG) == RTC_FLAG_RECALPF) || ((FLAG) == RTC_FLAG_SHPF) || \
                                ((FLAG) == RTC_FLAG_TAMP2F)  || ((FLAG) == RTC_FLAG_TAMP1F) || \
                                ((FLAG) == RTC_FLAG_TSOVF)   || ((FLAG) == RTC_FLAG_TSF)    || \
                                ((FLAG) == RTC_FLAG_ALRAF)   || ((FLAG) == RTC_FLAG_INITF)  || \
-                               ((FLAG) == RTC_FLAG_RSF)     || ((FLAG) == RTC_FLAG_INITS)  || \
-                               ((FLAG) == RTC_FLAG_SHPF))
-#define IS_RTC_CLEAR_FLAG(FLAG) (((FLAG) != (uint32_t)RESET) && (((FLAG) & 0xFFFF06DF) == (uint32_t)RESET))
+                               ((FLAG) == RTC_FLAG_RSF)     || ((FLAG) == RTC_FLAG_INITS))
+#define IS_RTC_CLEAR_FLAG(FLAG) (((FLAG) != (uint32_t)RESET) && (((FLAG) & 0xFFFF86DF) == (uint32_t)RESET))
 
 /**
   * @}
@@ -660,13 +656,12 @@ typedef struct
 #define RTC_IT_TAMP                       ((uint32_t)0x00000004) /* Used only to Enable the Tamper Interrupt */
 #define RTC_IT_TAMP1                      ((uint32_t)0x00020000)
 #define RTC_IT_TAMP2                      ((uint32_t)0x00040000)
-#define RTC_IT_TAMP3                      ((uint32_t)0x00080000)
 
 #define IS_RTC_CONFIG_IT(IT) (((IT) != (uint32_t)RESET) && (((IT) & 0xFFFF6FFB) == (uint32_t)RESET))
 #define IS_RTC_GET_IT(IT) (((IT) == RTC_IT_TS)    || ((IT) == RTC_IT_ALRA)  || \
-                           ((IT) == RTC_IT_TAMP1) || ((IT) == RTC_IT_TAMP2) || \
-                           ((IT) == RTC_IT_TAMP3))                           
-#define IS_RTC_CLEAR_IT(IT) (((IT) != (uint32_t)RESET) && (((IT) & 0xFFF16FFF) == (uint32_t)RESET))
+                           ((IT) == RTC_IT_TAMP1) || ((IT) == RTC_IT_TAMP2))                           
+
+#define IS_RTC_CLEAR_IT(IT) (((IT) != (uint32_t)RESET) && (((IT) & 0xFFF96FFF) == (uint32_t)RESET))
 
 /**
   * @}
