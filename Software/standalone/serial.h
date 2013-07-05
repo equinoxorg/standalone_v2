@@ -60,7 +60,7 @@ extern Serial_TypeDef Serial;
 
 /* Exported constants --------------------------------------------------------*/
 /*Define the dedicated reception circular buffer size. */
-#define BUFFER_RCV_SIZE 	64
+#define BUFFER_RCV_SIZE 	8
 
 /*Pins definition */
 #define TX_PIN  			GPIO_Pin_9 
