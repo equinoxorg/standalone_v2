@@ -26297,6 +26297,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <attribute name="OC_FARNELL" value="1336556"/>
 </part>
 <part name="D5" library="equinox" deviceset="BZX384-C3V6" device=""/>
+<part name="R1" library="resistor" deviceset="R-EU_" device="M0805" value="100"/>
 </parts>
 <sheets>
 <sheet>
@@ -26324,13 +26325,19 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <text x="406.4" y="513.08" size="6.4516" layer="94" font="vector">NOTES</text>
 <text x="406.4" y="502.92" size="3.81" layer="98" rot="MR180">TODO:
   - Contrast Adjust Pot needs changing
-  - Swap MOS with BJT</text>
+  - Swap MOS with BJT
+  - Change XTAL to new 6pF</text>
 <text x="662.94" y="127" size="1.778" layer="98">0.5A Current Limit</text>
 <text x="662.94" y="86.36" size="1.778" layer="98">0.5A Current Limit</text>
 <text x="556.26" y="66.04" size="1.778" layer="98" rot="R90">3A Output</text>
 <text x="208.28" y="88.9" size="1.778" layer="98">120mA Max</text>
 <text x="556.26" y="132.08" size="1.778" layer="98" rot="R90">250mA Output</text>
 <text x="297.18" y="66.04" size="1.778" layer="98">Must be placed near to IC1</text>
+<wire x1="125.222" y1="77.47" x2="72.898" y2="77.47" width="0.1524" layer="98"/>
+<wire x1="72.898" y1="77.47" x2="72.898" y2="34.798" width="0.1524" layer="98"/>
+<wire x1="72.898" y1="34.798" x2="125.222" y2="34.798" width="0.1524" layer="98"/>
+<wire x1="125.222" y1="34.798" x2="125.222" y2="77.47" width="0.1524" layer="98"/>
+<text x="73.66" y="78.74" size="1.778" layer="98">Hardware Reset Timer</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="299.72" y="15.24"/>
@@ -26533,7 +26540,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="U8" gate="A" x="256.54" y="83.82"/>
 <instance part="R29" gate="G$1" x="248.92" y="96.52" rot="R270"/>
 <instance part="GND9" gate="1" x="60.96" y="30.48"/>
-<instance part="R31" gate="G$1" x="83.82" y="71.12" rot="R270"/>
+<instance part="R31" gate="G$1" x="83.82" y="60.96" rot="R270"/>
 <instance part="C16" gate="G$1" x="83.82" y="38.1" rot="R180"/>
 <instance part="GND18" gate="1" x="83.82" y="30.48"/>
 <instance part="U11" gate="A" x="111.76" y="48.26" smashed="yes">
@@ -26548,10 +26555,11 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="+3V11" gate="G$1" x="121.92" y="119.38"/>
 <instance part="GND31" gate="1" x="114.3" y="30.48"/>
 <instance part="PTC1" gate="PTC1" x="363.22" y="424.18"/>
-<instance part="D1" gate="1" x="358.14" y="398.78" rot="R90">
-<attribute name="OC_FARNELL" x="358.14" y="398.78" size="1.778" layer="96" rot="R90" display="off"/>
+<instance part="D1" gate="1" x="358.14" y="393.7" rot="R90">
+<attribute name="OC_FARNELL" x="358.14" y="393.7" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
 <instance part="D5" gate="1" x="60.96" y="398.78" rot="R90"/>
+<instance part="R1" gate="G$1" x="279.4" y="109.22" rot="R270"/>
 </instances>
 <busses>
 </busses>
@@ -26743,7 +26751,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <wire x1="327.66" y1="419.1" x2="332.74" y2="424.18" width="0.1524" layer="91"/>
 <pinref part="PTC1" gate="PTC1" pin="P$1"/>
 <pinref part="D1" gate="1" pin="CATHODE"/>
-<wire x1="358.14" y1="403.86" x2="358.14" y2="424.18" width="0.1524" layer="91"/>
+<wire x1="358.14" y1="398.78" x2="358.14" y2="424.18" width="0.1524" layer="91"/>
 <junction x="358.14" y="424.18"/>
 </segment>
 </net>
@@ -26831,9 +26839,14 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 </segment>
 <segment>
 <pinref part="BUZZ1" gate="G$1" pin="+"/>
-<wire x1="259.08" y1="114.3" x2="259.08" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="259.08" y1="114.3" x2="259.08" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="259.08" y1="121.92" x2="259.08" y2="129.54" width="0.1524" layer="91"/>
 <wire x1="259.08" y1="129.54" x2="276.86" y2="129.54" width="0.1524" layer="91"/>
 <label x="264.16" y="129.54" size="1.778" layer="95"/>
+<pinref part="R1" gate="G$1" pin="1"/>
+<wire x1="279.4" y1="114.3" x2="279.4" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="279.4" y1="121.92" x2="259.08" y2="121.92" width="0.1524" layer="91"/>
+<junction x="259.08" y="121.92"/>
 </segment>
 </net>
 <net name="N$12" class="0">
@@ -27460,7 +27473,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <wire x1="60.96" y1="99.06" x2="83.82" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="83.82" y1="99.06" x2="101.6" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="101.6" y1="99.06" x2="139.7" y2="99.06" width="0.1524" layer="91"/>
-<wire x1="83.82" y1="76.2" x2="83.82" y2="99.06" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="66.04" x2="83.82" y2="99.06" width="0.1524" layer="91"/>
 <junction x="83.82" y="99.06"/>
 <pinref part="U12" gate="A" pin="G"/>
 <wire x1="104.14" y1="63.5" x2="101.6" y2="63.5" width="0.1524" layer="91"/>
@@ -27634,7 +27647,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <wire x1="297.18" y1="370.84" x2="297.18" y2="342.9" width="0.1524" layer="91"/>
 <junction x="297.18" y="342.9"/>
 <pinref part="D1" gate="1" pin="ANODE"/>
-<wire x1="358.14" y1="393.7" x2="358.14" y2="342.9" width="0.1524" layer="91"/>
+<wire x1="358.14" y1="388.62" x2="358.14" y2="342.9" width="0.1524" layer="91"/>
 <junction x="358.14" y="342.9"/>
 <pinref part="D5" gate="1" pin="A"/>
 <wire x1="60.96" y1="396.24" x2="60.96" y2="342.9" width="0.1524" layer="91"/>
@@ -27933,7 +27946,12 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <segment>
 <pinref part="U8" gate="A" pin="D"/>
 <pinref part="BUZZ1" gate="G$1" pin="-"/>
-<wire x1="259.08" y1="91.44" x2="259.08" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="259.08" y1="91.44" x2="259.08" y2="101.6" width="0.1524" layer="91"/>
+<pinref part="R1" gate="G$1" pin="2"/>
+<wire x1="259.08" y1="101.6" x2="259.08" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="279.4" y1="104.14" x2="279.4" y2="101.6" width="0.1524" layer="91"/>
+<wire x1="279.4" y1="101.6" x2="259.08" y2="101.6" width="0.1524" layer="91"/>
+<junction x="259.08" y="101.6"/>
 </segment>
 </net>
 <net name="N$43" class="0">
@@ -27947,7 +27965,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <segment>
 <pinref part="R31" gate="G$1" pin="2"/>
 <pinref part="C16" gate="G$1" pin="2"/>
-<wire x1="83.82" y1="43.18" x2="83.82" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="83.82" y1="43.18" x2="83.82" y2="55.88" width="0.1524" layer="91"/>
 <wire x1="83.82" y1="43.18" x2="104.14" y2="43.18" width="0.1524" layer="91"/>
 <junction x="83.82" y="43.18"/>
 <pinref part="U11" gate="A" pin="G"/>
