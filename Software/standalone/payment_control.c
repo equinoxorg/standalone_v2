@@ -1,6 +1,6 @@
 #include "payment_control.h"
 #include "ui.h"
-
+#include "unlock_codes.h"
 
 //EEPROM Variable Storage Tables
 uint16_t VirtAddVarTab[NumbOfVar];
@@ -14,13 +14,17 @@ U64 payment_control_stk[PAYMENT_CONTROL_STK_SIZE];
 #define VAR_BOXID_ID 0
 uint16_t boxid;
 
+char check_code(uint32_t);
+void update_expiry_date(uint8_t);
+
 __task void payment_control (void)
 {
 	
 	os_dly_wait(200);
 	
 	//Set up RTC
- 	rtc_init();
+ 	if ( rtc_init() != RTC_SUCCESS)
+		printf("ERROR: RTC Init Failed \n");
 	
 #ifndef DEBUG	
 	//Allows code to access the flash memory
@@ -55,7 +59,7 @@ __task void payment_control (void)
 	while(1)
 	{
 		//10s delay
-		print_time_date();
+		//print_time_date();
 		os_dly_wait(1000);
 	}
 }
@@ -66,4 +70,38 @@ char check_unlock_code (uint32_t unlock_code)
 		return 1;
 	else
 		return 0;
+	
+	//NOTE: Code below is never entered, code above overrights
+	
+	if (check_code(unlock_code)) 
+	{
+
+		//Checks if the full unlock code was given
+		if (GET_UNLOCK_DAYS(unlock_code) == FULL_UNLOCK) 
+		{
+				//ee_write_full_unlock(EE_FULL_UNLOCK_CODE);
+				return 1;
+		}
+
+		//Updates the next unlock code expiry date
+		update_expiry_date(GET_UNLOCK_DAYS(unlock_code)); //Needs implementing
+		
+		return 1;
+	} 
+	else 
+		return 0;
+}
+
+char check_code(uint32_t code) {
+    char code_valid = 0;
+    uint8_t unlock_count;// = ee_read_unlock_count();
+
+    if (check_checksum(code)) {
+        if (((GET_UNLOCK_COUNT(code) - unlock_count) <= 1) || (GET_UNLOCK_DAYS(code) == FULL_UNLOCK)) {
+            //ee_write_unlock_count(GET_UNLOCK_COUNT(code) + 1);
+            code_valid = 1;
+        }
+    }
+
+    return code_valid;
 }

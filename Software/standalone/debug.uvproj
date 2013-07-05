@@ -334,7 +334,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>3</Optim>
+            <Optim>2</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -712,6 +712,16 @@
               <FileName>eeprom.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\EEPROMEmulation\source\eeprom.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>unlock_codes</GroupName>
+          <Files>
+            <File>
+              <FileName>unlock_codes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\unlock_codes.c</FilePath>
             </File>
           </Files>
         </Group>

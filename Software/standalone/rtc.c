@@ -1,54 +1,63 @@
 #include "rtc.h"
 
 
-void rtc_init (void) 
+int rtc_init (void) 
 {
-	// Example Taken from firmware examples and:
-	// http://www.st.com/st-web-ui/static/active/en/resource/technical/document/application_note/DM00025071.pdf
-	int i = 0;
+
+	uint32_t count = 0x2dc6c00;
 	
 	RTC_InitTypeDef   RTC_InitStructure;
-	
+		
 	// Turn on PWR clock
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
 
 	// Allow access to RTC 
   PWR_BackupAccessCmd(ENABLE);
-    
-  // Enable the LSE OSC 
-	//32.768 External Osc
-  RCC_LSEConfig(RCC_LSE_ON);
-	/*
-	*     @arg RCC_LSEDrive_Low: LSE oscillator low drive capability.
-  *     @arg RCC_LSEDrive_MediumLow: LSE oscillator medium low drive capability.
-  *     @arg RCC_LSEDrive_MediumHigh: LSE oscillator medium high drive capability.
-  *     @arg RCC_LSEDrive_High: LSE oscillator high drive capability.
-  * @retval None
-  */
-	RCC_LSEDriveConfig(RCC_LSEDrive_High);
 	
+	//Forces reset of RTC, resets the time and date to 0
+	//RCC_BackupResetCmd(ENABLE);
+  //RCC_BackupResetCmd(DISABLE);
+// 		
+// 	//PWR_DeInit();
+//     
+//   // Enable the LSE OSC 
+// 	//32.768 External Osc
+//   RCC_LSEConfig(RCC_LSE_ON);
+	RCC_LSICmd(ENABLE);
+	
+// 	/*
+// 	*     @arg RCC_LSEDrive_Low: LSE oscillator low drive capability.
+//   *     @arg RCC_LSEDrive_MediumLow: LSE oscillator medium low drive capability.
+//   *     @arg RCC_LSEDrive_MediumHigh: LSE oscillator medium high drive capability.
+//   *     @arg RCC_LSEDrive_High: LSE oscillator high drive capability.
+//   * @retval None
+//   */
+// 	//RCC_LSEDriveConfig(RCC_LSEDrive_High);
+// 	
+// 	//Check for clock stability
+// 	while ( (RCC_GetFlagStatus(RCC_FLAG_LSERDY) == RESET) )
+// 		if (--count==0)
+// 		{
+// 			return -1;
+// 		}
+
 	//Check for clock stability
-	while (RCC_GetFlagStatus(RCC_FLAG_LSERDY) == RESET)
-	{
-		i++;
-		if (i > 200)
+	while ( (RCC_GetFlagStatus(RCC_FLAG_LSIRDY) == RESET) )
+		if (--count==0)
 		{
-			//Time out after 2 seconds 
-			printf("ERROR: LSE clock not stable \n");
-			i = 0;
-			break;
+			return -1;
 		}
-		os_dly_wait(1);
-	}
 	
   // Select the RTC Clock Source
-  RCC_RTCCLKConfig(RCC_RTCCLKSource_LSE);
+//  RCC_RTCCLKConfig(RCC_RTCCLKSource_LSE);
+	RCC_RTCCLKConfig(RCC_RTCCLKSource_LSI);
   
   // Enable the RTC Clock 
   RCC_RTCCLKCmd(ENABLE);
   
   // Wait for RTC APB registers synchronisation 
-  RTC_WaitForSynchro();
+  if ( RTC_WaitForSynchro() == ERROR )
+		return -2;
   
   RTC_InitStructure.RTC_HourFormat = RTC_HourFormat_24;
 	//32.768kHz Clock is divided by (0x40 * 0x200) which 
@@ -56,9 +65,12 @@ void rtc_init (void)
   RTC_InitStructure.RTC_AsynchPrediv = 0x40; 	//Max 0x7F
   RTC_InitStructure.RTC_SynchPrediv = 0x0200;	//Max 0x1FFF
   
-  RTC_Init(&RTC_InitStructure);
+  if ( RTC_Init(&RTC_InitStructure) == ERROR )
+		return -3;
 	
 	print_time_date();
+	
+	return RTC_SUCCESS;	
 }
 
 void print_time_date ( void )
@@ -74,6 +86,12 @@ void print_time_date ( void )
 	
 	printf("%i/%i/%i ", RTC_DateStructure.RTC_Date, RTC_DateStructure.RTC_Month,  (RTC_DateStructure.RTC_Year+2000) );
 	printf("%i:%i:%i \n", RTC_TimeStructure.RTC_Hours, RTC_TimeStructure.RTC_Minutes, RTC_TimeStructure.RTC_Seconds);
+}
+
+time_t get_time_t (void)
+{
+	struct tm time_s = get_time_struct();
+	return mktime (&time_s);
 }
 
 struct tm get_time_struct (void)

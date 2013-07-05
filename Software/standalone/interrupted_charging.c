@@ -1,5 +1,6 @@
 #include "interrupted_charging.h"
 #include "ui.h"
+#include "rtc.h"
 
 void calc_lvdc ( float );
 void set_temperature_compensation( float );
@@ -57,8 +58,8 @@ __task void interrupted_charging (void)
 		
 		set_temperature_compensation( temp );
 		
-		printf("Time=%i \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.3f \t P_SOL=%.2f \t duty=%.1f \t Temp=%.2F\n",
-					os_time_get(), cc_state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle, temp);
+		printf("Time=%.0f \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.3f \t P_SOL=%.2f \t duty=%.1f \t Temp=%.2F\n",
+					((double)get_time_t()), cc_state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle, temp);
 		
 		//Check for LVDC voltage
 		calc_lvdc(batt_current);
