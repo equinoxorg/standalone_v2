@@ -35,8 +35,8 @@ void buzz(int cycles)
 	for (i=0; i<cycles*200; i++)
 	{
 		GPIO_SetBits(GPIOA, GPIO_Pin_8 );
-		delay(1000);
+		delay(2000);
 		GPIO_ResetBits(GPIOA, GPIO_Pin_8 );
-		delay(1000);
+		delay(2000);
 	}
 }

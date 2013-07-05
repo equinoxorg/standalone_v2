@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include "lcd_hd44780.h"
 #include "user_outputs.h"
+#include "buzzer.h"
 
 //Public Variables
 extern OS_TID ui_t;

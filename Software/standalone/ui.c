@@ -1,6 +1,5 @@
 #include "ui.h"
 #include "lcd_hd44780.h"
-#include "buzzer.h"
 #include "interrupted_charging.h"
 #include "payment_control.h"
 
@@ -214,6 +213,9 @@ __task void ui (void)
 							lcd_write_string_XY(6, 0, "__________");
 							lcd_goto_XY(6, 0);
 						} else if (key == KEY_TICK) {
+							//Tick Pressed
+							//LCDWriteString("./");
+						} else if (key == KEY_NONE) {
 							//Tick Pressed
 							//LCDWriteString("./");
 						} else {
