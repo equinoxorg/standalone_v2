@@ -27674,7 +27674,7 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <junction x="31.75" y="459.74"/>
 </segment>
 </net>
-<net name="GND" class="1">
+<net name="GND" class="3">
 <segment>
 <wire x1="115.57" y1="336.55" x2="115.57" y2="342.9" width="0.1524" layer="91"/>
 <wire x1="115.57" y1="342.9" x2="115.57" y2="445.77" width="0.1524" layer="91"/>
@@ -28222,22 +28222,18 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 </sheet>
 </sheets>
 <errors>
-<approved hash="208,1,119.38,127,+3V3,sup,,,,"/>
 <approved hash="208,1,177.8,170.18,+3V3,sup,,,,"/>
 <approved hash="208,1,210.82,78.74,+3V3,sup,,,,"/>
 <approved hash="208,1,294.64,58.42,+3V3,sup,,,,"/>
 <approved hash="208,1,322.58,58.42,+3V3,sup,,,,"/>
-<approved hash="208,1,167.64,220.98,+3V3,sup,,,,"/>
 <approved hash="208,1,505.46,132.08,+3V3,out,,,,"/>
 <approved hash="208,1,63.5,226.06,+3V3,sup,,,,"/>
-<approved hash="208,1,101.6,119.38,+3V3,sup,,,,"/>
 <approved hash="115,1,193.571,130.071,FRAME2,,,,,"/>
 <approved hash="115,1,193.571,399.311,FRAME1,,,,,"/>
 <approved hash="115,1,589.811,130.071,FRAME3,,,,,"/>
 <approved hash="115,1,589.811,399.311,FRAME4,,,,,"/>
 <approved hash="115,1,191.639,230.123,KEYPAD,,,,,"/>
 <approved hash="115,1,32.7829,218.571,JTAG,,,,,"/>
-<approved hash="115,1,99.4495,109.22,POW,,,,,"/>
 </errors>
 </schematic>
 </drawing>
