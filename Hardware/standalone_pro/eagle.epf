@@ -11,7 +11,7 @@ AutoSaveProject=1
 [Win_1]
 Type="Schematic Editor"
 Loc="332 181 931 580"
-State=0
+State=2
 Number=2
 File="standalone.sch"
 View="-18.8573 -11.116 935.306 540.498"
@@ -53,6 +53,7 @@ ArcDirection=0
 AddLevel=2
 PadsSameType=0
 Layer=91
+Views=" 1: -18.8573 -11.116 935.306 540.498"
 Sheet=1
 
 [Win_2]
