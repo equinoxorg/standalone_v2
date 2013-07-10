@@ -2514,17 +2514,6 @@ DIN A3, landscape with location and doc. field</description>
 <text x="-3.4544" y="4.445" size="2.0828" layer="25" ratio="10" rot="SR0">&gt;NAME</text>
 <text x="-3.4544" y="-5.715" size="2.0828" layer="27" ratio="10" rot="SR0">&gt;VALUE</text>
 </package>
-<package name="CRYSTAL_CMJ206T">
-<smd name="CASE" x="-3.75" y="-0.3" dx="2.5" dy="3.4" layer="1"/>
-<smd name="P$2" x="3.45" y="0.97" dx="1.5" dy="1" layer="1" rot="R180"/>
-<smd name="P$3" x="3.45" y="-1.57" dx="1.5" dy="1" layer="1" rot="R180"/>
-<wire x1="-5.3" y1="-2.4" x2="4.6" y2="-2.4" width="0.127" layer="21"/>
-<wire x1="4.6" y1="-2.4" x2="4.6" y2="1.7" width="0.127" layer="21"/>
-<wire x1="4.6" y1="1.7" x2="-5.3" y2="1.7" width="0.127" layer="21"/>
-<wire x1="-5.3" y1="1.7" x2="-5.3" y2="-2.4" width="0.127" layer="21"/>
-<text x="-4" y="2" size="1.27" layer="25">&gt;NAME</text>
-<text x="-1.8" y="-0.9" size="1.27" layer="27">&gt;VAL</text>
-</package>
 <package name="SOT95P237X112-3N">
 <smd name="1" x="-0.9398" y="-1.016" dx="0.9906" dy="1.3208" layer="1"/>
 <smd name="2" x="0.9398" y="-1.016" dx="0.9906" dy="1.3208" layer="1"/>
@@ -5129,26 +5118,6 @@ Onecall #: 1929705
 <wire x1="2.54" y1="-10.16" x2="2.54" y2="-6.35" width="0.254" layer="94"/>
 <wire x1="2.54" y1="6.35" x2="2.54" y2="10.16" width="0.254" layer="94"/>
 </symbol>
-<symbol name="CYRSTAL">
-<wire x1="1.016" y1="0" x2="2.54" y2="0" width="0.1524" layer="94"/>
-<wire x1="-2.54" y1="0" x2="-1.016" y2="0" width="0.1524" layer="94"/>
-<wire x1="-0.381" y1="1.524" x2="-0.381" y2="-1.524" width="0.254" layer="94"/>
-<wire x1="-0.381" y1="-1.524" x2="0.381" y2="-1.524" width="0.254" layer="94"/>
-<wire x1="0.381" y1="-1.524" x2="0.381" y2="1.524" width="0.254" layer="94"/>
-<wire x1="0.381" y1="1.524" x2="-0.381" y2="1.524" width="0.254" layer="94"/>
-<wire x1="1.016" y1="1.778" x2="1.016" y2="-1.778" width="0.254" layer="94"/>
-<wire x1="-1.016" y1="1.778" x2="-1.016" y2="-1.778" width="0.254" layer="94"/>
-<text x="-2.54" y="2.286" size="1.778" layer="95">&gt;NAME</text>
-<text x="2.54" y="-3.81" size="1.778" layer="96">&gt;VALUE</text>
-<text x="-2.159" y="-1.143" size="0.8636" layer="93">1</text>
-<text x="1.524" y="-1.143" size="0.8636" layer="93">2</text>
-<pin name="2" x="5.08" y="0" visible="off" length="short" direction="pas" swaplevel="1" rot="R180"/>
-<pin name="1" x="-5.08" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
-<pin name="P$1" x="0" y="-5.08" visible="off" length="short" rot="R90"/>
-<wire x1="-1.016" y1="-2.54" x2="1.016" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="-0.762" y1="-3.048" x2="0.762" y2="-3.048" width="0.254" layer="94"/>
-<wire x1="-0.254" y1="-3.556" x2="0.254" y2="-3.556" width="0.254" layer="94"/>
-</symbol>
 <symbol name="MCP1700T-3302E/TT">
 <pin name="VIN" x="-17.78" y="0" length="middle" direction="in"/>
 <pin name="GND" x="-17.78" y="-5.08" length="middle" direction="pas"/>
@@ -5576,26 +5545,6 @@ Model: 1602C-1</description>
 <attribute name="PACKAGE" value="SOIC-8" constant="no"/>
 <attribute name="SUPPLIER" value="DIODES INC." constant="no"/>
 </technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="CRYSTAL_CMJ206T" prefix="Q" uservalue="yes">
-<description>Datasheet: http://cfm.citizen.co.jp/english/product/pdf/CMJ206T.pdf
-&lt;p/&gt;
-Farnell: http://onecall.farnell.com/citizen-america/cmj206t32-768kdzf-ut/crystal-32-768khz-12-5pf-smd/dp/2101358</description>
-<gates>
-<gate name="G$1" symbol="CYRSTAL" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="CRYSTAL_CMJ206T">
-<connects>
-<connect gate="G$1" pin="1" pad="P$2"/>
-<connect gate="G$1" pin="2" pad="P$3"/>
-<connect gate="G$1" pin="P$1" pad="CASE"/>
-</connects>
-<technologies>
-<technology name=""/>
 </technologies>
 </device>
 </devices>
@@ -26045,6 +25994,72 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="crystal">
+<description>&lt;b&gt;Crystals and Crystal Resonators&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="MC-306">
+<description>&lt;b&gt;MC-306 CRYSTAL UNIT&lt;/b&gt;&lt;p&gt;
+Source: MC-306_405_406_E07X.PDF</description>
+<wire x1="-3.9" y1="1.5" x2="3.9" y2="1.5" width="0.2032" layer="51"/>
+<wire x1="3.9" y1="1.5" x2="3.9" y2="-1.5" width="0.2032" layer="21"/>
+<wire x1="3.9" y1="-1.5" x2="-3.9" y2="-1.5" width="0.2032" layer="51"/>
+<wire x1="-3.9" y1="-1.5" x2="-3.9" y2="1.5" width="0.2032" layer="21"/>
+<wire x1="-1.4" y1="1.5" x2="1.4" y2="1.5" width="0.2032" layer="21"/>
+<wire x1="1.4" y1="-1.5" x2="-1.4" y2="-1.5" width="0.2032" layer="21"/>
+<wire x1="-3.8" y1="0.5" x2="-3.8" y2="-0.5" width="0.2032" layer="21" curve="-180"/>
+<smd name="1" x="-2.75" y="-1.6" dx="1.3" dy="1.9" layer="1"/>
+<smd name="2" x="2.75" y="-1.6" dx="1.3" dy="1.9" layer="1"/>
+<smd name="3" x="2.75" y="1.6" dx="1.3" dy="1.9" layer="1" rot="R180"/>
+<smd name="4" x="-2.75" y="1.6" dx="1.3" dy="1.9" layer="1" rot="R180"/>
+<text x="-4.0192" y="2.815" size="1.27" layer="25">&gt;NAME</text>
+<text x="-4.0192" y="-4.593" size="1.27" layer="27">&gt;VALUE</text>
+</package>
+</packages>
+<symbols>
+<symbol name="Q">
+<wire x1="1.016" y1="0" x2="2.54" y2="0" width="0.1524" layer="94"/>
+<wire x1="-2.54" y1="0" x2="-1.016" y2="0" width="0.1524" layer="94"/>
+<wire x1="-0.381" y1="1.524" x2="-0.381" y2="-1.524" width="0.254" layer="94"/>
+<wire x1="-0.381" y1="-1.524" x2="0.381" y2="-1.524" width="0.254" layer="94"/>
+<wire x1="0.381" y1="-1.524" x2="0.381" y2="1.524" width="0.254" layer="94"/>
+<wire x1="0.381" y1="1.524" x2="-0.381" y2="1.524" width="0.254" layer="94"/>
+<wire x1="1.016" y1="1.778" x2="1.016" y2="-1.778" width="0.254" layer="94"/>
+<wire x1="-1.016" y1="1.778" x2="-1.016" y2="-1.778" width="0.254" layer="94"/>
+<text x="2.54" y="1.016" size="1.778" layer="95">&gt;NAME</text>
+<text x="2.54" y="-2.54" size="1.778" layer="96">&gt;VALUE</text>
+<text x="-2.159" y="-1.143" size="0.8636" layer="93">1</text>
+<text x="1.524" y="-1.143" size="0.8636" layer="93">2</text>
+<pin name="2" x="2.54" y="0" visible="off" length="point" direction="pas" swaplevel="1" rot="R180"/>
+<pin name="1" x="-2.54" y="0" visible="off" length="point" direction="pas" swaplevel="1"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="MC-306" prefix="Q">
+<description>&lt;b&gt;kHz RANGE CRYSTAL UNIT&lt;/b&gt; SMD&lt;p&gt;
+Source: MC-306_405_406_E07X.PDF &lt;a href="http://www.epsontoyocom.co.jp"&gt; Homepage &lt;/a&gt;</description>
+<gates>
+<gate name="P" symbol="Q" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="MC-306">
+<connects>
+<connect gate="P" pin="1" pad="1"/>
+<connect gate="P" pin="2" pad="4"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="MF" value="" constant="no"/>
+<attribute name="MPN" value="MC-306 60.0KHZ  100PPM ,12.5PF" constant="no"/>
+<attribute name="OC_FARNELL" value="1278040" constant="no"/>
+<attribute name="OC_NEWARK" value="31M5576" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 <attribute name="AUTHOR" value="Ashley Grealish"/>
@@ -26153,11 +26168,12 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <part name="GND6" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="GND11" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="GND13" library="supply1" deviceset="GND" device="" value="GND"/>
-<part name="Q1" library="equinox" deviceset="CRYSTAL_CMJ206T" device="" value="32.768khz">
-<attribute name="OC_FARNELL" value="2101358"/>
+<part name="C1" library="resistor" deviceset="C-EU" device="C0603K" value="6.8pF">
+<attribute name="OC_FARNELL" value="1856141"/>
 </part>
-<part name="C1" library="resistor" deviceset="C-EU" device="C0805K" value="12.5pF"/>
-<part name="C9" library="resistor" deviceset="C-EU" device="C0805K" value="12.5pF"/>
+<part name="C9" library="resistor" deviceset="C-EU" device="C0603K" value="6.8pF">
+<attribute name="OC_FARNELL" value="1856141"/>
+</part>
 <part name="GND14" library="supply1" deviceset="GND" device="" value="GND"/>
 <part name="+3V5" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND15" library="supply1" deviceset="GND" device="" value="GND"/>
@@ -26298,6 +26314,11 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 </part>
 <part name="D5" library="equinox" deviceset="BZX384-C3V6" device=""/>
 <part name="R1" library="resistor" deviceset="R-EU_" device="M0805" value="100"/>
+<part name="Q1" library="crystal" deviceset="MC-306" device="" value="32.768kHz">
+<attribute name="MPN" value="MC-306"/>
+<attribute name="OC_FARNELL" value="1712823"/>
+<attribute name="OC_NEWARK" value="-"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -26429,11 +26450,12 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <instance part="GND6" gate="1" x="203.2" y="73.66"/>
 <instance part="GND11" gate="1" x="132.08" y="111.76"/>
 <instance part="GND13" gate="1" x="170.18" y="167.64"/>
-<instance part="Q1" gate="G$1" x="127" y="149.86" rot="R270">
-<attribute name="OC_FARNELL" x="127" y="149.86" size="1.778" layer="96" rot="R270" display="off"/>
+<instance part="C1" gate="G$1" x="109.22" y="160.02" rot="R90">
+<attribute name="OC_FARNELL" x="109.22" y="160.02" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
-<instance part="C1" gate="G$1" x="109.22" y="160.02" rot="R90"/>
-<instance part="C9" gate="G$1" x="109.22" y="139.7" rot="R90"/>
+<instance part="C9" gate="G$1" x="109.22" y="139.7" rot="R90">
+<attribute name="OC_FARNELL" x="109.22" y="139.7" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
 <instance part="GND14" gate="1" x="101.6" y="134.62"/>
 <instance part="+3V5" gate="G$1" x="294.64" y="60.96"/>
 <instance part="GND15" gate="1" x="294.64" y="43.18"/>
@@ -26560,6 +26582,10 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 </instance>
 <instance part="D5" gate="1" x="60.96" y="398.78" rot="R90"/>
 <instance part="R1" gate="G$1" x="279.4" y="109.22" rot="R270"/>
+<instance part="Q1" gate="P" x="127" y="149.86" smashed="yes" rot="R270">
+<attribute name="NAME" x="128.016" y="147.32" size="1.778" layer="95" rot="R270"/>
+<attribute name="VALUE" x="121.92" y="157.48" size="1.778" layer="96" rot="R270"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -26914,23 +26940,23 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <pinref part="IC1" gate="1" pin="PC14_OSC32_IN"/>
 <wire x1="162.56" y1="132.08" x2="134.62" y2="132.08" width="0.1524" layer="91"/>
 <wire x1="134.62" y1="132.08" x2="134.62" y2="160.02" width="0.1524" layer="91"/>
-<pinref part="Q1" gate="G$1" pin="1"/>
-<wire x1="127" y1="154.94" x2="127" y2="160.02" width="0.1524" layer="91"/>
-<wire x1="134.62" y1="160.02" x2="127" y2="160.02" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="2"/>
+<wire x1="134.62" y1="160.02" x2="127" y2="160.02" width="0.1524" layer="91"/>
+<pinref part="Q1" gate="P" pin="1"/>
 <wire x1="127" y1="160.02" x2="114.3" y2="160.02" width="0.1524" layer="91"/>
+<wire x1="127" y1="152.4" x2="127" y2="160.02" width="0.1524" layer="91"/>
 <junction x="127" y="160.02"/>
 </segment>
 </net>
 <net name="N$18" class="0">
 <segment>
 <pinref part="IC1" gate="1" pin="PC15_OSC32_OUT"/>
-<pinref part="Q1" gate="G$1" pin="2"/>
 <wire x1="162.56" y1="129.54" x2="127" y2="129.54" width="0.1524" layer="91"/>
 <wire x1="127" y1="129.54" x2="127" y2="139.7" width="0.1524" layer="91"/>
 <pinref part="C9" gate="G$1" pin="2"/>
-<wire x1="127" y1="139.7" x2="127" y2="144.78" width="0.1524" layer="91"/>
 <wire x1="114.3" y1="139.7" x2="127" y2="139.7" width="0.1524" layer="91"/>
+<pinref part="Q1" gate="P" pin="2"/>
+<wire x1="127" y1="147.32" x2="127" y2="139.7" width="0.1524" layer="91"/>
 <junction x="127" y="139.7"/>
 </segment>
 </net>
@@ -27713,15 +27739,11 @@ Type: &lt;b&gt;SPC4077 / SPC 4078&lt;/b&gt;&lt;p&gt;</description>
 <pinref part="GND14" gate="1" pin="GND"/>
 <wire x1="101.6" y1="137.16" x2="101.6" y2="139.7" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="1"/>
-<wire x1="101.6" y1="139.7" x2="101.6" y2="149.86" width="0.1524" layer="91"/>
-<wire x1="101.6" y1="149.86" x2="101.6" y2="160.02" width="0.1524" layer="91"/>
+<wire x1="101.6" y1="139.7" x2="101.6" y2="160.02" width="0.1524" layer="91"/>
 <wire x1="101.6" y1="160.02" x2="106.68" y2="160.02" width="0.1524" layer="91"/>
 <pinref part="C9" gate="G$1" pin="1"/>
 <wire x1="106.68" y1="139.7" x2="101.6" y2="139.7" width="0.1524" layer="91"/>
 <junction x="101.6" y="139.7"/>
-<pinref part="Q1" gate="G$1" pin="P$1"/>
-<wire x1="121.92" y1="149.86" x2="101.6" y2="149.86" width="0.1524" layer="91"/>
-<junction x="101.6" y="149.86"/>
 </segment>
 <segment>
 <pinref part="C12" gate="G$1" pin="1"/>
