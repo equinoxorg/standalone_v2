@@ -28,7 +28,7 @@
 #include "interrupted_charging.h"
 #include "ui.h"
 #include "payment_control.h"
-
+#include "trace.h"
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -41,20 +41,20 @@ __task void init (void)
 	//Maximum of four running tasks, so can only launch three tasks here, any more will be ignored.
 
 	//Start the interrupted charging algoritm
-	printf("Starting Interrupted Charging Task \n");
+	TRACE_DEBUG("Starting Interrupted Charging Task\n");
 	interrupted_charging_t = os_tsk_create_user ( interrupted_charging, 0, &interrupted_charging_stk , sizeof(interrupted_charging_stk) );
 	if (!interrupted_charging_t)
-		printf("ERROR: Interrupted Charging Task Failed to launch \n");
+		TRACE_ERROR("Interrupted Charging Task Failed to launch\n");
 	
-	printf("Starting UI task \n");
+	TRACE_DEBUG("Starting UI task\n");
 	ui_t = os_tsk_create_user (ui, 2, &ui_stk, sizeof(ui_stk) );
 	if (!ui_t)
-		printf("ERROR: UI Task Failed to launch \n");
+		TRACE_ERROR("UI Task Failed to launch\n");
 	
-	printf("Starting Payment Control task \n");
+	TRACE_DEBUG("Starting Payment Control task\n");
 	payment_control_t = os_tsk_create_user (payment_control, 1, &payment_control_stk, sizeof(payment_control_stk) );
 	if (!payment_control_t)
-		printf("ERROR: Payment Control Task Failed to launch \n");
+		TRACE_ERROR("Payment Control Task Failed to launch\n");
 
 // 	//Can be used to test ADC readings
 // 	printf("Starting adc_in task \n");
@@ -75,7 +75,7 @@ int main(void)
 {
 
 	Serial.begin(115200); //Open com on uart1 0-1 pins
-		
+	
 	os_sys_init(init); 
 	
 	while(1);

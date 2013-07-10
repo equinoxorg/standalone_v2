@@ -461,6 +461,11 @@
               <FileType>1</FileType>
               <FilePath>.\rtc.c</FilePath>
             </File>
+            <File>
+              <FileName>trace.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\trace.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
