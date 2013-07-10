@@ -1,11 +1,11 @@
 #include "rtc.h"
 
+//Private Functions
+int rtc_lsi_init ( void );
 
 int rtc_init (void) 
 {
-
 	uint32_t count = 0x2dc6c00;
-	
 	RTC_InitTypeDef   RTC_InitStructure;
 		
 	// Turn on PWR clock
@@ -17,47 +17,28 @@ int rtc_init (void)
 	//Forces reset of RTC, resets the time and date to 0
 	//RCC_BackupResetCmd(ENABLE);
   //RCC_BackupResetCmd(DISABLE);
-// 		
-// 	//PWR_DeInit();
-//     
-//   // Enable the LSE OSC 
-// 	//32.768 External Osc
-//   RCC_LSEConfig(RCC_LSE_ON);
-	RCC_LSICmd(ENABLE);
 	
-// 	/*
-// 	*     @arg RCC_LSEDrive_Low: LSE oscillator low drive capability.
-//   *     @arg RCC_LSEDrive_MediumLow: LSE oscillator medium low drive capability.
-//   *     @arg RCC_LSEDrive_MediumHigh: LSE oscillator medium high drive capability.
-//   *     @arg RCC_LSEDrive_High: LSE oscillator high drive capability.
-//   * @retval None
-//   */
-// 	//RCC_LSEDriveConfig(RCC_LSEDrive_High);
-// 	
-// 	//Check for clock stability
-// 	while ( (RCC_GetFlagStatus(RCC_FLAG_LSERDY) == RESET) )
-// 		if (--count==0)
-// 		{
-// 			return -1;
-// 		}
+ 	//32.768 External Osc
+   RCC_LSEConfig(RCC_LSE_ON);
 
 	//Check for clock stability
-	while ( (RCC_GetFlagStatus(RCC_FLAG_LSIRDY) == RESET) )
+	while ( (RCC_GetFlagStatus(RCC_FLAG_LSERDY) == RESET) )
 		if (--count==0)
 		{
-			return -1;
+			//Fall back to the LSI clock source
+			//Much less accurate than LSE
+			return rtc_lsi_init();
 		}
-	
+		
   // Select the RTC Clock Source
-//  RCC_RTCCLKConfig(RCC_RTCCLKSource_LSE);
-	RCC_RTCCLKConfig(RCC_RTCCLKSource_LSI);
+  RCC_RTCCLKConfig(RCC_RTCCLKSource_LSE);
   
   // Enable the RTC Clock 
   RCC_RTCCLKCmd(ENABLE);
   
   // Wait for RTC APB registers synchronisation 
   if ( RTC_WaitForSynchro() == ERROR )
-		return -2;
+		return RTC_SYNCHRO_ERR;
   
   RTC_InitStructure.RTC_HourFormat = RTC_HourFormat_24;
 	//32.768kHz Clock is divided by (0x40 * 0x200) which 
@@ -66,11 +47,53 @@ int rtc_init (void)
   RTC_InitStructure.RTC_SynchPrediv = 0x0200;	//Max 0x1FFF
   
   if ( RTC_Init(&RTC_InitStructure) == ERROR )
-		return -3;
+		return RTC_INIT_ERR;
 	
 	print_time_date();
 	
 	return RTC_SUCCESS;	
+}
+
+//Function which is called on the failure of the 
+//external RTC clock source. This sets up the RTC
+//clock source as the internal RC clock. This is far
+//less acurate but is better than nothing.
+int rtc_lsi_init ( void )
+{
+	uint32_t count = 0x2dc6c00;
+	RTC_InitTypeDef   RTC_InitStructure;
+	
+ 	RCC_LSICmd(ENABLE);
+
+	//Check for clock stability
+	while ( (RCC_GetFlagStatus(RCC_FLAG_LSIRDY) == RESET) )
+		if (--count==0)
+		{
+			return RTC_LSI_FAILURE;
+		}
+	
+  // Select the RTC Clock Source
+	RCC_RTCCLKConfig(RCC_RTCCLKSource_LSI);
+  
+  // Enable the RTC Clock 
+  RCC_RTCCLKCmd(ENABLE);
+  
+  // Wait for RTC APB registers synchronisation 
+  if ( RTC_WaitForSynchro() == ERROR )
+		return RTC_SYNCHRO_ERR;
+  
+  RTC_InitStructure.RTC_HourFormat = RTC_HourFormat_24;
+	//40kHz Clock is divided by (0x40 * 0x200) which 
+	//gives a 1Hz output from 40kHz LSI
+  RTC_InitStructure.RTC_AsynchPrediv = 0x40; 	//Max 0x7F
+  RTC_InitStructure.RTC_SynchPrediv = 0x0271;	//Max 0x1FFF
+  
+  if ( RTC_Init(&RTC_InitStructure) == ERROR )
+		return RTC_INIT_ERR;
+	
+	print_time_date();
+	
+	return RTC_LSI_FALLBACK;	
 }
 
 void print_time_date ( void )

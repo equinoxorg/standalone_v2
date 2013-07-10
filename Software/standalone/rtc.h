@@ -6,7 +6,11 @@
 #include <stdio.h>
 #include <time.h>
 
-#define RTC_SUCCESS 0
+#define RTC_SUCCESS 			(0)
+#define RTC_LSI_FALLBACK 	(-1)
+#define RTC_LSI_FAILURE		(-2)
+#define RTC_SYNCHRO_ERR		(-3)
+#define RTC_INIT_ERR			(-4)
 
 int rtc_init(void);
 void print_time_date ( void );
