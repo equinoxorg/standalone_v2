@@ -34,9 +34,9 @@ __inline void lcd_send_data (uint8_t);
  lcd_write_string(msg);\
 }
 
-#define lcd_write_int_XY(x,y,val,fl) {\
+#define lcd_write_int_XY(x,y,val) {\
  lcd_goto_XY(x,y);\
- lcd_write_int(val,fl);\
+ lcd_write_int(val);\
 }
 
 //Send Battery Symbols
