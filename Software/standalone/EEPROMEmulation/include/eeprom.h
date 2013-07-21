@@ -80,7 +80,7 @@ typedef volatile uint32_t vu32;
 #define PAGE_FULL               ((u8)0x80)
 
 /* Variables' number */
-#define NumbOfVar               ((u16)0x03)    		// 0 - 2
+#define NumbOfVar               ((u16)0x07)    		// 0 - 7
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/

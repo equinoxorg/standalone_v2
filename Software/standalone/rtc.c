@@ -1,10 +1,12 @@
 #include "rtc.h"
+#include "trace.h"
 
 //Private Functions
-int rtc_lsi_init ( void );
+
 
 int rtc_init (void) 
 {
+	
 	uint32_t count = 0x2dc6c00;
 	RTC_InitTypeDef   RTC_InitStructure;
 		
@@ -13,13 +15,10 @@ int rtc_init (void)
 
 	// Allow access to RTC 
   PWR_BackupAccessCmd(ENABLE);
-	
-	//Forces reset of RTC, resets the time and date to 0
-	//RCC_BackupResetCmd(ENABLE);
-  //RCC_BackupResetCmd(DISABLE);
+	RTC_WriteProtectionCmd(DISABLE);
 	
  	//32.768 External Osc
-   RCC_LSEConfig(RCC_LSE_ON);
+  RCC_LSEConfig(RCC_LSE_ON);
 
 	//Check for clock stability
 	while ( (RCC_GetFlagStatus(RCC_FLAG_LSERDY) == RESET) )
@@ -30,6 +29,7 @@ int rtc_init (void)
 			return rtc_lsi_init();
 		}
 		
+	
   // Select the RTC Clock Source
   RCC_RTCCLKConfig(RCC_RTCCLKSource_LSE);
   
@@ -62,6 +62,8 @@ int rtc_lsi_init ( void )
 {
 	uint32_t count = 0x2dc6c00;
 	RTC_InitTypeDef   RTC_InitStructure;
+	
+	TRACE_WARNING("Using LSI clock \n");
 	
  	RCC_LSICmd(ENABLE);
 
@@ -107,8 +109,8 @@ void print_time_date ( void )
 	RTC_GetTime(RTC_Format_BIN, &RTC_TimeStructure);
 	RTC_GetDate(RTC_Format_BIN, &RTC_DateStructure);
 	
-	printf("%i/%i/%i ", RTC_DateStructure.RTC_Date, RTC_DateStructure.RTC_Month,  (RTC_DateStructure.RTC_Year+2000) );
-	printf("%i:%i:%i \n", RTC_TimeStructure.RTC_Hours, RTC_TimeStructure.RTC_Minutes, RTC_TimeStructure.RTC_Seconds);
+	TRACE_INFO("%i/%i/%i ", RTC_DateStructure.RTC_Date, RTC_DateStructure.RTC_Month,  (RTC_DateStructure.RTC_Year+2000) );
+	TRACE_INFO_WP("%i:%i:%i \n", RTC_TimeStructure.RTC_Hours, RTC_TimeStructure.RTC_Minutes, RTC_TimeStructure.RTC_Seconds);
 }
 
 time_t get_time_t (void)

@@ -2,6 +2,7 @@
 #include "lcd_hd44780.h"
 #include "interrupted_charging.h"
 #include "payment_control.h"
+#include "trace.h"
 
 #include "adc.h" //temp, SOC values should be received through CC task
 
@@ -53,7 +54,7 @@ __task void ui (void)
 	int i;
 	uint8_t digit_count = 0;
 	uint64_t entry_code = 0;
-	
+		
 	keypad_init();
 	
 	lcd_init();
@@ -73,24 +74,32 @@ __task void ui (void)
 	lcd_write_string("    izuba.box   ");
 	
 	
+// 	if( os_evt_get() == UI_PAYMENT_VALID )
+// 	{
+// 		ui_state = STATE_NORM;
+// 		valid_payment = 1;
+// 		os_evt_clr(UI_PAYMENT_VALID, ui_t);
+// 		os_dly_wait(200);
+// 	}
+// 	else
+// 	{
+// 		if ( os_evt_wait_or(UI_PAYMENT_VALID, 200) == OS_R_EVT )
+// 		{
+// 			//Find which event 
+// 			ui_state = STATE_NORM;
+// 			valid_payment = 1;
+// 			os_evt_clr(UI_PAYMENT_VALID, ui_t);
+// 			os_dly_wait(200);
+// 		}
+//	}
+	
 	//2 second timeout
-	if( os_evt_get() == UI_PAYMENT_VALID )
+	os_dly_wait(200);
+	
+	if ( get_unlock_days () >= 0 )
 	{
-		ui_state = STATE_NORM;
 		valid_payment = 1;
-		os_evt_clr(UI_PAYMENT_VALID, ui_t);
-		os_dly_wait(200);
-	}
-	else
-	{
-		if ( os_evt_wait_or(UI_PAYMENT_VALID, 200) == OS_R_EVT )
-		{
-			//Find which event 
-			ui_state = STATE_NORM;
-			valid_payment = 1;
-			os_evt_clr(UI_PAYMENT_VALID, ui_t);
-			os_dly_wait(200);
-		}
+		ui_state = STATE_NORM;
 	}
 	
 	reset_display();
@@ -233,9 +242,13 @@ __task void ui (void)
 								
 								//Send code to payment control task
 								// but send (uint32_t)entry_code
+								
+								if ( entry_code == (uint32_t)entry_code )
+									TRACE_INFO("Casting code to uint32_t is good \n");
+								
 								if ( check_unlock_code((uint32_t)entry_code) )
 								{
-									printf("INFO: Valid Unlock code: %s\n", keypad_result_str);
+									TRACE_INFO("Valid Unlock code: %s\n", keypad_result_str);
 									ui_state = STATE_NORM;
 									reset_display();
 									reset_outputs();
@@ -243,7 +256,7 @@ __task void ui (void)
 								}
 								else
 								{							
-									printf("INFO: Invalid Unlock code: %s\n", keypad_result_str);
+									TRACE_INFO("Invalid Unlock code: %s\n", keypad_result_str);
 									entry_code = 0;
 									digit_count = 0;
 									keypad_result_str[0] = '\0';
@@ -262,14 +275,14 @@ __task void ui (void)
 								break;
 							//Special Key Cases
 							case KEY_TICK:
-								printf("./");
+								TRACE_DEBUG("Key: ./ \n");
 								break;
 							case KEY_CROSS:
-								printf("X");
+								TRACE_DEBUG("Key: X \n");
 								break;
 							default:
 								//Print the key number
-								printf("%i", key);			
+								TRACE_DEBUG("Key: %i \n", key);			
 						}
 					}
 					
@@ -283,6 +296,13 @@ __task void ui (void)
 							break;
 					}			
 				}					
+			}
+			
+			if ( event_flag & UI_PAYMENT_INVALID )
+			{
+				ui_state = STATE_AWAIT_PAYMENT;
+				reset_display();
+				reset_outputs();
 			}
 			
 			//clear event flags
@@ -567,7 +587,8 @@ void reset_display (void)
 	{
 		case STATE_NORM:
 			lcd_write_string_XY(0, 0, "    e.quinox    ");
-			lcd_write_string_XY(0, 1, "          7 days");
+			lcd_write_string_XY(0, 1, "            days");
+			lcd_write_int_XY(10, 1, get_unlock_days() );
 			lcd_batt_level( get_soc() );
 			break;
 		case STATE_AWAIT_PAYMENT:
