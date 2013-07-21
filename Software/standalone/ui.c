@@ -346,6 +346,8 @@ __task void ui (void)
 		if (ui_state == STATE_NORM)
 		{
 			//Update remaining days
+			lcd_write_string_XY(10, 1, "  days");
+			lcd_write_int_XY(10, 1, get_unlock_days() );			
 		}
 
 	}
