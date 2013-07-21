@@ -1,4 +1,5 @@
 #include "perturb_and_observe.h"
+#include "trace.h"
 
 //Private Variables
 float duty_cycle = 100.0f;

@@ -1,6 +1,7 @@
 #include "interrupted_charging.h"
 #include "ui.h"
 #include "rtc.h"
+#include "trace.h"
 
 void calc_lvdc ( float );
 void set_temperature_compensation( float );
@@ -58,7 +59,7 @@ __task void interrupted_charging (void)
 		
 		set_temperature_compensation( temp );
 		
-		printf("Time=%.0f \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.3f \t P_SOL=%.2f \t duty=%.1f \t Temp=%.2F\n",
+		TRACE_INFO("Time=%.0f \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.3f \t P_SOL=%.2f \t duty=%.1f \t Temp=%.2F\n",
 					((double)get_time_t()), cc_state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle, temp);
 		
 		//Check for LVDC voltage
@@ -85,10 +86,10 @@ __task void interrupted_charging (void)
 					{
 						cc_state = NIGHT_MODE;
 						counter = 0;
-						printf("INFO: Starting Night Mode State\n");
+						TRACE_DEBUG("Starting Night Mode State\n");
 						break;
 					}
-					printf("INFO: Rescaned Power and Night mode not entered \n");
+					TRACE_DEBUG("Rescaned Power and Night mode not entered \n");
 				}
 		
 						
@@ -96,7 +97,7 @@ __task void interrupted_charging (void)
 				{
 					cc_state = VOLTAGE_SETTLE;
 					counter = 0;
-					printf("INFO: Starting Voltage Settle Charging State at V=%f \n", batt_voltage);
+					TRACE_DEBUG("Starting Voltage Settle Charging State at V=%f \n", batt_voltage);
 					break;
 				}
 				
@@ -112,7 +113,7 @@ __task void interrupted_charging (void)
 				{
 					GPIO_SetBits(GPIOB, GPIO_Pin_0);
 					cc_state = PULSED_CURRENT;
-					printf("INFO: Starting Pulsed Current Charging State at V=%f \n", batt_voltage);
+					TRACE_DEBUG("Starting Pulsed Current Charging State at V=%f \n", batt_voltage);
 					break;
 				}				
 				//5s delay
@@ -145,10 +146,10 @@ __task void interrupted_charging (void)
 							{
 								cc_state = NIGHT_MODE;
 								counter = 0;
-								printf("INFO: Starting Night Mode State\n");
+								TRACE_DEBUG("Starting Night Mode State\n");
 								break;
 							}
-							printf("INFO: Rescaned Power and Night mode not entered \n");
+							TRACE_DEBUG("Rescaned Power and Night mode not entered \n");
 						}
 					}
 				}
@@ -169,7 +170,7 @@ __task void interrupted_charging (void)
 				{
 					counter = 0;
 					cc_state = FULLY_CHARGED;
-					printf("INFO: Starting Fully Charged Charging State at V=%f \n", batt_voltage);
+					TRACE_DEBUG("Starting Fully Charged Charging State at V=%f \n", batt_voltage);
 					break;
 				}
 				
@@ -188,7 +189,7 @@ __task void interrupted_charging (void)
 				if (batt_voltage < v_restart)
 				{
 					cc_state = BULK_CHARGING;
-					printf("INFO: Restarting the Bulk Charging State \n");
+					TRACE_DEBUG("Restarting the Bulk Charging State \n");
 					break;
 				}
 			
@@ -208,7 +209,7 @@ __task void interrupted_charging (void)
 					if (set_mppt() > (P_NIGHT_MODE*1.2)) 
 					{
 						cc_state = BULK_CHARGING;
-						printf("INFO: Exiting Night Mode\n");
+						TRACE_DEBUG("Exiting Night Mode\n");
 						break;
 					}
 					
@@ -225,7 +226,7 @@ __task void interrupted_charging (void)
 				break;
 			default:
 				cc_state = BULK_CHARGING;
-				printf("ERROR: Charging State machine entered Unknown State. Restarting with Bulk Charging \n");
+				TRACE_ERROR("Charging State machine entered Unknown State. Restarting with Bulk Charging \n");
 		}
 	}
 }

@@ -30,8 +30,10 @@
 #include "payment_control.h"
 #include "trace.h"
 
-/* Private variables ---------------------------------------------------------*/
+#define CODE_AUTHOR "Ashley Grealish"
+#define CODE_AUTHOR_EMAIL "ag5509@ic.ac.uk"
 
+/* Private variables ---------------------------------------------------------*/
 
 /* Private function prototypes -----------------------------------------------*/
 
@@ -75,6 +77,15 @@ int main(void)
 {
 
 	Serial.begin(115200); //Open com on uart1 0-1 pins
+	
+	TRACE_ERROR_WP("\n");
+	TRACE_ERROR_WP("\n");
+	TRACE_ERROR_WP("e.quinox izuba.box Serial Interface\n");
+	TRACE_ERROR_WP("Author: %s\n", CODE_AUTHOR );
+	TRACE_ERROR_WP("Contact: %s\n", CODE_AUTHOR_EMAIL );
+	TRACE_ERROR_WP("Compiled: %s %s\n", __DATE__, __TIME__ );
+	TRACE_ERROR_WP("\n");
+	TRACE_ERROR_WP("\n");
 	
 	os_sys_init(init); 
 	
