@@ -26516,7 +26516,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <part name="D7" library="diode" deviceset="DIODE-" device="DO-214AC" value="US1D">
 <attribute name="OC_FARNELL" value="1625280"/>
 </part>
-<part name="U$3" library="equinox" deviceset="CON_MOLEX_39_29_1028" device=""/>
+<part name="INVERTER" library="equinox" deviceset="CON_MOLEX_39_29_1028" device=""/>
 <part name="C6" library="resistor" deviceset="C-EU" device="C0603K" value="6.8pF">
 <attribute name="OC_FARNELL" value="1856141"/>
 </part>
@@ -26800,8 +26800,8 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <instance part="D7" gate="G$1" x="655.32" y="177.8" rot="R180">
 <attribute name="OC_FARNELL" x="655.32" y="177.8" size="1.778" layer="96" rot="R180" display="off"/>
 </instance>
-<instance part="U$3" gate="CON$1" x="698.5" y="228.6"/>
-<instance part="U$3" gate="CON$2" x="698.5" y="220.98"/>
+<instance part="INVERTER" gate="CON$1" x="698.5" y="228.6"/>
+<instance part="INVERTER" gate="CON$2" x="698.5" y="220.98"/>
 <instance part="C6" gate="G$1" x="106.68" y="160.02" rot="R90">
 <attribute name="OC_FARNELL" x="106.68" y="160.02" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
@@ -27177,7 +27177,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <wire x1="665.48" y1="208.28" x2="665.48" y2="205.74" width="0.1524" layer="91"/>
 <junction x="665.48" y="205.74"/>
 <wire x1="688.34" y1="203.2" x2="688.34" y2="228.6" width="0.1524" layer="91"/>
-<pinref part="U$3" gate="CON$1" pin="S"/>
+<pinref part="INVERTER" gate="CON$1" pin="S"/>
 <wire x1="688.34" y1="228.6" x2="695.96" y2="228.6" width="0.1524" layer="91"/>
 <pinref part="DC4" gate="G$1" pin="PAD1"/>
 <wire x1="693.42" y1="157.48" x2="688.34" y2="157.48" width="0.1524" layer="91"/>
@@ -28260,7 +28260,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <pinref part="DC3" gate="G$1" pin="PAD2"/>
 <wire x1="693.42" y1="167.64" x2="690.88" y2="167.64" width="0.1524" layer="91"/>
 <junction x="690.88" y="167.64"/>
-<pinref part="U$3" gate="CON$2" pin="S"/>
+<pinref part="INVERTER" gate="CON$2" pin="S"/>
 <wire x1="695.96" y1="220.98" x2="690.88" y2="220.98" width="0.1524" layer="91"/>
 <wire x1="690.88" y1="220.98" x2="690.88" y2="200.66" width="0.1524" layer="91"/>
 <junction x="690.88" y="200.66"/>
