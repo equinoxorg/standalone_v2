@@ -26,9 +26,6 @@ float temp;
 //CC circuitry
 #define P_NIGHT_MODE 0.7f
 
-#define BATTERY_AHR 	7.0f
-#define PV_PANEL_PEAK	7.0f
-
 //Private Variables
 int cc_state = NIGHT_MODE;
 

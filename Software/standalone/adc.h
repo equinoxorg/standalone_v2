@@ -1,9 +1,7 @@
 #ifndef __adc_h
 #define __adc_h
 
-#include "stm32f0xx.h"
-#include <RTL.h>
-#include <stdio.h>
+#include "standalone_config.h"
 
 #ifndef ADC_VREF
 	#define ADC_VREF 3.3f

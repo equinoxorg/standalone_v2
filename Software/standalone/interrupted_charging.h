@@ -1,9 +1,8 @@
 #ifndef __INTERRUPTED_CHARGING_H
 #define __INTERRUPTED_CHARGING_H
 
-#include "stm32f0xx.h"
-#include <RTL.h>
-#include <stdio.h>
+#include "standalone_config.h"
+
 #include "perturb_and_observe.h"
 
 //Public Functions

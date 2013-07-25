@@ -1,9 +1,8 @@
 #ifndef __PERTURB_AND_OBSERVE_H
 #define __PERTURB_AND_OBSERVE_H
 
-#include "stm32f0xx.h"
-#include <RTL.h>
-#include <stdio.h>
+#include "standalone_config.h"
+
 #include "adc.h"
 #include "pwm.h"
 

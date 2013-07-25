@@ -1,9 +1,7 @@
 #ifndef __user_outputs_h
 #define __user_outputs_h
 
-#include "stm32f0xx.h"
-#include <RTL.h>
-#include <stdio.h>
+#include "standalone_config.h"
 
 //Public Functions
 void usb_outputs_init (void);

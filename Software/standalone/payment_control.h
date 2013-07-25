@@ -1,9 +1,8 @@
 #ifndef __payment_control_h
 #define __payment_control_h
 
-#include "stm32f0xx.h"
-#include <RTL.h>
-#include <stdio.h>
+#include "standalone_config.h"
+
 #include "rtc.h"
 #include "eeprom.h"
 

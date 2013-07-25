@@ -3,9 +3,7 @@
 #ifndef __LCD_hd44780_H
 #define __LCD_hd44780_H
 
-#include "stm32f0xx.h"
-#include <stdio.h>
-#include <RTL.h>
+#include "standalone_config.h"
 
 //LCD timeout turns off backlight after
 //defined numer of seconds

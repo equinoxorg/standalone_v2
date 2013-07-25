@@ -1,9 +1,8 @@
 #ifndef __ui_h
 #define __ui_h
 
-#include "stm32f0xx.h"
-#include <RTL.h>
-#include <stdio.h>
+#include "standalone_config.h"
+
 #include "lcd_hd44780.h"
 #include "user_outputs.h"
 #include "buzzer.h"

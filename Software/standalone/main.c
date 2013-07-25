@@ -15,12 +15,10 @@
 	* This improves stability and fixes the many crashes.
   */
 	
-#define USE_FULL_ASSERT
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdio.h>
-#include <RTL.h>
-#include "stm32f0xx.h"
+#include "standalone_config.h"
+
 #include "serial.h"
 #include "adc.h"
 #include "pwm.h"
@@ -28,10 +26,7 @@
 #include "interrupted_charging.h"
 #include "ui.h"
 #include "payment_control.h"
-#include "trace.h"
 
-#define CODE_AUTHOR "Ashley Grealish"
-#define CODE_AUTHOR_EMAIL "ag5509@ic.ac.uk"
 
 /* Private variables ---------------------------------------------------------*/
 
@@ -108,7 +103,7 @@ void assert_failed(uint8_t* file, uint32_t line)
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 	//
-	printf("Wrong parameters value: file %s on line %d\n", file, line);
+	//printf("Wrong parameters value: file %s on line %d\n", file, line);
 
   /* Infinite loop */
   while (1)

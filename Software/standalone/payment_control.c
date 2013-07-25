@@ -11,8 +11,6 @@ uint16_t VirtAddVarTab[NumbOfVar];
 OS_TID payment_control_t;
 U64 payment_control_stk[PAYMENT_CONTROL_STK_SIZE];
 
-//#define DEBUG
-
 #define SECONDS_IN_DAY	(60*60*24)
 
 #define VAR_BOXID_ID 0			//16-bit

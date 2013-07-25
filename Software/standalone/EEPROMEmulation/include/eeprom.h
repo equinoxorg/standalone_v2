@@ -27,9 +27,7 @@
 #define _FLASH_PROG
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f0xx.h"
-#include <stdio.h>
-#include <RTL.h>
+#include "standalone_config.h"
 
 //Fixes for types used in this library
 typedef uint8_t u8;
