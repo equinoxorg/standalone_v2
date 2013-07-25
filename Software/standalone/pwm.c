@@ -70,9 +70,9 @@ __task void pwm_out (void) {
 		//set_duty_cycle(mppt_duty_cycle);
 		set_duty_cycle(82);
 
-		printf("V_SOL=%.2f, I_SOL=%.4f, ", get_adc_voltage(ADC_SOL_V), get_adc_voltage(ADC_SOL_I));
+		TRACE_INFO("V_SOL=%.2f, I_SOL=%.4f, ", get_adc_voltage(ADC_SOL_V), get_adc_voltage(ADC_SOL_I));
 		
-		printf(" V_BATT=%.2f, I_BATT=%.2f \n", get_adc_voltage(ADC_BATT_V),get_adc_voltage(ADC_BATT_I) );
+		TRACE_INFO(" V_BATT=%.2f, I_BATT=%.2f \n", get_adc_voltage(ADC_BATT_V),get_adc_voltage(ADC_BATT_I) );
 		//Wait 200ms
 		os_dly_wait(20);
 	}

@@ -88,7 +88,7 @@ void lcd_backlight(char en)
 		//Restart timer
 		bk_tmr = os_tmr_create (BK_TIMEOUT_S*100, 1);
 		if (bk_tmr == NULL)
-			printf("ERROR: Failed to create backlight timer \n");
+			TRACE_ERROR("Failed to create backlight timer \n");
 		
 	}
 	else
@@ -126,7 +126,7 @@ void lcd_write_int(const int val)
 	char str[16];
 	
 	if ( snprintf( &str[0], 16, "%d", val ) > 16 )
-			printf( "Warning: String too long \n");
+			TRACE_WARNING( "String too long \n");
 	
 	lcd_write_string(str);
 }

@@ -43,10 +43,10 @@ float set_mppt (void)
 			duty_cycle_max = duty_cycle_sweep;
 		}
 		
-		//printf("Duty cycle=%f, P_SOL=%.4f, V_SOL=%.4f, I_SOL=%.4f, V_BATT=%.4f, I_BATT=%.4f, TEMP=%.4f\n", duty_cycle_sweep, p_panel, v_panel, i_panel, v_batt, i_batt, get_adc_voltage(ADC_TEMP));
+		//TRACE_INFO("Duty cycle=%f, P_SOL=%.4f, V_SOL=%.4f, I_SOL=%.4f, V_BATT=%.4f, I_BATT=%.4f, TEMP=%.4f\n", duty_cycle_sweep, p_panel, v_panel, i_panel, v_batt, i_batt, get_adc_voltage(ADC_TEMP));
 	}
 	
-	//printf("Duty cycle max: %f, with P=%f\n", duty_cycle_max, p_panel_max);
+	//TRACE_INFO("Duty cycle max: %f, with P=%f\n", duty_cycle_max, p_panel_max);
 	
 	duty_cycle = duty_cycle_max;
 	
@@ -111,6 +111,6 @@ void perturb_and_observe_cc_itter (float i_batt_cc) {
 	/*Set PWM to duty_cycle*/
 	set_duty_cycle(duty_cycle);
 		
-	//printf("V_SOL=%.2f \t I_SOL=%.2f \t P_SOL=%.2f \t duty=%f \n", v_panel, i_panel, p_panel, duty_cycle);
+	//TRACE_INFO("V_SOL=%.2f \t I_SOL=%.2f \t P_SOL=%.2f \t duty=%f \n", v_panel, i_panel, p_panel, duty_cycle);
 	
 }

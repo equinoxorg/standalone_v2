@@ -9,8 +9,7 @@
  *      Copyright (c) 2004-2011 KEIL - An ARM Company. All rights reserved.
  *---------------------------------------------------------------------------*/
 
-#include <RTL.h>
-#include <stdio.h>
+#include "standalone_config.h"
 #include "ui.h"
 
 
@@ -175,13 +174,13 @@ void os_error (U32 err_code) {
 	switch (err_code)
 	{
 		case OS_ERR_STK_OVF:
-			printf("OS Error: Stack Overflow \n");
+			TRACE_FATAL("Stack Overflow \n");
 			break;
 		case OS_ERR_FIFO_OVF:
-			printf("OS Error: FIFO Overflow \n");
+			TRACE_FATAL("FIFO Overflow \n");
 			break;
 		case OS_ERR_MBX_OVF:
-			printf("OS Error: Mailbox Overflow \n");
+			TRACE_FATAL("Mailbox Overflow \n");
 			break;
 	}
 

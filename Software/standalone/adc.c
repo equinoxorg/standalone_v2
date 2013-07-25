@@ -104,7 +104,7 @@ float get_adc_voltage ( uint32_t ADC_Channel )
 				//Use the factory calibrated values to get tempreture in degrees
 				return ( ((float)ts_cal1 - (float)RegularConvData_Tab[0]) / slope) + 30.0f;
 		default:
-			printf ("ERROR: Attmept to read Invalid ADC Channel \n");
+			TRACE_ERROR("Attmept to read Invalid ADC Channel \n");
 			return -1.0f;
 	}
 	
@@ -129,7 +129,7 @@ __task void adc_test(void)
 		batt_i = get_adc_voltage(ADC_BATT_I);
 		temp = get_adc_voltage(ADC_TEMP);
 		
-		printf("Solar V: %f \t Solar I: %f \t Solar P: %f \t Batt  V: %f \t Batt  I: %f \t Batt P: %f \t Temp : %f \n", sol_v, sol_i, sol_i*sol_v, batt_v, batt_i, batt_i*batt_v, temp );
+		TRACE_INFO("Solar V: %f \t Solar I: %f \t Solar P: %f \t Batt  V: %f \t Batt  I: %f \t Batt P: %f \t Temp : %f \n", sol_v, sol_i, sol_i*sol_v, batt_v, batt_i, batt_i*batt_v, temp );
 		
 		os_dly_wait(100);
 	}

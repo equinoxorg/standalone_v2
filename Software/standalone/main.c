@@ -54,10 +54,10 @@ __task void init (void)
 		TRACE_ERROR("Payment Control Task Failed to launch\n");
 
 // 	//Can be used to test ADC readings
-// 	printf("Starting adc_in task \n");
+// 	TRACE_DEBUG("Starting adc_in task \n");
 // 	adc_test_t = os_tsk_create( adc_test, 0);
 // 	if (!adc_test_t)
-// 		printf("ERROR: ADC Task Failed to launch \n");
+// 		TRACE_ERROR("ADC Task Failed to launch \n");
 			
 	os_tsk_delete_self ();
 }
@@ -103,7 +103,7 @@ void assert_failed(uint8_t* file, uint32_t line)
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
 	//
-	//printf("Wrong parameters value: file %s on line %d\n", file, line);
+	TRACE_FATAL("Wrong parameters value: file %s on line %d\n", file, line);
 
   /* Infinite loop */
   while (1)
