@@ -175,13 +175,10 @@ void os_error (U32 err_code) {
 	{
 		case OS_ERR_STK_OVF:
 			TRACE_FATAL("Stack Overflow \n");
-			break;
 		case OS_ERR_FIFO_OVF:
 			TRACE_FATAL("FIFO Overflow \n");
-			break;
 		case OS_ERR_MBX_OVF:
 			TRACE_FATAL("Mailbox Overflow \n");
-			break;
 	}
 
   /* HERE: include optional code to be executed on runtime error. */
