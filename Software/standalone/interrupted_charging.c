@@ -1,7 +1,6 @@
 #include "interrupted_charging.h"
 #include "ui.h"
 #include "rtc.h"
-#include "trace.h"
 
 void calc_lvdc ( float );
 void set_temperature_compensation( float );

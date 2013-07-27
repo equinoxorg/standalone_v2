@@ -11,6 +11,7 @@
 
 #ifdef DEBUG
 	#define USE_FULL_ASSERT
+	#warning "Using Debug mode, for production do not use debug mode"
 #endif
 
 #define BOX_TYPE	HOME

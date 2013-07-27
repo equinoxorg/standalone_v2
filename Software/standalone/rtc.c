@@ -1,5 +1,4 @@
 #include "rtc.h"
-#include "trace.h"
 
 //Private Functions
 
@@ -143,4 +142,6 @@ struct tm get_time_struct (void)
 		
 	return result;
 }
+
+
 
