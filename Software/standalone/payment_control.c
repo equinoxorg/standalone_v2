@@ -2,7 +2,6 @@
 #include <math.h>
 #include "ui.h"
 #include "unlock_codes.h"
-#include "trace.h"
 
 //EEPROM Variable Storage Tables
 uint16_t VirtAddVarTab[NumbOfVar];
@@ -24,27 +23,17 @@ U64 payment_control_stk[PAYMENT_CONTROL_STK_SIZE];
 #define EE_SUCCESS	(0)
 #define EE_ERROR 		(-1)
 
-struct ee_data_s
-{
-	char valid;
-	uint16_t box_id;
-	double expiry_date;
-	uint16_t full_unlock;
-	uint16_t unlock_count;
-};
-// ee_data is always an exact copy of the eeprom data
-// it should never be modified 
-
 char check_code(uint32_t);
 void update_expiry_date(uint8_t);
 double four_uint16_to_double ( uint16_t*);
 void double_to_four_uint16 ( double, uint16_t*);
-
 int ee_sync (struct ee_data_s*);
 // int ee_read_double (uint16_t VirtAddress, double* data);
 // int ee_write_double (uint16_t VirtAddress, double data);
 
 struct ee_data_s local_ee_data;
+// ee_data is always an exact copy of the eeprom data
+// it should never be modified 
 
 __task void payment_control (void)
 {
@@ -80,9 +69,17 @@ __task void payment_control (void)
 	{
 		//Read failed
 		TRACE_ERROR("No BoxId \n");
-		TRACE_INFO("Writing Box ID 12345\n");
-		local_ee_data.box_id = 12345;
+		os_evt_set(UI_BOX_SETUP, ui_t);
+		
+		//Wait for box id to be written
+		os_evt_wait_or(PC_SET_BOX_ID, 0xFFFF);
+		//clear event flags
+		os_evt_clr(PC_SET_BOX_ID, payment_control_t);
+		
+		TRACE_INFO("Writing Box ID %i\n", local_ee_data.box_id);
+
 		ee_sync(&local_ee_data);
+		
 	}
 	else
 		TRACE_INFO("Boxid: %i \n", local_ee_data.box_id );
@@ -234,7 +231,7 @@ char check_code(uint32_t code) {
 	if (check_checksum(code)) {
 		TRACE_DEBUG("Checksum correct \n");
 		if (((GET_UNLOCK_COUNT(code) - local_ee_data.unlock_count) <= 1) || (GET_UNLOCK_DAYS(code) == FULL_UNLOCK)) {
-			TRACE_DEBUG("Unlock count correct")
+			TRACE_DEBUG("Unlock count correct\ncheck")
 			local_ee_data.unlock_count = GET_UNLOCK_COUNT(code) + 1;
 			code_valid = 1;
 		}
@@ -290,8 +287,6 @@ void update_expiry_date (uint8_t coded_unlock_days)
 	
 	//Set unlock time
 	local_ee_data.expiry_date = (double) ( current_time + unlock_time );
-	
-	//Set RTC alarm
 	
 }
 

@@ -2,7 +2,6 @@
 #include "lcd_hd44780.h"
 #include "interrupted_charging.h"
 #include "payment_control.h"
-#include "trace.h"
 
 #include "adc.h" //temp, SOC values should be received through CC task
 
@@ -16,6 +15,7 @@
 #define STATE_AWAIT_PAYMENT	1
 #define STATE_LVDC					2
 #define STATE_OFF						3
+#define STATE_SETUP					4
 
 
 //Private Functions
@@ -33,11 +33,12 @@ void reset_outputs (void);
 OS_TID ui_t;
 int i;
 char str [8];
-char keypad_result_str [10];
+char display_str [10];
 char valid_payment = 0;
 
 int ui_state = STATE_AWAIT_PAYMENT;
 
+uint8_t digit_count = 0;
 
 U64 ui_stk[UI_STK_SIZE];
 
@@ -52,9 +53,8 @@ __task void ui (void)
 	uint16_t event_flag = 0;
 	uint8_t key;
 	int i;
-	uint8_t digit_count = 0;
 	uint64_t entry_code = 0;
-		
+	
 	keypad_init();
 	
 	lcd_init();
@@ -73,26 +73,7 @@ __task void ui (void)
 	lcd_goto_XY(0,1);
 	lcd_write_string("    izuba.box   ");
 	
-	
-// 	if( os_evt_get() == UI_PAYMENT_VALID )
-// 	{
-// 		ui_state = STATE_NORM;
-// 		valid_payment = 1;
-// 		os_evt_clr(UI_PAYMENT_VALID, ui_t);
-// 		os_dly_wait(200);
-// 	}
-// 	else
-// 	{
-// 		if ( os_evt_wait_or(UI_PAYMENT_VALID, 200) == OS_R_EVT )
-// 		{
-// 			//Find which event 
-// 			ui_state = STATE_NORM;
-// 			valid_payment = 1;
-// 			os_evt_clr(UI_PAYMENT_VALID, ui_t);
-// 			os_dly_wait(200);
-// 		}
-//	}
-	
+
 	//2 second timeout
 	os_dly_wait(200);
 	
@@ -111,7 +92,15 @@ __task void ui (void)
 		if ( os_evt_wait_or(0xFFFF, 100) == OS_R_EVT )
 		{
 			//Find which event 
-			event_flag = os_evt_get();		
+			event_flag = os_evt_get();
+			
+			if ( event_flag & UI_BOX_SETUP )
+			{
+				ui_state = STATE_SETUP;
+				lcd_clear();
+				reset_display();
+				reset_outputs();
+			}
 			
 			if ( event_flag & UI_LVDC )
 			{
@@ -122,6 +111,7 @@ __task void ui (void)
 					//Turn off outputs
 					reset_outputs();
 					
+					//Todo. Move to reset Display Function
 					lcd_clear();
 					lcd_goto_XY(0,0);
 					lcd_write_string("    Battery     ");
@@ -179,10 +169,8 @@ __task void ui (void)
 			if ( event_flag & UI_EVT_USB_OC )
 			{
 				lcd_clear();
-				lcd_goto_XY(0,0);
-				lcd_write_string("       USB      ");
-				lcd_goto_XY(0,1);
-				lcd_write_string("      error!    ");
+				lcd_write_string_XY(0, 0, "       USB      ");
+				lcd_write_string_XY(0, 1, "      error!    ");
 				//2s wait
 				os_dly_wait(200);
 				reset_display();
@@ -190,7 +178,7 @@ __task void ui (void)
 		
 			if ( event_flag & (UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3) )
 			{
-				if ( (ui_state == STATE_AWAIT_PAYMENT) || (ui_state == STATE_NORM) )
+				if ( (ui_state == STATE_AWAIT_PAYMENT) || (ui_state == STATE_NORM) || (ui_state == STATE_SETUP) )
 				{
 					//Read which key is pressed
 					i = 0;
@@ -209,11 +197,41 @@ __task void ui (void)
 						buzz(1);
 					}
 					
-					if (ui_state == STATE_AWAIT_PAYMENT)
+					if (ui_state == STATE_SETUP)
 					{
-						//Build number and display on LCD
-						
-						//If 10 digits or tick then call payment control function
+						//If 5 digits or tick then set box_id
+						if (key == KEY_CROSS) {
+							//'X' Pressed
+							//LCDWriteString("x");
+							digit_count = 0;
+							local_ee_data.box_id = 0;
+							reset_display();
+						} else if (key == KEY_NONE) {
+							//Do nothing
+						} else {
+							//Add the keypad to the entry code
+							local_ee_data.box_id = (local_ee_data.box_id * 10) + key;
+							
+							//Make the string
+							reset_display();
+
+							if ( (digit_count++ == 4) || (key == KEY_TICK) ) {
+								os_dly_wait(50);
+								
+								//Send message to payment control task
+								os_evt_set(PC_SET_BOX_ID, payment_control_t);
+								
+								ui_state = STATE_AWAIT_PAYMENT;
+								display_str[0] = '\0';
+								digit_count = 0;
+								reset_display();
+								reset_outputs();
+							
+							}
+						}
+					}
+					else if (ui_state == STATE_AWAIT_PAYMENT)
+					{
 						if (key == KEY_CROSS) {
 							//'X' Pressed
 							//LCDWriteString("x");
@@ -221,6 +239,7 @@ __task void ui (void)
 							entry_code = 0;
 							lcd_write_string_XY(6, 0, "__________");
 							lcd_goto_XY(6, 0);
+
 						} else if (key == KEY_TICK) {
 							//Tick Pressed
 							//LCDWriteString("./");
@@ -232,23 +251,19 @@ __task void ui (void)
 							entry_code = (entry_code * 10) + key;
 							
 							//Make the 
-							keypad_result_str[0] = '\0';
-							utoa_b(keypad_result_str, entry_code, 10, digit_count);
-							lcd_write_string_XY(6, 0, keypad_result_str);
+							display_str[0] = '\0';
+							utoa_b(display_str, entry_code, 10, digit_count);
+							lcd_write_string_XY(6, 0, display_str);
 							lcd_goto_XY((7 + digit_count), 0);
 
 							if (digit_count++ == 9) {
 								os_dly_wait(50);
 								
 								//Send code to payment control task
-								// but send (uint32_t)entry_code
-								
-								if ( entry_code == (uint32_t)entry_code )
-									TRACE_INFO("Casting code to uint32_t is good \n");
-								
+								// but send (uint32_t)entry_code							
 								if ( check_unlock_code((uint32_t)entry_code) )
 								{
-									TRACE_INFO("Valid Unlock code: %s\n", keypad_result_str);
+									TRACE_INFO("Valid Unlock code: %s\n", display_str);
 									ui_state = STATE_NORM;
 									reset_display();
 									reset_outputs();
@@ -256,10 +271,10 @@ __task void ui (void)
 								}
 								else
 								{							
-									TRACE_INFO("Invalid Unlock code: %s\n", keypad_result_str);
+									TRACE_INFO("Invalid Unlock code: %s\n", display_str);
 									entry_code = 0;
 									digit_count = 0;
-									keypad_result_str[0] = '\0';
+									display_str[0] = '\0';
 									reset_display();
 									reset_outputs();
 								}
@@ -551,26 +566,29 @@ void keypad_init (void)
 
 //------------------------------------------------------------------------------
 char *utoa_b(char *buf, uint64_t val, int base, uint8_t pad) {
-    uint64_t v;
-    char c;
-    int i = 0;
-
-    v = val;
-    do {
-        v /= base;
-        buf++;
-    } while (i++ != pad);
-    *buf-- = 0;
-    i = 0;
-    do {
-        c = val % base;
-        val /= base;
-        if (c >= 10)
-            c += 'A' - '0' - 10;
-        c += '0';
-        *buf-- = c;
-    } while (i++ != pad);
-    return buf;
+	uint64_t v;
+	char c;
+	int i = 0;
+	
+	v = val;
+	do {
+		v /= base;
+		buf++;
+	} while (i++ != pad);
+	
+	*buf-- = 0;
+	i = 0;
+	
+	do {
+		c = val % base;
+		val /= base;
+		if (c >= 10)
+			c += 'A' - '0' - 10;
+		c += '0';
+		*buf-- = c;
+	} while (i++ != pad);
+	
+	return buf;
 }
 
 void lcd_splash_screen (int seconds)
@@ -596,12 +614,19 @@ void reset_display (void)
 		case STATE_AWAIT_PAYMENT:
 			lcd_write_string_XY(0, 0, "Enter:__________");
 			lcd_write_string_XY(0, 1, "          Locked");
-			lcd_write_string_XY(6, 0, keypad_result_str);
+			lcd_write_string_XY(6, 0, display_str);
 			lcd_batt_level( get_soc() );
 			break;
 		case STATE_LVDC:
 			lcd_write_string_XY(0, 0, " Battery Empty  ");
 			lcd_write_string_XY(0, 1, "  Turning Off   ");
+			break;
+		case STATE_SETUP:
+			display_str[0] = '\0';
+			utoa_b(display_str, local_ee_data.box_id, 10, digit_count);
+			lcd_write_string_XY(0, 0, "Box ID:         ");
+			lcd_write_string_XY(8, 0, display_str);
+			lcd_write_string_XY(0, 1, "   Setup Mode   ");
 			break;
 		case STATE_OFF:
 			break;
@@ -610,7 +635,7 @@ void reset_display (void)
 
 void reset_outputs (void)
 {
-	if ( ui_state == STATE_NORM )
+	if ( (ui_state == STATE_NORM) || (ui_state == STATE_SETUP) )
 	{
 		//Turn on box
 		USB1_ENABLE();

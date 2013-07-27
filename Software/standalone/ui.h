@@ -30,6 +30,8 @@ __task void ui (void);
 
 #define UI_LVDC							(1 << 7)
 
+#define UI_BOX_SETUP				(1 << 8)
+
 
 
 
