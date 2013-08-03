@@ -5,14 +5,17 @@
 #include <RTL.h>
 #include <stdio.h>
 
-#include "trace.h"
-
 //#define DEBUG
 
 #ifdef DEBUG
 	#define USE_FULL_ASSERT
 	#warning "Using Debug mode, for production do not use debug mode"
+	#define TRACE_LEVEL TRACE_LEVEL_DEBUG
+#else
+	#define TRACE_LEVEL TRACE_LEVEL_INFO
 #endif
+
+#include "trace.h"
 
 #define BOX_TYPE	HOME
 
