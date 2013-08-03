@@ -3,8 +3,8 @@
 #include "rtc.h"
 
 void calc_lvdc ( float );
-void set_temperature_compensation( float );
-void set_current_compensation ( float, float );
+void set_temperature_compensation( float, float*, float* );
+void set_current_compensation ( float, float, float* );
 
 #define BULK_CHARGING			1
 #define VOLTAGE_SETTLE		2
@@ -53,7 +53,7 @@ __task void interrupted_charging (void)
 		sol_power = sol_voltage * sol_current;
 		temp = get_adc_voltage(ADC_TEMP);
 		
-		set_temperature_compensation( temp );
+		set_temperature_compensation( temp, &v_high, &pulse_duty );
 		
 		TRACE_INFO("Time=%.0f \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.3f \t P_SOL=%.2f \t duty=%.1f \t Temp=%.2F\n",
 					((double)get_time_t()), cc_state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle, temp);
@@ -74,7 +74,7 @@ __task void interrupted_charging (void)
 				perturb_and_observe_cc_itter(BATTERY_AHR*0.1f);
 				
 				if (++counter > 10)
-					set_current_compensation(BATTERY_AHR*0.1f, batt_current);
+					set_current_compensation(BATTERY_AHR*0.1f, batt_current, &v_high);
 			
 				if (sol_power < P_NIGHT_MODE)
 				{
@@ -134,7 +134,7 @@ __task void interrupted_charging (void)
 					
 					if ( counter > 10 )
 						{
-						set_current_compensation(BATTERY_AHR*0.05f, batt_current);
+						//set_current_compensation(BATTERY_AHR*0.05f, batt_current);
 							
 						if (sol_power < P_NIGHT_MODE)
 						{
@@ -239,38 +239,55 @@ void calc_lvdc ( float current )
 
 
 //For explainations of these compensation values please read project report.
-void set_temperature_compensation( float temp )
+void set_temperature_compensation( float temp, float* voltage, float* duty_cycle )
 {
 	if ( temp < 5 )
 	{
-		v_high = 14.7;
-		pulse_duty = 0.167f;
+		*voltage = 14.7;
+		*duty_cycle = 0.167f;
 	}
 	else if ( temp < 25 )
 	{
-		v_high = 14.7;
-		pulse_duty = (0.00815f * temp) + 0.1265f;
+		*voltage = 14.7;
+		*duty_cycle = (0.00815f * temp) + 0.1265f;
 	}
 	else if ( temp < 50 )
 	{
-		v_high = 16.2f - (0.06f * temp);
-		pulse_duty = 0.33f;
+		*voltage = 16.2f - (0.06f * temp);
+		*duty_cycle = 0.33f;
 	}
 	else
 	{
-		v_high = 13.2;
-		pulse_duty = 0.33f;
+		*voltage = 13.2;
+		*duty_cycle = 0.33f;
 	}
 }
 
-void set_current_compensation (float target_current, float measured_current)
+void set_current_compensation (float target_current, float measured_current, float* voltage)
 {
-	//float current_ratio = measured_current / target_current;
+	//Circular buffer for averaging current ratio
+	const int array_size = 4;
+	static float current_ratio_array [array_size];
+	static int index = 0;
 	
-	//if ( current_ratio < 0.25f)
-	//	v_high = v_high * 0.897959184f;
-	//else
-	//	v_high = v_high * ( (2*current_ratio + 12.7f) / 14.7f);
+	float current_ratio = 0;
+	int i;
+
+	current_ratio_array[index] = measured_current / target_current;
+	
+	
+	for (i=0; i<array_size; i++)
+	{
+		current_ratio += current_ratio_array[i];
+	}
+	
+	current_ratio = current_ratio / array_size;
+		
+			
+	if ( current_ratio < 0.25f)
+		*voltage = *voltage * 0.897959184f;
+	else
+		*voltage = *voltage * ( (2*current_ratio + 12.7f) / 14.7f);
 }
 
 float get_charging_rate (void)
@@ -287,6 +304,8 @@ float get_charging_rate (void)
 
 int get_soc (void)
 {
+	float upper_voltage = 14.7f;
+	float duty_cycle;
 	
 	if (cc_state == FULLY_CHARGED)
 		return 100;
@@ -297,10 +316,10 @@ int get_soc (void)
 	else
 	{
 		batt_voltage = get_adc_voltage(ADC_BATT_V);
-		set_temperature_compensation( get_adc_voltage(ADC_TEMP) );
-		//set_current_compensation(BATTERY_AHR*0.1f, batt_current);
+		set_temperature_compensation( get_adc_voltage(ADC_TEMP), &upper_voltage, &duty_cycle );
+		set_current_compensation(BATTERY_AHR*0.1f, batt_current, &upper_voltage );
 		//Linear appoximation
-		return (int)( 80.0f*(batt_voltage - v_lvdc) / (v_high - v_lvdc) );
+		return (int)( 80.0f*(batt_voltage - v_lvdc) / (upper_voltage - v_lvdc) );
 	}
 
 }
