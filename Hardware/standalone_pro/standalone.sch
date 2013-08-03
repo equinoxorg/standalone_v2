@@ -2855,16 +2855,6 @@ Onecall: http://onecall.farnell.com/molex/39-29-1028/header-right-angle-mini-fit
 <pad name="P$2" x="2.5" y="0" drill="0.8" shape="square"/>
 <text x="-2.54" y="2.54" size="1.27" layer="21">&gt;NAME</text>
 </package>
-<package name="PTC_MF_R700">
-<pad name="P$1" x="-5.1" y="0" drill="1.2" shape="square"/>
-<pad name="P$2" x="5.1" y="0" drill="1.2" shape="square"/>
-<wire x1="-11" y1="1.5" x2="11" y2="1.5" width="0.127" layer="21"/>
-<wire x1="11" y1="1.5" x2="11" y2="-1.5" width="0.127" layer="21"/>
-<wire x1="11" y1="-1.5" x2="-11" y2="-1.5" width="0.127" layer="21"/>
-<wire x1="-11" y1="-1.5" x2="-11" y2="1.5" width="0.127" layer="21"/>
-<text x="-2" y="2" size="0.8128" layer="25">&gt;NAME</text>
-<text x="-2" y="-3" size="0.8128" layer="27">&gt;VALUE</text>
-</package>
 <package name="SOD323">
 <description>&lt;b&gt;Small Outline Diode&lt;/b&gt;</description>
 <wire x1="-0.8" y1="0.575" x2="0.8" y2="0.575" width="0.2032" layer="51"/>
@@ -5307,18 +5297,6 @@ Onecall: http://onecall.farnell.com/molex/39-29-1028/header-right-angle-mini-fit
 <pin name="-" x="5.08" y="-2.54" visible="pad" length="short" direction="pas" rot="R180"/>
 <pin name="+" x="-2.54" y="-2.54" visible="pad" length="short" direction="pas"/>
 </symbol>
-<symbol name="PTC">
-<pin name="P$1" x="-5.08" y="0" visible="off" length="short"/>
-<pin name="P$2" x="7.62" y="0" visible="off" length="short" rot="R180"/>
-<wire x1="-2.54" y1="-1.524" x2="5.08" y2="-1.524" width="0.254" layer="94"/>
-<wire x1="5.08" y1="-1.524" x2="5.08" y2="1.524" width="0.254" layer="94"/>
-<wire x1="5.08" y1="1.524" x2="-2.54" y2="1.524" width="0.254" layer="94"/>
-<wire x1="-2.54" y1="1.524" x2="-2.54" y2="-1.524" width="0.254" layer="94"/>
-<wire x1="-1.778" y1="-2.54" x2="3.048" y2="2.286" width="0.254" layer="94"/>
-<wire x1="3.048" y1="2.286" x2="4.572" y2="2.286" width="0.254" layer="94"/>
-<text x="-2.54" y="3.302" size="1.778" layer="95">&gt;NAME</text>
-<text x="-4.064" y="-5.08" size="1.778" layer="96">&gt;VALUE</text>
-</symbol>
 <symbol name="ZENER">
 <wire x1="-1.27" y1="-1.27" x2="1.27" y2="0" width="0.254" layer="94"/>
 <wire x1="1.27" y1="0" x2="-1.27" y2="1.27" width="0.254" layer="94"/>
@@ -5848,24 +5826,6 @@ Farnell: 1336556</description>
 <technologies>
 <technology name="">
 <attribute name="OC_FARNELL" value="1192513" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="PTC_MF_R700" prefix="PTC" uservalue="yes">
-<gates>
-<gate name="PTC1" symbol="PTC" x="2.54" y="0"/>
-</gates>
-<devices>
-<device name="" package="PTC_MF_R700">
-<connects>
-<connect gate="PTC1" pin="P$1" pad="P$1"/>
-<connect gate="PTC1" pin="P$2" pad="P$2"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="OC_FARNELL" value="9350551" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -26483,7 +26443,6 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <part name="+3V7" library="supply1" deviceset="+3V3" device=""/>
 <part name="+3V11" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND31" library="supply1" deviceset="GND" device="" value="GND"/>
-<part name="PTC1" library="equinox" deviceset="PTC_MF_R700" device="" value="7A"/>
 <part name="D5" library="equinox" deviceset="DIODE_SSB43L" device="" value="SSB43L">
 <attribute name="OC_FARNELL" value="1336556"/>
 </part>
@@ -26767,7 +26726,6 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <instance part="+3V7" gate="G$1" x="114.3" y="96.52"/>
 <instance part="+3V11" gate="G$1" x="121.92" y="119.38"/>
 <instance part="GND31" gate="1" x="114.3" y="30.48"/>
-<instance part="PTC1" gate="PTC1" x="363.22" y="424.18"/>
 <instance part="D5" gate="1" x="358.14" y="398.78" rot="R90">
 <attribute name="OC_FARNELL" x="358.14" y="398.78" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
@@ -27004,9 +26962,11 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <pinref part="R18" gate="G$1" pin="2"/>
 <wire x1="358.14" y1="424.18" x2="332.74" y2="424.18" width="0.1524" layer="91"/>
 <wire x1="327.66" y1="419.1" x2="332.74" y2="424.18" width="0.1524" layer="91"/>
-<pinref part="PTC1" gate="PTC1" pin="P$1"/>
 <pinref part="D5" gate="1" pin="CATHODE"/>
 <wire x1="358.14" y1="403.86" x2="358.14" y2="424.18" width="0.1524" layer="91"/>
+<wire x1="373.38" y1="403.86" x2="373.38" y2="424.18" width="0.1524" layer="91"/>
+<pinref part="BATT" gate="CON$1" pin="S"/>
+<wire x1="358.14" y1="424.18" x2="373.38" y2="424.18" width="0.1524" layer="91"/>
 <junction x="358.14" y="424.18"/>
 </segment>
 </net>
@@ -28344,14 +28304,6 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <pinref part="U2" gate="A" pin="S"/>
 <pinref part="U3" gate="A" pin="D"/>
 <wire x1="114.3" y1="58.42" x2="114.3" y2="55.88" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$46" class="1">
-<segment>
-<pinref part="PTC1" gate="PTC1" pin="P$2"/>
-<wire x1="373.38" y1="424.18" x2="370.84" y2="424.18" width="0.1524" layer="91"/>
-<wire x1="373.38" y1="403.86" x2="373.38" y2="424.18" width="0.1524" layer="91"/>
-<pinref part="BATT" gate="CON$1" pin="S"/>
 </segment>
 </net>
 <net name="N$5" class="0">
