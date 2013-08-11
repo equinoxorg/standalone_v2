@@ -97,19 +97,29 @@ int rtc_lsi_init ( void )
 	return RTC_LSI_FALLBACK;	
 }
 
+void get_time_str (char* str)
+{
+	struct tm time_s = get_time_struct();
+	strftime(str, 15, "%X", &time_s);
+}
+
+void get_date_str (char* str)
+{
+	struct tm time_s = get_time_struct();
+	strftime(str, 15, "%x", &time_s);
+}
+
 void print_time_date ( void )
 {
-	RTC_TimeTypeDef   RTC_TimeStructure;
-	RTC_DateTypeDef		RTC_DateStructure;
+	char str[16];
 	
-	RTC_TimeStructInit(&RTC_TimeStructure);
-	RTC_DateStructInit(&RTC_DateStructure);
+	get_time_str(&str[0]);
+	TRACE_INFO("Time: %s, ", &str[0]);
 	
-	RTC_GetTime(RTC_Format_BIN, &RTC_TimeStructure);
-	RTC_GetDate(RTC_Format_BIN, &RTC_DateStructure);
+	str[0] = '\0';
+	get_date_str(&str[0]);
+	TRACE_INFO_WP("Date: %s \n", &str[0]);
 	
-	TRACE_INFO("%i/%i/%i ", RTC_DateStructure.RTC_Date, RTC_DateStructure.RTC_Month,  (RTC_DateStructure.RTC_Year+2000) );
-	TRACE_INFO_WP("%i:%i:%i \n", RTC_TimeStructure.RTC_Hours, RTC_TimeStructure.RTC_Minutes, RTC_TimeStructure.RTC_Seconds);
 }
 
 time_t get_time_t (void)
@@ -136,7 +146,7 @@ struct tm get_time_struct (void)
 	
 	result.tm_mday = RTC_DateStructure.RTC_Date;
 	result.tm_mon = RTC_DateStructure.RTC_Month;
-	result.tm_year = RTC_DateStructure.RTC_Year - 100;
+	result.tm_year = RTC_DateStructure.RTC_Year + 100;
 
 	mktime(&result);
 		

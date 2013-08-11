@@ -13,7 +13,7 @@ extern U64 payment_control_stk[PAYMENT_CONTROL_STK_SIZE];
 
 //Task Event Flags
 #define PC_SET_BOX_ID	(1 << 0)
-
+#define EE_FULL_UNLOCK_CODE		0x5555
 
 //Public
 struct ee_data_s

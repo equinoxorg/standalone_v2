@@ -17,9 +17,6 @@ U64 payment_control_stk[PAYMENT_CONTROL_STK_SIZE];
 #define VAR_FULL_UNLOCK 5		//16-bit
 #define VAR_UNLOCK_COUNT 6	//16-bit
 
-
-#define EE_FULL_UNLOCK_CODE		0x5555
-
 #define EE_SUCCESS	(0)
 #define EE_ERROR 		(-1)
 

@@ -26,6 +26,8 @@ char *utoa_b(char *, uint64_t, int, uint8_t);
 void lcd_splash_screen (int);
 void reset_display (void);
 void reset_outputs (void);
+void check_display_debug (void);
+void lcd_debug_display (void);
 
 //Private variables
 
@@ -149,6 +151,8 @@ __task void ui (void)
 					
 					//Re-init LCD
 					lcd_power(1);
+					
+					check_display_debug();
 					
 					lcd_splash_screen(2);
 					
@@ -366,6 +370,69 @@ __task void ui (void)
 		}
 
 	}
+}
+
+void check_display_debug (void)
+{
+	//Check for keypad combination held
+	if (keypad_get_key() == 0x01) 
+	{
+		buzz(10);
+		for (i = 0; i < 200; i++) 
+		{
+			if (keypad_get_key() == KEY_TICK) 
+			{
+				lcd_debug_display();
+				break;
+			}
+			//20 ms delay. Waits in loop for 4 Seconds
+			os_dly_wait(2);
+		}
+	}
+}
+
+void lcd_debug_display (void)
+{
+	unsigned char j;
+
+	//Unlock Count
+	lcd_clear();
+	lcd_write_string_XY(0, 0, "Unlock Count:");
+	lcd_write_int_XY(0, 1, local_ee_data.unlock_count);
+	os_dly_wait(300);
+	
+	//Box ID
+	lcd_clear();
+	lcd_write_string_XY(0, 0, "Box_ID:");
+	lcd_write_int(local_ee_data.box_id);
+	os_dly_wait(300);
+	
+	//Full Unlock
+	lcd_clear();
+	if (local_ee_data.full_unlock == EE_FULL_UNLOCK_CODE) {
+		lcd_write_string("Full Unlock");
+	} else {
+		lcd_write_string("Not Full Unlock");
+	}
+	os_dly_wait(300);
+
+	//RTC Test
+	for (j = 0; j < 50; j++) {
+		char str[16];
+		lcd_clear();
+		
+		get_time_str(&str[0]);
+		lcd_write_string_XY(0,0, str);
+
+		str[0] = '\0';
+		get_date_str(&str[0]);
+		lcd_write_string_XY(0,1, str);
+		
+		//200ms delay
+		os_dly_wait(20);
+	}
+	
+	lcd_clear();
 }
 
 void pwr_sw_init (void)

@@ -16,6 +16,8 @@ void print_time_date ( void );
 struct tm get_time_struct (void);
 time_t get_time_t (void);
 int rtc_lsi_init ( void );
+void get_time_str (char*);
+void get_date_str (char*);
 
 
 #endif
