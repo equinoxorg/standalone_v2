@@ -26,7 +26,7 @@
 "3";"200";"R-EU_M0805";"M0805";"R6, R7, R11";"RESISTOR, European symbol";"";"";"";"";"";"";"";"";"";"";
 "1";"220uF";"CPOL-EUF";"PANASONIC_F";"C12";"POLARIZED CAPACITOR, European symbol";"";"";"";"9695877";"";"";"";"";"";"";
 "1";"32.768kHz";"MC-306";"MC-306";"Q1";"kHz RANGE CRYSTAL UNIT SMD";"";"";"MC-306";"1712823";"";"-";"";"";"";"";
-"1";"330u";"INDUC_MURATA_1433428C";"INDUC_MURATA_1433428C";"L_MPPT";"";"";"";"";"1929706";"";"";"";"";"";"";
+"1";"330u";"INDUC_MURATA_1433428C";"INDUC_MURATA_1433428C";"L_MPPT";"";"";"";"";"1077018";"";"";"";"";"";"";
 "8";"49.9k";"R-EU_M0805";"M0805";"R24, R26, R28, R30, R32, R34, R36, R38";"RESISTOR, European symbol";"";"";"";"";"";"";"";"";"";"";
 "2";"5";"R-EU_M0805";"M0805";"R8, R9";"RESISTOR, European symbol";"";"";"";"";"";"";"";"";"";"";
 "2";"6.8pF";"C-EUC0603K";"C0603K";"C6, C7";"CAPACITOR, European symbol";"";"";"";"1856141";"";"";"";"";"";"";

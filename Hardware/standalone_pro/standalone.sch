@@ -26284,7 +26284,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <part name="R9" library="rcl" deviceset="R-EU_" device="M0805" value="5"/>
 <part name="C9" library="resistor" deviceset="C-EU" device="C0805K" value="1uF"/>
 <part name="L_MPPT" library="equinox" deviceset="INDUC_MURATA_1433428C" device="" value="330u">
-<attribute name="OC_FARNELL" value="1929706"/>
+<attribute name="OC_FARNELL" value="1077018"/>
 </part>
 <part name="U1" library="equinox" deviceset="ZXCT1107SA-7" device=""/>
 <part name="R1" library="rcl" deviceset="R-EU_" device="M0805" value="1k65"/>
