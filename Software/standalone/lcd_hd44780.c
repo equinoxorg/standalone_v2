@@ -339,11 +339,57 @@ void lcd_set_custom_chars(void)
     lcd_send_data(0x1C);
 }
 
-void lcd_batt_level(int batt_level) {
+void lcd_batt_level(int batt_level, float charge_rate) {
 	
     lcd_goto_XY(0,1);
 	
-    if (batt_level >= 90)
+	if (charge_rate > 0){
+	
+    if (batt_level >= 100 )
+		{
+			lcd_batt_100();
+
+		}
+		else if (batt_level >= 80)
+		{
+			lcd_batt_80();
+			os_dly_wait(100);
+			lcd_goto_XY(0,1);
+			lcd_batt_100();
+    }
+		else if (batt_level >= 60)
+		{
+			lcd_batt_60();
+			os_dly_wait(100);
+			lcd_goto_XY(0,1);
+			lcd_batt_80();
+    } 
+		else if (batt_level >= 40)
+		{
+			lcd_batt_40();
+			os_dly_wait(100);
+			lcd_batt_60();
+    } 
+		else if (batt_level >= 20)
+		{
+			lcd_batt_20();
+			os_dly_wait(100);
+			lcd_goto_XY(0,1);
+			lcd_batt_40();
+    } 
+		else 
+		{
+			lcd_batt_0();
+			os_dly_wait(100);
+			lcd_goto_XY(0,1);
+			lcd_batt_20();
+    }
+
+    lcd_goto_XY(17, 0);
+}
+
+else {
+	    if (batt_level >= 90 )
 		{
 			lcd_batt_100();
 		}
@@ -370,18 +416,6 @@ void lcd_batt_level(int batt_level) {
 
     lcd_goto_XY(17, 0);
 }
-
-void lcd_charging( float charging_rate )
-{
-	lcd_goto_XY(5,1);
-	
-	if ( charging_rate > 0.5f)
-		lcd_write_string("<<");
-	else if ( charging_rate > 0.1f)
-		lcd_write_string("< ");
-	else
-		lcd_write_string("  ");
-	 	
 }
 
 

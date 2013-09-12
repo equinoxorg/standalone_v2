@@ -2,6 +2,7 @@
 #include "lcd_hd44780.h"
 #include "interrupted_charging.h"
 #include "payment_control.h"
+#include "unlock_codes.h"
 
 #include "adc.h" //temp, SOC values should be received through CC task
 
@@ -102,6 +103,7 @@ __task void ui (void)
 				lcd_clear();
 				reset_display();
 				reset_outputs();
+				
 			}
 			
 			if ( event_flag & UI_LVDC )
@@ -207,19 +209,14 @@ __task void ui (void)
 						if (key == KEY_CROSS) {
 							//'X' Pressed
 							//LCDWriteString("x");
+							display_str[0] = '\0';
 							digit_count = 0;
 							local_ee_data.box_id = 0;
 							reset_display();
 						} else if (key == KEY_NONE) {
 							//Do nothing
-						} else {
-							//Add the keypad to the entry code
-							local_ee_data.box_id = (local_ee_data.box_id * 10) + key;
-							
-							//Make the string
-							reset_display();
-
-							if ( (digit_count++ == 4) || (key == KEY_TICK) ) {
+						} else if ( key == KEY_TICK ) {
+							if(digit_count == 5){
 								os_dly_wait(50);
 								
 								//Send message to payment control task
@@ -230,8 +227,15 @@ __task void ui (void)
 								digit_count = 0;
 								reset_display();
 								reset_outputs();
-							
 							}
+							}else {
+							//Add the keypad to the entry code
+							local_ee_data.box_id = (local_ee_data.box_id * 10) + key;
+							digit_count++;
+							//Make the string
+							reset_display();
+
+							
 						}
 					}
 					else if (ui_state == STATE_AWAIT_PAYMENT)
@@ -239,11 +243,13 @@ __task void ui (void)
 						if (key == KEY_CROSS) {
 							//'X' Pressed
 							//LCDWriteString("x");
+							display_str[0] = '\0';
 							digit_count = 0;
 							entry_code = 0;
 							lcd_write_string_XY(6, 0, "__________");
 							lcd_goto_XY(6, 0);
-
+							//key = KEY_NONE;
+							
 						} else if (key == KEY_TICK) {
 							//Tick Pressed
 							//LCDWriteString("./");
@@ -269,6 +275,13 @@ __task void ui (void)
 								{
 									TRACE_INFO("Valid Unlock code: %s\n", display_str);
 									ui_state = STATE_NORM;
+									// Edited Code
+									lcd_clear();
+									lcd_write_string_XY(0, 0, "      Valid      ");
+									lcd_write_string_XY(0, 1, "      code!    ");
+									//2s wait
+									os_dly_wait(200);
+									// End of Edit
 									reset_display();
 									reset_outputs();
 									valid_payment = 1;
@@ -276,6 +289,14 @@ __task void ui (void)
 								else
 								{							
 									TRACE_INFO("Invalid Unlock code: %s\n", display_str);
+									// Edited Code
+									lcd_clear();
+									lcd_write_string_XY(0, 0, "      Wrong      ");
+									lcd_write_string_XY(0, 1, "      code!    ");
+									//2s wait
+									os_dly_wait(200);
+									// End of Edit
+									
 									entry_code = 0;
 									digit_count = 0;
 									display_str[0] = '\0';
@@ -329,37 +350,36 @@ __task void ui (void)
 			
 		}
 		
-		// Debugging Info on LCD
-// 		sprintf(str, "P=%.2f", get_adc_voltage(ADC_SOL_V)*get_adc_voltage(ADC_SOL_I));
-// 		lcd_goto_XY(0,0);
-// 		lcd_write_string(str);
-// 		
-// 		str[0] = NULL;
-// 		
-// 		sprintf(str, "T=%.2f", get_adc_voltage(ADC_TEMP));
-// 		lcd_goto_XY(8,0);
-// 		lcd_write_string(str);
-// 		
-// 		str[0] = NULL;
-// 		
-// 		sprintf(str, "V=%.2f", get_adc_voltage(ADC_BATT_V));
-// 		lcd_goto_XY(0,1);
-// 		lcd_write_string(str);
-// 		
-// 		str[0] = NULL;
-// 		
-// 		sprintf(str, "I=%.2f", get_adc_voltage(ADC_BATT_I));
-// 		lcd_goto_XY(8,1);
-// 		lcd_write_string(str);
-// 		
-// 		str[0] = NULL;
-
+		/* Debugging Info on LCD
+	  sprintf(str, "P=%.2f", get_adc_voltage(ADC_SOL_V)*get_adc_voltage(ADC_SOL_I));
+ 		lcd_goto_XY(0,0);
+ 		lcd_write_string(str);
+ 		
+ 		str[0] = NULL;
+ 		
+ 		sprintf(str, "T=%.2f", get_adc_voltage(ADC_TEMP));
+ 		lcd_goto_XY(8,0);
+ 		lcd_write_string(str);
+ 		
+ 		str[0] = NULL;
+ 		
+ 		sprintf(str, "V=%.2f", get_adc_voltage(ADC_BATT_V));
+ 		lcd_goto_XY(0,1);
+ 		lcd_write_string(str);
+		
+ 		str[0] = NULL;
+ 		
+ 		sprintf(str, "I=%.2f", get_adc_voltage(ADC_BATT_I));
+ 		lcd_goto_XY(8,1);
+ 		lcd_write_string(str);
+ 		
+ 		str[0] = NULL;
+*/
 		//Update battery levels, days remaining and if normal state then time/date
 
 		if ( (ui_state == STATE_NORM) || (ui_state == STATE_AWAIT_PAYMENT) )
 		{
-			lcd_batt_level( get_soc() );
-			lcd_charging( get_charging_rate() );
+			lcd_batt_level( get_soc(), get_charging_rate() );
 		}
 		
 		if (ui_state == STATE_NORM)
@@ -676,20 +696,20 @@ void reset_display (void)
 			lcd_write_string_XY(0, 0, "    e.quinox    ");
 			lcd_write_string_XY(0, 1, "            days");
 			lcd_write_int_XY(10, 1, get_unlock_days() );
-			lcd_batt_level( get_soc() );
+			lcd_batt_level( get_soc(), get_charging_rate() );
 			break;
 		case STATE_AWAIT_PAYMENT:
 			lcd_write_string_XY(0, 0, "Enter:__________");
 			lcd_write_string_XY(0, 1, "          Locked");
 			lcd_write_string_XY(6, 0, display_str);
-			lcd_batt_level( get_soc() );
+			lcd_batt_level( get_soc(), get_charging_rate() );
 			break;
 		case STATE_LVDC:
 			lcd_write_string_XY(0, 0, " Battery Empty  ");
 			lcd_write_string_XY(0, 1, "  Turning Off   ");
 			break;
 		case STATE_SETUP:
-			display_str[0] = '\0';
+			//display_str [0] = '\0';
 			utoa_b(display_str, local_ee_data.box_id, 10, digit_count);
 			lcd_write_string_XY(0, 0, "Box ID:         ");
 			lcd_write_string_XY(8, 0, display_str);
@@ -702,15 +722,14 @@ void reset_display (void)
 
 void reset_outputs (void)
 {
-	if ( (ui_state == STATE_NORM) || (ui_state == STATE_SETUP) )
+	if  (ui_state == STATE_NORM )
 	{
 		//Turn on box
 		USB1_ENABLE();
 		USB2_ENABLE();
 		DC_ENABLE();
 	}
-	else
-	{
+	else{	
 		//Turn on box
 		USB1_DISABLE();
 		USB2_DISABLE();
