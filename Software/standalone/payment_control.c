@@ -16,6 +16,7 @@ U64 payment_control_stk[PAYMENT_CONTROL_STK_SIZE];
 #define VAR_EXPIRY_DATE 1		//64-bit
 #define VAR_FULL_UNLOCK 5		//16-bit
 #define VAR_UNLOCK_COUNT 6	//16-bit
+#define VAR_LVDC_FLAG 7			//16-bit
 
 #define EE_SUCCESS	(0)
 #define EE_ERROR 		(-1)
@@ -83,7 +84,9 @@ __task void payment_control (void)
 	
 	//Set the boxid in the code check files
 	set_box_id(local_ee_data.box_id);
-		
+	
+	
+	
 	while(1)
 	{
 		//10s delay
@@ -138,6 +141,7 @@ int ee_sync (struct ee_data_s* local_data)
 		ee_data_copy.expiry_date = four_uint16_to_double( &VirtAddVarTab[1] );
 		ee_data_copy.full_unlock = VirtAddVarTab[5];
 		ee_data_copy.unlock_count = VirtAddVarTab[6];
+		ee_data_copy.lvdc_flag = VirtAddVarTab[7];
 		
 		
 		ee_data_copy.valid = 1;
@@ -154,7 +158,8 @@ int ee_sync (struct ee_data_s* local_data)
 	if ( 	(ee_data_copy.box_id 			!= local_data->box_id) ||
 				(ee_data_copy.expiry_date != local_data->expiry_date) ||
 				(ee_data_copy.full_unlock != local_data->full_unlock) ||
-				(ee_data_copy.unlock_count != local_data->unlock_count)
+				(ee_data_copy.unlock_count != local_data->unlock_count)||
+				(ee_data_copy.lvdc_flag != local_data->lvdc_flag)
 		 )
 	{
 		//Diable RTOS interrupts here
@@ -164,6 +169,7 @@ int ee_sync (struct ee_data_s* local_data)
 		double_to_four_uint16( local_data->expiry_date, &VirtAddVarTab[1] );
 		VirtAddVarTab[5] = local_data->full_unlock;
 		VirtAddVarTab[6] = local_data->unlock_count;
+		VirtAddVarTab[7] = local_data->lvdc_flag;
 		
 		for ( i=0; i<NumbOfVar; i++ )
 		{
@@ -313,4 +319,16 @@ double four_uint16_to_double ( uint16_t* input_array)
 		data.data_uint16[i] = input_array[i];
 
 	return data.data_double;
+}
+
+void update_lvdc(int flg)
+{
+	if(flg == 1)
+		local_ee_data.lvdc_flag = 1;
+	else
+		local_ee_data.lvdc_flag = 0;
+	
+	//Sync EEPROM memory
+	ee_sync(&local_ee_data);
+	
 }

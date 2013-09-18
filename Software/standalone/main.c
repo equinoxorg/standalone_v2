@@ -10,7 +10,8 @@
   ******************************************************************************
 	*
 	* Enviroment Set Up:
-	* Follow programming instructions here to upgrade STM32F0 Board Firmware
+	* Follow 
+	programming instructions here to upgrade STM32F0 Board Firmware
 	* http://dduino.blogspot.co.uk/2012/06/stm32f0-discovery-board.html
 	* This improves stability and fixes the many crashes.
   */
@@ -72,7 +73,7 @@ int main(void)
 {
 
 	Serial.begin(115200); //Open com on uart1 0-1 pins
-	
+	/*
 	TRACE_ERROR_WP("\n");
 	TRACE_ERROR_WP("\n");
 	TRACE_ERROR_WP("e.quinox izuba.box Serial Interface\n");
@@ -81,7 +82,7 @@ int main(void)
 	TRACE_ERROR_WP("Compiled: %s %s\n", __DATE__, __TIME__ );
 	TRACE_ERROR_WP("\n");
 	TRACE_ERROR_WP("\n");
-	
+  */
 	os_sys_init(init); 
 	
 	while(1);

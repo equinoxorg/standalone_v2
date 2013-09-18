@@ -23,6 +23,8 @@ struct ee_data_s
 	double expiry_date;
 	uint16_t full_unlock;
 	uint16_t unlock_count;
+	uint16_t lvdc_flag;
+	
 };
 
 extern struct ee_data_s local_ee_data;
@@ -31,6 +33,7 @@ extern struct ee_data_s local_ee_data;
 __task void payment_control (void);
 char check_unlock_code (uint32_t);
 int get_unlock_days ( void );
+void update_lvdc(int flg);
 
 //Public Variables
 

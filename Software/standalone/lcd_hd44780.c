@@ -33,7 +33,7 @@ void lcd_set_custom_chars (void);
 
 OS_ID bk_tmr = NULL;
 
-//LCD testing routine
+/*//LCD testing routine
 void lcd_test (void)
 {
 	int i = 0;
@@ -73,7 +73,7 @@ void lcd_test (void)
 			offset++;
 		}
 	}
-}
+}*/
 
 void lcd_backlight(char en)
 {
@@ -285,10 +285,12 @@ __inline void lcd_send_data (uint8_t data)
 
 void lcd_set_custom_chars(void)
 {
-    //Shift to start of RAM
+    //Shift to 2nd line at start of RAM
     lcd_send_cmd(0x40);
-
-    //Char0
+		
+		//Sets the custom charcters in the character ROM for the battery display
+	
+    //Char0 --> Left side of battery
     lcd_send_data(0x1F);
     lcd_send_data(0x10);
     lcd_send_data(0x10);
@@ -298,7 +300,7 @@ void lcd_set_custom_chars(void)
     lcd_send_data(0x10);
     lcd_send_data(0x1F);
 
-    //Char1
+    //Char1 --> Line on top and Bottom
     lcd_send_data(0x1F);
     lcd_send_data(0x00);
     lcd_send_data(0x00);
@@ -308,7 +310,7 @@ void lcd_set_custom_chars(void)
     lcd_send_data(0x00);
     lcd_send_data(0x1F);
 
-    //Char2
+    //Char2	--> empty end of battery
     lcd_send_data(0x1C);
     lcd_send_data(0x04);
     lcd_send_data(0x07);
@@ -318,7 +320,7 @@ void lcd_set_custom_chars(void)
     lcd_send_data(0x04);
     lcd_send_data(0x1C);
 
-    //Char3
+    //Char3 --> Full Cell
     lcd_send_data(0x1F);
     lcd_send_data(0x1F);
     lcd_send_data(0x1F);
@@ -328,7 +330,7 @@ void lcd_set_custom_chars(void)
     lcd_send_data(0x1F);
     lcd_send_data(0x1F);
 
-    //Char4
+    //Char4 --> full end of battery
     lcd_send_data(0x1C);
     lcd_send_data(0x1C);
     lcd_send_data(0x1F);

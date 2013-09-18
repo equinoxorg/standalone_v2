@@ -18,6 +18,7 @@
 #define STATE_OFF						3
 #define STATE_SETUP					4
 
+#define CHARGED 			90 	// value at which the box can start discharging if LVDC
 
 //Private Functions
 void keypad_init (void);
@@ -37,7 +38,6 @@ OS_TID ui_t;
 int i;
 char str [8];
 char display_str [10];
-char valid_payment = 0;
 
 int ui_state = STATE_AWAIT_PAYMENT;
 
@@ -58,9 +58,9 @@ __task void ui (void)
 	int i;
 	uint64_t entry_code = 0;
 	
+	lcd_init();
 	keypad_init();
 	
-	lcd_init();
 	lcd_backlight(1);
 	
 	buzzer_init();
@@ -82,8 +82,12 @@ __task void ui (void)
 	
 	if ( get_unlock_days () >= 0 )
 	{
-		valid_payment = 1;
 		ui_state = STATE_NORM;
+	}
+	
+	if( local_ee_data.lvdc_flag == 1 )
+	{
+		ui_state = STATE_LVDC;
 	}
 	
 	reset_display();
@@ -103,25 +107,24 @@ __task void ui (void)
 				lcd_clear();
 				reset_display();
 				reset_outputs();
-				
 			}
 			
-			if ( event_flag & UI_LVDC )
+			if ( (event_flag & UI_LVDC) )
 			{
 				if ( (ui_state != STATE_LVDC) && (ui_state != STATE_OFF) )
 				{
 					ui_state = UI_LVDC;
-					
+					local_ee_data.lvdc_flag = 1;
+					update_lvdc(1);
 					//Turn off outputs
 					reset_outputs();
-					
-					//Todo. Move to reset Display Function
+					lcd_power(1);
 					lcd_clear();
 					lcd_goto_XY(0,0);
-					lcd_write_string("    Battery     ");
+					lcd_write_string("  Battery Empty ");
 					lcd_goto_XY(0,1);
-					lcd_write_string("     empty!     ");
-					
+					lcd_write_string("  Turning Off   ");
+
 					//Delay and Buzz
 					//20 Seconds
 					for ( i = 0; i < 5; i++)
@@ -133,13 +136,14 @@ __task void ui (void)
 					
 					//Turn off Screen
 					lcd_power(0);
+					
 				}
 				
 			}
 			
 			if ( event_flag & UI_PWR_SW )
 			{
-				if ( ui_state != STATE_OFF )
+				if ( ui_state != STATE_OFF)
 				{
 					//Turn off all outputs and UI devices
 					//Wait only for UI_PWR_SW tasks
@@ -150,7 +154,6 @@ __task void ui (void)
 				}
 				else
 				{
-					
 					//Re-init LCD
 					lcd_power(1);
 					
@@ -158,10 +161,24 @@ __task void ui (void)
 					
 					lcd_splash_screen(2);
 					
-					if (valid_payment)
-						ui_state = STATE_NORM;
-					else
-						ui_state = STATE_AWAIT_PAYMENT;
+					if(get_soc() >= CHARGED)
+					{
+						local_ee_data.lvdc_flag = 0;
+						update_lvdc(0);
+					}
+
+					if(local_ee_data.lvdc_flag == 1)
+					{
+						ui_state = STATE_LVDC;
+					}
+					
+					if(ui_state != STATE_LVDC)
+					{
+						if (get_unlock_days () >= 0 )
+							ui_state = STATE_NORM;
+						else
+							ui_state = STATE_AWAIT_PAYMENT;
+					}
 					
 					reset_outputs();
 					reset_display();
@@ -205,7 +222,7 @@ __task void ui (void)
 					
 					if (ui_state == STATE_SETUP)
 					{
-						//If 5 digits or tick then set box_id
+						//If 5 digits and tick then set box_id
 						if (key == KEY_CROSS) {
 							//'X' Pressed
 							//LCDWriteString("x");
@@ -228,14 +245,19 @@ __task void ui (void)
 								reset_display();
 								reset_outputs();
 							}
-							}else {
-							//Add the keypad to the entry code
-							local_ee_data.box_id = (local_ee_data.box_id * 10) + key;
-							digit_count++;
-							//Make the string
-							reset_display();
-
-							
+							}else{
+								if(digit_count <5){
+									//Add the keypad value to the box id
+									display_str[0] = '\0';
+									local_ee_data.box_id = (local_ee_data.box_id * 10) + key;
+									utoa_b(display_str, local_ee_data.box_id, 10, digit_count);
+									lcd_write_string_XY(7, 0, display_str);
+									lcd_goto_XY((8 + digit_count), 0);
+									reset_display();
+								}
+								else { // do nothing
+								}
+								digit_count++;
 						}
 					}
 					else if (ui_state == STATE_AWAIT_PAYMENT)
@@ -284,7 +306,6 @@ __task void ui (void)
 									// End of Edit
 									reset_display();
 									reset_outputs();
-									valid_payment = 1;
 								}
 								else
 								{							
@@ -338,13 +359,28 @@ __task void ui (void)
 				}					
 			}
 			
-			if ( event_flag & UI_PAYMENT_INVALID )
+			if(local_ee_data.lvdc_flag == 0)
 			{
-				ui_state = STATE_AWAIT_PAYMENT;
-				reset_display();
-				reset_outputs();
+				if ( event_flag & UI_PAYMENT_INVALID )
+				{
+					ui_state = STATE_AWAIT_PAYMENT;
+					reset_display();
+					reset_outputs();
+				}
 			}
 			
+			if(local_ee_data.lvdc_flag == 1)
+			{
+				lcd_clear();
+				lcd_write_string_XY(0, 0, "  Battery Low   ");
+				lcd_batt_level( get_soc(), get_charging_rate() );
+				
+				if(get_soc() >= CHARGED)
+				{
+					local_ee_data.lvdc_flag = 0;
+					update_lvdc(0);
+				}
+			}
 			//clear event flags
 			os_evt_clr(event_flag, ui_t);
 			
@@ -376,7 +412,32 @@ __task void ui (void)
  		str[0] = NULL;
 */
 		//Update battery levels, days remaining and if normal state then time/date
-
+		
+		if(local_ee_data.lvdc_flag == 1)
+		{
+			lcd_write_string_XY(0, 0, "  Battery Low   ");
+			lcd_batt_level( get_soc(), get_charging_rate() );
+				
+			if(get_soc() >= CHARGED)
+			{
+				local_ee_data.lvdc_flag = 0;
+				update_lvdc(0);
+				
+				if(get_unlock_days () >= 0 )
+				{
+					ui_state = STATE_NORM;
+				}
+				else
+				{
+					ui_state = STATE_AWAIT_PAYMENT;
+				}
+				
+				reset_display();
+				reset_outputs();
+				
+			}
+		}
+		
 		if ( (ui_state == STATE_NORM) || (ui_state == STATE_AWAIT_PAYMENT) )
 		{
 			lcd_batt_level( get_soc(), get_charging_rate() );
@@ -435,7 +496,7 @@ void lcd_debug_display (void)
 		lcd_write_string("Not Full Unlock");
 	}
 	os_dly_wait(300);
-
+	
 	//RTC Test
 	for (j = 0; j < 50; j++) {
 		char str[16];
@@ -693,29 +754,42 @@ void reset_display (void)
 	switch (ui_state)
 	{
 		case STATE_NORM:
+			lcd_power(1);
+			lcd_backlight(1);
 			lcd_write_string_XY(0, 0, "    e.quinox    ");
 			lcd_write_string_XY(0, 1, "            days");
 			lcd_write_int_XY(10, 1, get_unlock_days() );
 			lcd_batt_level( get_soc(), get_charging_rate() );
 			break;
 		case STATE_AWAIT_PAYMENT:
+			//lcd_power(1);
+			//lcd_backlight(1);
 			lcd_write_string_XY(0, 0, "Enter:__________");
 			lcd_write_string_XY(0, 1, "          Locked");
 			lcd_write_string_XY(6, 0, display_str);
 			lcd_batt_level( get_soc(), get_charging_rate() );
 			break;
 		case STATE_LVDC:
-			lcd_write_string_XY(0, 0, " Battery Empty  ");
-			lcd_write_string_XY(0, 1, "  Turning Off   ");
+			lcd_clear();
+			lcd_write_string_XY(0, 0, "  Battery Low   ");
+			//if( get_charging_rate() > 0)
+			//{
+				lcd_batt_level( get_soc(), get_charging_rate() );
+			//}
 			break;
 		case STATE_SETUP:
 			//display_str [0] = '\0';
-			utoa_b(display_str, local_ee_data.box_id, 10, digit_count);
+			//utoa_b(display_str, local_ee_data.box_id, 10, digit_count);
 			lcd_write_string_XY(0, 0, "Box ID:         ");
 			lcd_write_string_XY(8, 0, display_str);
 			lcd_write_string_XY(0, 1, "   Setup Mode   ");
 			break;
 		case STATE_OFF:
+			lcd_clear();
+			lcd_power(0);
+			break;
+		default:
+			lcd_clear();
 			break;
 	}
 }

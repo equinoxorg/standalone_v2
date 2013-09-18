@@ -9,7 +9,7 @@
 //defined numer of seconds
 #define BK_TIMEOUT_S 15
 
-void lcd_test (void);
+//void lcd_test (void);
 void lcd_init (void);
 void lcd_write_string(const char*);
 void lcd_write_int(const int);
