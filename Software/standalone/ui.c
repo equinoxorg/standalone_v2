@@ -485,13 +485,13 @@ void lcd_debug_display (void)
 
 	//Unlock Count
 	lcd_clear();
-	lcd_write_string_XY(0, 0, "Unlock Count:");
+	//lcd_write_string_XY(0, 0, "Unlock Count:");
 	lcd_write_int_XY(0, 1, local_ee_data.unlock_count);
 	os_dly_wait(300);
 	
 	//Box ID
 	lcd_clear();
-	lcd_write_string_XY(0, 0, "Box_ID:");
+	//lcd_write_string_XY(0, 0, "Box_ID:");
 	lcd_write_int(local_ee_data.box_id);
 	os_dly_wait(300);
 	

@@ -215,7 +215,7 @@ I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_usart.h)(0x5239F7AF)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_wwdg.h)(0x5239F7AF)
 I (.\STM32F0xx_StdPeriph_Driver\inc\stm32f0xx_misc.h)(0x5239F7AF)
 I (serial.h)(0x5239F7B0)
-F (.\interrupted_charging.c)(0x523AAF43)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O3 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F0xx -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\interrupted_charging.o" --omf_browse ".\debug\interrupted_charging.crf" --depend ".\debug\interrupted_charging.d")
+F (.\interrupted_charging.c)(0x523AB065)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O3 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F0xx -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\interrupted_charging.o" --omf_browse ".\debug\interrupted_charging.crf" --depend ".\debug\interrupted_charging.d")
 I (interrupted_charging.h)(0x5239F7B0)
 I (standalone_config.h)(0x523AAE93)
 I (C:\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
@@ -331,7 +331,7 @@ I (lcd_hd44780.h)(0x5239F57D)
 I (user_outputs.h)(0x5239F7B0)
 I (buzzer.h)(0x5239F7B0)
 I (adc.h)(0x5239F7AF)
-F (.\ui.c)(0x523AAE8D)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O3 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F0xx -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\ui.o" --omf_browse ".\debug\ui.crf" --depend ".\debug\ui.d")
+F (.\ui.c)(0x523AB0B6)(--feedback ".\debug\debug.fed" -c --cpu Cortex-M0 -D__RTX -D__MICROLIB -g -O3 --apcs=interwork -I.\STM32F0xx_StdPeriph_Driver\inc -I.\ -I.\EEPROMEmulation\include -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\ST\STM32F0xx -DUSE_STDPERIPH_DRIVER -DSTM32F0XX -o ".\debug\ui.o" --omf_browse ".\debug\ui.crf" --depend ".\debug\ui.d")
 I (ui.h)(0x5239F7B0)
 I (standalone_config.h)(0x523AAE93)
 I (C:\Keil\ARM\Inc\ST\STM32F0xx\stm32f0xx.h)(0x5003E68C)
