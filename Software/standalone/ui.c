@@ -301,6 +301,9 @@ __task void ui (void)
 									lcd_clear();
 									lcd_write_string_XY(0, 0, "      Valid      ");
 									lcd_write_string_XY(0, 1, "      code!    ");
+									entry_code = 0;
+									digit_count = 0;
+									display_str[0] = '\0';
 									//2s wait
 									os_dly_wait(200);
 									// End of Edit
@@ -364,6 +367,7 @@ __task void ui (void)
 				if ( event_flag & UI_PAYMENT_INVALID )
 				{
 					ui_state = STATE_AWAIT_PAYMENT;
+					lcd_clear();
 					reset_display();
 					reset_outputs();
 				}
@@ -778,8 +782,6 @@ void reset_display (void)
 				lcd_write_int_XY(10, 1, get_unlock_days() );
 				lcd_batt_level( get_soc(), get_charging_rate() );
 			}
-			
-
 			break;
 		case STATE_AWAIT_PAYMENT:
 			//lcd_power(1);
