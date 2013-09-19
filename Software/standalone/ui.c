@@ -293,7 +293,7 @@ __task void ui (void)
 								
 								//Send code to payment control task
 								// but send (uint32_t)entry_code							
-								if ( check_unlock_code((uint32_t)entry_code) )
+								if ( check_unlock_code((uint32_t)entry_code))
 								{
 									TRACE_INFO("Valid Unlock code: %s\n", display_str);
 									ui_state = STATE_NORM;
@@ -446,8 +446,15 @@ __task void ui (void)
 		if (ui_state == STATE_NORM)
 		{
 			//Update remaining days
-			lcd_write_string_XY(10, 1, "  days");
-			lcd_write_int_XY(10, 1, get_unlock_days() );			
+			if(local_ee_data.full_unlock == EE_FULL_UNLOCK_CODE){
+				lcd_write_string_XY(0, 1, "        Unlocked");
+				lcd_batt_level( get_soc(), get_charging_rate() );
+			}
+			else{
+				lcd_write_string_XY(0, 1, "            days");
+				lcd_write_int_XY(10, 1, get_unlock_days() );
+				lcd_batt_level( get_soc(), get_charging_rate() );
+			}			
 		}
 
 	}
@@ -496,7 +503,11 @@ void lcd_debug_display (void)
 		lcd_write_string("Not Full Unlock");
 	}
 	os_dly_wait(300);
-	
+	/*
+	lcd_clear();
+	lcd_write_int(get_unlock_days ());
+	os_dly_wait(300);
+	*/
 	//RTC Test
 	for (j = 0; j < 50; j++) {
 		char str[16];
@@ -757,9 +768,18 @@ void reset_display (void)
 			lcd_power(1);
 			lcd_backlight(1);
 			lcd_write_string_XY(0, 0, "    e.quinox    ");
-			lcd_write_string_XY(0, 1, "            days");
-			lcd_write_int_XY(10, 1, get_unlock_days() );
-			lcd_batt_level( get_soc(), get_charging_rate() );
+			
+			if(local_ee_data.full_unlock == EE_FULL_UNLOCK_CODE){
+				lcd_write_string_XY(0, 1, "        Unlocked");
+				lcd_batt_level( get_soc(), get_charging_rate() );
+			}
+			else{
+				lcd_write_string_XY(0, 1, "            days");
+				lcd_write_int_XY(10, 1, get_unlock_days() );
+				lcd_batt_level( get_soc(), get_charging_rate() );
+			}
+			
+
 			break;
 		case STATE_AWAIT_PAYMENT:
 			//lcd_power(1);

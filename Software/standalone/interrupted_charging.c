@@ -222,7 +222,7 @@ __task void interrupted_charging (void)
 				break;
 			default:
 				cc_state = BULK_CHARGING;
-				TRACE_ERROR("Charging State machine entered Unknown State. Restarting with Bulk Charging \n");
+				//TRACE_ERROR("Charging State machine entered Unknown State. Restarting with Bulk Charging \n");
 		}
 	}
 }

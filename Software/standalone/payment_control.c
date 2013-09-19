@@ -210,6 +210,8 @@ char check_unlock_code (uint32_t unlock_code)
 		{
 				TRACE_INFO("Full unlock code \n");
 				local_ee_data.full_unlock = EE_FULL_UNLOCK_CODE;
+				ee_sync(&local_ee_data);
+			  update_expiry_date(GET_UNLOCK_DAYS(unlock_code)); //Needs implementing
 				return 1;
 		}
 
@@ -259,6 +261,9 @@ void update_expiry_date (uint8_t coded_unlock_days)
 	//Calculate time to be added
 	switch ( coded_unlock_days )
 	{
+		case FULL_UNLOCK:
+			unlock_time = 9999 * SECONDS_IN_DAY;
+			break;
 		case	TWO_DAYS:
 			unlock_time = 2 * SECONDS_IN_DAY;
 			break;
@@ -290,6 +295,8 @@ void update_expiry_date (uint8_t coded_unlock_days)
 	
 	//Set unlock time
 	local_ee_data.expiry_date = (double) ( current_time + unlock_time );
+	
+	ee_sync(&local_ee_data);
 	
 }
 

@@ -355,34 +355,35 @@ void lcd_batt_level(int batt_level, float charge_rate) {
 		else if (batt_level >= 80)
 		{
 			lcd_batt_80();
-			os_dly_wait(100);
+			os_dly_wait(30);
 			lcd_goto_XY(0,1);
 			lcd_batt_100();
     }
 		else if (batt_level >= 60)
 		{
 			lcd_batt_60();
-			os_dly_wait(100);
+			os_dly_wait(30);
 			lcd_goto_XY(0,1);
 			lcd_batt_80();
     } 
 		else if (batt_level >= 40)
 		{
 			lcd_batt_40();
-			os_dly_wait(100);
+			os_dly_wait(30);
+			lcd_goto_XY(0,1);
 			lcd_batt_60();
     } 
 		else if (batt_level >= 20)
 		{
 			lcd_batt_20();
-			os_dly_wait(100);
+			os_dly_wait(30);
 			lcd_goto_XY(0,1);
 			lcd_batt_40();
     } 
 		else 
 		{
 			lcd_batt_0();
-			os_dly_wait(100);
+			os_dly_wait(30);
 			lcd_goto_XY(0,1);
 			lcd_batt_20();
     }
