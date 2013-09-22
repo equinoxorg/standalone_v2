@@ -1,6 +1,7 @@
 // Includes
 #include "lcd_hd44780.h"
 
+
 //Data Pin Definitions
 	//PORT B
 #define LCD_D4	GPIO_Pin_15
@@ -24,6 +25,9 @@
 #define		LCD_CLR					0x01
 #define		LCD_HOME				0x02
 
+#define INPUT	0
+#define OUTPUT 1
+
 
 //Function Prototypes
 void delay100u (int);
@@ -33,47 +37,118 @@ void lcd_set_custom_chars (void);
 
 OS_ID bk_tmr = NULL;
 
-/*//LCD testing routine
-void lcd_test (void)
-{
-	int i = 0;
-	char offset = 0;
-	os_dly_wait(10);
-	lcd_init();
-	lcd_backlight(1);
-		
-	lcd_goto_XY(0,0);
-	lcd_write_string("e.quinox");
-	
-	lcd_goto_XY(0,1);
-	lcd_write_int(-12345);
-	
-	os_dly_wait(200);
-	
-	lcd_clear();
+// void __delay_us (int a)
+// {
+// 	volatile int i,j;
 
-	while (1)
-	{
-		if (i%2)
-		{
-			lcd_goto_XY((i/2),0);
-			lcd_putc('a'+offset);
-			os_dly_wait(100);
-		}
-		else
-		{
-			lcd_goto_XY(0,1);
-			lcd_write_int(i);
-			os_dly_wait(100);			
-		}
-		
-		if( ++i == 32 )
-		{
-			i = 0;
-			offset++;
-		}
-	}
-}*/
+// 	a *= 1000;
+// 	
+// 	for (i=0; i < a; i++)
+// 		j++;	
+// }
+
+// void set_data_io ( int io )
+// {
+// 	GPIO_InitTypeDef GPIO_InitStructure;
+// 	
+// 	GPIO_InitStructure.GPIO_Pin = LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7;
+// 	if (io == INPUT)
+// 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+// 	else
+// 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+//   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+//   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+//   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	
+// 	GPIO_Init(GPIOB, &GPIO_InitStructure);
+// 	
+// }
+
+// uint8_t read_data_inputs (void) {
+// 	uint8_t temp = 0;
+// 	
+// 	temp = GPIO_ReadOutputDataBit(GPIOB, LCD_D4);
+// 	
+// 	temp |= GPIO_ReadOutputDataBit(GPIOB, LCD_D5) < 1;
+// 	temp |= GPIO_ReadOutputDataBit(GPIOB, LCD_D6) < 2;
+// 	temp |= GPIO_ReadOutputDataBit(GPIOB, LCD_D7) < 3;
+// 	
+// 	return temp;
+// }
+
+// void lcd_wait()
+// {
+// 	//This function waits till lcd is BUSY
+
+// 	uint8_t busy, temp;
+// 	uint8_t status=0x00;
+// 	
+// 	//Change Port to input type because we are reading data
+// 	//LCD_DATA_TRIS|=0x0F;
+// 	set_data_io(INPUT);
+
+// 	//change LCD mode
+// 	//SET_RW();		//Read mode
+// 	GPIO_SetBits(GPIOB, LCD_RW);
+// 		
+// 	//CLEAR_RS();		//Read status
+// 	GPIO_ResetBits(GPIOB, LCD_RS);
+
+// 	//Let the RW/RS lines stabilize
+// 	__delay_us(0.5);		//tAS
+
+// 	
+// 	do
+// 	{
+
+// 		//SET_E();
+// 		GPIO_SetBits(GPIOB, LCD_E);
+// 		
+
+// 		//Wait tDA for data to become available
+// 		__delay_us(0.5);
+
+// 		status = read_data_inputs();
+// 		status = status<<4;
+
+// 		__delay_us(0.5);
+
+// 		//Pull E low
+// 		//CLEAR_E();
+// 		GPIO_ResetBits(GPIOB, LCD_E);
+// 		
+// 		__delay_us(1);	//tEL
+
+// 		//SET_E();
+// 		GPIO_SetBits(GPIOB, LCD_E);
+// 		
+// 		__delay_us(0.5);
+
+// 		temp = read_data_inputs();
+// 		temp &= 0x0F;
+
+// 		status = status | temp;
+
+// 		busy = status & 0x80;
+
+// 		__delay_us(0.5);
+// 		
+// 		//CLEAR_E();
+// 		GPIO_ResetBits(GPIOB, LCD_E);
+// 		
+// 		__delay_us(1);	//tEL
+// 		
+// 	} while (busy);
+
+// 	//write mode
+// 	//CLEAR_RW();
+// 	GPIO_ResetBits(GPIOB, LCD_RW);
+// 	
+// 	//Change Port to output
+// 	//LCD_DATA_TRIS&=0xF0;
+// 	set_data_io(OUTPUT);
+
+// }
+
 
 void lcd_backlight(char en)
 {
@@ -201,21 +276,38 @@ void lcd_init (void)
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
-	GPIO_SetBits(GPIOA, LCD_PWR);	
+	lcd_power(0);
 	
-	GPIO_ResetBits(GPIOB, (LCD_E | LCD_RS | LCD_RW ) );
-	GPIO_ResetBits(GPIOB, (LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7 | LCD_BK_EN) );
+// 	if (RCC_CSR_PINRSTF) {
+// 		//If reset due to user holding power button for >10s
+// 		
+// 		//Clear Flag
+// 		RCC_ClearFlag();
+// 		
+// 		lcd_power(0);
+// 		lcd_power(1);
+// 		lcd_clear();		
+// 	}
+// 	else
+// 	{
 		
-	delay100u(100);
+		GPIO_ResetBits(GPIOB, (LCD_E | LCD_RS | LCD_RW ) );
+		GPIO_ResetBits(GPIOB, (LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7 | LCD_BK_EN) );
+
+		GPIO_SetBits(GPIOA, LCD_PWR);	
+		
+		delay100u(100);
+		
+		GPIO_SetBits(GPIOB, LCD_D5);
+		cycle_e();
+		lcd_send_cmd(LCD_DISP_ON);
+		lcd_send_cmd( 0x28 );
+		
+		lcd_set_custom_chars();
+		
+		lcd_clear();		
+// 	}
 	
-	GPIO_SetBits(GPIOB, LCD_D5);
-	cycle_e();
-	lcd_send_cmd(LCD_DISP_ON);
-	lcd_send_cmd( 0x28 );
-	
-	lcd_set_custom_chars();
-	
-	lcd_clear();		
 	
 }
 
