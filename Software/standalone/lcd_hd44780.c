@@ -39,107 +39,107 @@ void lcd_set_custom_chars (void);
 OS_ID bk_tmr = NULL;
 
 
-// void set_data_io ( int io )
-// {
-// 	GPIO_InitTypeDef GPIO_InitStructure;
-// 	
-// 	GPIO_InitStructure.GPIO_Pin = LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7;
-// 	if (io == INPUT)
-// 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
-// 	else
-// 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-//   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-//   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-//   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	
-// 	GPIO_Init(GPIOB, &GPIO_InitStructure);
-// 	
-// }
+void set_data_io ( int io )
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	
+	GPIO_InitStructure.GPIO_Pin = LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7;
+	if (io == INPUT)
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	else
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	
+}
 
-// uint8_t read_data_inputs (void) {
-// 	uint8_t temp = 0;
-// 	
-// 	temp = GPIO_ReadOutputDataBit(GPIOB, LCD_D4);
-// 	
-// 	temp |= GPIO_ReadOutputDataBit(GPIOB, LCD_D5) < 1;
-// 	temp |= GPIO_ReadOutputDataBit(GPIOB, LCD_D6) < 2;
-// 	temp |= GPIO_ReadOutputDataBit(GPIOB, LCD_D7) < 3;
-// 	
-// 	return temp;
-// }
+uint8_t read_data_inputs (void) {
+	uint8_t temp = 0;
+	
+	temp = GPIO_ReadOutputDataBit(GPIOB, LCD_D4);
+	
+	temp |= GPIO_ReadOutputDataBit(GPIOB, LCD_D5) < 1;
+	temp |= GPIO_ReadOutputDataBit(GPIOB, LCD_D6) < 2;
+	temp |= GPIO_ReadOutputDataBit(GPIOB, LCD_D7) < 3;
+	
+	return temp;
+}
 
-// void lcd_wait()
-// {
-// 	//This function waits till lcd is BUSY
+void lcd_wait()
+{
+	//This function waits till lcd is BUSY
 
-// 	uint8_t busy, temp;
-// 	uint8_t status=0x00;
-// 	
-// 	//Change Port to input type because we are reading data
-// 	//LCD_DATA_TRIS|=0x0F;
-// 	set_data_io(INPUT);
+	uint8_t busy, temp;
+	uint8_t status=0x00;
+	
+	//Change Port to input type because we are reading data
+	//LCD_DATA_TRIS|=0x0F;
+	set_data_io(INPUT);
 
-// 	//change LCD mode
-// 	//SET_RW();		//Read mode
-// 	GPIO_SetBits(GPIOB, LCD_RW);
-// 		
-// 	//CLEAR_RS();		//Read status
-// 	GPIO_ResetBits(GPIOB, LCD_RS);
+	//change LCD mode
+	//SET_RW();		//Read mode
+	GPIO_SetBits(GPIOB, LCD_RW);
+		
+	//CLEAR_RS();		//Read status
+	GPIO_ResetBits(GPIOB, LCD_RS);
 
-// 	//Let the RW/RS lines stabilize
-// 	delay_us(0.5);		//tAS
+	//Let the RW/RS lines stabilize
+	delay_us(0.5);		//tAS
 
-// 	
-// 	do
-// 	{
+	
+	do
+	{
 
-// 		//SET_E();
-// 		GPIO_SetBits(GPIOB, LCD_E);
-// 		
+		//SET_E();
+		GPIO_SetBits(GPIOB, LCD_E);
+		
 
-// 		//Wait tDA for data to become available
-// 		delay_us(0.5);
+		//Wait tDA for data to become available
+		delay_us(0.5);
 
-// 		status = read_data_inputs();
-// 		status = status<<4;
+		status = read_data_inputs();
+		status = status<<4;
 
-// 		delay_us(0.5);
+		delay_us(0.5);
 
-// 		//Pull E low
-// 		//CLEAR_E();
-// 		GPIO_ResetBits(GPIOB, LCD_E);
-// 		
-// 		delay_us(1);	//tEL
+		//Pull E low
+		//CLEAR_E();
+		GPIO_ResetBits(GPIOB, LCD_E);
+		
+		delay_us(1);	//tEL
 
-// 		//SET_E();
-// 		GPIO_SetBits(GPIOB, LCD_E);
-// 		
-// 		delay_us(0.5);
+		//SET_E();
+		GPIO_SetBits(GPIOB, LCD_E);
+		
+		delay_us(0.5);
 
-// 		temp = read_data_inputs();
-// 		temp &= 0x0F;
+		temp = read_data_inputs();
+		temp &= 0x0F;
 
-// 		status = status | temp;
+		status = status | temp;
 
-// 		busy = status & 0x80;
+		busy = status & 0x80;
 
-// 		delay_us(0.5);
-// 		
-// 		//CLEAR_E();
-// 		GPIO_ResetBits(GPIOB, LCD_E);
-// 		
-// 		delay_us(1);	//tEL
-// 		
-// 	} while (busy);
+		delay_us(0.5);
+		
+		//CLEAR_E();
+		GPIO_ResetBits(GPIOB, LCD_E);
+		
+		delay_us(1);	//tEL
+		
+	} while (busy);
 
-// 	//write mode
-// 	//CLEAR_RW();
-// 	GPIO_ResetBits(GPIOB, LCD_RW);
-// 	
-// 	//Change Port to output
-// 	//LCD_DATA_TRIS&=0xF0;
-// 	set_data_io(OUTPUT);
+	//write mode
+	//CLEAR_RW();
+	GPIO_ResetBits(GPIOB, LCD_RW);
+	
+	//Change Port to output
+	//LCD_DATA_TRIS&=0xF0;
+	set_data_io(OUTPUT);
 
-// }
+}
 
 
 void lcd_backlight(char en)
@@ -241,10 +241,11 @@ void cycle_e (void)
 {
 	tsk_lock();
   GPIO_SetBits(GPIOB, LCD_E);
-  delay_us(100);
+  delay_us(1);
   GPIO_ResetBits(GPIOB, LCD_E);
-  delay_us(100);
+  delay_us(1);
 	tsk_unlock();
+	lcd_wait();
 }
 
 void lcd_init (void) 
@@ -300,6 +301,8 @@ void lcd_init (void)
 			
 		GPIO_SetBits(GPIOB, LCD_D5);
 		cycle_e();
+		//lcd_wait();
+		
 		lcd_send_cmd(LCD_DISP_ON);
 		lcd_send_cmd( 0x28 );
 		
@@ -346,7 +349,8 @@ void lcd_send_cmd (uint8_t c)
 	//Send Lower Bits
 	lcd_send_4_bits(c);	
 	GPIO_ResetBits(GPIOB, LCD_RS);
-	cycle_e();	
+	cycle_e();
+	//lcd_wait();
 }
 
 void lcd_clear (void)
