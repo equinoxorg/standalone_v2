@@ -276,17 +276,17 @@ void lcd_init (void)
 	
 	
 	//If reset due to user holding power button for >10s
-	if ( RCC_GetFlagStatus(RCC_FLAG_PINRST) == SET ) {	
-		TRACE_INFO("Hardware Reset was detected\n");
-		
-		//Clear Flag
-		RCC_ClearFlag();
-		
-		lcd_power(1);
-		lcd_clear();		
-	}
-	else
-	{
+// 	if ( RCC_GetFlagStatus(RCC_FLAG_PINRST) == SET ) {	
+// 		TRACE_INFO("Hardware Reset was detected\n");
+// 		
+// 		//Clear Flag
+// 		RCC_ClearFlag();
+// 		
+// 		lcd_power(1);
+// 		lcd_clear();		
+// 	}
+// 	else
+// 	{
 		//LCD Not Inited so Init it
 		
 		GPIO_ResetBits(GPIOB, (LCD_E | LCD_RS | LCD_RW ) );
@@ -295,9 +295,9 @@ void lcd_init (void)
 		GPIO_SetBits(GPIOA, LCD_PWR);	
 		
 		tsk_lock();
-		delay_ms(40);
+		delay_ms(100);
 		tsk_unlock();
-		
+			
 		GPIO_SetBits(GPIOB, LCD_D5);
 		cycle_e();
 		lcd_send_cmd(LCD_DISP_ON);
@@ -306,7 +306,7 @@ void lcd_init (void)
 		lcd_set_custom_chars();
 		
 		lcd_clear();		
- 	}
+// 	}
 }
 
 void lcd_send_4_bits (uint8_t c)
