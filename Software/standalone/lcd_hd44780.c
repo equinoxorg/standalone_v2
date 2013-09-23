@@ -28,24 +28,16 @@
 #define INPUT	0
 #define OUTPUT 1
 
-
 //Function Prototypes
-void delay100u (int);
+void delay_us (int);
+void delay_ms (int);
+//void delay100u (int);
 void cycle_e (void);
 void lcd_send_4_bits (uint8_t);
 void lcd_set_custom_chars (void);
 
 OS_ID bk_tmr = NULL;
 
-// void __delay_us (int a)
-// {
-// 	volatile int i,j;
-
-// 	a *= 1000;
-// 	
-// 	for (i=0; i < a; i++)
-// 		j++;	
-// }
 
 // void set_data_io ( int io )
 // {
@@ -94,7 +86,7 @@ OS_ID bk_tmr = NULL;
 // 	GPIO_ResetBits(GPIOB, LCD_RS);
 
 // 	//Let the RW/RS lines stabilize
-// 	__delay_us(0.5);		//tAS
+// 	delay_us(0.5);		//tAS
 
 // 	
 // 	do
@@ -105,23 +97,23 @@ OS_ID bk_tmr = NULL;
 // 		
 
 // 		//Wait tDA for data to become available
-// 		__delay_us(0.5);
+// 		delay_us(0.5);
 
 // 		status = read_data_inputs();
 // 		status = status<<4;
 
-// 		__delay_us(0.5);
+// 		delay_us(0.5);
 
 // 		//Pull E low
 // 		//CLEAR_E();
 // 		GPIO_ResetBits(GPIOB, LCD_E);
 // 		
-// 		__delay_us(1);	//tEL
+// 		delay_us(1);	//tEL
 
 // 		//SET_E();
 // 		GPIO_SetBits(GPIOB, LCD_E);
 // 		
-// 		__delay_us(0.5);
+// 		delay_us(0.5);
 
 // 		temp = read_data_inputs();
 // 		temp &= 0x0F;
@@ -130,12 +122,12 @@ OS_ID bk_tmr = NULL;
 
 // 		busy = status & 0x80;
 
-// 		__delay_us(0.5);
+// 		delay_us(0.5);
 // 		
 // 		//CLEAR_E();
 // 		GPIO_ResetBits(GPIOB, LCD_E);
 // 		
-// 		__delay_us(1);	//tEL
+// 		delay_us(1);	//tEL
 // 		
 // 	} while (busy);
 
@@ -227,36 +219,42 @@ void lcd_goto_XY(uint8_t x, uint8_t y)
   lcd_send_cmd(addr); 
 }
 
-void delay100u (int dly)
-{
-  // delays for 100 microseconds * dly
+void delay_ms (volatile int ms) {
+	while (ms--)
+	{
+		delay_us(1000);
+	}
+}
+
+void delay_us (volatile int us) {
+	// delays for 1 microseconds * dly
   // at default clock speed (40MHz)
-  int inner;
-  while(dly--) 
+  volatile int inner;
+  while(us--) 
   {
-    inner=1300;
+    inner=13;
     while(inner--);
   }
 }
 
 void cycle_e (void)
 {
+	tsk_lock();
   GPIO_SetBits(GPIOB, LCD_E);
-  delay100u(1);
+  delay_us(100);
   GPIO_ResetBits(GPIOB, LCD_E);
-  delay100u(1);
+  delay_us(100);
+	tsk_unlock();
 }
 
 void lcd_init (void) 
 {
 	//Variables
 	GPIO_InitTypeDef GPIO_InitStructure;
-	
-	
+		
 	//Turn on GPIOB Clock for port B
 	RCC_AHBPeriphClockCmd( RCC_AHBPeriph_GPIOB, ENABLE);
 	
-
 	//Configure Pins
 	GPIO_StructInit(&GPIO_InitStructure);
 	
@@ -276,27 +274,29 @@ void lcd_init (void)
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;	
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
-	lcd_power(0);
 	
-// 	if (RCC_CSR_PINRSTF) {
-// 		//If reset due to user holding power button for >10s
-// 		
-// 		//Clear Flag
-// 		RCC_ClearFlag();
-// 		
-// 		lcd_power(0);
-// 		lcd_power(1);
-// 		lcd_clear();		
-// 	}
-// 	else
-// 	{
+	//If reset due to user holding power button for >10s
+	if ( RCC_GetFlagStatus(RCC_FLAG_PINRST) == SET ) {	
+		TRACE_INFO("Hardware Reset was detected\n");
+		
+		//Clear Flag
+		RCC_ClearFlag();
+		
+		lcd_power(1);
+		lcd_clear();		
+	}
+	else
+	{
+		//LCD Not Inited so Init it
 		
 		GPIO_ResetBits(GPIOB, (LCD_E | LCD_RS | LCD_RW ) );
 		GPIO_ResetBits(GPIOB, (LCD_D4 | LCD_D5 | LCD_D6 | LCD_D7 | LCD_BK_EN) );
 
 		GPIO_SetBits(GPIOA, LCD_PWR);	
 		
-		delay100u(100);
+		tsk_lock();
+		delay_ms(40);
+		tsk_unlock();
 		
 		GPIO_SetBits(GPIOB, LCD_D5);
 		cycle_e();
@@ -306,9 +306,7 @@ void lcd_init (void)
 		lcd_set_custom_chars();
 		
 		lcd_clear();		
-// 	}
-	
-	
+ 	}
 }
 
 void lcd_send_4_bits (uint8_t c)
