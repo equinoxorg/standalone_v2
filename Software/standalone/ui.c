@@ -191,13 +191,26 @@ __task void ui (void)
 			
 			if ( event_flag & UI_EVT_USB_OC )
 			{
-				lcd_clear();
-				lcd_write_string_XY(0, 0, "       USB      ");
-				lcd_write_string_XY(0, 1, "      error!    ");
-				//2s wait
-				os_dly_wait(200);
-				reset_display();
+				os_dly_wait(100);
+                           
+				if(EXTI_GetITStatus(EXTI_Line5) != RESET || EXTI_GetITStatus(EXTI_Line6) != RESET)
+				{
+
+					if(EXTI_GetITStatus(EXTI_Line5) != RESET)
+						USB1_DISABLE();
+
+					if(EXTI_GetITStatus(EXTI_Line6) != RESET)
+						USB2_DISABLE();
+
+					lcd_clear();
+					lcd_write_string_XY(0, 0, "       USB      ");
+					lcd_write_string_XY(0, 1, "      error!    ");
+					//2s wait
+					os_dly_wait(200);
+					reset_display();
+				}
 			}
+
 		
 			if ( event_flag & (UI_EVT_KEYPAD_1 | UI_EVT_KEYPAD_2 | UI_EVT_KEYPAD_3) )
 			{
