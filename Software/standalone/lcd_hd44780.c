@@ -298,6 +298,13 @@ void lcd_init (void)
 		tsk_lock();
 		delay_ms(100);
 		tsk_unlock();
+		
+		lcd_send_cmd(0x30);
+		delay_ms(5);
+		lcd_send_cmd(0x30);
+		delay_us(100);
+		lcd_send_cmd(0x30);
+		delay_us(100);
 			
 		GPIO_SetBits(GPIOB, LCD_D5);
 		cycle_e();
