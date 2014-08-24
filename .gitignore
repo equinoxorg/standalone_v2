@@ -200,6 +200,9 @@ pip-log.txt
 
 #Keil Specific Files
 *.map
+*.uvgui.*
+*.dep
+*.lst
 
 #Protect Unlock Code Generation code
 unlock_codes.*
