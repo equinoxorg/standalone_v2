@@ -113,17 +113,15 @@ __task void ui (void)
 			{
 				if ( (ui_state != STATE_LVDC) && (ui_state != STATE_OFF) )
 				{
-					ui_state = UI_LVDC;
+					ui_state = STATE_LVDC;
 					local_ee_data.lvdc_flag = 1;
 					update_lvdc(1);
 					//Turn off outputs
 					reset_outputs();
 					lcd_power(1);
 					lcd_clear();
-					lcd_goto_XY(0,0);
-					lcd_write_string("  Battery Empty ");
-					lcd_goto_XY(0,1);
-					lcd_write_string("  Turning Off   ");
+					lcd_write_string_XY(0, 0, "  Battery Empty ");
+					lcd_write_string_XY(0, 1, "  Turning Off   ");
 
 					//Delay and Buzz
 					//20 Seconds
@@ -155,6 +153,7 @@ __task void ui (void)
 				else
 				{
 					//Re-init LCD
+					lcd_clear();
 					lcd_power(1);
 					
 					check_display_debug();
