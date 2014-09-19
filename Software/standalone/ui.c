@@ -18,7 +18,7 @@
 #define STATE_OFF						3
 #define STATE_SETUP					4
 
-#define CHARGED 			90 	// value at which the box can start discharging if LVDC
+#define CHARGED 			60 	// value at which the box can start discharging if LVDC
 
 //Private Functions
 void keypad_init (void);
