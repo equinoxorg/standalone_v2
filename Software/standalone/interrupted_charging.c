@@ -15,7 +15,7 @@ void set_current_compensation ( float, float, float* );
 float v_high = 14.7f;
 float v_low = 13.4f;
 float v_restart = 12.8f;
-float v_lvdc = 11.2f;
+float v_lvdc = 11.8f;				//If adjusting, also need to modify calc_lvdc() function
 float pulse_duty = 0.33f;
 
 float batt_voltage = 0.0f, batt_current = 0.0f;
@@ -230,11 +230,11 @@ __task void interrupted_charging (void)
 void calc_lvdc ( float current )
 {
 	if ( current < (-5.0f * BATTERY_AHR) )
-		v_lvdc = 9.0f;
+		v_lvdc = 9.6f;
 	else if ( current < (-0.1f * BATTERY_AHR) )
-		v_lvdc = ( (current / BATTERY_AHR) * (2.2f / 4.9f) ) + 11.2449f;
+		v_lvdc = ( (current / BATTERY_AHR) * (2.2f / 4.9f) ) + 11.8449f;
 	else
-		v_lvdc = 11.2f;
+		v_lvdc = 11.8f;
 }
 
 
