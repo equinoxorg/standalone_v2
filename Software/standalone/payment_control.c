@@ -74,13 +74,13 @@ __task void payment_control (void)
 		//clear event flags
 		os_evt_clr(PC_SET_BOX_ID, payment_control_t);
 		
-		TRACE_INFO("Writing Box ID %i\n", local_ee_data.box_id);
+		TRACE_INFO("5,0,%i\n", local_ee_data.box_id);
 
 		ee_sync(&local_ee_data);
 		
 	}
 	else
-		TRACE_INFO("Boxid: %i \n", local_ee_data.box_id );
+		TRACE_INFO("5,1,%i\n", local_ee_data.box_id );
 	
 	//Set the boxid in the code check files
 	set_box_id(local_ee_data.box_id);
@@ -208,7 +208,7 @@ char check_unlock_code (uint32_t unlock_code)
 		//Checks if the full unlock code was given
 		if (GET_UNLOCK_DAYS(unlock_code) == FULL_UNLOCK) 
 		{
-				TRACE_INFO("Full unlock code \n");
+				TRACE_INFO("4\n");
 				local_ee_data.full_unlock = EE_FULL_UNLOCK_CODE;
 				ee_sync(&local_ee_data);
 			  update_expiry_date(GET_UNLOCK_DAYS(unlock_code)); //Needs implementing

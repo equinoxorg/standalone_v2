@@ -55,8 +55,8 @@ __task void interrupted_charging (void)
 		
 		set_temperature_compensation( temp, &v_high, &pulse_duty );
 		
-		TRACE_INFO("Time=%.0f \t State=%i \t V_Batt=%.2f \t I_Batt=%.2f \t V_SOL=%.2f \t I_SOL=%.3f \t P_SOL=%.2f \t duty=%.1f \t Temp=%.2F\n",
-					((double)get_time_t()), cc_state, batt_voltage, batt_current,sol_voltage, sol_current, sol_power, duty_cycle, temp);
+		TRACE_INFO("1,%.0f,%i,%.2f,%.2f,%.2f,%.3f,%.1f,%.2F\n",
+					((double)get_time_t()), cc_state, batt_voltage, batt_current, sol_voltage, sol_current, duty_cycle, temp);
 		
 		//Check for LVDC voltage
 		calc_lvdc(batt_current);

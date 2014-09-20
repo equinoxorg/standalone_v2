@@ -307,7 +307,7 @@ __task void ui (void)
 								// but send (uint32_t)entry_code							
 								if ( check_unlock_code((uint32_t)entry_code))
 								{
-									TRACE_INFO("Valid Unlock code: %s\n", display_str);
+									TRACE_INFO("2,1,%s\n", display_str);
 									ui_state = STATE_NORM;
 									// Edited Code
 									lcd_clear();
@@ -324,7 +324,7 @@ __task void ui (void)
 								}
 								else
 								{							
-									TRACE_INFO("Invalid Unlock code: %s\n", display_str);
+									TRACE_INFO("2,0,%s\n", display_str);
 									// Edited Code
 									lcd_clear();
 									lcd_write_string_XY(0, 0, "      Wrong      ");

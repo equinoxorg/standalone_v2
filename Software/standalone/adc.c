@@ -129,7 +129,7 @@ __task void adc_test(void)
 		batt_i = get_adc_voltage(ADC_BATT_I);
 		temp = get_adc_voltage(ADC_TEMP);
 		
-		TRACE_INFO("Solar V: %f \t Solar I: %f \t Solar P: %f \t Batt  V: %f \t Batt  I: %f \t Batt P: %f \t Temp : %f \n", sol_v, sol_i, sol_i*sol_v, batt_v, batt_i, batt_i*batt_v, temp );
+		TRACE_INFO("6,%f,%f,%f,%f,%f\n", sol_v, sol_i, batt_v, batt_i, temp );
 		
 		os_dly_wait(100);
 	}

@@ -114,11 +114,11 @@ void print_time_date ( void )
 	char str[16];
 	
 	get_time_str(&str[0]);
-	TRACE_INFO("Time: %s, ", &str[0]);
+	TRACE_DEBUG("Time: %s, ", &str[0]);
 	
 	str[0] = '\0';
 	get_date_str(&str[0]);
-	TRACE_INFO_WP("Date: %s \n", &str[0]);
+	TRACE_DEBUG_WP("Date: %s \n", &str[0]);
 	
 }
 
